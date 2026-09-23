@@ -1,0 +1,618 @@
+\documentclass[a4paper,12pt,twoside]{article}
+\usepackage{amd}
+
+% %--------------------------------------------------------------------------
+% %         General Setting
+% %--------------------------------------------------------------------------
+
+\graphicspath{{Images/}{../Images/}}
+\setkeys{Gin}{width=0.85\textwidth}
+\setlength{\cftbeforesecskip}{3pt} % Changed from \cftbeforechapskip
+\setlength{\parindent}{0.5cm} 
+\input{theorems.tex} 
+\usepackage[english]{babel}
+
+\setlist[itemize]{itemsep=5pt}
+\setlist[enumerate]{itemsep=5pt}
+
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{stmaryrd}
+
+% %--------------------------------------------------------------------------
+% %         General Informations
+% %--------------------------------------------------------------------------
+\newcommand{\BigTitle}{
+    A MATHEMATICAL TEMPLATE
+}
+
+\newcommand{\LittleTitle}{
+    For Mathematical Peoples
+}
+    
+\begin{document}
+\begin{center}
+    \huge{ Diffusion Models on Manifolds }
+\end{center}
+\begin{abstract}
+    bla bla
+\end{abstract}
+\tableofcontents
+\newpage
+
+
+\section{Stochastic Processes Recap}
+\thm{}{
+    Let $(X^n)_{n \in \mathbb{N}}$ be a tight sequence of continuous processes such that 
+    \[
+    \forall 0 \leq t_1 < ... < t_d < \infty: \quad (X_{t_1}^n,...,X_{t_d}^n)_{n \in \mathbb{N}}
+    \]
+    converges in distribution, i.e. 
+    \[
+    w-\lim_{n\to \infty} \mathbb{P} \circ (X_{t_1}^n,...,X_{t_d}^n)^{-1} = \lim_{n \to \infty} \int_{\mathbb{R}^d} d f \mathbb{P} \circ (X_{t_1}^n,...,X_{t_d}^n)^{-1}, \quad \forall f:\mathbb{R}^d \to \mathbb{R} \text{ bounded and continuous}
+    \]
+    exists. Then 
+    \begin{itemize}
+        \item $w-\lim_{n \to \infty} \mathbb{P}_n :=w-\lim_{n \to \infty} \mathbb{P} \circ (X_{t_1}^n,...,X_{t_d}^n)^{-1}  =P$ 
+        \item On $P$ the coordinate mapping process $W_t (\omega) = \omega (t)$ on $C([0,\infty))$ satisfies 
+        \[
+        w-\lim_{n \to \infty} \mathbb{P} \circ (X_{t_1}^n,...,X_{t_d}^n)^{-1} = P \circ (W_{t_1},...,W_{t_d})^{-1}, \quad \forall 0 \leq t_1 < ...< t_d< \infty.
+        \]
+    \end{itemize}
+}
+\pf{
+    Let $(X^{n_m})_{m \in \mathbb{N}}$ be a subseqeuence of $(X^n)_{n \in \mathbb{N}}$. Because this subseqeunce is again tight (subsequences can be chosen arbitrarly) it has another subsequence $(X^{n_{m_l}})_{l \in \mathbb{N}}$ so that
+    \[
+    w-\lim_{l \to \infty} \mathbb{P} \circ (X^{n_{m_l}})^{-1} = P.
+    \]
+    Assume there is another subsequence $(X^{n_{m_k}})_{k \in \mathbb{N}}$ that induces a measure $C([0,\infty))$ with
+    \[
+    Q := w-\lim_{k \to \infty} \mathbb{P} \circ (X^{n_{m_k}}).
+    \]
+    Then for any $\pi: C([0,\infty)) \to \mathbb{R}^d$ we have 
+    \[
+    P \circ \pi^{-1} = Q \circ \pi^{-1},
+    \]
+    yielding $Q=P$, which implies the weak convergence of $(P^n)_{n \in \mathbb{N}}$ to $P$.\\
+    Suppose $(\mathbb{P}^n)_{n \in \mathbb{N}}$ did not converge weakly to $P$, then $\exists f: C([0,\infty)) \to \mathbb{R}$, bounded and continuous such that $\int f d \mathbb{P}_n$ does not exist or does not equal $\int f d P$. In both cases choose a subsequence $(\mathbb{P}^{n_k})_{k \in \mathbb{N}}$ with $\lim_{k \to \infty} \int d f d \mathbb{P}^{n_k}$ does not exists or does not equal $\int f d P$. Any further subseqeunce also cannot converge weakly to $P$. However, in the abstract before it was shown that 
+    \[
+    \lim_{l \to \infty} \int f d \mathbb{P}^{n_{k_l}} = \int f d Q = \int f \; d P,
+    \]
+    which implies that $(\mathbb{P}^{n_k})_{k \in \mathbb{N}}$ should converge weakly to $P$, which contradicts the construction before.
+}
+
+\subsection{Canonical Construction of Stochastic Processes}
+Construction of a stochastic process on $I$ with $|I| = \infty$. 
+\begin{itemize}
+    \item Define a $\sigma$-algebra $\mathcal{E}^{\otimes I}$ on $E^I := \{ f : I \to E \}$
+    \item Understand all probability measures on $\mathcal{E}^{\otimes I}$ 
+    \item Reinterpret stochastic processes as path valued random variables.
+\end{itemize}
+For $d< \infty$ the product $\sigma$-algebra 
+\[
+\mathcal{E}^{\otimes d} := \mathcal{E} \otimes \cdots \otimes \mathcal{E} := \sigma( \{ B_1 \times \cdots \times B_d \mid B_i \in \mathcal{E} \} ),
+\]
+where $B_1 \times \cdots \times B_d$ are the rectangular sects. 
+\rmkb{
+    If $\mathcal{E} = \sigma (\mathcal{A})$ then 
+    \[
+    \mathcal{E}^{\otimes d} = \sigma ( \{ B_1 \times \cdots \times B_d \mid B_i \in \mathcal{A} \} ).
+    \]
+    ???
+}
+We now want to generalize to infinite products. 
+\defn{}{
+    A subset $C \subset E^I$ is called finitely generated cylinder set if 
+    \[
+    C= \pi_J^{-1} (B_1 \times \cdots \times B_n) = \{ f : I \to E \mid f(t_1) \in B_1,..., f(t_n) \in B_n \},
+    \]
+    where $J:=\{t_1,...,t_n\} \subseteq I$, $B_1,...,B_n \in \mathcal{E}$ and the finite projection 
+    \[
+    \pi_J : E^I \to E^{|J|}, f \mapsto \pi_J (f) := ( f(t_1),...,f(t_n)).
+    \]
+}
+We say the set $C$ of paths is spanned by finitely many time points $t_1,...,t_n$ and the finite dimensional cylinder $B_1 \times \cdots \times B_n \in \mathcal{E}^{\otimes d}$.
+
+\defn{}{
+    The path $\sigma$-algebra $\mathcal{E}^{\otimes I}$ on $E^I$ is the smallest $\sigma$-algebra that contains all finitely generated cylinder sets. In the case $(\mathbb{R}, \mathcal{B}(\mathbb{R}))$ one writes $\mathcal{B}(\mathbb{R}^d), \mathcal{B}(\mathbb{R}^\infty), \mathcal{B}(\mathbb{R}^{[0,T]})$.
+}
+A $\sigma$-algebra defined using finitely generated cylinder sets can only at most cover countably many restrictions. We call a set finitely generated if there exists $J \subseteq I$ (finite or countable) such that 
+\[
+f \in C \quad \iff \quad f\big|_{C} \in B, \quad B \in \mathcal{E}^{\otimes J}.
+\]
+Note that here we do not only use cylinder sets $B_1 \times \cdots \times B_d$, as in the next proposition shows that we need more than these cylinders sets to form a $\sigma$-algebra.
+\prop{
+    The set 
+    \[
+    \mathcal{V} := \{ C \subseteq E^I \mid \exists J \subseteq I \text{ countable, }B \in \mathcal{E}^{\otimes J}, \forall f \in E^I: \quad f \in C \iff f\big|_J \in B \}
+    \]
+    of all countably generated sets is a $\sigma$-algebra on $E^I$ that contains $\mathcal{E}^{\otimes I}$.
+}
+\exm{}{
+    If $E= \mathbb{R}$ and $I \subseteq \mathbb{R}$ such that $|I| = \infty$, then $\{ f \}, \{f \equiv c \in E\}, \{ f: I \to E \mid f \geq 0 \}, C(I,E)$ are not measurable sets. If any of those sets were measurable, then that set should be with the above proposition in $\mathcal{V}$ as well. This means that there should exist $J \subseteq I$ countable and $B \in \mathcal{E}^{\otimes J}$ so that any $f \big|_J \in B$, meaning for $f \in C$, we only need finite many points to be inside a measurable set of $E^{I}$. This however fails the definition of these sets: Choose $i \notin J$ and set $f(i)$ in such a way, that it does not satisfy the defining property anymore, e.g. a discontinuous point for example. Then $f$ is no longer in $C$ even though it is measurable. So statements of the $\mathbb{P}$-a.s. kind need to be done with caution.
+}
+We now construct the measures on $\mathcal{E}^{\otimes I}$. The idea is as follows 
+\begin{itemize}
+    \item Downsize $\mathbb{P}$ to only finite cylinder sets (that are $\cap$-stable). This leads to finite-dimensional distributions
+    \item Check that $\{ \mathbb{P}_J \mid |J|< \infty \}$ satisfies a natural property, which will be consistency.
+    \item Show that for these finite dimensional consistent families there exists an infinite dimensional probability measure.
+\end{itemize}
+\defn{}{
+    If $\mathbb{P}$ is a probability measure on $\mathcal{E}^{\otimes I}$ and $J \subseteq I$ is finite, then the unique probability measure on $\mathcal{E}^{\otimes J}$ is given by 
+    \[
+    \mathbb{P}_J (B_1 \times \cdots \times B_{|J|}) := \mathbb{P}( \pi_J^{-1} (B_1 \times \cdots \times B_{|J|})), \quad B_i \in \mathcal{E},
+    \]
+    is called finite-dimensional marginal distribution of $\mathbb{P}$.
+}
+On the one hand we have the boxes, i.e. $B_1,...,B_n \in \mathcal{E}$ and cylinder sets $\{ f: I \to E \mid f(t_1) \in B_1,..., f(t_n) \in B_n \}$. The finite-dimensional marginals are the measures that we get by crossing out the functions away from $J$, meaning it is the distribution of $\pi_J (f)$ on these boxes.
+\prop{
+    Every probability measure $\mathbb{P}$ on $\mathcal{E}^{\otimes I}$ is uniquely determined through the family of all finite-dimensional marginal distributions $\{ \mathbb{P}_J \mid J \subseteq I \text{ finite } \}$.
+}
+The next result will lead to the characterizing property of finite dimensional families related to measures on $\mathcal{E}^{\otimes I}$.
+\prop{
+    If $\mathbb{P}$ is a probability measure on $\mathcal{E}^{\otimes I}$ then the family of all finite-dimensional marginal distributions $\{ \mathbb{P}_J \mid J \subseteq I \text{ finite } \}$ satisfies for $\pi_{J,J^\prime}: E^J \to E^{J^\prime}$ 
+    \[
+    \forall J^\prime \subseteq J \subseteq I \text{ finite with } \pi_{J,J^\prime} (f) = f\big|_{|J|}: \quad \mathbb{P}_J \circ \pi_{J,J^\prime}^{-1} = \mathbb{P}_{J^\prime}.
+    \]
+}
+\defn{}{
+    A set of finite-dimensional distributions $\{ \mathbb{P}_J \mid |J|< \infty \}$ on $I$ is called consistent if 
+    \[
+    \forall J^\prime \subseteq J: \quad \mathbb{P}_J \circ \pi_{J,J^\prime}^{-1} = \mathbb{P}_{J^\prime}.
+    \]
+}
+This means "adding" E's to a product $B_1 \times \cdots \times B_n \times E$ does not change the measure. For the infinite dimensional distribution we do not need more properties for the existence of the infinite dimensional distribution.
+\thm{}{
+    Let $E$ be a polish metric space, $\mathcal{E} = \mathcal{B}(E)$ and $I$ an index set. If $\{ \mathbb{P}_J \mid J \subseteq I \text{ finite} \}$ is a consistent family then there exists a unqiue $\mathbb{P}$ on $\mathcal{E}^{\otimes}$ such that 
+    \[
+    \forall J \subseteq I \text{ finite: } \quad \mathbb{P} \circ \pi_J^{-1} = \mathbb{P}_J.
+    \]
+} 
+How should we know $\mathbb{P}_J$ without knowing $\mathbb{P}$?
+\defn{}{
+    Suppose $(E,\mathcal{E})$ is a measurable space and $\mathbb{P}$ a probability measure on $\mathcal{E}$. Then, a measure $\mu$ on $\mathcal{E}^{\otimes \mathbb{N}}$ is called infinite dimensional product measure if 
+    \[
+    \forall n \in \mathbb{N}, B_i \in \mathcal{E}: \quad \mu (B_1 \times \cdots \times B_n \times E \times \cdots) = \mathbb{P}(B_1) \cdots \mathbb{P}(B_n).
+    \]
+    We typically write for an infinite product measure $\mathbb{P}^{\otimes \infty}$ or $\mathbb{P}^{\otimes \mathbb{N}}$.
+}
+
+\thm{}{
+    If $E$ is polish metric space and $\mathbb{P}$ a probability measure on $\mathcal{B}(E)$, then the infinite dimensional product measure $\mathbb{P}^{\otimes \infty}$ exists and is unique.
+}
+Next, we want to understand the connection of stochastic processes and path valued random variables.
+ \prop{
+    $X:= (X_t)_{t \in I}$ is $E$-valued stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ if and only if 
+    \[
+    X: \omega \mapsto (t \mapsto X_t (\omega ))
+    \]
+    is a path valued random variable.
+ }
+ \pf{
+    "$\Leftarrow$"\\
+For $B \in \mathcal{E}$ 
+\[
+X_t^{-1} (B) = X^{-1}( \pi_t^{-1} (B)) \in \mathcal{A},
+\]
+because $\pi_t^{-1} (B)$ is a finitely generated cylinder set and $X$ is $(\mathcal{A},\mathcal{E}^{\otimes I})$-measurable.\\
+"$\Rightarrow$"\\
+We only need to check measurability for an arbitrary generator. We use the cylinder sets $\pi_t^{-1} (B)$. Then 
+\[
+X^{-1} ( \pi_t^{-1} (B)) = \{ \omega \in \Omega \mid X_t (\omega) \in B \} = X_t^{-1} (B) \in \mathcal{A}.
+\]
+ }
+ \defn{}{
+    Suppose $X$ is an $E$-valued stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$, then 
+    \begin{itemize}
+        \item The image measure 
+        \[
+        \mathbb{P}^X (A) := \mathbb{P}(X \in A), \quad A \in \mathcal{E}^{\otimes I},
+        \]
+        is called law of $X$.
+        \item For $J:= \{ t_1,...,t_n \} \subseteq I$ we call 
+        \[
+        \mathbb{P}_{t_1,...,t_n}^X \sim (X_{t_1},...,X_{t_n})
+        \]
+        is finite dimensional distribution (fdd) of $X$.
+    \end{itemize}
+ }
+ Usually, the law does not play a big role and we exclusively deal with the fdds.
+\prop{
+    The law of a stocahstic process $X$ is uniquely determined by all its finite-dimensional distributions 
+    \[
+    \mathbb{P}_{t_1,...,t_n}^X = \mathbb{P}(X_{t_1} \in \cdot,...,X_{t_n} \in \cdot).
+    \]
+}
+\defn{}{
+    Two stochastic processes $X$ and $Y$ with index set $I$ have the same law if $\mathbb{P}^X = \mathbb{P}^Y$. We say they have the same finite-dimensional distribution if 
+    \[
+    \forall \{ t_1,...,t_n \} \subseteq I: \quad \mathbb{P}_{t_1,...,t_n}^X = \mathbb{P}_{t_1,...,t_n}^Y 
+    \]
+    and write $\mathbb{P}^X \stackrel{fdd}{=} \mathbb{P}^Y$.
+}
+
+\thm{}{
+    Suppose $E$ is a polish metric space, $I$ an index set and $\{ \mathbb{P}_J \mid J \subseteq I \text{ finite} \}$ a consistent family of finite-dimensional distributions, then there exists a stochastic process $X$ on $(\Omega,\mathcal{F},\mathbb{P})$ so that 
+    \[
+    \forall J \subseteq I: \quad \mathbb{P}_J^X = \mathbb{P}_J.
+    \]
+}
+One tries to avoid the canonical construction, because statements such as "$X$ is $\mathbb{P}$-a.s. continuous/..." are problematic on the canonical space. This is why we now want to derive continuous modifications. \\
+For that we need the stochastic process to be a random variable in a polish space. First, we consider the path space of continuous functions and stochastic processes with continuous oaths. Second, we show how to construct these. We cannot use Kolmogorov's extension theorem, as it breaks down for continuous functions. Note that it is already known that $(C([0,T]), \| \cdot \|_\infty)$ is a polish space.
+\prop{
+    \begin{itemize}
+        \item 
+        \[
+        d (f,g) := \sum_{i=1}^k \frac{d:k(f,g) \vee 1}{2^k}, \quad d_k(f,g):= \sup_{x \in [0,k]} |f(x) - g(x)|,
+        \]
+        is a metric on $C([0,\infty))$. 
+        \item $\lim_{n \to \infty} d(f_n,g) =0$ $\iff$ $\lim_{n \to \infty} \sup_{x \in K} |f_n (x) - g(x)| =0$ for every $K$ compact.
+        \item $(C([0,\infty)),d)$ is a polish metric space. 
+    \end{itemize}
+}
+The product $\sigma$-algebra for $\mathbb{R}^{[0,\infty)}$ has no structure, however, the Borel $\sigma$-algebra generated by open sets for $C([0,\infty))$ has more, because for the product $\sigma$-algebra can only have measurable sets, that have finite restrictions. Because the continuous functions are seperable, there are not any for the Borel $\sigma$-algebra on open sets.\\
+Cylinder sets of continuous functions are also the generators now:
+\prop{
+    $\mathcal{B}(C([0,\infty)))$ is generated by cylinder sets of continuous functions, i.e. 
+    \begin{align*}
+        \mathcal{B}(C([0,\infty))) &= \sigma ( \{ \pi_t^{-1}(B) \mid t \geq 0, B \in \mathcal{B}(\mathbb{R}) \} )\\
+        &= \sigma( \{ \text{ finitely generated cylinder sets of continuous functions} \}),
+    \end{align*}
+    where $\pi_t : C([0,\infty)) \to \mathbb{R}, f \mapsto f_t$.
+}
+Because $\mathcal{B}(C([0,\infty)))$ has the same type of generator as $\mathcal{E}^{\otimes I}$ we can copy ideas for probability measures from before. If $\mathbb{P}$ is a probability measure on $\mathcal{B}(C([0,\infty)))$, then for every $t_i \geq 0$ and $B_i \in \mathcal{B}(\mathbb{R})$ we have 
+\[
+\mathbb{P}_{t_1,...,t_n} (B_1 \times \cdots \times B_k) := \mathbb{P}( \{ f \in C([0,\infty)) \mid f(t_1) \in B_1,..., f(t_k) \in B_k \}),
+\]
+is called the finite dimensional distribution. Since this probability measure is defined on a $\cap$-stable generator, then finite dimensional distribution uniquely determines the law.
+\cor{
+    A probability measure $\mathbb{P}$ on $\mathcal{B}(C([0,\infty)))$ is uniquely determined by the family $\{ \mathbb{P}_{t_1,...,t_k} \mid k \in \mathbb{N}, t_i \geq 0 \}$ of all finite-dimensional distributions. 
+}
+\prop{
+    $\mathcal{B}( \mathbb{R}^{[0,\infty)} ) \big|_{C([0,\infty))} = \mathcal{B}(C([0,\infty)))$.
+}
+we cannot use Kolmogorovs extension theorem to construct measures on $\mathcal{B}(C([0,\infty)))$.
+\defn{}{
+Suppose $X$ is a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ then 
+\begin{itemize}
+    \item $X$ is continuous/differentiable/... if $\omega \mapsto X_t (\omega)$ is continuous/differentiable/... for all $\omega \in \Omega.$ 
+    \item $X$ is $a.s.$ continuous/differentiable/... if there exists $C \in \mathcal{F}$ with $\mathbb{P}(C) =1$ such that $t \mapsto X_t (\omega)$ is continuous/differentiable/... for every $c \in C$.
+\end{itemize}
+}
+
+We have already defined the law $\mathbb{P}^X(B) := \mathbb{P}(X \in B)$ on the product $\sigma$-algebra. It would be nice to define it on $C([0,\infty))$ as well. This is why we need $X: \Omega \to C([0,\infty)) \subset \mathbb{R}^{[0,\infty)}$ to be $(\mathcal{F}, \mathcal{E}^{\otimes I}$ and $(\mathcal{F}, \mathcal{B}(C([0,\infty))))$ measurable. This is because if $B \in \mathcal{B}(C([0,\infty)))$ then there exists $B^\prime \in \mathcal{E}^{\otimes I}$ with $B = B^\prime \cap C([0,\infty))$ and it holds 
+\[
+X^{-1} (B) =X^{-1} (B) \cap X^{-1} (C([0,\infty))) = X^{-1} (B^\prime) \cap \Omega \in \mathcal{F}.
+\]
+Hence, introducing continuous processes can be interpreted as random variables taking values in $C([0,\infty))$ and inducing a law on $\mathcal{B}(C([0,\infty)))$. 
+\defn{}{
+    If $X$ is a continuous stochastic process then the law $\mathbb{P}^{X,c}$ of $X$ on $\mathcal{B}(C([0,\infty)))$ is 
+    \[
+    \mathbb{P}^{X,c} (B):= \mathbb{P}(X \in B), \quad B \in \mathcal{B}(C([0,\infty))).
+    \]
+}
+
+We now construct the continuous stochastic processes.
+
+\defn{}{
+    A function $f: [0,\infty) \to \mathbb{R}$ is called Hölder continuous with index $\gamma \in (0,1]$ and constant $K$ if 
+    \[
+    \forall s,t \in \mathbb{R}: \quad |f(t) - f(s)| \leq k|t-s|^\gamma.
+    \]
+    We call $f$ Hölder continuous on compacts on $\gamma \in (0,1]$ with $(K_n)_{n \in \mathbb{N}}$ if 
+    \[
+    \forall s,t \in \mathbb{N}: \quad |f(t)-f(s)| \leq K_N |t-s|^\gamma,
+    \]
+    for all $N \in \mathbb{N}$. $f$ is locally Hölder continuous of index $\gamma \in (0,1]$ if 
+    \[
+    \forall t \in \mathbb{N} \exists  \mathcal{U}_t \subseteq \mathbb{N}, \text{ with } t \in \mathcal{U}_t \forall s \in \mathcal{U}_t : \quad |f(t)-f(s)| \leq K_t |t-s|^\gamma.
+    \]
+    $f$ is Hölder continuous in $t$ of index $\gamma \in (0,1]$ if 
+    \[
+    \exists \mathcal{U}_t \ni t \in \mathbb{N} \text{ and } K_t: \quad |f(t)-f(s)| \leq K_t |t-s|^\gamma, \quad s \in ???.
+    \]
+}
+\defn{}{
+Let $X$ and $\tilde{X}$ be a stochastic process with index set $I$ on $(\Omega, \mathcal{F}, \mathbb{P})$. Then $\tilde{X}$ is a modification of $X$ if 
+\[
+\forall t \in I: \quad \mathbb{P}(X_t = \tilde{X}_t) =1.
+\]
+}
+\defn{}{
+    Let $X$ and $\tilde{X}$ be a stochastic process with index set $I$ on $(\Omega, \mathcal{F}, \mathbb{P})$. Then $X$ and $\tilde{X}$ are called indistinguishable if there exists $C \in \mathcal{F}$ with $\mathbb{P}(C)=1$ so that for every $\omega \in \Omega$: $X_t (\omega) = \tilde{X}_t (\omega)$.
+}
+Modifications of erach other is stronger than equality in law. Indistinguishable is the strongest here.
+\exm{}{
+    Suppose $ U\sim \mathcal{U}([0,1])$ on $(\Omega,\mathcal{F}, \mathbb{P})$ and define $X_t := 0$ and $\tilde{X}_t := \textbf{1}_{U} (f)$ on $I=[0,1]$. Then $\tilde{X}$ is a modification of $X$, because 
+    \[
+    \mathbb{P}(X_t = \tilde{X}_t) = \mathbb{P}(U \neq t) =1.
+    \]
+    However, their paths are a.s. different.
+}
+\thm{}{
+    Suppose $X$ is a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$ such that for all $T>0$ exists $c,\alpha,\beta$ 
+    \[
+    \forall s,t \leq T: \quad \mathbb{E}[|X_t -X_s|^\alpha] \leq C |t-s|^{1+ \beta}.
+    \]
+    Then there exists $\tilde{X}$ a continuous modification of $X$ s.t. $\tilde{X}$ has Hölder continuous paths of order $\gamma< \frac{\beta}{\alpha}$.
+}
+Finally, we now consider weak convergence of continuous processes 
+\prop{
+    Let $\mu,\mu^1,...$ be sequence of probability measures on $\mathcal{B}(C([0,\infty)))$, then $\mu^n \stackrel{weak}{\to} \mu$, $n \to \infty$ if and only if 
+    \begin{itemize}
+        \item $\{ \mu^n \mid n \in \mathbb{N} \}$ is tight in $\mathcal{M}_1 (C([0,\infty)))$ 
+        \item All finite-dimensional distributions converge, i.e. 
+        \[
+        \forall J \subseteq [0,\infty) \text{ finite: } \quad \mu_J^n := \mu^n \circ \pi_J^{-1} \stackrel{weak}{\to} \mu \circ \pi_J^{-1} = \mu_J, \quad n \to \infty.
+        \]
+    \end{itemize}
+}
+We are mostly interested in the stochastic reformulation and not in the abstract measure theory.
+\defn{}{
+    Suppose $X,X^1,...$ are stochastic processes with $a.s.$ continuous paths and laws $\mathbb{P}^X, \mathbb{P}^{X^1},...$ on $C([0,\infty))$. 
+    \begin{itemize}
+        \item $(X^n)_{n \in \mathbb{N}}$ converges weakly to $X$ if $\mathbb{P}_{X^n} \stackrel{weak}{\to} \mathbb{P}_X$, $n \to \infty$. We write $X^n \Rightarrow X$.
+        \item The finite-dimensional distributions (fdds) of $(X^n)_{n \in \mathbb{N}}$ converge to those of $X$ if for every $0 \leq t_1 \leq ... \leq t_n$ 
+        \[
+        (X_{t_1}^n,...,t_{t_k}^n) \stackrel{(d)}{\to} (X_{t_1},...,X_{t_k}), n \to \infty 
+        \]
+        or equivalently 
+        \[
+        \mathbb{P}_{t_1,...,t_k}^{X^n} \stackrel{weak}{\to} \mathbb{P}_{t_1,...,t_k}, n \to \infty.
+        \]
+        We write $X \stackrel{fdd}{\Rightarrow} X$.
+    \end{itemize}
+}
+\rmkb{
+    \[
+    X^n \Rightarrow X, \quad n \to \infty \quad \stackrel{cont.MappingThm}{\Rightarrow} \quad X^n \stackrel{fdd}{\Rightarrow} X, n \to \infty.
+    \]
+}
+
+
+
+
+
+
+
+
+
+\subsection{Brownian Motion}
+\subsection{Bronwian Family}
+\thm{}{
+    Let $(\Omega,\mathcal{F},\mathbb{P})$ be a probability space on which $(\xi_i)_{i \in \mathbb{N}}$ is an iid sequence with mean zero and finite variance. Define $X_t^n := \frac{Y_{nt}}{\sigma \sqrt{n}}$ and $P_n := \mathbb{P} \circ (X^n)^{-1}$ on $(C([0,\infty)), \mathcal{B}( C([0,\infty)) )$. Then $w-\lim_{n \to \infty} P_n = P_*$, where $W \sim P_*$ is the coordinate mapping process on $C([0,\infty))$ is a one-dimensional Brownian.
+}
+\defn{}{
+    The probability measure $P_*$ on $(C([0,\infty)),\mathcal{B}(C[0,\infty)) )$ under which $W_t(\omega) =\omega(t)$, $t \in [0,\infty)$, is a standard one dimensional Brownian motion, called Wiener measure.
+}
+Let $P^1,...,P^d$ be $d$ copies of the Wiener measure, then $P^0 := P^1 \times \cdots \times P^d$ is a measure on $(C([0,\infty)^d), \mathcal{B}( C([0,\infty)^d)))$. $B_t (\omega) = \omega(t)$ on $P^0$ with $(\mathcal{F}_t^B)_{t \geq 0}$ is a $d$-dimensional Brownian motion starting at the origin. Define 
+\[
+\forall x \in \mathbb{R}^d, F \in \mathcal{B}( C([0,\infty)^d)): \quad P^x (F) := P^0 (F-x),
+\]
+a prbability measure on $(C([0,\infty)^d), \mathcal{B}( C([0,\infty)^d)))$, where 
+\[
+F-x := \{ \omega \in C([0,\infty)^d) \mid \omega (\cdot)+ x \in F \}.
+\]
+Then under $P^x$, $(B_t)_{t \geq 0}$ is a $d$ dimensional Brownian motion starting in $x$. For a probability measure $\mu$ on $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$ on $\mathcal{B}( C([0,\infty)^d))$ define 
+\[
+P^\mu (F) := \int_{\mathbb{R}^d} P^x (F) d\mu, \quad \text{ on } \mathcal{B}(C( [0,\infty)^d )).
+\]
+\lem{}{
+    $\forall F \in \mathcal{B}(C([0,\infty)^d ))$ the mapping $x \mapsto P^x F$ is $\mathcal{B}(\mathbb{R}^d)$, $\mathcal{B}([0,1])$ measurable.
+}
+\pf{
+    Define $\mathcal{C}$ as the family of all cylinder sets in $\Omega$, constructed by 
+    \[
+    C:= \{ \omega \in \Omega \mid \omega (t_1) \in B_1,..., \omega (t_n) \in B_n \}, \quad \forall 0 \leq t_1 < ...< t_n < \infty, B_1 ,...,B_n \in \mathcal{B}(\mathbb{R}^d).
+    \]
+    Then $\mathcal{C}$ is $\cap$-stable and generates $\sigma (\mathcal{C})= \mathcal{F}$. For, fixed $C \in \mathcal{C}$ $x \mapsto P^x (C)$ is $\mathcal{B}(\mathbb{R}^d)$ measurable, because we can formulate $P^x (C)$ as an integral with continuous densities. Finally, define 
+    \[
+    \mathcal{D} := \{ F \in \mathcal{F} \mid x \mapsto P^x (F) \text{ is } \mathcal{B}(\mathbb{R}^d) \text{ measurable} \}.
+    \]
+    \begin{itemize}
+        \item $\Omega \in \mathcal{D}$, because $x \mapsto P^x (\Omega) =1$ is a constant and thus measurable
+        \item Let $F \in \mathcal{D}$ then $x \mapsto P^x (F^C) = 1- P^x (F)$, is just a translation and thus measurable.
+        \item Let $(F_n)_{n \in \mathbb{N}} \subset \mathcal{D}$ then $x \mapsto P^x (\bigcup_{n \in \mathbb{N}} F_n) = \sum_{n=1}^\infty P^x (F_n)$ is again measurable.
+    \end{itemize}
+    Thus, 
+    \[
+    \mathcal{F} = \sigma (\mathcal{C})\subseteq \mathcal{D} \subseteq \mathcal{F} \quad \implies \quad \mathcal{D} = \mathcal{F}.
+    \]
+}
+
+\defn{}{
+    A $d$-dimensional Brownian family is an adapted, $d$-dimensional process $(W_t)_{t \geq 0}$ on a filtered measurable space $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0})$ and a family of probability measures $(P^x)_{x \in \mathbb{R}^d}$  such that 
+    \begin{itemize}
+        \item $\forall F \in \mathcal{F}$ the mapping $x \mapsto P^x(F)$ is (universally ???) measurable
+        \item $\forall x \in \mathbb{R}^d$: $P^x (W_0 =x)=1$
+        \item $\forall P^x$ the process $W$ is a $d$-dimensional Brownian motion starting in $x$.
+    \end{itemize}
+}
+
+\subsection{Weak Solutions by Means of the Girsanov Theorem}
+
+\prop{
+    For $T>0$ fixed consider 
+    \[
+    dX_t = b(t,X_t) dt + dW_t, \quad t \in [0,T],
+    \]
+    where $W$ is $d$-dimensional Brownian motion, $b: [0,T] \times \mathbb{R}^d \to \mathbb{R}^d$, is Borel measurable and satisfies 
+    \[
+    \forall x \in \mathbb{R}^d, t \in [0,T]: \quad \| b (x,t) \| \leq K (1+ \| x \| ),
+    \]
+    for some constant $K$. Then for any initial distribution $\mu$ on $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$ the SDE has a weak solution with initial distribution $\mu$.
+}
+\pf{
+    Beginning with a Brownian family $(W_t)_{t \geq 0}$, $(\mathcal{F}_t)_{t \geq 0}$ and $(\mathbb{P}^x)_{x \in \mathbb{R}^d}$ then 
+    \[
+    Z_t := e^{ \sum_{j=1}^d \int_0^t b_j (s,X_s) dX_s^j - \frac{1}{2} \int_0^t \| b (s,X_s) \|^2 ds }
+    \]
+    is a martingale under each $\mathbb{P}^x$. Under $Q^x$ given by $\frac{d Q^x}{d \mathbb{P}^x} =: Z_T$ 
+    \[
+    W_t := X_t -X_0 - \int_0^t b(s,X_s) ds, \quad t \in [0,T],
+    \]
+    is a Brownian motion with $Q^x (W_0 =0)=1$, $\forall x \in \mathbb{R}^d$. The above is equivalent to 
+    \[
+    X_t = X_0 - \int_0^t b(s,X_s) ds+W_t, \quad t \in [0,T].
+    \]
+    With $Q^\mu (\cdot) := \int_{\mathbb{R}^d} Q^x (\cdot) d \mu (x)$, then $((X,W),(\Omega,\mathcal{F},Q^\mu),(\mathcal{F}_t))$ is a weak solution.
+}
+
+\rmkb{
+    To find a weak solution for $t \in [0,\infty)$, the finite-time Girsanov theorem needs to be extended. The Radon-Nikodym derivative $ Z_T := \frac{dQ^x}{d \mathbb{P}^x}$ is only defined on the bounded $\sigma$-algebra $\mathcal{F}_T$. \\
+    For $M_t^j := \int_0^t b(s,X_s) dX_s^j$ yields that $\int_0^t \| b(s,X_s) \|^2 ds = \langle M \rangle_t.$ Then 
+    \[
+    Z_\infty= \lim_{t \to \infty} e^{ \sum_{j=1}^d M_t^j - \frac{1}{2} \langle M \rangle_t } \notin L^1(\mathbb{P}).
+    \]
+    So $(Z_t)_{t \in [0,\infty)}$ is not a martingale. Furthermore, with Fatou 
+    \[
+    \mathbb{E}[ \liminf_{t \to \infty} Z_t ]\leq \liminf_{t \to \infty} \mathbb{E}[ Z_t ]=1.
+    \] 
+    This means we cannot find a Girsanov measure $Q^x$ such that $Q^x(A) = \int_A Z_\infty d \mathbb{P}^x$ for any $A \in \mathcal{B}(\mathbb{R}^d)$, because 
+    \[
+    1= Q^x (\Omega) \neq \int_\Omega Z_\infty d \mathbb{P}^x < 1.
+    \]
+    So $Z_\infty$ also cannot be Radon derivative.\\
+    Let $\Omega$ be infinite set and $\mathcal{A}$ an algebra. By Zorn there exists $\mathcal{U} \subset \mathcal{A}$ such that $\forall A,B \in \mathcal{U}: A \cap B \neq \emptyset$ but $\bigcap_{A \in \mathcal{U}} A = \emptyset$. Define 
+    \[
+    Q_p : \mathcal{A} \to \{0,1\}, \quad A \mapsto Q_p(A) = \begin{cases}
+        1 &, A \in \mathcal{U} \\
+        0 &, A \notin \mathcal{U}
+    \end{cases}.
+    \]
+    Because $\bigcap_{A \in \mathcal{U}} A = \emptyset$ there exist $A_1 \supset A_2 \supset ...$ in $\mathcal{U}$ such that $\bigcap_{n \in \mathbb{N}} A_n =\emptyset$, with $Q_p (A_n) =1$ for every $n \in \mathbb{N}$. Thus, $\lim_{n \to \infty} Q_p (A_n) =1 \neq 0$, which is a contradition. So $Q_p$ cannot be extended to $\sigma (A)$.    
+}
+
+\section{The Martingale Problem of Stroock
+and Varadhan}
+Weak solutions is finding a probability space, a Brownian motion and a process with the right law (determined by its finite- dimensional distributions).
+\defn{}{
+    We say a weak solution is unique in sense of probability law if for any two weak solutions $((X,W),(\Omega,\mathcal{F}, \mathbb{P}),(\mathcal{F}_t)_{t \geq 0})$ and $((\tilde{X},\tilde{W}),(\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{\mathbb{P}}),(\tilde{\mathcal{F}}_t)_{t \geq 0})$ with 
+    \[
+    \mathbb{P} (X_0 \in A) = \tilde{\mathbb{P}}(\tilde{X}_0 \in A), \quad A \in \mathcal{B}(\mathbb{R}^d),
+    \]
+    holds that $X$ and $\tilde{X}$ have the same law, i.e. 
+    \[
+    \mathbb{P} \circ X^{-1} (A) = \tilde{\mathbb{P}} \circ \tilde{X}^{-1} (A), \quad \forall A \in \mathcal{B}( C([0,\infty), \mathbb{R}^d  )).
+    \]
+}
+There is also a different approach: Search for the law of a diffions process with drift and dispersion coefficients in terms of a martingale problem, which will be equivalent to solving the related SDE in a weak sense. This formulation is useful in terms of continuity and weak convergence arumgents that yield exitnece results and "invariance principles" (i.e. the convergence of Markov chains to diffion processes).
+\subsection{Fundamentals and Motiviation:}
+Assume $((X,W), (\Omega,\mathcal{F}, \mathbb{P}), (\mathcal{F}_t)_{t \geq 0})$ is a weak solution to the SDE.
+
+\defn{}{
+    We call for every $u$ in some function space 
+    \[
+        L: u \mapsto F(x,D^{k_1} ,...,D^{k_s}), \quad \text{ where }\quad F: E \times \mathbb{R}^s \to \mathbb{R},
+    \]
+    although $D^{k_i} := (\partial^{k_1} \cdots \partial^{k_i})$, differential operator on the domain $\Omega$ of order $s$.
+}
+For every $t \geq 0$ we introduce the second order differential operator for any $f \in C^2(\mathbb{R}^d)$:
+\[
+    (A_tf)(\cdot) := \frac{1}{2} \sum_{i=1}^d \sum_{k=1}^d a_{ik} (t,\cdot) \frac{\partial^2}{\partial x_i \partial x_k} f(\cdot) + \sum_{i=1}^d b_i (t,\cdot) \frac{\partial}{\partial x_i} f(\cdot), \quad \forall f \in C^2(\mathbb{R}^d). 
+\]
+\prop{
+    Let $(X_t)_{t \geq 0}$ a continuous Ito diffusion on $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0},\mathbb{P})$ with generator $A_t$ and diffusion matric $a(t,x) = \sigma(t,x)^T \sigma (t,x)$. For every $f \in C^{1,2} ( [0,\infty) \times \mathbb{R}^d, \mathbb{R} )$ the process $(M_t^f)_{t \geq 0}$ defined by 
+    \[
+    M_t^f := f(t,X_t) - f(0 , X_0) - \int_0^t ( \frac{\partial}{\partial s} + A_s) f(s,X_s) ds,
+    \]
+    a continuous local martingale. If $g$ is another Member of $C^{1,2} ([0,\infty) \times \mathbb{R}^d , \mathbb{R})$ then $M^g$ is a continuous local martingale and 
+    \[
+    \langle M^f, M^g \rangle_t = \sum_{i=1}^d \sum_{k=1}^d \int_0^t a_{ik} (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s) \frac{\partial}{\partial x_k} g(s,X_s) ds.
+    \] 
+    Finally, if $f \in C_0 ( [0,\infty) \times \mathbb{R}^d, \mathbb{R} )$ (chat sagt $C_c^{1,2}$???) and $\sigma_{ij}$ are bounded on $supp f$ then $M^f_2$ is a continuous square integrable martingale.
+}
+\pf{
+    Using Itos formula for the Ito diffusion 
+    \[
+    dX_t^{i} = b_i (t,X_t) dt + \sum_{i=1}^r \sigma_{ij} (t,X_t) dW_t^j 
+    \]
+    and reminding that 
+    \[
+    d \langle X^i,X^k \rangle_t \stackrel{???}{=} \sum_{j=1}^r \sigma_{ij} (t,X_t) \sigma_{kj}(t,X_t) dt =: a_{ik} (t,X_t) dt 
+    \]
+    yields that 
+    \begin{align*}
+        d f(t,X_t) &= \frac{\partial}{\partial t} f(t,X_t) dt + \sum_{i=1}^d \frac{\partial}{\partial x_i} f(t,X_t) \left( b_i (t,X_t) dt + \sum_{j=1}^r \sigma_{ij} (t,X_t) d W_t^j \right) \\
+        &+ \frac{1}{2} \sum_{i,k=1}^d \frac{\partial^2}{\partial x_i \partial x_k} f(t,X_t) a_{ik} (t,X_t) dt \\
+        &= \left( \frac{\partial}{\partial t} f(t,X_t) + \sum_{i=1}^d b_i (t,X_t) \frac{\partial}{\partial x_i} f(t,X_t) + \frac{1}{2} \sum_{i,k=1}^d a_{ik}(t,X_t) \frac{\partial^2}{\partial x_i \partial x_k} f(t,X_t) \right) dt \\
+        &+ \sum_{i=1}^d \frac{\partial}{\partial x_i} f(t,X_t) \sum_{j=1}^r \sigma_{ij} (t,X_t) dW_t^j \\
+        &= (\frac{\partial}{\partial t} + \mathcal{A}_t) f(t,X_t) dt + \sum_{i=1}^d \sum_{j=1}^r \frac{\partial}{\partial x_i} f(t,X_t) \sigma_{ij} (t,X_t) dW_t^j \\
+        &\iff f(t,X_t) - f(0,X_0) - \int_0^t ( \frac{\partial}{\partial s} + \mathcal{A}_s) f(s,X_s) ds = \sum_{i=1}^d \sum_{j=1}^r \int_0^t \sigma_{ij} (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s) dW_s^j. 
+    \end{align*}
+    Define the stopping time 
+    \[
+    T_n := \inf\{ t \geq 0 \mid \| X \|_t \geq n \vee \exists (i,j): \quad \int_0^t \sigma_{ij}^2 (s,X_s) ds \geq n \}.
+    \]
+    By definition of the weak solution we have 
+    \[
+    \mathbb{P}( \int_0^t \sigma_{ij}^2(s,X_s) ds < \infty ) \geq \mathbb{P}(\int_0^t |a_i (s,X_s)| + \sigma_{ij}^2 (s,X_s)ds< \infty )=1,
+    \]
+    yields $\lim_{n \to \infty} T_n =\infty$ $\mathbb{P}-a.s.$ Then the process defined through $M_t^{f,n} := M_{t \wedge T_n}^f$ is a continuous martingale, because a stochastic intefral $I_t = \int_0^t H_s dW_s$ is a continuous martignale if $\mathbb{E}[ \int_0^t H_s^2 ds ]< \infty$. This is the case! So $M_t^f$ is a continuous local martingale. The cross variation is 
+    \begin{align*}
+        \langle M^f, M^g \rangle_t &= \sum_{i=1}^d \sum_{j=1}^r \langle \int_0^{\cdot \wedge S_n} \sigma_{ij} (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s) dW_s^j, \int_0^{\cdot \wedge S_n} \sigma_{ij} (s,X_s) \frac{\partial}{\partial x_i} g(s,X_s) dW_s^j \rangle_t \\
+        &\stackrel{???}{=} \sum_{i=1}^d \sum_{k=1}^d \int_0^t \sigma_{ij}^2 (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s) \frac{\partial}{\partial x_k} g(s,X_s) ds.
+    \end{align*}
+    Finally, if $f$ has compact support on which $\sigma_{ij}$ is bounded, then the integrand $\sigma_{ij} (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s)$ is bounded. So $M^f$ is a continuous and square integrable martingale.
+}
+
+\rmkb{
+    Problem:\\
+    Suppose that $((X,W),(\Omega,\mathcal{F}, \mathbb{P}), (\mathcal{F}_t)_{t \geq 0})$ is a weak solution to the SDE on $C([0,\infty)^d)$. Set 
+    \[
+    (\mathcal{A}_t^\prime u)(y) := \frac{1}{2} \sum_{i=1}^d \sum_{k=1}^d a_{ik}(t,y) \frac{\partial^2}{\partial x_i \partial x_k} u(y(t)) + \sum_{i=1}^d b_i (t,y) \frac{\partial}{\partial x_i} u(y(t)), t \in [0,\infty), y \in C([0,\infty)^d), u \in C^2 (\mathbb{R}^d).
+    \]
+    For any $f,g \in C^{1,2} ([0,\infty) \times \mathbb{R}^d ; \mathbb{R})$ the process 
+    \[
+    M_t^f := f(t,X_t) - f(0,X_0) - \int_0^t (\frac{\partial}{\partial s} + \mathcal{A}_s^\prime) f(s,X_s) ds
+    \]
+    is a continuous local martingale and 
+    \[
+    \langle M^f, M^g \rangle_t = \sum_{i=1}^d \sum_{k=1}^d \int_0^t a_{ik} (s,X_s) \frac{\partial}{\partial x_i} f(s,X_s) \frac{\partial}{\partial x_k} g(s,X_s) ds.
+    \]
+    Finally, if the first derivative of $f$ is bounded, then for every $0\leq T< \infty$: 
+    \[
+    \forall y \in C([0,\infty)^d), t \in [0,T]: \quad \| \sigma(t,y) \| \stackrel{???}{\leq} K_T.
+    \]
+    So $M^f$ is continuous square integrable martingale. 
+}
+\rmkb{
+    If we set $b_i \equiv 0$ and $\sigma_{ij} \equiv \delta_{ij}$ for every $i,j=1,...,d$ then 
+    \[
+    \mathcal{A} f = \frac{1}{2} f = \frac{1}{2} \sum_{i=1}^d \frac{\partial}{\partial x_i^2} f, \quad f \in C^2 (\mathbb{R}^d, \mathbb{R}).
+    \]
+}
+\rmkb{
+    Problem:\\
+    A continuous and adapted process $W$ is a d-dimensional Brownian motion if and only if 
+    \[
+    M_t^f = f(W_t) - f(W_0) - \frac{1}{2} \int_0^t \Delta f(W_s) ds
+    \]
+    is a continuous local martingale for every $f \in C^2(\mathbb{R}^d)$.
+}
+
+\subsection{Weak Solutions and the Martingale Problem}
+The problem above gives a characterization of a Brownian motion. The basic idea of the martingale problem is to employ $M^f$ as before. For now, we consider $b_i$ and $\sigma_{ij}$ to be progressively measurable functionals. Let $(\mathcal{A}_t^\prime)_{t \geq 0}$ be defined by 
+\[
+(\mathcal{A}_t^\prime u)(y) := \frac{1}{2} \sum_{i=1}^d \sum_{k=1}^d a_{ik}(t,y) \frac{\partial^2}{\partial x_i \partial x_k} u(y(t)) + \sum_{i=1}^d b_i (t,y) \frac{\partial}{\partial x_i} u(y(t)), t \in [0,\infty), y \in C([0,\infty)^d), u \in C^2 (\mathbb{R}^d).
+\]
+\defn{}{
+    A probability measure $\mathbb{P}$ on $( C([0,\infty)), \mathcal{B}( C([0,\infty) ) ) )$ is called solution to the martingale problem associated with $(\mathcal{A}_t^\prime)_{t \geq 0}$, if under this probability measure 
+    \[
+    M_t^f = f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}_s^\prime f) (y) ds, \quad \forall t \in [0,\infty),
+    \]
+    is a $\mathcal{F}_t$ continuous and local martingale for every $f \in C^2 (\mathbb{R}^d)$. Here, $\mathcal{F}_t := \mathcal{G}_{t+} = \bigcap_{s > t} \mathcal{G}_t$, although $(\mathcal{G}_t)_{t \geq 0}$ is the augmentation under $\mathbb{P}$ of the canonical filtration of 
+    \[
+    \mathcal{B}_t := \mathcal{B}_t( C([0,\infty)^d ) ) := \sigma (z(s): s \in [0,t])= \varphi_t^{-1} ( \mathcal{B}( C([0,\infty)^d ) ) ),
+    \]
+    where
+    \[
+    \varphi_t: C([0,\infty)^d ) \to C( [0,\infty)^d ), z \mapsto (\varphi_t z) (s) := z (t \wedge s).    
+    \]
+}
+
+
+
+
+\section{Markov Processes}
+
+\end{document}
