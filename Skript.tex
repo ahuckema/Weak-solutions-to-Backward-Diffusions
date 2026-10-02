@@ -369,9 +369,86 @@ We are mostly interested in the stochastic reformulation and not in the abstract
 }
 
 
+The continuous mapping theorem yields that weak convergence implies that 
+\[
+\forall F: C([0,\infty)) \to \mathbb{R}: \quad F(X^n) \stackrel{(d)}{=} F(X),
+\]
+whereas convergence in ffd only implies that 
+\[
+\forall F: \mathbb{R}^k \to \mathbb{R} \text{ continuous: } \quad F(X_{t_1}^n,...,t_{t_k}^n) \stackrel{(d)}{=} F(X_{t_1},...,X_{t_k}).
+\]
 
+\thm{}{
+    A sequence $(X^n)_{n \in \mathbb{N}}$ of continuous stochastic processes weakly converges to $X$ if and only if 
+    \begin{itemize}
+        \item $\{ \mathbb{P}^{X^n} \mid n \in \mathbb{N} \} \subseteq \mathcal{M}_1 (C([0,\infty)))$ is tight
+        \item $X^n \stackrel{ffd}{\implies} X$, $n \to \infty$.
+    \end{itemize}
+}
+Recall $A$ is called relatively compact if all sequences have convergent subsequences in $A$. It is relatively compact if all sequences have convergent subsequences with the limit not needing to belong to $A$.
+\rmkb{
+    Ascela-Ascoli: $A \subseteq C([0,\infty))$ is relatively compact if and only if 
+    \begin{itemize}
+        \item $\{ f (0) \mid f \in A \} \subseteq \mathbb{R}$ is bounded 
+        \item For every $N \in \mathbb{N}$ and $V_f^N (\delta) := \sup_{\substack{|t-s|< \delta \\ s,t \leq N}} |f(t)-f(s)|:$ $\lim_{\delta \to 0} \sup_{f \in A} V_f^N (\delta)=0$.
+    \end{itemize}
+}
+So two things can go wrong. Either functions in $A$ are not sufficiently bounded or there are regularity holes/not all functions have the same kind of regularity. 
 
-
+\exm{}{
+    The function 
+    \[
+    g_n (x) := \begin{cases}
+        x^{1/n} &, x\leq 1\\
+        2-x &, x \in (1,2) \\
+        0&, x \geq 2
+    \end{cases}
+    \]
+    The set $A:= \{ g_n \mid n \in \mathbb{N} \}$ is neither compact nor relatively compact. 
+    \begin{itemize}
+        \item We need that every sequence has a subsequence that convergence to a $g \in C([0,\infty])$ however, 
+        \[
+        \lim_{n \to \infty} g_n (0) =0 \text{ and } \forall x \in (0,1]: \quad \lim_{n \to \infty} g_n (x) =1.
+        \]
+        So the limit is discontinuous at zero. So its not compact 
+        \item It also fails the second bullet point of Ascela-Ascoli: 
+        \[
+        \forall \epsilon >0, s \in (0,\epsilon ]: \quad \sup_{n \in \mathbb{N}} |g_n (s) - g_n (0)| =1.
+        \]
+    \end{itemize}
+    We see that this family of functions is for every $n \in \mathbb{N}$ Hölder continuous with index $\gamma = \frac{1}{n}$: 
+    \[
+    |g_n (y) - g_n (x)|\leq |x-y|^{\frac{1}{n}}, \quad \forall x,y \in [0,1].
+    \]
+}
+What goes wrong here? Is it the boundedness or regularity? The missing piece is Hölder continuity where the index is independent of $n \in \mathbb{N}$.
+\lem{}{
+Suppose $(K_N)_{N \in \mathbb{N}}$ are non-negative and $\gamma \in (0,1]$, then 
+\[
+A_K^\gamma := \{ f: [0,\infty) \to \mathbb{R} \mid f \text{ Hölder continuous on compacts with index $\gamma$, constant $K_N$ and } |f(0)| \leq K_0  \}
+\]
+is compact in $C([0,\infty))$.
+}
+\thm{}{
+    Suppose $(X^n)_{n \in \mathbb{N}}$ is a sequence of continuous stochastic processes on $(\Omega,\mathcal{F},\mathbb{P})$ such that 
+    \begin{itemize}
+        \item $(\mathbb{P}^{X_0^n})_{n \in \mathbb{N}}$ is tight in $\mathcal{M}_1 (\mathbb{R})$ 
+        \item For every $n \in \mathbb{N}$ and $T>0$ exists $c,\alpha,\beta$ independent of $n \in \mathbb{N}$ with 
+        \[
+        \forall s,t \leq T: \quad \mathbb{E}[ |X_t^n - X_s^n|^\alpha ] \leq C |t-s|^{1+\beta}.
+        \]
+        Then $(\mathbb{P}^{X^n})_{n \in \mathbb{N}}$ is tight in $\mathcal{M}_1 (C([0,\infty )))$.
+    \end{itemize}
+}
+So previously we had Ascela-Ascoli as a tool to construct compact sets to check for tightness, i.e. 
+\[
+\forall \epsilon>0 \exists K \text{ compact subsets:}\quad \inf_{n \in \mathbb{N}}  \mathbb{P}^{X^n} (K)> 1-\epsilon \quad \iff \quad (\mathbb{P}^{X^n})_{n \in \mathbb{N}} \text{ tight in } \mathcal{M}_1 (C([0,\infty) )).
+\]
+There we would consider 
+\[
+K:= \{ f \in C([0,\infty)) \mid |f(0)|\leq a, \forall N \in \mathbb{N}, \delta>0: V_f^N (\delta) \to 0, \delta \to 0  \}
+\]
+which leads with the above to an infinite dimensional joint distribution of $(X_t^n)_{t \geq 0}$ integral, when computing the tail probability. Kolmogorov Chensov avoids this, by only considering a bi variate expectation.
 
 
 
@@ -482,6 +559,384 @@ P^\mu (F) := \int_{\mathbb{R}^d} P^x (F) d\mu, \quad \text{ on } \mathcal{B}(C( 
     Because $\bigcap_{A \in \mathcal{U}} A = \emptyset$ there exist $A_1 \supset A_2 \supset ...$ in $\mathcal{U}$ such that $\bigcap_{n \in \mathbb{N}} A_n =\emptyset$, with $Q_p (A_n) =1$ for every $n \in \mathbb{N}$. Thus, $\lim_{n \to \infty} Q_p (A_n) =1 \neq 0$, which is a contradition. So $Q_p$ cannot be extended to $\sigma (A)$.    
 }
 
+
+\subsection{Stochastic Calculus Backround}
+
+\rmkb{
+    We discuss the notion of an extended probability space. Let $(X_t)_{t \geq 0}$ be $\mathcal{F}_t$-adapted process on $(\Omega,\mathcal{F},\mathbb{P})$. If one requires a $d$-dimensional Brownian motion independent of $X$, one might run into the issue that the probability space $(\Omega,\mathcal{F},\mathbb{P})$ might not be rich enough to support this Brownian motion.
+}
+\exm{}{
+    Consider $\Omega:= C([0,\infty), \mathbb{R}^d)$ and $\mathcal{F}:= \sigma (X_s \mid s \geq 0) = \sigma(X)$, then $X_t(\omega) = \omega(t)$ is a stochastic process on $(\Omega,\mathcal{F},\mathbb{P})$. Any Brownian motion on that probability space satisfies $\sigma(W) \subseteq \mathcal{F} = \sigma(X)$. Doobs factorization lemma yields that for every $t \geq 0$ there exists a $\mathbb{P}_X$-a.s. unique measurable mapping $\varphi_t := C([0,\infty),\mathbb{R}^d) \to \mathbb{R}^d$ such that $W_t = \varphi_t (X)$. So $W$ is just a transformation of $X$. 
+}
+\rmkb{
+    To extend the probability space to construct a Brownian motion independent of $X$, let $(\hat{\Omega},\hat{\mathcal{F}}, \hat{\mathbb{P}})$ be another probability space on which $\hat{W}$ is a Brownian motion and set $\tilde{\Omega}:= \Omega \times \hat{\Omega}$, $\tilde{\mathcal{G}} := \mathcal{F} \otimes \hat{\mathcal{F}}$, $\tilde{\mathbb{P}} := \mathbb{P} \otimes \hat{\mathbb{P}}$ and the filtration $\tilde{\mathcal{G}}_t := \mathcal{F}_t \otimes \hat{\mathcal{F}}_t$. We make the filtration right continuous by defining 
+    \[
+    \tilde{\mathcal{F}}_t := \bigcap_{s>t} \sigma (\tilde{\mathcal{G}} \cup \mathcal{N}),
+    \]
+    where $\mathcal{N}$ are the $\tilde{\mathbb{P}}$-nullsets in $\tilde{\mathcal{G}}$. We make the $\sigma$-algebra complete by $\tilde{\mathcal{F}}:= \sigma (\tilde{\mathcal{G}} \cup \mathcal{N})$. Finally, we extend $X$ and $W$ to be $\tilde{\mathcal{F}}_t$-adapted processes on $(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}})$ by defining 
+    \[
+    \forall (\omega,\hat{\omega}) \in \tilde{\Omega}: \quad \tilde{X}_t(\omega,\hat{\omega}) := X_t (\omega) \quad \text{ and } \quad \tilde{W}_t (\omega,\hat{\omega}) := W_t (\hat{\omega}).
+    \]
+    Then $(\tilde{W}_t)_{t \geq 0}$ is independent of $(\tilde{X}_t)_{t \geq 0}$.
+}
+
+
+\thm{}{
+    \label{Thm: Existence of an Extension for c,l matringale}
+    Let $(M_t := (M_t^1,...,M_t^d))_{t \geq 0}$ defined on $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0},\mathbb{P})$ with $M^i$ being a continuous local martingale for every $i=1,...,d$. Also suppose that the cross-variation $\langle M^i,M^j \rangle_t$ is $\mathbb{P}$-a.s. an absolutely continuous function in $t$ for every $i,j=1,...,d$. Then there exists an extension $(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}})$ of $(\Omega,\mathcal{F},\mathbb{P})$ on which we define a Brownian motion $W$ and $ ((X_t^{i,k})_i,k=1,...,d)_{t \geq 0}$ a metric of measurable adapted processes with 
+    \[
+ \forall t \in [0,\infty), i,k=1,...,d:   \tilde{\mathbb{P}}( \int_0^t |X_s^{i,k}|^2 ds < \infty ) =1,
+    \]
+    such that 
+    \[
+    M_t^i = \sum_{k=1}^d \int_0^t X_s^{i,k} dW_s^k  \quad i=1,...,d, t \in [0,\infty) \quad \tilde{\mathbb{P}}-a.s.
+    \]
+    and 
+    \[
+    \langle M^i , M^j \rangle_t = \sum_{k=1}^d \int_0^t X_s^{i,k} X_s^{j,k} ds, \quad i,j=1,...,d, t \in [0,\infty) \quad \tilde{\mathbb{P}}-a.s.
+    \]
+}
+\pf{
+    We reduce the $d$-dimensional process by a random, time dependent rotation of coordinates to one-dimensional processes. Define 
+    \[
+    z_t^{i,j} := \frac{d}{dt} \langle M^i,M^j \rangle_t = \lim_{n \to \infty} n ( \langle M^i, M^j \rangle_t - \langle M^i,M^j \rangle_{(t- \frac{1}{n})^+} ).
+    \]
+    As $z_t^{i,j} = z_t^{j,i}$, because $\langle c M^i \rangle_t = c^2 \langle M^i \rangle_t$ yields 
+    \[
+    \langle M^i,M^j \rangle_t  = \frac{1}{4} ( \langle M^i + M^j\rangle_t - \langle M^i - M^j \rangle_t ) = \langle M^j,M^i \rangle_t,
+    \]
+    we get that the matrix process $Z:= ( Z_t := (z_t^{ij})_{i,j=1,...,d} )_{t \geq 0}$ is symmetric and $(s,\omega)\mapsto Z_s(\omega)$ is $\mathcal{B}([0,t])??? \otimes \mathcal{F}_t$-measurable, i.e. progressively measurable. Additionally, we have 
+    \begin{align*}
+        \forall \alpha \in \mathbb{R}^d: \; \alpha^T Z_t \alpha &= \lim_{n \to \infty}n ( \sum_{i=1}^d \sum_{j=1}^d \alpha_i ( \langle M^i, M^j\rangle_t - \langle M^i,M^j \rangle_{(t-\frac{1}{n})^+} ) \alpha_j )\\
+         &= \lim_{n \to \infty}n  ( \langle \sum_{i=1}^d  \alpha_i M^i \rangle_t - \langle \sum_{i=1}^d \alpha_i M^j \rangle_{(t-\frac{1}{n})^+}  )\\
+        &= \frac{d}{dt} \langle \sum_{i=1}^d \alpha_i M^i \rangle_t \geq 0.
+    \end{align*}
+    Because the quadratic variation is non-decreasing, for fixed $\omega \in \Omega$ it is $\lambda -a.e.$ differentiable in $t \geq 0$ with Lebesgues theorem.\\
+    Because $Z$ is progressively measurable the set 
+    \[
+    E:= \{ (t,\omega) \in [0,\infty) \times \Omega \mid Z_t (\omega) \text{ is not positive semi definite} \} \in \mathcal{B}([0,\infty)) \otimes \mathcal{F}.
+    \]
+    This yields 
+    \[
+    (\lambda \otimes \mathbb{P})(E) = \int_\Omega \lambda( \{ t \geq 0 \mid (t,\omega) \in E  \} ) d \mathbb{P}(\omega) = \int_\Omega 0 d \mathbb{P}(\omega) =0.
+    \]
+    So $Z_t$ is positive semi definite for $\lambda$-a.e $t \geq 0$ $\mathbb{P}$-a.s.\\
+    It is well known that any symmetric, positive definite matrix can be diagonalized by an orthogonal matrix, i.e. there exists $Q$ such that 
+    \[
+    Q^{-1} Z Q =\Lambda,
+    \] 
+    where $\Lambda$ is the daigonal matrix with the non negative eigenvalues of $Z$. So there exists progressively measurable matrix valued processes 
+    \[
+    \left( Q_t := (q_t^{i,j})_{i,j=1,...,d} \right)_{t \geq 0} \quad \text{ and } \quad \left( \Lambda_t := ( \delta_{ij} \lambda_t^i )_{i,j=1,...,d} \right)_{t \geq 0},
+    \]
+    such that for $\lambda$-a.e. $t \geq 0$ it holds 
+    \[
+    \sum_{k=1}^d q_t^{k,i} q_t^{k,j} = (q_t^{\cdot,i})^T q_t^{\cdot,j} = (q_t^{i,\cdot})^T q_t^{j,\cdot} = \sum_{k=1}^d q_t^{i,k} q_t^{j,k} =\delta_{ij}, \; i,j=1,...,d \quad \mathbb{P}-a.s.
+    \]
+    and 
+    \[
+    (q^{\cdot,i})^T Z_t (q^{\cdot,j}) = \sum_{k=1}^d \sum_{l=1}^d q_t^{k,i} z_t^{k,l} q_t^{l,j} = \delta_{ij} \lambda_t^i \geq 0, i,j=1,...,d \quad \mathbb{P}-a.s.
+    \]
+    From the orthogonality, we see that $(q_t^{k,i})^2 \leq 1$ and thus 
+    \[
+    \int_0^t (q_s^{k,i})^2 d \langle M^k \rangle_s \leq \langle M^k \rangle_t < \infty.
+    \]
+    Then, $N_t^i := \sum_{k=1}^d \int_0^t q_s^{k,i} d M_s^k, \quad i=1,...,d, t \in [0,\infty)$ is a continuous local martingale. \\
+    To finish the proof our goal is to represent $M^i$ in terms of an independent Brownian motion on an extended probability space $(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}})$. The next step is to represent $N^i$ in terms of that independent Brownian motion. First, see that 
+    \begin{align*}
+        \langle N^i , N^j \rangle_t &= \sum_{k=1}^d \sum_{l=1}^d \int_0^t q_s^{k,i} q_s^{l,j} d \langle M^k,M^l \rangle_s \\
+        &= \sum_{k=1}^d \sum_{l=1}^d \int_0^t q_s^{k,i} q_s^{l,j} \frac{d}{dt} \langle M^k , M^l \rangle_s ds \\
+        &= \sum_{k=1}^d \sum_{l=1}^d \int_0^t q_s^{k,i} z_s^{k,l} q_s^{l,j} ds = \delta_{ij} \int_0^t \lambda_s^i ds 
+    \end{align*} 
+    Because $N^i$ is a continuous local martingale $\langle N^i \rangle_t< \infty$, which implies that the Lebesgues-Stieltjes integral $ \int_0^t \textbf{1}_{\lambda_s^i>0} \frac{1}{\lambda_s^i} d \langle N^i \rangle_s $ exists. As 
+    \[
+     \langle N^i \rangle_t=\langle N^i , N^i \rangle_t= \int_0^t \lambda_s^i ds,
+    \] 
+    it follows $\frac{d}{dt} \langle N^i \rangle_t= \lambda_s^i$, which yields
+    \[
+    \int_0^t \textbf{1}_{\lambda_s^i>0} \frac{1}{\lambda_s^i} d \langle N^i \rangle_s = \int_0^t \textbf{1}_{\lambda_s^i>0} ds \leq t.
+    \]
+    This gives us that 
+    \[
+    W_t^i := \int_0^t \textbf{1}_{\lambda_s^i>0} \frac{1}{\sqrt{\lambda_s^i}} d N_s^i + \int_0^t \textbf{1}_{\lambda_s^i=0} d \tilde{W}_s^i, \quad i=1,...,d,
+    \]
+    is a continuous local martingale, where $\tilde{W}$ is a Brownian motion on the extended probability space $(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}})$. Because 
+    \[
+    \forall t \in [0,\infty), i,j=1,...,d: \quad \langle W^i, W^j \rangle_t = \delta_{ij} t,
+    \]
+    we have that $W$ is a Brownian motion wrt. $(\tilde{\mathcal{F}}_t)_{t \geq 0}$. Moreover, 
+    \[
+    \int_0^t \sqrt{\lambda_s^i} dW_s^i = \int_0^t \textbf{1}_{\lambda_s^i >0} dN_s^i + \int_0^t \sqrt{\lambda_s^i} \textbf{1}_{\lambda_s^i =0} d \tilde{W}_s^i =\int_0^t \textbf{1}_{\lambda_s^i > 0} d N_s^i \stackrel{(*)}{=} \int_0^t \textbf{1}_{\lambda_s^i \geq 0} d N_s^i = N_t^i, \quad \tilde{\mathbb{P}}-a.s.
+    \]
+    although we used in (*) that the martingale $\int_0^t \textbf{1}_{\lambda_s^i =0} d N_s^i$ has quadratic variation 
+    \[
+    \langle \int_0^\cdot \textbf{1}_{\lambda_s^i =0} d N_s^i  \rangle_t = \int_0^t \textbf{1}_{\lambda_s^i =0} d\langle N^i\rangle_s = \int_0^t \textbf{1}_{\lambda_s^i =0}  \lambda_s^i ds =0
+    \]
+    and starting in zero yields that it is the trivial martingale, i.e. 
+    \[
+    \int_0^t \textbf{1}_{\lambda_s^i =0} d N_s^i=0 \quad, t \geq 0\quad \tilde{\mathbb{P}}-a.s.
+    \]
+    Setting $X_t^{i,k} := q_t^{i,k} \sqrt{\lambda_t^k}$ we get that 
+    \begin{align*}
+        \forall t \geq 0, i,k=1,...,d: \quad \tilde{P}( \int_0^t (X_s^{i,k})^2 ds < \infty )&= \tilde{P}( \int_0^t (q_s^{i,k})^2 \lambda_s^k ds < \infty) \\
+        &= \tilde{P}( \int_0^t \lambda_s^k ds < \infty )= \tilde{P}( \langle N^k \rangle_t < \infty)=1.
+    \end{align*}
+    Finally, 
+    \begin{align*}
+        \sum_{k=1}^d \int_0^t X^{i,k} dW_s^k &= \sum_{k=1}^d \int_0^t q_s^{i,k} \sqrt{\lambda_s^k} dW_s^k = \sum_{k=1}^d \int_0^t q_s^{i,k} dN_s^k \\
+        &=\sum_{j=1}^d \sum_{k=1}^d \int_0^t q_s^{i,k} q_s^{j,k} dM_s^j \stackrel{orthogonal}{=} \sum_{j=1}^d \delta_{ij} \int_0^t dM_s^j = M_t^i.
+    \end{align*}
+    The last equation follows directly from this one.
+}
+\rmkb{
+    Note that if the matric process $Z_t := (z_t^{i,j})_{i,j=1,...,d}$ has constant rank $r$ $\mathbb{P}$-a.s. $\lambda$-almoust every $t \geq 0$, then 
+    \[
+    \forall i \leq r:\quad W_t^i = \int_0^t \textbf{1}_{\lambda_s^i>0} \frac{1}{\sqrt{\lambda_s^i}} dN_s^i,
+    \]
+    is a Brownian motion on $(\Omega,\mathcal{F},\mathbb{P})$ and there is no need to extend the probability space, as it is independently defined from $\tilde{W}$.
+}
+
+
+
+
+
+
+
+\section{Girsanov Theorem}
+We study local martingales if a different equivalent probability measure $Q$ on $(\Omega,\mathcal{F})$ is chosen. 
+\defn{}{
+    We call two probability measures $Q$ and $\mathbb{P}$ on $(\Omega,\mathcal{F})$ equivalent if 
+    \[
+    \forall A \in \mathcal{F}: \quad \mathbb{P} (A)=0 \quad \iff \quad Q(A)=0.
+    \]
+}
+By Radon-Nikodym there exists a Radon density $L_T$ on $(\Omega,\mathcal{F})$ with $L_T := \frac{dQ}{d \mathbb{P}}$ such that 
+\[
+\forall A \in \mathcal{F}: \quad \mathbb{E}^Q[\textbf{1}_A] = \mathbb{E}[\textbf{1}_A L_T].
+\]
+If $L_T \in L^1(\Omega,\mathcal{F},\mathbb{P})$ define $L_t := \mathbb{E}[L_T \mid \mathcal{F}_t]$ for every $t \in [0,T]$, then $(L_t)_{t \in [0,T]}$ is a martingale (???) and is called density process of $Q$ wrt. $\mathbb{P}$.
+
+\assu{}{
+    The stochastic process $(L_t)_{t \in [0,T]}$ satisfies: 
+    \begin{itemize}
+        \item $(L_t)_{t \in [0,T]}$ is a continuous $\mathbb{P}$-martingale 
+        \item $\forall t \in [0,T]$: $L_t > 0$ $ \mathbb{P}$-a.s. and $L_0 =1$.
+    \end{itemize}
+}
+Under these assumptions we can define the associated probability measure 
+\[
+Q(A) := \mathbb{E}^Q[\textbf{1}_A] = \mathbb{E}[\textbf{1}_A L_T], \quad \forall A \in \mathcal{F}.
+\]
+Then $Q$ is equivalent to $\mathbb{P}$ and with Radon-Nikodym the density is $\frac{dQ}{d \mathbb{P}} = L_T$.
+\prop{
+    Let $(L_t)_{t \in [0,T]}$ satisfy the assumptions above, where $Q$ is the associated probability measure and $(X_t)_{t \in [0,T]}$ an adapted, continuous stochastic process, then 
+    \[
+    (L_t X_t)_{t \in [0,T]} \text{ is a (local) $\mathbb{P}$-martingale } \iff \; (X_t)_{t \in [0,T]} \text{ is a (local) $Q$-martingale.}
+    \]
+}
+\pf{
+    "$\Rightarrow$"\\
+    Because $X$ is adapted and $Q$ integrable, it holds 
+    \[
+    \mathbb{E}^Q [ |X_t| ] = \mathbb{E}[ L_T |X_t | ] = \mathbb{E}[ \mathbb{E}[ L_T |X_t| \mid \mathcal{F}_t ] ] = \mathbb{E}[ L_t |X_t | ]= \mathbb{E}[ |L_t X_t | ]< \infty,
+    \]
+    because $L$ and $LX$ are $\mathbb{P}$-martingales. In order to show the martingale property it suffices to show: 
+    \[
+    \forall A \in \mathcal{F}_s: \quad \mathbb{E}^Q[ \textbf{1}_A (X_t -X_s) ]=0.
+    \]
+    This immediately follows from 
+    \begin{align*}
+        \mathbb{E}^Q [ \textbf{1}_A (X_t -X_s) ] &= \mathbb{E}[ L_t \textbf{1}_A (X_t -X_s) ]  \\
+        &= \mathbb{E}[ \mathbb{E}[ L_T \textbf{1}_A X_t \mid \mathcal{F}_t ] - \mathbb{E}[ L_T \textbf{1}_A X_s \mid \mathcal{F}_s ] ]\\
+        &=\mathbb{E}[ L_t \textbf{1}_A X_t -L_s \textbf{1}_A X_s ] = \mathbb{E}[ \textbf{1}_A (L_t X_t - L_s X_s) ] \stackrel{martingale}{=} 0.
+    \end{align*} 
+    "$\Leftarrow$"\\
+    Same arguments.
+}
+\thm{}{
+    If 
+    \[
+    L_t := e^{ \int_0^t X_s dB_s - \frac{1}{2} \int_0^t X_s^2 ds }, \quad t \in [0,T]
+    \]
+    and $(L_t)_{t \in [0,T]}$ is martingale on $(\Omega,\mathcal{F}_T, \mathbb{P})$ wrt. the Brownian standard filtration $(\mathcal{F}_t)_{t \in [0,T]}$, then 
+    \[
+    \tilde{B}_t := B_t - \int_0^t X_s ds, \quad t \in [0,T],
+    \]
+    is Brownian motion wrt. $(\Omega,\mathcal{F}_T, (\mathcal{F}_t)_{t \in [0,T]}, Q)$ where $\frac{dQ}{d \mathbb{P}} =L_T$.
+}
+\pf{
+    We need to show that $\tilde{B}$ is continuous local $Q$-martingale with $\langle \tilde{B} \rangle_t =t$, $t \in [0,T]$. 
+    \begin{itemize}
+        \item To show: $\tilde{B}$ is continuous $Q$-martingale.\\
+        With proposition before we need to show $(\tilde{B}_t L_t)_{t \in [0,T]}$ is continuous local $\mathbb{P}$-martingale. We can apply Ito Formula for $L_t$, because we can write it as 
+        \[
+        L_t = f(U_t,U_t) := e^{U_t + Y_t}, \quad U_t := \int_0^t X_s dB_s, \quad V_t:= - \frac{1}{2}\int_0^t X_s^2 ds.
+        \]
+        Because integrating over $\langle U \rangle_\cdot$ and $\langle V \rangle_\cdot$ yields a Lebesgues Stieltjes integral which leads to $X^2_s ds$ and $0$ respectively. $d\langle U,V \rangle_s =X_s^2 \cdot 0 ds=0$. $f(0,0)=1$ and Itos formula yields 
+        \begin{align*}
+            L_t &= 1+ \int_0^t L_s dU_s + \int_0^t L_s dV_s + \frac{1}{2} \int_0^t L_s X_s^2 ds \\
+            &= 1+ \int_0^t L_s X_s dB_s - \frac{1}{2} \int_0^t L_s X_s^2 ds + \frac{1}{2} \int_0^t L_s X_s^2 ds \\
+            &= 1+ \int_0^t L_s X_s dB_s
+        \end{align*}
+        Thus, $dL_t = L_s X_s dB_s$, which yields with the product rule 
+        \begin{align*}
+            \tilde{B}_t L_t &= \tilde{B}_0 L_0 + \int_0^t \tilde{B}_s dL_s + \int_0^t L_s d\tilde{B}_s + \langle B , L \rangle_t \\
+            &= 0+ \int_0^t \tilde{B}_s L_s X_s dB_s + \int_0^t L_s dB_s - \underbrace{ \int_0^t L_s X_s ds + \int_0^t 1 \cdot L_s X_s ds}_{=0} \\
+            &= \int_0^t ( \tilde{B}_s X_s + 1) L_s dB_s,
+        \end{align*}
+        which is a continuous local martingale wrt. $\mathbb{P}$. 
+        \item $(\tilde{B}_t)_{t \in [0,T]}$ is a continuous local $Q$-martingale. \\
+        Let $((\tilde{B}L)_{ t \wedge \tau_n})_{t \in [0,T]}$ be a $\mathbb{P}$-martingale for some suitable localizing stopping times $\tau_n \nearrow T$. With the first step and the proposition from before $(\tilde{B}_{t \wedge \tau_n})_{t \in [0,T]}$ is a continuous $Q$-martingale wrt. $(\mathcal{F}_t)_{t \in [0,T]}$ it follows that $(\tilde{B}_t)_{t \in [0,T]}$ is a continuous local $Q$-martingale.
+        \item $\forall t \in [0,T]$: $\langle \tilde{B} \rangle_t =t$ under $Q$.\\
+        To this end, we need to show that $(\tilde{B}_t -t)_{t \in [0,T]}$ is a continuous local martingale under $Q$. With the proposition from before it suffices to show that $((\tilde{B}_t^2 -t)L_t)_{t \in [0,T]}$ is a continuous local $\mathbb{P}$-martingale. Then, because the quadratic variation of any finite variation process, e.g. $ \int_0^\cdot X_s ds$, is zero and and its co-variation with a continuous martingale is zero,   under $\mathbb{P}$ we have 
+        \[
+        \langle \tilde{B}\rangle_t = \langle B - \int_0^\cdot X_s ds \rangle_t = \langle B \rangle_t -2 \langle B, \int_0^\cdot X ds \rangle_t+ \langle \int_0^\cdot X ds \rangle_t =  \langle B \rangle_t -0+0 =t.
+        \]
+        Finally, with Itos formula for Ito processes for $f(x) =x^2$ we have 
+        \[
+        \tilde{B}_t^2 = \int_0^t 2 \tilde{B}_s d \tilde{B}_s + \int_0^t \langle \tilde{B} \rangle_s = \int_0^t 2 \tilde{B}_s d \tilde{B}_s+ t \stackrel{Def.}{=} \int_0^t 2 \tilde{B}_s dB_s - \int_0^t 2 \tilde{B}_s X_s ds +t.
+        \]
+        This yields with the product formula:           
+        \begin{align*}
+            (\tilde{B}_t^2 -t)L_t &= \int_0^t (B_s^2 -s) dL_s   + \int_0^t L_s d(\tilde{B}_s -s) + \langle \tilde{B}^2 - \cdot,L\rangle_t \\
+            &= \int_0^t (B_s^2 -s) dL_s + \int_0^t L_s 2 \tilde{B}_s d\tilde{B}_s + \int_0^t 2 \tilde{B}_s L_s X_s ds \\
+            &= \int_0^t (B_s^2 -s) L_s X_s dB_s + \int_0^t 2 L_s \tilde{B}_s d B_s - \int_0^t 2 L_s \tilde{B}_s X_s ds + \int_0^t 2 \tilde{B}_s L_s X_s ds \\
+            &= \int_0^t ((\tilde{B}_s -s) X_s + 2 \tilde{B}_s) L_s dB_s,
+        \end{align*}
+        which is a continuous local $\mathbb{P}$-martingale.
+    \end{itemize}
+}
+
+
+
+\section{Weak Solutions}
+The Brownian motion is now denoted by $(W_t)$.\\
+One can prove the existence of a solution in a weaker sense for less restrictive assumptions on the drift term 
+\defn{}{
+    Let $a: [0,\infty) \times \mathbb{R}^d \to \mathbb{R}^d$ and $b: [0,\infty) \times \mathbb{R}^d \to \mathbb{R}^{d \times r}$ be Borel measurable functions. For a filtered probability space $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$, a $r$-dimensional $(\mathcal{F}_t)$-Brownian motion $W$ and a $\mathcal{F}_0$ measurable random variable $\xi$, we call call $(X_t)_{t \geq 0}$ strong solution to the SDE 
+    \[
+    dX_t = a(t,X_t) dt + b (t,X_t) dW_t,
+    \]
+    if 
+    \begin{itemize}
+        \item $(X_t)_{t \geq 0}$ is $(\mathcal{F}_t^W \vee \sigma (\xi) \vee \mathcal{N} )_{t \geq 0}$ adapted to the augmented filtration 
+        \item 
+         \[
+        \forall i=1,...,d, j=1,...,r \text{ and } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
+        \]
+        \item 
+        \[
+        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.
+        \]
+    \end{itemize}
+}
+
+\defn{}{
+    A weak solution, with initial distribution $\mu$ on $\mathcal{B}(\mathbb{R}^d)$ of 
+    \[
+    dX_t = b(t,X_t) dt + \sigma (t,X_t) dW_t
+    \]
+    is a tuple $((\Omega,\mathcal{F},\mathbb{P}), (\mathcal{F}_t)_{t \geq 0}, X, W)$ where $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ is a filtered probability space, where the filtration satisfies the usual conditions, $X$ is $(\mathcal{F}_t)$-adapted, $\mathbb{R}^d$ valued process and $W$ a $r$-dimensional $(\mathcal{F}_t)$-Brownian motion $W$
+    \begin{itemize}
+        \item 
+        \[
+        \forall i=1,...,d, j=1,...,r \text{ and } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
+        \]
+        \item 
+        \[
+        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.
+        \]
+    \end{itemize}
+}
+\rmkb{
+    For a strong solution the probability space was given. For weak solutions, the probability space is provided as part of the solution. Further, the randomness in a strong solution only comes from the randomness of the augmented standard Brownian filtration, whereas the randomness in a weak solution comes from any filtration, with the restriction that $W$ has to be a $(\mathcal{F}_t)$-Brownian motion. This means, that the solution at time $t$ can not only be given by the initial condition, a measurable functional given by the Brownian path and the drift, but also from randomness independent from the initial condition and the Brownian motion. 
+}
+\exm{}{
+    Consider 
+    \[
+    dX_t = b(t,X_t) dt + dW.t, \quad t \in [0,T], \quad T < \infty
+    \]
+    and $b: \mathbb{R}^d \to \mathbb{R}^d$ is a measurable function with sub-linear growth 
+    \[
+    \forall x \in \mathbb{R}^d, t \in [0,T]: \quad \| b (t,x) \| \leq K (1+ \| x \|).
+    \]
+    Let $X$ be a Brownian motion on $(\Omega,\mathcal{F},\mathbb{P})$ and let $(\mathcal{F}_t)_{t \geq 0}$ be the augmented filtration generated by $X$, i.e. 
+    \[
+    \forall t \geq 0: \quad \mathcal{F}_t := \sigma (\mathcal{F}_t^X \cup \mathcal{N} ), \quad \mathcal{N} := \{ A \subseteq \Omega \mid \exists C \in \mathcal{F}, \mathbb{P}(C)=0: \quad A \subseteq C \}.
+    \]
+    Define $\forall t \in [0,T]$: 
+    \[
+    Z_t := e^{ \int_0^t b(s,X_s) dX_s - \frac{1}{2} \int_0^t \| b (s,X_s) \|^2 ds },
+    \]
+    which is a martingale under $\mathbb{P}$. Define $Q$ via the Radon-Nikodym derivative 
+    \[
+    \frac{dQ}{d\mathbb{P}} = Z_T, \quad Q(\cdot) := \mathbb{E}^Q[\textbf{1}_{\cdot}].
+    \]
+    With Girsanov, the process 
+    \[
+    \tilde{W}_t := X_t -X_0 - \int_0^t b(s,X_s) ds, \quad t \in [0,T]
+    \]
+    is Brownian motion with $Q(\tilde{W}_0 =0)=1$. Then $(X,\tilde{W}_t)$ and $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, Q)$ is weak solution.
+}
+
+\subsection{Weak Solutions by Means of the Girsanov Theorem}
+
+\prop{
+    For $T>0$ fixed consider 
+    \[
+    dX_t = b(t,X_t) dt + dW_t, \quad t \in [0,T],
+    \]
+    where $W$ is $d$-dimensional Brownian motion, $b: [0,T] \times \mathbb{R}^d \to \mathbb{R}^d$, is Borel measurable and satisfies 
+    \[
+    \forall x \in \mathbb{R}^d, t \in [0,T]: \quad \| b (x,t) \| \leq K (1+ \| x \| ),
+    \]
+    for some constant $K$. Then for any initial distribution $\mu$ on $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$ the SDE has a weak solution with initial distribution $\mu$.
+}
+\pf{
+    Beginning with a Brownian family $(W_t)_{t \geq 0}$, $(\mathcal{F}_t)_{t \geq 0}$ and $(\mathbb{P}^x)_{x \in \mathbb{R}^d}$ then 
+    \[
+    Z_t := e^{ \sum_{j=1}^d \int_0^t b_j (s,X_s) dX_s^j - \frac{1}{2} \int_0^t \| b (s,X_s) \|^2 ds }
+    \]
+    is a martingale under each $\mathbb{P}^x$. Under $Q^x$ given by $\frac{d Q^x}{d \mathbb{P}^x} =: Z_T$ 
+    \[
+    W_t := X_t -X_0 - \int_0^t b(s,X_s) ds, \quad t \in [0,T],
+    \]
+    is a Brownian motion with $Q^x (W_0 =0)=1$, $\forall x \in \mathbb{R}^d$. The above is equivalent to 
+    \[
+    X_t = X_0 - \int_0^t b(s,X_s) ds+W_t, \quad t \in [0,T].
+    \]
+    With $Q^\mu (\cdot) := \int_{\mathbb{R}^d} Q^x (\cdot) d \mu (x)$, then $((X,W),(\Omega,\mathcal{F},Q^\mu),(\mathcal{F}_t))$ is a weak solution.
+}
+
+\rmkb{
+    To find a weak solution for $t \in [0,\infty)$, the finite-time Girsanov theorem needs to be extended. The Radon-Nikodym derivative $ Z_T := \frac{dQ^x}{d \mathbb{P}^x}$ is only defined on the bounded $\sigma$-algebra $\mathcal{F}_T$. \\
+    For $M_t^j := \int_0^t b(s,X_s) dX_s^j$ yields that $\int_0^t \| b(s,X_s) \|^2 ds = \langle M \rangle_t.$ Then 
+    \[
+    Z_\infty= \lim_{t \to \infty} e^{ \sum_{j=1}^d M_t^j - \frac{1}{2} \langle M \rangle_t } \notin L^1(\mathbb{P}).
+    \]
+    So $(Z_t)_{t \in [0,\infty)}$ is not a martingale. Furthermore, with Fatou 
+    \[
+    \mathbb{E}[ \liminf_{t \to \infty} Z_t ]\leq \liminf_{t \to \infty} \mathbb{E}[ Z_t ]=1.
+    \] 
+    This means we cannot find a Girsanov measure $Q^x$ such that $Q^x(A) = \int_A Z_\infty d \mathbb{P}^x$ for any $A \in \mathcal{B}(\mathbb{R}^d)$, because 
+    \[
+    1= Q^x (\Omega) \neq \int_\Omega Z_\infty d \mathbb{P}^x < 1.
+    \]
+    So $Z_\infty$ also cannot be Radon derivative.\\
+    Let $\Omega$ be infinite set and $\mathcal{A}$ an algebra. By Zorn there exists $\mathcal{U} \subset \mathcal{A}$ such that $\forall A,B \in \mathcal{U}: A \cap B \neq \emptyset$ but $\bigcap_{A \in \mathcal{U}} A = \emptyset$. Define 
+    \[
+    Q_p : \mathcal{A} \to \{0,1\}, \quad A \mapsto Q_p(A) = \begin{cases}
+        1 &, A \in \mathcal{U} \\
+        0 &, A \notin \mathcal{U}
+    \end{cases}.
+    \]
+    Because $\bigcap_{A \in \mathcal{U}} A = \emptyset$ there exist $A_1 \supset A_2 \supset ...$ in $\mathcal{U}$ such that $\bigcap_{n \in \mathbb{N}} A_n =\emptyset$, with $Q_p (A_n) =1$ for every $n \in \mathbb{N}$. Thus, $\lim_{n \to \infty} Q_p (A_n) =1 \neq 0$, which is a contradition. So $Q_p$ cannot be extended to $\sigma (A)$.    
+}
+
+
+ 
+
+
 \section{The Martingale Problem of Stroock
 and Varadhan}
 Weak solutions is finding a probability space, a Brownian motion and a process with the right law (determined by its finite- dimensional distributions).
@@ -511,6 +966,7 @@ For every $t \geq 0$ we introduce the second order differential operator for any
     (A_tf)(\cdot) := \frac{1}{2} \sum_{i=1}^d \sum_{k=1}^d a_{ik} (t,\cdot) \frac{\partial^2}{\partial x_i \partial x_k} f(\cdot) + \sum_{i=1}^d b_i (t,\cdot) \frac{\partial}{\partial x_i} f(\cdot), \quad \forall f \in C^2(\mathbb{R}^d). 
 \]
 \prop{
+    \label{Prop: Mtf is continuous local Martingale}
     Let $(X_t)_{t \geq 0}$ a continuous Ito diffusion on $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0},\mathbb{P})$ with generator $A_t$ and diffusion matric $a(t,x) = \sigma(t,x)^T \sigma (t,x)$. For every $f \in C^{1,2} ( [0,\infty) \times \mathbb{R}^d, \mathbb{R} )$ the process $(M_t^f)_{t \geq 0}$ defined by 
     \[
     M_t^f := f(t,X_t) - f(0 , X_0) - \int_0^t ( \frac{\partial}{\partial s} + A_s) f(s,X_s) ds,
@@ -590,6 +1046,10 @@ For every $t \geq 0$ we introduce the second order differential operator for any
     is a continuous local martingale for every $f \in C^2(\mathbb{R}^d)$.
 }
 
+
+
+
+
 \subsection{Weak Solutions and the Martingale Problem}
 The problem above gives a characterization of a Brownian motion. The basic idea of the martingale problem is to employ $M^f$ as before. For now, we consider $b_i$ and $\sigma_{ij}$ to be progressively measurable functionals. Let $(\mathcal{A}_t^\prime)_{t \geq 0}$ be defined by 
 \[
@@ -610,6 +1070,131 @@ The problem above gives a characterization of a Brownian motion. The basic idea 
     \]
 }
 
+We show that weak solutions to the functional SDE is equivalent to the local martingale problem. One direction has already been shown: If there is a weak solution $((X,W),(\Omega,\mathcal{F},\mathbb{P}),(\mathcal{F}_t)_{t \geq 0})$ then with Proposition \ref{Prop: Mtf is continuous local Martingale} 
+\[
+M_t^f := f(t,X_t) - f(0,X_0) - \int_0^t \left( \frac{\partial}{\partial s} + \mathcal{A}_s^\prime \right) f(s,X_s) ds, \quad \forall f \in C^{1,2} ([0,\infty) \times \mathbb{R}^d )
+\]
+is a continuous local martingale, i.e. a solution to the local martingale problem. The converse holds true with the next proposition. 
+
+\prop{
+    Let $\mathbb{P}$ be a probability measure on $(C([0,\infty)^d ), \mathcal{B}(C([0,\infty)^d))$ under which the process $M^f$ is a continuous local $\mathcal{F}_t$-martingale where $f(x) =x_i$ or $f(x) =x_i x_k$ for $i,k =1,...,d$. Then there exists a Brownian motion $W$ wrt. $(\tilde{\mathcal{F}}_t)_{t \geq 0}$ defined on the extension $(\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{\mathbb{P}})$ of $(C([0,\infty)),\mathcal{B}(C([0,\infty)^d)),\mathbb{P})$ such that $((X_t := y(t),W_t),(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}}),(\tilde{\mathcal{F}}_t))$ is a weak solution to the functional SDE.
+}
+\pf{
+For $f(x) = X_i$ the differential operator is $(\mathcal{A}^\prime f)(x) = b_i (s,X_s)$. Then by assumption 
+\[
+M_t^i := X_t^i -X_0^i - \int_0^t b_i (s,X_s)ds,
+\]
+is a continuous local $\mathcal{F}_t$-martingale under $\mathbb{P}$. We now want to show that 
+\[
+\forall t \geq 0: \quad \langle M^i , M^k \rangle_t = \int_0^t a_{ik} (s,X_s)ds \quad \mathbb{P}-a.s.
+\]
+We do this by showing that $( M_t^i M_t^k - \int_0^t a_{ik} (s,X_s)ds )_{t \geq 0}$ is a continuous local martingale. See that 
+\begin{align}
+    \label{Eq: Local Martingale using Prod Rule}
+    \begin{split}
+    &\int_0^t (X_s^i -X_t^i) b_k (s,X_s)ds + \int_0^t X_s^k -X_t^k ) b_i (s,X_s)ds + \int_0^t b_i (s,X_s)ds \int_0^t b_i (s,X_s)ds \\
+    &= \int_0^t ( M_s^i + X_0^i + \int_0^s b_i (l,X_l) dl - ( M_t^i +X_0^i + \int_0^t b_i (l,X_l)dl )  )b_k (s,X_s)ds \\
+    &+ \int_0^t (M_s^k -X_0^k + \int_0^s b_k (l,X_l)dl - (M_t^k+X_0^k+\int_0^t b_k (l,X_l)dl) )b_i (s,X_s) ds\\
+    &+ \int_0^t b_i (s,X_s)ds \int_0^t b_k (s,X_s)ds \\
+    &= \int_0^t (M_s^i -M_t^i) b_k (s,X_s)ds + \int_0^t (M_s^k -M_t^k) b_i (s,X_s)ds\\
+    &\stackrel{(*)}{=} M_t^i B_t^k - \int_0^t B_s^i dM_s^k - M_t^i \int_0^t dB_s^k + M_t^k B_t^i - \int_0^t B_s^k dM_s^i - M_t^k \int_0^t dB_s^i \\
+    &= M_t^i B_t^k + M_t^k B_t^i - M_t^i \int_0^t dB_s^k- M_t^k \int_0^t dB_s^i - \int_0^t B_s^i dM_s^k - \int_0^t B_s^k dM_s^i \\
+    &= M_t^i B_t^k + M_t^k B_t^i- M_t^i B_t^k - M_t^k B_t^i - \int_0^t B_s^i dM_s^k - \int_0^t B_s^k dM_s^i \\
+    &=- \left( \int_0^t \int_0^s b(l,X_l) dl dM_s^k + \int_0^t \int_0^s b(l,X_l)dl dM_s^i \right).\\
+    &(Hier Sind INdexfehler???)
+    \end{split}
+\end{align}
+although we used in $(*)$ the product formula for $dB_t^i = \int_0^t b(s,X_s)ds$:
+\[
+M_t^i B_t^i = \int_0^t M_s^i dB_s^i + \int_0^t B_s^i dM_s^i + \underbrace{\langle M_t^i, B_t^i \rangle}_{=0}.
+\]
+The last term is zero, as $(B_t^i)_{t \geq 0}$ is of finite variation. Because of (???) it holds that 
+\[
+\forall i=1,...,d: \quad \mathbb{P}(\int_0^t |b_i (s,X_s)|ds < \infty, t \geq 0 ) =1,
+\]
+which implies that (\ref{Eq: Local Martingale using Prod Rule}) is a local martingale. One can show that 
+\begin{align*}
+    M_t^i M_t^k - \int_0^t a_{ik} (s,X_s)ds &= M_t^{i,k} - X_0^i M_t^k -X_0^k M_t^i \\
+    &+ \int_0^t X_s^i dB_s^k - X_t^i B_t^k + \int_0^t X_s^k dB_s^i - X_t^k B_t^i + B_t^i B_t^k \\
+    &= M_t^{i,k} - X_0^i M_t^k -X_0^k M_t^i \\
+    &+ \int_0^t (X_s^i -X_t^i) b_i(s,X_s)ds +\int_0^t (X_s^k -X_t^k) b_k (s,X_s)ds + \int_0^t b_i (s,X_s)ds \int_0^t b_k (s,X_s)ds
+\end{align*}
+This yields 
+\[
+\forall t \geq 0: \quad \langle M^i , M^k \rangle_t = \int_0^t a_{ik} (s,X_s)ds \quad \mathbb{P}-a.s.
+\]
+Because the cross variation $\langle M^i , M^j \rangle_t$ is $\mathbb{P}$-a.s. an absolutely continuous function there exists with Theorem \ref{Thm: Existence of an Extension for c,l matringale} and extension $(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}})$ of $(C([0,\infty)^d), \mathcal{B}(C([0,\infty)^d )), \mathbb{P})$ endowed with the filtration $(\mathcal{F}_t)_{t \geq 0}$ which satisfies the usual conditions and a matrix valued process $\rho := (\rho_{ij} (t))_{t \geq 0}$ and a Brownian motion $\tilde{W}$ such that 
+\[
+\label{Eq: Condition for extended matrix process in pf of Mart implies Weak sol}
+\forall t \geq 0, i,j=1,...,d: \tilde{P}( \int_0^t \rho_{ij}^2 (s) ds < \infty )=1 
+\]
+and 
+\[
+\forall t \geq 0, i =1,...,d: M_t^i = \sum_{j=1}^d \int_0^t \rho_{ij}(s) d \tilde{W}_s^j \quad \tilde{\mathbb{P}}-a.s.
+\]
+Rewriting the definition of $M_t^i$ yields 
+\[
+ X_t^i = M_t^i + X_0^i + \int_0^t b_i (s,X_s)ds = X_0^i + \int_0^t b_i (s,X_s)ds + \sum_{j=1}^d \int_0^t \rho_{ij}(s) d \tilde{W}_s^j,  \quad t \geq 0.
+\]
+We now want to construct another Brownian motion on $(\tilde{\Omega},\tilde{\mathcal{F}},(\tilde{\mathcal{F}}_t)_{t \geq 0}, \tilde{\mathbb{P}})$ such that 
+\[
+\int_0^t \rho_{ij} (s) d \tilde{W}_s^i = \int_0^t \sigma(s,X_s)d W_s^i, \quad t \geq 0, i,j=1,...,d \quad \tilde{\mathbb{P}}-a.s.
+\]
+There exists 
+\[
+R \in D := \{ (\rho,\sigma) \mid \text{$\rho$ and $\sigma$ are $(d\times d)$ matrices:} \quad \rho \rho^T = \sigma \sigma^T \},
+\]
+such that 
+\[
+\sigma = \rho R(\rho,\sigma) \quad \text{ and } \quad R(\rho,\sigma) R^T (\rho,\sigma) =Id.
+\]
+So $R$ is an orthogonal matrix. Define 
+\[
+W_t := \int_0^t R^T (\rho (s) , \sigma (s,X_s))d \tilde{W}_s, \quad t \geq 0 
+\] 
+Because $W^i$ is a continuous local martingale and 
+\begin{align*}
+    \langle W^i ,W^j \rangle_t &= \sum_{k=1}^d \sum_{l=1}^d \langle \int_0^\cdot R^T (\rho(s), \sigma (s,X_s))_{ik} d \tilde{W}_s^k, \int_0^\cdot R^T (\rho(s),\sigma (s,X_s))_{jl} d \tilde{W}_s^l \rangle_t\\
+    &\stackrel{???}{=} \sum_{k=1}^d \sum_{l=1}^d  \int_0^t R^T (\rho(s), \sigma (s,X_s))_{ik} R^T (\rho(s),\sigma (s,X_s))_{jl} d \langle \tilde{W}^i , \tilde{W}^l \rangle_s \\
+    &=\sum_{k=1}^d \sum_{l=1}^d  \int_0^t R^T (\rho(s), \sigma (s,X_s))_{ik} R^T (\rho(s),\sigma (s,X_s))_{jl} \delta_{jl} ds \\
+    &= t
+\end{align*}
+it is a Brownian motion. Because 
+\[
+\forall t \geq 0, y \in C([0,\infty)^d): \quad a_{ik} (t,y) := \sum_{j=1}^r \sigma_{ij} (t,y) \sigma_{kj} (t,y),
+\]
+it follows that 
+\begin{align*}
+    \int_0^t a_{ik} (s,X_s) ds &= \langle M^i , M^k \rangle_t = \sum_{j=1}^d \sum_{l=1}^d \int_0^t \rho_{ij}(s) \rho_{kl}(s) d \langle \tilde{W}^i , \tilde{W}^j \rangle_s \\
+    &= \sum_{j=1}^d \sum_{l=1}^d \int_0^t \rho_{ij}(s) \rho_{kl}(s) \delta_{jl} ds \\
+    &= \sum_{j=1}^d \int_0^t \rho_{ij}(s) \rho_{kj}(s) ds \quad \tilde{\mathbb{P}}-a.s.
+\end{align*}
+It follows that 
+\[
+ \forall i,k=1,...,d: \quad \tilde{\mathbb{P}}( \sum_{j=1}^d \rho_{ij}(t ) \rho_{kj}(t) = a_{ik} (t,X_s), a.e. t \geq 0 )=1, 
+\]
+which finally yields with (\ref{Eq: Condition for extended matrix process in pf of Mart implies Weak sol}) that 
+\[
+ \forall t \geq 0, i=1,...,d,j=1,...,r: \quad \tilde{\mathbb{P}}(\int_0^t \sigma_{ij}^2 (s,X_s)ds < \infty )=1.
+\]
+Thus, 
+\[
+\forall t \geq 0, i=1,...,d,j=1,...,r: \quad \tilde{\mathbb{P}}(  \int_0^t |b_i (s,X_s) | + \sigma_{ij}^2 (s,X_s)ds < \infty)=1
+\]
+and 
+\[
+\forall t \geq 0, i=1,...,d: \quad X_t^i = X_0^i + \int_0^t b_i (x, X_s)ds + \sum_{j=1}^r \int_0^t \sigma_{ij}(s,X_s)d W_s^j.
+\]
+So $((\tilde{\Omega}, \tilde{\mathcal{F}}, \tilde{\mathbb{P}}), (X,W), (\mathcal{F}_t)_{t \geq 0})$ is a weak solution.
+}
+\cor{
+    The existence of a solution $\mathbb{P}$ to the local martingale problem associated with $(\mathcal{A}^\prime_t)_{t \geq 0}$ is equivalent to the existence of a weak solution $((\tilde{\Omega}, \tilde{\mathcal{F}}, \tilde{\mathbb{P}}), (X,W), (\mathcal{F}_t)_{t \geq 0})$ to the functional SDE. \\
+    Both solutions are related by 
+    \[
+    \mathbb{P} = \tilde{\mathbb{P}} \circ X^{-1},
+    \] 
+    i.e. $X$ induces a probability measure $\mathbb{P}$ on $(C([0,\infty)^d )), \mathcal{B}(C([0,\infty)^d) ))$.
+}
 
 
 
