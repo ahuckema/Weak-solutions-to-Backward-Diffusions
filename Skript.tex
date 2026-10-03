@@ -1196,6 +1196,66 @@ So $((\tilde{\Omega}, \tilde{\mathcal{F}}, \tilde{\mathbb{P}}), (X,W), (\mathcal
     i.e. $X$ induces a probability measure $\mathbb{P}$ on $(C([0,\infty)^d )), \mathcal{B}(C([0,\infty)^d) ))$.
 }
 
+\cor{
+    The solution $\mathbb{P}$ to the local martingale problem with fixed but arbitrary initial distribution 
+    \[
+    \forall A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}(X \in C([0,\infty)^d ),X \in A)= \mu (A), 
+    \]
+    being unique is equivalent to the uniqueness in sense of law for the SDE 
+    \[
+    dX_t = b(t,X) dt + \sigma (t,X) dW_t, \quad t \geq 0.
+    \]
+}
+Given progressively measurable functionals $b_i,\sigma_{ij}: [0,\infty) \times C([0,\infty)^d) \to \mathbb{R},$ for $i=1,...,d, j=1,...,r$, $(\mathcal{A}^\prime_t)_{t \geq 0}$ the associated family of differential operators and $\mu$ a probability measure on $\mathcal{B}(\mathbb{R}^d)$ consider the conditions 
+\begin{itemize}
+    \item [A)] There exists a weak solution to the functional SDE with initial distribution $\mu$.
+    \item [B)] There exists $\mathbb{P}$ solution to the local martingale problem associated with $(\mathcal{A}_t^\prime)_{t \geq 0}$ with 
+    \[
+    \forall A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}(X_0 \in A) =\mu (A).
+    \]
+    \item [C)] There exists $\mathbb{P}$ a solution to the martingale problem associated with $(\mathcal{A}_t^\prime)_{t \geq 0}$ with 
+    \[
+    \forall A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}(X_0 \in A) =\mu (A).
+    \]
+\end{itemize}
+\defn{}{
+    A probability measure $\mathbb{P}$ on $(C([0,\infty)^d),\mathcal{B}(C([0,\infty)^d) ))$ under which 
+    \[
+    M_t^f := f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}_s^\prime f)(y) ds,
+    \]
+    is a continuous $\mathcal{F}_t$-martingale, for every $f \in C_0^2(\mathbb{R}^d)$ is called solution to the martingale problem associated with $(\mathcal{A}_t^\prime)_{t \geq 0}$.
+}
+
+\prop{
+    A) and B) are equivalent. C) implies A and B. Further, if either 
+    \begin{itemize}
+        \item For every $T \in (0,\infty)$ 
+        \[
+        \exists K_T, \forall t \in [0,T], y \in C([0,\infty)^d): \quad \| \sigma(t,y) \| \leq K_T
+        \]
+        \item For every $\sigma_{ij}$ exists $\tilde{\sigma}_{ij}: [0,\infty) \times \mathbb{R}^d \to \mathbb{R}$ Borel measurable and bounded on compact sets such that 
+        \[
+        \forall t \geq 0, y \in C([0,\infty)^d): \quad \sigma_{ij}(t,y) = \tilde{\sigma}_{ij}(t,y(t)),
+        \]
+    \end{itemize}
+    then it holds that A) implies C).
+}
+\pf{
+    The equivalence of A) and B) has been already established. Let We show that C) implies A). Let C) be true. In the local martignale problem $f \in C^2(\mathbb{R}^d)$. So if $\mathbb{P}$ is solution to the martignale problem, it does not need to have compact support. Define the localizing sequence 
+    \[
+    S_k := \inf \{ t \geq 0 \mid \| y(t) \| \geq k \},
+    \]
+    i.e. $S_k \to \infty$, as $k \to \infty$. Because the canonical path process $X_t := y(t)$ posseses continuous paths, for every $t \leq S_k$: 
+    \[
+    y(t) \in \{ x \in \mathbb{R}^d \mid \| x \| \leq k \} =:A.
+    \]
+    Choose $g_k \in C_0^2(\mathbb{R}^d)$ such that for every $x \in A$ holds that $g_k (x) =f(x)$. Then, for every $t \geq 0$: 
+    \begin{align*}
+        M_{t \wedge S_k}^f &= f(y(t \wedge S_k)) - f(y(0)) - \int_0^{t \wedge S_k} (\mathcal{A}f) (s,y(s)) ds \\
+        &=g_k (y(t \wedge S_k)) - g_k (y(0)) - \int_0^{t \wedge S_k} (\mathcal{A} g_k) (s,y(s)) ds = M_{t\wedge S_k}^{g_k}.
+    \end{align*}
+    As C) is ture, $M^{g_k}$ is a martignale for every $k \geq 0$. Doobs optimal stopping implies that $(M_{t \wedge S_k}^{g_k})_{t \geq 0}$ is a martignale. So $(M_{t \wedge S_k}^{f})_{t \geq 0}$  is a martingale and thus $M^f$ a continuous local martingale.
+}
 
 
 \section{Markov Processes}
