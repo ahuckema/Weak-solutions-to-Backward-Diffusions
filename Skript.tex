@@ -1256,6 +1256,159 @@ Given progressively measurable functionals $b_i,\sigma_{ij}: [0,\infty) \times C
     \end{align*}
     As C) is ture, $M^{g_k}$ is a martignale for every $k \geq 0$. Doobs optimal stopping implies that $(M_{t \wedge S_k}^{g_k})_{t \geq 0}$ is a martignale. So $(M_{t \wedge S_k}^{f})_{t \geq 0}$  is a martingale and thus $M^f$ a continuous local martingale.
 }
+\section{Strong Markov Property for the Solution of SDEs}
+We consider the time-homogenous formulation of the SDE 
+\[
+X_t = x + \int_0^t b (X_s)ds + \int_0^t \sigma (X_s) dW_s, \quad t \in [0,\infty),
+\]
+where $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ a time-homogenous and borel measurable. 
+\rmkb{
+    This still allows for time dependence, because we can append the time to the state variable as follows: $X_t^{d+1} = t$. Then the equation is time homogenous if we choose $b_{d+1}(x)=1$ and $\sigma_{d+1} (x)=0$. This augmentation makes the diffusion not of full rank, i.e. degenerate. Some results require the non-degeneracy.
+}
+
+
+\defn{}{
+    The SDE is well posed, if for every $x \in \mathbb{R}^d$, there exists a weak solution, that is unique in sense of its probability law.
+}
+We know that there is a strong solution if $b$ and $\sigma$ are Lipschitz and satisdy the linear growth condition. If $\sigma$ is the identity matrix and $b$ is uniformly bounded, then it is also well posed. Later we shall find less restrictive conditions.
+\rmkb{
+    If the SDE is well posed, then $X$ is a weak solution with inital condition $X_0 =x$ and it induces a measure $\mathbb{P}^X$ on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ is the coordinate mapping process $(\omega(t)???)$ on this measurable space, the filtration $(\mathcal{B}_t)_{t \geq 0}$ and $(\mathbb{P}^x)_{x \in \mathbb{R}^d}$ a strong Markov family. The time homogenous operator is 
+    \[
+    (\mathcal{A}f)(x) = \frac{1}{2} \sum_{i,k=1}^d a_{ik}(x) \frac{\partial^2}{\partial x_i \partial x_j} f(x) + \sum_{i=1}^d b_i (x) \frac{\partial}{\partial x_i} f(x).
+    \]
+}
+\defn{}{
+    Assume $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$, $i=1,...,d, j=1,...,r$ are bounded on compact subsets of $\mathbb{R}^d$. We call a proability measure $\mathbb{P}$ on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ under which for all $s,t \in [0,\infty), s<t, f \in C_0^2(\mathbb{R}^d)$: 
+    \[
+    \mathbb{E}[ f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}f)(y(u)) du \mid \mathcal{B}_s ] =0, \quad \mathbb{P}-a.s.
+    \]
+    a solution of the time-homogenous martingale problem. We denote by $\mathbb{P}^x$ any solution to this problem if it satisfies 
+    \[
+    \mathbb{P}^x (y \in C([0,\infty)^d ), y (0) =x)=1.
+    \]
+    The time-homogenous martingale problem is well posed if for every $x \in \mathbb{R}^d$, there is exactly one solution $\mathbb{P}^x$.
+}
+\rmkb{
+    Note that in the definition above we replaced $\mathcal{F}_t$ with $\mathcal{B}_t$. This is allowed due to the following: \\
+    Assume either 
+    \begin{itemize}
+        \item  
+        \[
+        \forall T \in (0,\infty) \exists t \in [0,T], y \in C([0,\infty)^d): \quad \| b_i (t,y) \| + \| \sigma_{ij} (t,y) \| \leq K_T
+        \]
+        \item There exists $\tilde{b}_i,\tilde{\sigma}_{ij}: [0,\infty) \times \mathbb{R}^d \to \mathbb{R}$ bounded on compact sets such that $b_i (t,y) = \tilde{b}_i (t,y(t))$ and $\sigma_{ij} (t,y)= \tilde{\sigma}_{ij}(t,y(t))$ 
+    \end{itemize}
+    A probability measure on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$, with filtration $(\mathcal{F}_t)_{t \geq 0}$, where $\mathcal{F}_t := \bigcap_{s>t} \mathcal{F}_t$ and $\mathcal{B}_t := \mathcal{B}_t (C([0,\infty)^d ))$ , $f \in C_0^2(\mathbb{R}^d)$ satisfies that $M_t^f$ a $\mathcal{B}_t$-martingale is also a $\mathcal{F}_t$-martingale.
+}
+
+\rmkb{
+    The well posedness of the time homogenous martingale problem is equivalent to the well posedness of the time homogenous integral equation. This follows from the previous section and setting $X_t^{d+1} =t$.
+}
+\lem{}{
+    For every bounded stopping time of the filtration $(B_t)_{t \geq 0}$ it holds that 
+    \[
+    B_T = \sigma (y(t \wedge T) : t \in [0,\infty)).
+    \]
+}
+\pf{
+    $"\subseteq"$\\
+    A random variable $Z$ is $\mathcal{B}_T$ measurable if and only if
+    \[
+    \forall s \geq 0, A \in ???: \quad \{ Z \in A \} \cap \{ T \leq s\} \in \mathcal{B}_s.
+    \]
+    We have $z := y(t \wedge T)$ on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$.\\
+    Case 1: $t \leq s$: Because $t \wedge T \leq t$ and its $\mathcal{B}_t$ measurable it follows that $y(t \wedge T)$ is $\mathcal{B}_t$ measurable. THen 
+    \[
+  \underbrace{  \{ y (t \wedge T) \in A \}}_{\in \mathcal{B}_t \subseteq \mathcal{B}_s} \cap \{ T \leq s \} \in \mathcal{B}_s.
+    \]
+    Case 2: $t>s$: We have $t \wedge T = T = s \wedge T$. So 
+    \[
+    \{ y (t \wedge T) \in A \} \cap \{ T \leq s \} = \{ y(s \wedge T) \in A \} \cap \{ T \leq s \} \in \mathcal{B}_s .
+    \]
+    $"\supseteq"$\\
+    We need to show that $\mathcal{B}_T \subseteq \sigma ( y(t \wedge T); t \in [0,\infty) )$. For every $t \geq 0$ let 
+    \[
+    \varphi_t : C([0,\infty)^d) \to C([0,\infty)^d), y \mapsto \varphi_t y, \quad (\varphi_t y)(s) =y(t \wedge s), \quad s \in [0,\infty).
+    \]
+    Because by construction for every $s \in [0,T(y)]$ it holds that 
+    \[
+    y(s) = (\varphi_{T(y)} y)(s)
+    \]
+    it follows that for every $y \in C([0,\infty)^d )$ it holds that 
+    \[
+    T(y) = T(\varphi_{T(y)} (y)).
+    \]
+    By setting $t:= T(y)$ and for $A \in \mathcal{B}_T$ we have that 
+    \[
+    y \in A \iff y \in (A \cap \{ T \leq t \}) \stackrel{(*)}{\iff} \varphi_t y \in (A \cap \{ T \leq t \}) \iff \varphi_t y \in A,
+    \]
+    although $(*)$ follows form the fact that $A \cap \{ T \leq t \} \in \mathcal{B}_t$ and again that 
+    \[
+    s \in [0,t]: \quad y(s) = (\varphi_t (y))(s),
+    \]
+    which we already used earlier. Finally, we have 
+    \[
+    A = \{y \in C([0,\infty)^d) \mid \varphi_{T(y)} (y) \in A \} = \{ y \in C([0,\infty)^d) \mid y(\cdot \wedge T(y))  \in A\}
+    \]
+}
+\lem{}{
+    Let $T$ be a bounded stopping time of $(\mathcal{B}_t)_{t \geq 0}$ and $\mathcal{G}$ a countable determined sub $\sigma$-algebra of $\mathcal{B}_T$ such that $y(T)$ is $\mathcal{G}$-measurable. Suppose that $b$ and $\sigma$ are bounded on compact subsets of $\mathbb{R}^d$ and a probability measure $\mathbb{P}$ on $(\Omega,\mathcal{B}) := (C([0,\infty)^d) , \mathcal{B}( C([0,\infty)^d) ))$ solves the time-homogenous martingale problem. Denote by 
+    \[
+    \mathbb{P}[ \cdot \mid \mathcal{G}](\cdot):  \Omega\times \mathcal{B}  \to [0,1]
+    \]
+    the regular conditional probability given $\mathcal{G}$. Then there exists a $\mathbb{P}$-null set $N \in \mathcal{G}$ such that 
+    \[
+    \forall \omega \notin N: \quad \mathbb{P}_\omega := \mathbb{P}[\cdot \mid \mathcal{G}](\omega) \circ \theta_T^{-1}
+    \]
+    solves the time-homogenous martingale problem with $x= \omega (T(\omega))$, although 
+    \[
+    \theta_T : C([0,\infty)^d) \to C([0,\infty)^d), \omega \mapsto \theta_T (\omega),
+    \]
+    is a measurable mapping such that for all $t \geq 0$ holds that $(\theta_T (\omega))(t)= \omega (T(\omega)+t)$.
+}
+\pf{
+    ...???
+}
+\thm{Strong Markov Property}{
+    Suppose the coefficients $b$ and $\sigma$ are bounded on compact subsets of $\mathbb{R}^d$ and the time-homogenous martingale problem is well posed. Then for every $\mathcal{B}_t$-stopping time $T$, $F \in \mathcal{B}(C([0,\infty)^d))$ and $x \in \mathbb{R}^d$: 
+    \[
+    \mathbb{P}^x[ \theta_T^{-1} \in F \mid \mathcal{B}_T ](\omega) = \mathbb{P}^{\omega(T)} (F), \quad \mathbb{P}^x-a.s. \text{ on } \{ T < \infty \}.
+    \]
+}
+\thm{}{
+    Let $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ be bounded and continuous and the time-homogenous SDE 
+    \[
+    dX_t = b(X_t) dt + \sigma (X_t)dW_t.
+    \]
+    For every initial distribution $\mu$ on $\mathcal{B}(\mathbb{R}^d)$ such that 
+    \[
+    \exists m>1: \quad \int_{\mathbb{R}^d} \| x \|^{2m} d \mu (x)< \infty,
+    \]
+    exists a weak solution. 
+}
+\defn{}{
+    A collection $\mathcal{D} \ni \varphi: \mathbb{R}^d \to \mathbb{R}$ of Borel measurable functions is called determining class on $\mathbb{R}^d$ if for any finite measures $\mu_1$ and $\mu_2$ on $\mathcal{B}(\mathbb{R}^d)$ 
+    \[
+    \forall \varphi \in \mathcal{D}: \quad \int_{\mathbb{R}^d} \varphi (x) d \mu_1(x) = \int_{\mathbb{R}^d} \varphi (x) d \mu_2(x) \quad \implies \quad \mu_1 =\mu_2. 
+    \]
+}
+
+\rmkb{
+    The collection $C_0^\infty(\mathbb{R}^d)$ is a determining class on $\mathbb{R}^d$.
+}
+\lem{}{
+    Suppose for every $f \in C_0^\infty (\mathbb{R}^d)$ the Cauchy problem 
+    \[
+    \frac{\partial}{\partial t} u (t,x)= (\mathcal{A} u)(t,x), (t,x) \in (0,\infty) \times \mathbb{R}^d, \quad u(0,x) =f(x) , x \in \mathbb{R}^d
+    \]
+    has a solution $u_f \in C([0,\infty)^d \times \mathbb{R}^d) \cap C^{1,2}((0,\infty)\times \mathbb{R}^d)$ that is bounded on $[0,T] \times \mathbb{R}^d$ for every $T>0$. \\
+    If $\mathbb{P}^x$ and $\tilde{\mathbb{P}}^x$ are solutions of the time homogenous martignale problem with initial condition $x \in \mathbb{R}^d$, their one dimensional distributions agree, i.e. 
+    \[
+    \forall t \in [0,\infty), A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}^x (y(t) \in A) = \tilde{\mathbb{P}}^x (y(t) \in A).
+    \]
+}
+
+
 
 
 \section{Markov Processes}

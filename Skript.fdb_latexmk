@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber Skript"] 0 "Skript.bcf" "Skript.bbl" "Skript" 1791033383.77215 0
+["biber Skript"] 0 "Skript.bcf" "Skript.bbl" "Skript" 1791560145.10397 0
   "References.bib" 0 -1 0 ""
   "Skript.bcf" 0 -1 0 "pdflatex"
   (generated)
   "Skript.bbl"
   "Skript.blg"
   (rewritten before read)
-["pdflatex"] 1791033380.21824 "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" "Skript.pdf" "Skript" 1791033383.77253 0
-  "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" 1791033379.86885 78102 38d77fed2b110a86c260249b7acad6fd ""
+["pdflatex"] 1791560142.3111 "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" "Skript.pdf" "Skript" 1791560145.10426 0
+  "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" 1791560142.06453 87049 e5dc7a6896e30d14e8b31a25dcdc748d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -303,12 +303,12 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1757064974 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Skript.aux" 1791033383.47693 2799 c7efb04282247f8d8477ca3550ce640e "pdflatex"
+  "Skript.aux" 1791560144.86326 2944 314a4295c517ececa617e7ed2af97b00 "pdflatex"
   "Skript.bbl" 0 -1 0 "biber Skript"
-  "Skript.out" 1791033383.47866 2814 bf5c531bf5402c1e2631fc2c584e189c "pdflatex"
-  "Skript.run.xml" 1791033383.48253 2323 879a6add2b76c802994a220ceb47e85a "pdflatex"
-  "Skript.tex" 1791033379.86885 78102 38d77fed2b110a86c260249b7acad6fd ""
-  "Skript.toc" 1791033383.48262 1380 745c73a93cfceb0e68dbf7913058f1bc "pdflatex"
+  "Skript.out" 1791560144.86463 3114 680c85d0e99a95816deb596924976c35 "pdflatex"
+  "Skript.run.xml" 1791560144.86821 2323 879a6add2b76c802994a220ceb47e85a "pdflatex"
+  "Skript.tex" 1791560142.06453 87049 e5dc7a6896e30d14e8b31a25dcdc748d ""
+  "Skript.toc" 1791560144.86828 1484 7225056080a7ad37448e454a83d679bd "pdflatex"
   "amd.sty" 1788786935.06856 5604 43fe5547ec14a007c4000cbe8566a231 ""
   "theorems.tex" 1788945460.55625 5895 7227ea2efeb515def078ccd53b33c777 ""
   (generated)

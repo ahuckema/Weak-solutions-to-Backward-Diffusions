@@ -12,5 +12,6 @@
 \contentsline {section}{\numberline {4}The Martingale Problem of Stroock and Varadhan}{22}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Fundamentals and Motiviation:}{23}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2}Weak Solutions and the Martingale Problem}{25}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Markov Processes}{30}{section.5}%
+\contentsline {section}{\numberline {5}Strong Markov Property for the Solution of SDEs}{31}{section.5}%
+\contentsline {section}{\numberline {6}Markov Processes}{34}{section.6}%
 \contentsfinish 
