@@ -1,17 +1,21 @@
 \babel@toc {english}{}\relax 
 \contentsline {section}{Contents\ttl@gmk {\@mkboth {\MakeUppercase []{Contents}}{\MakeUppercase []{Contents}}}}{1}{Doc-Start}%
-\contentsline {section}{\numberline {1}Stochastic Processes Recap}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}Canonical Construction of Stochastic Processes}{2}{subsection.1.1}%
-\contentsline {subsection}{\numberline {1.2}Brownian Motion}{11}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Bronwian Family}{11}{subsection.1.3}%
-\contentsline {subsection}{\numberline {1.4}Weak Solutions by Means of the Girsanov Theorem}{12}{subsection.1.4}%
-\contentsline {subsection}{\numberline {1.5}Stochastic Calculus Backround}{13}{subsection.1.5}%
-\contentsline {section}{\numberline {2}Girsanov Theorem}{17}{section.2}%
-\contentsline {section}{\numberline {3}Weak Solutions}{19}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Weak Solutions by Means of the Girsanov Theorem}{21}{subsection.3.1}%
-\contentsline {section}{\numberline {4}The Martingale Problem of Stroock and Varadhan}{22}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Fundamentals and Motiviation:}{23}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Weak Solutions and the Martingale Problem}{25}{subsection.4.2}%
-\contentsline {section}{\numberline {5}Strong Markov Property for the Solution of SDEs}{31}{section.5}%
-\contentsline {section}{\numberline {6}Markov Processes}{34}{section.6}%
+\contentsline {section}{\numberline {1}Motivation and Why do we want to use Diffusion}{2}{section.1}%
+\contentsline {section}{\numberline {2}Stochastic Processes Recap}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Canonical Construction of Stochastic Processes}{3}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Brownian Motion}{12}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Bronwian Family}{12}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Weak Solutions by Means of the Girsanov Theorem}{13}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Stochastic Calculus Backround}{14}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Girsanov Theorem}{18}{section.3}%
+\contentsline {section}{\numberline {4}Weak Solutions}{20}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Weak Solutions by Means of the Girsanov Theorem}{22}{subsection.4.1}%
+\contentsline {section}{\numberline {5}The Martingale Problem of Stroock and Varadhan}{23}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Fundamentals and Motiviation:}{24}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Weak Solutions and the Martingale Problem}{26}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Strong Markov Property for the Solution of SDEs}{32}{section.6}%
+\contentsline {section}{\numberline {7}Markov Processes}{37}{section.7}%
+\contentsline {section}{\numberline {8}Backward Markov Processes}{53}{section.8}%
+\contentsline {section}{\numberline {9}Time-Reversal of Diffusions}{53}{section.9}%
+\contentsline {section}{References}{53}{section.9}%
 \contentsfinish 

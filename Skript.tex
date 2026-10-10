@@ -34,11 +34,37 @@
     \huge{ Diffusion Models on Manifolds }
 \end{center}
 \begin{abstract}
-    bla bla
+    Sections 4, 5 and 6 are from \cite{karatzas1991brownian}. Specifically, these sections are based on Sections 5.3 and 5.4. Section 7 is based on the lecture Markov Processes by Prof. Slowik. Sections 8 and 9 are based on \cite{revuz1999continuous}. Here Section 7.4 and Chapter 9 were used. Section 10 is based on Chapter 5 and section 7.1 of \cite{evans2010partial}. The goal is to first derive all technical backround needed to understand \cite{haussmann1986time}. This paper is discussed in the final section.
 \end{abstract}
 \tableofcontents
 \newpage
 
+
+\section{Motivation and Why do we want to use Diffusion}
+A standard diffusion 
+\[
+dX_t =b(X_t) dt + \sigma(X_t) dW_t
+\]
+is like a drop of ink in water. As particles move forward in time they diffuse. If one wants to go backward in time, one needs a process that moves back to that initial single drop. There must be a force/drift in the backward process that pulls the trajectories back to their initial condition. We will see under assumptions on the forward diffusion process that the backward dynamics $\bar{X}_t := X_{T-t}$
+\[
+d\bar{X}_t = (-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) ) dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim p(t,\cdot), 
+\]
+where $\tilde{W}_t$ is the Brownian motion wrt. the reverse filtration, is a Markov process, although the drift plays the key role and is different to the forward process. It depends on $\nabla \log(p(t,x))$, although $p(t,x)$ is the density of the law of the forward process. We call that the score function. If one chooses the initial condition of the forward dynamics $X_0 \sim \mathbb{P}$ of the distribution one wants to estimate/learn, then under certain assumption of the drift $b$ and the diffusion $\sigma$, the process will converge to the standard normal distribution, i.e. 
+\[
+X_\infty \sim \mathcal{N}(0,Id).
+\]
+Intuitively, we take a sample from the distribution we want to learn, diffuse it, so that only gaussian noise remains. We will later see that, that the reverse diffusion process with standard normal initial distribution converges to the initial condition of the forward diffusion process, i.e. the distribution we want to learn. The goal is to learn $\nabla \log(p(t,x))$, as this is the relevant part of the reverse process. The idea is to estimate the score function by parameterizing the score function $s_\theta (t,x)$ by approximating it using Neural Networks. One may consider 
+\[
+\mathbb{E}^{t \sim \mathcal{U}([0,T])} [ \mathbb{E}^{X_t \sim p(t,\cdot)} [ \| \nabla \log(p(t,x) - s_\theta(t,x) \|_2^2 ] ]  = \min_{\theta \in \Theta} !
+\]
+However, $p(t,x)$ is unknown, because 
+\[
+p(t,x) \stackrel{???}{=} \int_{\mathbb{R}^d} p(t,x\mid z) p_0 (z) dz,
+\]
+which requires the unknown $p_0= d\mathbb{P}^{X_0}$. One can show (???) that the above is objective is equivalent to 
+\[
+\mathbb{E}^{t \sim \mathcal{U}([0,T])} [ \mathbb{E}^{X_0 \sim \mathbb{P}^{X_0}}[  \mathbb{E}^{X_t \sim p(t,\cdot\mid X_0)} [ \| \nabla \log(p(t,x \mid X_0) - s_\theta(t,x) \|_2^2 ] ] ] = \min_{\theta \in \Theta} !
+\]
 
 \section{Stochastic Processes Recap}
 \thm{}{
@@ -1372,7 +1398,7 @@ We know that there is a strong solution if $b$ and $\sigma$ are Lipschitz and sa
 \thm{Strong Markov Property}{
     Suppose the coefficients $b$ and $\sigma$ are bounded on compact subsets of $\mathbb{R}^d$ and the time-homogenous martingale problem is well posed. Then for every $\mathcal{B}_t$-stopping time $T$, $F \in \mathcal{B}(C([0,\infty)^d))$ and $x \in \mathbb{R}^d$: 
     \[
-    \mathbb{P}^x[ \theta_T^{-1} \in F \mid \mathcal{B}_T ](\omega) = \mathbb{P}^{\omega(T)} (F), \quad \mathbb{P}^x-a.s. \text{ on } \{ T < \infty \}.
+    \mathbb{P}^x[ \theta_T^{-1} (F) \mid \mathcal{B}_T ](\omega) = \mathbb{P}^{\omega(T)} (F), \quad \mathbb{P}^x-a.s. \text{ on } \{ T < \infty \}.
     \]
 }
 \thm{}{
@@ -1407,10 +1433,693 @@ We know that there is a strong solution if $b$ and $\sigma$ are Lipschitz and sa
     \forall t \in [0,\infty), A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}^x (y(t) \in A) = \tilde{\mathbb{P}}^x (y(t) \in A).
     \]
 }
-
+We want to go beyond the uniqueness of the one dimensional marginals to that of all finite-dimensional distributions.
+\rmkb{
+    We show this via induction.\\
+    $n=1$: $\mathbb{P}^x \circ y(t_1)^{-1} = \tilde{\mathbb{P}}^x \circ y(t_1)^{-1}.$\\
+    IS: Consider $0 \leq t_1 < ...< t_{n+1}$ and $f_i \in C_0^2(\mathbb{R}^d)$. With the tower property we have 
+    \begin{align*}
+        \mathbb{E}^{\mathbb{P}^x}[ \prod_{i=1}^{n+1} f_i (y(t_i)) ]&= \mathbb{E}^{\mathbb{P}^x} [\mathbb{E}^{\mathbb{P}^x} [  \prod_{i=1}^{n+1} f_i (y(t_i)) \mid \mathcal{B}_{t_n} ]]\\
+        &= \mathbb{E}^{\mathbb{P}^x} [  \prod_{i=1}^{n} f_i (y(t_i))  \underbrace{ \mathbb{E}^{\mathbb{P}^x} [ f_{n+1} (y(t_{n+1}))  \mid \mathcal{B}_{t_n} ]}_{=: u(t_{n+1})}]
+    \end{align*}
+    Because 
+    \[
+    y(t_{n+1})(\omega)= \omega(t_n + (t_{n+1}-t_n)) =(\theta_{t_n} (\omega))(t_{n+1}-t_n) = y(t_{n+1} - t_n)(\theta_{t_n} ( \omega))
+    \]
+    it follows that 
+    \begin{align*}
+        u(t_{n+1})(\omega) &= \int_\Omega f_{n+1}(y(t_{n+1}) (\omega^\prime)) d \mathbb{P}^x[ \omega^\prime \mid \mathcal{B}_{t_n}](\omega) \\
+        &= \int_\Omega f_{n+1}( y(t_{n+1}-t_n)(\theta_{t_n} (\omega^\prime))) d \mathbb{P}^x [ \omega^\prime \mid \mathcal{B}_{t_n} ](\omega) \\
+        &= \int_\Omega f_{n+1}(y( t_{n+1} -t_n)(\omega^\prime) ) d\left( \mathbb{P}^x [\cdot \mid \mathcal{B}_{t_n}](\omega) \circ \theta_{t_n}^{-1} \right)(\omega^\prime) \\
+        &= \int_\Omega f_{n+1}(  y(t_{n+1}-t_n) (\omega^\prime)) d \mathbb{P}^{y(t_n)(\omega)} (\omega^\prime) \\
+        &= \mathbb{E}^{\mathbb{P}^{ y(t_n)(\omega) }}[ f_{n+1}(y(t_{n+1} -t_n)) ].
+    \end{align*}
+    Thus, 
+    \begin{align*}
+         \mathbb{E}^{\mathbb{P}^x}[ \prod_{i=1}^{n+1} f_i (y(t_i)) ] &=  \mathbb{E}^{\mathbb{P}^x}[ \prod_{i=1}^{n} f_i (y(t_i)) \mathbb{E}^{\mathbb{P}^{ y(t_n)(\cdot) }}[ f_{n+1}(y(t_{n+1} -t_n) )] ]\\
+         &\stackrel{IV}{=} \mathbb{E}^{\tilde{\mathbb{P}}^x}[ \prod_{i=1}^{n} f_i (y(t_i)) \mathbb{E}^{\mathbb{P}^{ y(t_n)(\cdot) }}[ f_{n+1}(y(t_{n+1} -t_n)) ] ]\\
+         &\stackrel{1D-marginals}{=}\mathbb{E}^{\tilde{\mathbb{P}}^x}[ \prod_{i=1}^{n} f_i (y(t_i)) \mathbb{E}^{\tilde{\mathbb{P}}^{ y(t_n)(\cdot) }}[ f_{n+1}(y(t_{n+1} -t_n)) ] ]\\
+         &= \mathbb{E}^{\tilde{\mathbb{P}}^x}[ \prod_{i=1}^{n+1} f_i (y(t_i))  ]
+    \end{align*}
+    Because $C_0^2((\mathbb{R}^d)^n)$ are a determining class on $(\mathbb{R}^d)^n$ and we have shown that 
+    \[
+    \int_{(\mathbb{R}^d)^n} \prod_{i=1}^n f_i (z_i) d(\mathbb{P}^x \circ (y(t_1),...,y(t_n))^{-1} )(z_1,...,z_n) = \int_{(\mathbb{R}^d)^n} \prod_{i=1}^n f_i (z_i) d(\tilde{\mathbb{P}}^x \circ (y(t_1),...,y(t_n))^{-1} )(z_1,...,z_n)
+    \]
+    it follows that $\mathbb{P}^x$ and $\tilde{\mathbb{P}}^x$ have the same finite dimensional distribution. We know that $\mathbb{P}^x \circ (y(t_1),...,y(t_n))^{-1}$ uniquely determine $\mathbb{P}^x$ on $\mathcal{B}(C([0,\infty)^d))$, which is well known. So the infinte dimensional distributions $\mathbb{P}^x$ and $\tilde{\mathbb{P}}^x$ are equal.
+}
+\prop{
+    Suppose for every $x \in \mathbb{R}^d$ any two solutions $\mathbb{P}^x$ and $\tilde{\mathbb{P}}^x$ of the time homogenous martingale problem with initial condition $x$ have the same one dimensional marginal distribution, i.e. 
+    \[
+     \forall t \in [0,\infty), A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P}^x (y(t) \in A) = \tilde{\mathbb{P}}^x (y(t) \in A).
+    \]
+    Then, for every $x \in \mathbb{R}^d$ the solution to the time homogenous martignale problem with initial condition $x \in \mathbb{R}^d$ is unique.
+}
+\thm{}{
+    Suppose $b_i$ and $\sigma_{ij}$ are bounded on compact subsets of $\mathbb{R}^d$ and such that for every $f\in C_0^\infty(\mathbb{R}^d)$ the Cauchy problem has a solution $u_f \in C([0,\infty) \times \mathbb{R}^d) \cap C^{1,2}((0,\infty)\times \mathbb{R}^d)$ that is bounded on $[0,T] \times \mathbb{R}^d$ for every $T>0$. Then for every $x \in \mathbb{R}^d$ there is at most one solution tot the time homogenous martingale problem.
+}
+\cor{
+    Let $b_i$ and $\sigma_{ij}$ be bounded, continuous such that for every $f\in C_0^\infty(\mathbb{R}^d)$ the Cauchy problem has a solution $u_f \in C([0,\infty) \times \mathbb{R}^d) \cap C^{1,2}((0,\infty)\times \mathbb{R}^d)$ that is bounded on $[0,T] \times \mathbb{R}^d$ for every $T>0$. Then the time homogenous martingale problem is well posed.
+}
 
 
 
 \section{Markov Processes}
 
+\defn{}{
+    A mapping $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ is called time homogeneous (sub)-Markov transition function on $(E,\mathcal{E})$ if 
+    \begin{itemize}
+        \item $P(t,\cdot,\cdot)$ is a (sub-) Markov kernel from $(E,\mathcal{E})$ to $(E,\mathcal{E})$ for every $t \geq 0$. 
+        \item $\forall s,t \geq 0$: $P(s+t,\cdot, \cdot) = P(t,\cdot,\cdot) \circ P(s,\cdot,\cdot)$.
+    \end{itemize}
+    $P$ is called normal, if additionally $\forall x \in E$: $\{ x \} \in \mathcal{E}$ and $P(0,x, \{x\})=1$.
+}
+\defn{}{
+    Let $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0})$ be filtered space $(E,\mathcal{B}(E))$ polish space and $(\mathbb{P}_x)_{x \in E}$ a family of probability measures on $(\Omega,\mathcal{F})$. A $(\mathcal{F}_t)$-adapted $E$-valued process $X$ is called Markov process if 
+    \begin{itemize}
+        \item $\forall B \in \mathcal{F}_\infty^X$ the mapping $x \mapsto \mathbb{P}_x (B)$ is $\mathcal{B}(E)$-measurable.
+        \item The weak Markov property holds: $\forall x \in E, A \in \mathcal{B}(E), s,t \geq 0$: 
+        \[
+        \mathbb{P}_x [X_{t+s} \in A \mid \mathcal{F}_s] = \mathbb{P}_{X_s} (X_t \in A) \quad \mathbb{P}_X-a.s.
+        \]
+    \end{itemize}
+    $X$ is called normal, if additionally $\{ x \} \in \mathcal{B}(E)$ and $\mathbb{P}_X (X_0 =x) =1$ $\forall x \in E$.
+}
+\thm{}{
+    Let $X$ be a Markov process, then $P(t,x,A) := \mathbb{P}_X (X_t \in A)$, $x \in E,A \in \mathcal{B}(E), t \geq 0$ is a Markov transition function. Additionally, 
+    \[
+    X \text{ is normal } \quad \iff \quad P \text{ is normal.}
+    \]
+}
+
+\thm{}{
+    Let $X$ be Levy process and set $P (t,x,A) := \mathbb{P}(X_t +x \in A)$ for every $t \geq 0, x \in \mathbb{R}^d, A \in \mathcal{B}(\mathbb{R}^d)$. Then for the respective sub-Markov semigroup $(P_t)_{t \geq 0}$ on $\mathcal{B}(\mathbb{R}^d)$ we have for every $t \geq 0$: 
+    \[
+    P_t C_0 (\mathbb{R}^d) \subseteq C_0 (\mathbb{R}^d).
+    \]
+}
+\defn{}{
+    A sub-Markov transition function $P$ is called Feller transition function, if the respective semigroup $(P_t)_{t \geq 0}$ satisfies for every $t \geq 0$: 
+    \[
+    P_t C_b (E) \subseteq C_b (E).
+    \]
+    Additionally, we call $P$ a $C_0$ transition function if $\forall t \geq 0$:
+    \[
+    P_t C_0 (E) \subseteq C_0 (E).
+    \]
+}
+
+\thm{}{
+    Let $E$ be locally compact, separable metric space and $(P_t)_{t \geq 0}$ a family of bounded, linear operators with $P_t : C_0 (E) \to C_0 (E)$ and 
+    \begin{itemize}
+        \item $P_0 =I$ and $P_{s+t} = P_s \circ P_t$ $\forall s,t \geq 0$
+        \item $\forall t \geq 0$: $\| P_t \| \leq 1$
+        \item $\forall f \in C_0 (E)$ with $0 \leq f \leq 1$: $0 \leq P_t f \leq 1$
+    \end{itemize}
+    then $\exists$ $P$ a $C_0$ transition function on $(E,\mathcal{B}(E))$ such that the respective semigroup on $C_0 (E)$ coincides with $(P_t)_{t \geq 0}$. 
+}
+\rmkb{
+    $(X_t)_{t \geq 0}$ Markov process $\iff$ $P(t,x,A)$ $\iff$ $(P_t)_{t \geq 0}$.
+}
+
+\defn{}{
+    A family $(P_t)_{t \geq 0}$ of bounded, linear operators on $B$ is called semigroup linear contractions, if 
+    \begin{itemize}
+        \item $P_0 =I$ and $\forall s,t \geq 0$: $P_{s+t} = P_s \circ P_t$ 
+        \item $\forall t \geq 0$: $\| P_t \| \leq 1$.
+    \end{itemize}
+}
+\defn{}{
+    Let $(P_t)_{t \geq 0}$ be a halfgroup linear contractions on $B$, then 
+    \[
+    B_0 := \{ f \in B \mid \lim_{t \searrow 0} \| P_t f -f \| =0 \}\subseteq B
+    \]
+    is called area of strong continuity. If $B_0 =B$ then we call $(P_t)_{t \geq 0}$ strong continuous contracting semigroup.
+}
+\defn{}{
+    Let $(P_t)_{t \geq 0}$ be contracting semigroup on $B$. A linear operator $G: \mathcal{D}(G) \to B$ with 
+    \[
+    D(G) := \{ f \in B \mid s-\lim_{t \searrow 0} \frac{1}{t} (P_t f -f) \text{ exists} \} \subseteq B
+    \]
+    is called infinitesimal generator of $(P_t)_{t \geq 0}$ if 
+    \[
+    \forall f \in \mathcal{D}(G): \quad Gf= s-\lim_{t \searrow 0} \frac{1}{t} (P_t f- f).
+    \]
+}
+\lem{}{
+    Let $(P_t)_{t \geq 0}$ be contracting semigroup on $B$ then 
+    \begin{itemize}
+        \item $B_0$ is Banach space
+        \item $\forall t \geq 0$: $P_t B_0 \subseteq B_0$ 
+        \item $f \in B_0$ $\iff$ $\forall t \geq 0$: $P_{t+h} f \stackrel{s}{\to} P_t f$, $h\searrow 0$.
+    \end{itemize}
+}
+\pf{
+    \begin{itemize}
+        \item $B_0$ is vector space, because for $f,g \in B$ and $a,b \in \mathbb{R}$: 
+        \[
+        \| P_t (af+bg) - (af+bg) \| \leq |a| \| P_t f- f \| + |b| \| P_t g- g \| \to 0, t \searrow 0
+        \]
+        it follows $af+bg \in B_0$.\\
+        To show: $B_0$ is closed in $B$.\\
+        Let $(f_n)_{n \in \mathbb{N}} \subseteq B_0$ with $f_n \stackrel{strong}{\to} f \in B$, then 
+        \begin{align*}
+            \| P_t f - f \| &= \| P_t f_n - f_n + P_t (f-f_n) - (f-f_n) \| \\
+            &\leq \| P_t f_n -f_n \| + \underbrace{\| P_t \|}_{\leq 1} \| f_n -f \| + \| f_n -f \| \\
+            & \leq \| P_t f_n -f_n \| + 2 \| f_n -f \|.
+        \end{align*}
+        Because $f_n \in B_0$ it follows that 
+        \[
+        \limsup_{t \searrow 0} \| P-t f - f\| \leq 0+ 2 \| f_n -f \| \to 0, n \to \infty
+        \]
+        which implies $f \in B_0$.
+        \item Let $f \in B_0$ and $t \geq 0$ then $\forall h \geq 0$: 
+        \[
+        \| P_h (P_t f)-P_t f \| = \| P_t (P_h f -f) \| \leq \| P_t \| \| P_h f-f \| \leq \| P_h f - f \|.
+        \]
+        Thus, 
+        \[
+        \limsup_{h \searrow 0} \| P_h (P_t f) - P_t f \| =0
+        \]
+        and so $P_t f \in B_0$.
+        \item $"\Rightarrow"$ follows with b) \\
+        $"\Leftarrow"$  set $t=0$.
+    \end{itemize}
+}
+\rmkb{$G$ is in general not a bounded operator}
+\defn{}{
+    Let $(P_t)_{t \geq 0}$ be strong continuous contracting semigroup on $B$. Define 
+    \[
+    \forall 0 \leq a < b < \infty, f \in B: \quad B \ni \int_a^b P_s f ds := s -\lim_{n \to \infty} \sum_{k=1}^n (t_k-t_{k-1}) P_{s_k} f,
+    \]
+    where $\forall n \in \mathbb{N}$, $a=t_0 < ...< t_n = b$ a partition of $[a,b]$ such that $\max_{k=1,...,n} |t_k-t_{k-1}| \to 0$, $n \to \infty$ and $s_k \in [t_{k-1},t_k)$ for every $k=1,...,n$.
+}
+\lem{}{
+    Let $(P_t)_{t \geq 0}$ be strong continuous contracting semigroup on $B$, then 
+    \begin{itemize}
+        \item $\forall f \in B, 0 \leq a < b < \infty$: $\| \int_a^b P_s f ds \| \leq \int_a^b \| P_s f \| ds $ \\
+        \item $\forall f \in B, t \geq 0$: $s-\lim_{h \searrow 0} \frac{1}{h} \int_t^{t+h} P_s f ds = P_t f$
+        \item $\forall f \in B, 0 \leq a < b< \infty$: $P_t \left( \int_a^b P_s f ds  \right) = \int_{a+t}^{b+t} P_s f ds$.
+    \end{itemize}
+}
+\pf{
+    \begin{itemize}
+        \item Because the norm $\| \cdot \|$ is continuous it follows
+        \[
+        \| \int_a^b P_s f ds \| = \| s-\lim_{n \to \infty} \sum_{k=1}^n (t_k-t_{k-1}) P_{s_k} f \| \leq s-\lim_{n \to \infty} \sum_{k=1}^n (t_k-t_{k-1}) \| P_{s_k} f \| = \int_a^b \| P_s f \| ds.
+        \]
+        \item By strong continuity $\forall \epsilon>0 \exists \delta>0 \forall s,t \geq 0$ with $|s-t|< \delta$: $\|P_s f - P_t f \|< \epsilon$. Its application yields 
+        \begin{align*}
+            \| \frac{1}{h} \int_t^{t+h} P_s f ds - P_t d \| &= \| \frac{1}{h} \int_t^{t+h} P_s f - P_t f ds \| \\
+            & \stackrel{a)}{\leq} \frac{1}{h} \int_t^{t+h} \| P_s f -P_t f \| ds < \epsilon.
+        \end{align*}
+        As $\epsilon>0$ arbitrary, the assertion follows.
+        \item Because a bounded linear operator is continuous it follows:
+        \begin{align*}
+            P_t \left( s-\lim_{n \to \infty} \sum_{k=1}^n (t_k - t_{k-1}) P_{s_k} f \right) &= s-\lim_{n \to \infty} \sum_{k=1}^n (t_k - t_{k-1}) P_t \circ P_{s_k} f \\
+            &= s-\lim_{n \to \infty} \sum_{k=1}^n (t_k - t_{k-1})  P_{t+s_k} f \\
+            &= \int_a^b P_{s+t} f ds = \int_{a+t}^{b+t} P_s f ds.
+        \end{align*}
+    \end{itemize}
+}
+
+\thm{}{
+    Let $G$ be the generator of a semigroup $(P_t)_{t \geq 0}$ linear contractions on $B$, then we have 
+    \begin{itemize}
+        \item $\overline{\mathcal{D}(G)}=B_0$ and $G \mathcal{D}(G)\subseteq B_0$. Especially, 
+        \[
+        \forall f\in B_0,t \geq 0: \quad \int_0^t P_s f ds \in \mathcal{D}(G) \quad \text{ and } \quad P_t f -f = G(\int_0^t Ps f ds).
+        \]
+        \item $\forall f \in \mathcal{D}(G), t \geq 0$: $P_t f \in \mathcal{D}(G)$ and 
+        \[
+        \frac{d}{dt} P_t f := s-\lim_{h \to 0} \frac{1}{h} (P_{t+h}-Pf) = P_t Gf = GP_t f.
+        \]
+        Especially, 
+        \[
+        P_t f -f = \int_0^t GP_s f ds = \int_0^t P_s G fds.
+        \]
+        \item The operator $G$ is closed, i.e. $\forall (f_n)_{n \in \mathbb{N}} \subseteq \mathcal{D}(G)$ with $f_n \stackrel{s}{\to} f \in B$ and $Gf_n \stackrel{s}{\to}g \in B$ it follows $f \in \mathcal{D}(G)$ and $Gf=g$.
+        
+    \end{itemize}
+}   
+\pf{
+    \begin{itemize}
+        \item To show: $\mathcal{D}(G) \subseteq B_0$\\
+        Let $f \in \mathcal{D}(G)$, then 
+        \[
+        \exists c>0, h_0>0 \forall h \leq h_0: \quad \| \frac{1}{h} (P_h f-f) -Gf \| < c.
+        \]
+        Then $\forall \epsilon>0$ and $t< \delta := \min \{ h_0, \frac{\epsilon}{2} (c+ \| f \|/ h_0) \}$ yields 
+        \begin{align*}
+            \| P_t f-f\| &= t \| \frac{1}{t} (P_t f-f) -Gf- \frac{1}{h_0} (P_{h_0} f-f) + Gf+ \frac{1}{h_0} (P_{h_0}f-f) \|\\
+            &\leq t ( \| \frac{1}{t} (P_t f-f)-Gf\| + \| \frac{1}{h_0} (P_{h_0} f-f) -Gf\| ) + \frac{t}{h_0} \| P_{h_0}f-f \| \\
+            &\leq 2tc + 2 \frac{t}{h_0} \| f \| =2t (c + \frac{\| f \|}{h_0}) < \epsilon.
+        \end{align*}
+        Thus, $f \in B_0$.\\
+        To show: $\mathcal{D}(G)$ is dense in $B_0$\\
+        Let $f \in B_0$ then with the lemm above, it follows that 
+        \[
+        \frac{1}{h} (P_h - I) \int_0^t P_s f ds \stackrel{excercise}{=} \frac{1}{h} (\int_h^{t+h} P_s f ds - \int_0^t P_s f ds )= \frac{1}{h} \int_t^{t+h} P_s f ds - \frac{1}{h} \int_0^h P_s f ds.    
+        \]
+        Because the right hand side exists as a strong limit for $h \searrow 0$ it follows 
+        \[
+        \int_0^t P_s f ds \in \mathcal{D}(G) \quad \text{ and } \quad G \int_0^t P_s f ds = s-\lim_{h \searrow 0}( P_h \int_0^t P_h f ds - \int_0^t P_s f ds )=P_t f -f.
+        \]
+        Set $f_n := n \int_0^{1/n} Ps f ds$, $n \in \mathbb{N}$, then $(f_n)_{n \in \mathbb{N}} \subseteq \mathcal{D}(G)$ (because $\mathcal{D}(G)$ is a linear space and $\int_0^t P_s f ds \in \mathcal{D}(G)$) and $s-\lim_{n \to \infty} f_n =f$, due to 
+        \[
+        \| f_n -f \| = \| n \int_0^{1/n} P_s f ds \| = \| n \int_0^{1/n} P_s f - f ds \| \leq n \int_0^{1/n} \| P_s f -f \| ds \to 0.
+        \] 
+        Thus, $\mathcal{D}(G)$ is tight in $B_0$.\\
+        To show: $G(\mathcal{D}(G)) \subseteq B_0$:\\
+        Let $f \in \mathcal{D}(G)$, then with $f = P_0 f \in B_0$. With the Lemma above we get $\frac{1}{t}(P_t f -f) \in B_0$ for all $t >0$. Because $B_0$ is Banach space, that is closed it follows that
+        \[
+        Gf = s-\lim_{t \searrow 0} \frac{1}{t} (P_t f -f) \in B_0.
+        \] 
+        \item Let $f \in \mathcal{D}(G)$ and $t \geq 0$, then 
+        \[
+        \frac{1}{h}( P_h P_t f -P_t f) = \frac{1}{h} (P_t P_h f-P_t f) = P_t \frac{1}{h} (P_h f-f) \stackrel{s}{\to} P_t Gf, \quad h \searrow 0,
+        \]
+        although we used that $P_t$ is bounded $\forall t \geq 0$ and thus the limit exists. So we have shown that $P_t f \in \mathcal{D}(G)$. Further, the above shows that $G P_t f = P_t Gf$.\\
+        To show: $\forall t>0$ and $f \in \mathcal{D}(G)$: $s-\lim_{h \searrow 0} \frac{1}{h} (P_t f - P_{t-h} f)= P_t Gf.$\\
+        As $(P_t)_{t \geq 0}$ is a contracting semigroup: 
+        \begin{align*}
+            \| \frac{1}{h} (P_t f - P_{t-h} f) - P_t Gf \| &\leq \underbrace{\| P_{t-h} \|}_{\leq 1} \| \frac{1}{h} (P_h f-f)- P_h Gf \| \\
+            &\leq \underbrace{ \| \frac{1}{h} (P_h f-f) -Gf \| }_{\to 0, \text{ by definition}} + \underbrace{ \| P_h \underbrace{Gf}_{\in B_0} - Gf \| }_{\to 0, \text{ because } \overline{\mathcal{D}(G) } = B_0} \to 0.
+        \end{align*}
+        To show: $\forall t \geq 0$ and $f \in \mathcal{D}(G)$: $P_t f -f= \int_0^t P_s Gd ds$. 
+        \[
+        \| P_t f -f - \int_0^t P_s Gf ds \| \leq \underbrace{ \| P_t f -f- \frac{1}{n} (P_h - I) \int_0^t P_s f ds \| }_{\stackrel{???}{\to} 0} + \underbrace{ \| \int_0^t P_s (\frac{1}{h} (P_h f-f)- Gf )ds  \|}_{ \leq \int_0^t \underbrace{ \| P_s \|}_{\leq 1} \frac{1}{h} \| P_h f-f- Gf \| ds } \to 0, h \searrow 0.
+        \]
+        The above is equivalent to $P_t f-f = \int_0^t P_s G ds = \int_0^t G P_s f ds$. 
+        \item Let $(f_n)_{n \in \mathbb{N}} \subseteq \mathcal{D}(G)$ with $f_n \stackrel{s}{\to} f \in B$ and $Gf_n \stackrel{s}{\to} g \in B$. \\
+        To show: $f \in \mathcal{D}(G)$ and $Gf =g$.
+        \begin{align*}
+            \| P_t f -f- \int_0^t P_s g ds \| &= \| P_t (f-f_n) - (f-f_n) + (P_t f_h - f_h)- \int_0^t P_s g ds \| \\
+            &\leq ( \| P_t \| +1) \| f_n -f \| + \| P_t f_h -f_h - \int_0^t P_s g ds \| \\
+            &\leq 2 \| f_n f \| + \| \int_0^t P_s G f_n - P_s g ds \| \\
+            &\leq 2 \underbrace{ \|f_n -f \| }_{\stackrel{VSS}{\to} 0, n \to \infty} + \int_0^t \underbrace{\| P_s \|}_{\leq 1} \| Gf_n -g \| ds \to 0, n \to \infty.
+        \end{align*}
+        Thus 
+        \[
+        s - \lim_{t \searrow 0} \frac{1}{t}(P_t f -f) \stackrel{above}{=} s-\lim_{t \searrow 0} \frac{1}{t} \int_0^t P_s g ds \stackrel{???}{=} g.
+        \]
+    \end{itemize}
+}
+
+\defn{}{
+    A family $(P_t)_{t \geq 0}$ of bounded linear operators on $\mathcal{B}(E)$ is called sub Markov semigroup if $\forall s,t \geq 0$:
+    \begin{itemize}
+        \item $P_t: \mathcal{B}(E) \to \mathcal{B}(E)$ 
+        \item $\forall f \in \mathcal{B}(E)$ with $0 \leq f \leq 1$: $0 \leq P_t f \leq 1$
+        \item $P_{s+t} = P_s \circ P_t$ 
+        \item $\forall (f_n)_{n \in \mathbb{N}} \subseteq \mathcal{B}(E)$ with $f_n \searrow 0$: $P_t f_n \searrow 0$.
+    \end{itemize}
+    A sub-Markov semigroup is called normal if $P_0 =I$ and conservative if $\forall t \geq 0$: $P_t 1 =1$.
+}
+\thm{}{
+    Let $P$ be sub Markov transition function on $(E, \mathcal{B}(E))$ and define $\forall f \in \mathcal{B}(E), x \in E, t \geq 0$: 
+    \[
+    (P_t f ) (x) := \int_E f(y) P(t,x,dy) .
+    \]
+    Then, $(P_t)_{t \geq 0}$ is a sub Markov semigroup. If additionally, $P$ is normal then $(P_t)_{t \geq 0}$ is also normal. If $P$ is Markov transition function, then $(P_t)_{t \geq 0}$ is conservative.
+}
+\defn{}{
+    An adapted $(\mathbb{R}^d, \mathcal{B}(\mathbb{R}^d))$-valued stochastic process $X$ on $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ is called Levy process if 
+    \begin{itemize}
+        \item $\mathbb{P}(X_0 =0)=1$
+        \item $X$ has independent increments, i.e. 
+        \[
+        \forall 0 \leq s < t < \infty: \quad \sigma (X_t - X_s : t>s) \text{ and } \mathcal{F}_s \text{ are independent.}
+        \]
+        \item $X$ has stationary increments: 
+        \[
+        \forall 0 \leq s \leq t < \infty: \quad \mathbb{P}_{X_t - X_s} = \mathbb{P}_{X_{t-s}}.
+        \]
+        \item $X$ has Cadlag paths, i.e. $\forall \omega \in \Omega, t \geq 0$: $X_t (\omega) = X_{t+} (\omega) := \lim_{s \searrow t} X_s (\omega)$ and for all $ t>0$ 
+        \[
+        X_{t-} (\omega) := \lim_{s \searrow t} X_s (\omega).
+        \]
+        left limits exist and are finite.
+    \end{itemize}
+}
+
+
+
+
+
+
+
+\exm{}{
+    Let $A: B \to B$ be a bounded linear operator and define 
+    \[
+    P_t := e^{t A} := u- \lim_{n \to \infty} \sum_{k=1}^n \frac{t^k}{k!} A^k, \quad \forall t \geq 0.
+    \]
+    Because $\forall n \in \mathbb{N}$ and $t \geq 0$: 
+    \[
+    \| \sum_{k=1}^n \frac{t^k}{k!} A^k \| \leq \sum_{k=1}^n \frac{t^k}{k!} \| A^k \| \leq \sum_{k=1}^n \frac{t^k}{k!} \| A \|^k \leq e^{t \| A \|}< \infty, 
+    \]
+    as $A$ is bounded, yielding that $(P_t)_{t \geq 0}$ is well-defined. Additionally, $P_0 = A^0 = I$ and $\forall s,t \geq 0$: 
+    \begin{align*}
+        P_{s+t} &= \sum_{k=0}^\infty \frac{(s+t)^k}{k!} A^k = \sum_{k=0}^\infty \frac{1}{k!} \sum_{l=0}^k \frac{k!}{l!(k-l)!} s^l t^{k-l} A^k\\
+        &= \sum_{l=0}^\infty \frac{1}{l!} s^l A^l \sum_{k=l}^\infty \frac{1}{(k-l)!} t^{k-l} A^{k-l} \\
+        &\stackrel{indexshift}{=} (\sum_{l=0}^\infty \frac{1}{l!} s^l A^l )( \sum_{k=0}^\infty \frac{1}{k!} t^k A^k) = P_s \cdot P_t.
+    \end{align*}
+    Thus, $(P_t)_{t \geq 0}$ is a semigroup. Additionally, 
+    \[
+    \| P_t - I \| \stackrel{???}{=} \| \sum_{k=1}^\infty \frac{t^k}{k!} A^k \| \leq \sum_{k=1}^\infty \frac{t^k}{k!} \| A \|^k = e^{t \| A \| } - 1 \to 0, \quad t \searrow 0.
+    \]
+    Thus, $(P_t)_{t \geq 0}$ is uniformly continuous. Finally, $\forall t >0$: 
+    \[
+    \| \frac{1}{t} (P_t - I) -A \| = \| \sum_{k=2}^\infty \frac{t^{k-1}}{k!} A^k \| \leq \sum_{k=2}^\infty \frac{t^{k-1}}{k!} \| A \|^k = \frac{1}{t} (e^{t \| A \|} -1 - t \| A \|).
+    \]
+    Because
+    \[
+    \| \frac{1}{t} (P_t f -f ) -Af \| \leq \| \frac{1}{t} (P_t -I)-A \|_{OP} \| f \| \to 0, t \searrow 0
+    \]
+    it follows 
+    \[
+    s-\lim_{t \searrow 0} \frac{1}{t} (P_t f -f) =Af.
+    \]
+}
+
+\exm{}{
+    We will derive the generator for the Brownian transition function $P^{BM}$ on $\mathbb{R}^d$ for the respective semigroup $(P_t)_{t \geq 0}$ on $C_0 (\mathbb{R}^d)$. Define 
+    \[
+    C_0^2(\mathbb{R}^d) \equiv C_0^2(\mathbb{R}^d, \mathbb{R}:= \{ f \in C_0 (\mathbb{R}^d) \cap C^2(\mathbb{R}^d) \mid \partial_{ij}^2 f \in C_0 (\mathbb{R}^d), i,j=1,...,d \}.
+    \]
+    For $f \in C_0^2(\mathbb{R}^d)$ with Taylor expansion we get 
+    \begin{align*}
+        f(x+y) = f(x) + \sum_{i=1}^d \partial_i f(x) y_i + \int_0^1 (1-\theta) \sum_{i,j=1}^d \partial_{ij}^2 f(x-\theta y) y_i y_j d \theta.
+    \end{align*}
+    Then,
+    \begin{align*}
+        \frac{1}{t} ((P_t f)(x) -f (x) ) &= \frac{1}{t}( \mathbb{E}_x [f(B_t)] -f(x)) = \frac{1}{t} \mathbb{E}[ f(x+B_t) - f(x) ]\\
+        &= 0+ \frac{1}{2t} \sum_{i,j=1}^d (\partial_{ij}^2 f)(x) \mathbb{E}[ B_t^{i} B_t^{j} ] \\
+        &+ \sum_{i,j=1}^d \int_0^1 (1-\theta) \mathbb{E}[ (\partial_{ij}^2 f(x-\theta B_t) - \partial_{ij}^2 f(x) ) \frac{1}{t} B_t^{i} B_t^j ] d \theta \\
+        &=: \frac{1}{2} (\Delta f)(x) + \sum_{i,j=1}^d \int_0^1 (1-\theta) R_{ij} (x,\theta,t) d \theta 
+    \end{align*}
+    To show: $\forall x \in \mathbb{R}^d$: $\sum_{i,j=1}^d \int_0^1 (1-\theta) R_{ij} (x,\theta,t) d\theta \stackrel{u}{\to} 0,$ $t \searrow 0$.\\
+    Because $\partial_{ij}^2 f$ is uniformly continuous, we get 
+    \begin{align*}
+        |R_{ij} (x,\theta,t)| &\leq \mathbb{E}[ |\partial_{ij}^2 f(x+\theta B_t) - \partial_{ij}^2 f(x) | \frac{1}{t} |B_t^{i} B_t^j| ] \\
+        &\stackrel{???}{\leq} k^2 \underbrace{ \sup_{|z-z^\prime| \leq k \sqrt{t}} |\partial_{ij}^2 f(z) - \partial_{ij}^2 f(z^\prime)| }_{ \to 0, t \searrow 0} + 2 \| \partial_{ij}^2 f \|_\infty \underbrace{ \mathbb{E}[ \| B_1 \|^2 \textbf{1}_{\| B_1 \| >k}]}_{\to 0, k \to \infty}.
+    \end{align*}
+    Thus, 
+    \[
+    \sup_{x \in \mathbb{R}^d, \theta \in [0,1]} |R_{ij} (x,\theta,t)| \to 0, t \searrow 0, k \to \infty.
+    \]
+    Then for every $f \in C_0^2(\mathbb{R}^d)$ we have that $Gf = \frac{1}{2} \Delta f$ and $C_0^2 (\mathbb{R}^d) \stackrel{???}{\subseteq} \mathcal{D}(G)$.
+}
+\rmkb{
+    \begin{itemize}
+        \item For $d=1$: $ \mathcal{D}(\Delta) = C_0^2(\mathbb{R})$ 
+        \item For $d>1$ the Laplace operator $\Delta$ on $C_0^2(\mathbb{R}^d)$ is not closed in $C_0(\mathbb{R}^d)$, yielding that $C_0^2(\mathbb{R}^d) \subset \mathcal{D}(\Delta)$. 
+        \item $(X_t)_{t \geq 0}$ is a Markov process $\iff$ $P(t,x,A)$ $\iff$ $(P_t)_{t \geq 0}$ $\implies$ $(G,\mathcal{D}(G))$.
+    \end{itemize}
+}
+\defn{}{
+    Let $A$ be a closed operator on the Banach space $B$ with definition space $\mathcal{D}(A)$, then 
+    \[
+    \rho (A) := \{ \lambda \in \mathbb{R} \mid (\lambda I - A)^{-1} \text{ exists and is bounded, linear operator} \}
+    \]
+    is called resolvent set of $A$. $\sigma (A) := \mathbb{R} \setminus \rho (A)$ is called spectrum of $A$.
+}
+\rmkb{
+    $\rho (A)$ is open subset and $\sigma (A)$ is closed.
+}
+\defn{}{
+    Let $A$ be closed linear operator on $B$ with definition space $\mathcal{D}(A)$. For $\lambda \in \rho (A)$ the operator 
+    \[
+    R_\lambda := R_\lambda (A) := (\lambda I - A)^{-1}
+    \]
+    is called resolvent of $A$.
+}
+\lem{}{
+    Let $(A,\mathcal{D}(A))$ be closed operator on $B$, then 
+    \begin{itemize}
+        \item $\forall \lambda, \mu \in \rho (A):$ $R_\lambda - R_\mu = (\mu - \lambda) R_\lambda R_\mu$ and $R_\lambda R_\mu = R_\mu R_\lambda$. 
+        \item The image of $R_\lambda$ is independent of $\lambda \in \rho (A)$, meaning that 
+        \[
+        \forall \lambda, \mu \in \rho (A): \quad R_\lambda B = R_\mu B.
+        \]
+        Additionally, $R_\lambda B = \mathcal{D}(A)$.
+        \item If $(0,\infty) \subseteq \rho (A)$ and $\forall \lambda >0$ with $\| \lambda R_\lambda \| \leq 1$ then 
+        \[
+        \overline{R_\lambda B} = \{ f \in B \mid \lambda R_\lambda f \stackrel{s}{\to} f, \lambda \to \infty  \}.
+        \]
+    \end{itemize}
+}
+\defn{}{
+    Let $(P_t)_{t \geq 0}$ a contracting semigroup in $B$ with respective generator $(G,\mathcal{D}(G))$ we call the resolvent $R_\lambda (G)$ for $\lambda \in \rho (G)$ of $G$ in $B_0$ the resolvent of the semigroup $(P_t)_{t \geq 0}$.
+}
+\thm{}{
+    Let $(P_t)_{t \geq 0}$ be contracting semigroup on $B$ and denote by $(G,\mathcal{D}(G))$ the respective generator. Then 
+    \begin{itemize}
+        \item $\forall \lambda >0$ $\exists R_\lambda (G)$ resolvent on $B_0$ and is equal to the Laplace transform $L_\lambda$ of $(P_t)_{t \geq 0}$, i.e. 
+        \[
+        \forall f \in B_0, \lambda >0: \quad R_\lambda f = L_\lambda f := \int_0^\infty e^{-\lambda s} P_s f ds.
+        \]
+        Especially, $\forall f \in B_0, \lambda >0$: $\| \lambda R_\lambda f \| \leq \| f \|$.
+        \item $\overline{R_\lambda B_0} =B_0$.
+    \end{itemize}
+}
+
+\rmkb{
+    For $R_\lambda: B_0 \to \mathcal{D}(G)$ its inverse is given by $\lambda Id - G$.
+}
+\exm{}{
+    We want to find the generator for the 1-dim. Brownian motion on $C_0 (\mathbb{R})$ via the resolvent. With the previous Lemma it follows for every $\lambda >0$: 
+    \[
+    R_\lambda C_0 (\mathbb{R}) = \mathcal{D}(G) = \{ R_\lambda g \mid g \in C_0 (\mathbb{R}) \} \quad \text{ and } \quad Gf = (\lambda Id - R_\lambda^{-1}) f = \lambda f - R_\lambda^{-1} f.
+    \]
+    For $g \in C_0 (\mathbb{R})$: 
+    \begin{align*}
+        f(x) &= R_\lambda g (x) = L_\lambda g(x) = \int_0^\infty e^{-\lambda s} P_s g ds \\
+        &= \int_0^\infty e^{- \lambda s} \int_\mathbb{R} g(y) \frac{1}{\sqrt{2 \pi s}} e^{- \frac{(x-y)^2}{2s}} dy ds \\
+        &= \int_\mathbb{R} g(y) \int_0^\infty \frac{1}{\sqrt{2 \pi s}} e^{- \lambda s - \frac{x-y}{2s}} ds dy\\
+        &=\int_\mathbb{R} g(y) \frac{1}{\sqrt{2\lambda}} e^{- \sqrt{2 \lambda} (x-y)} dy \\
+        &= \frac{e^{- \sqrt{2 \lambda } x}}{\sqrt{2 \lambda}} \int_{-\infty}^x g(y) e^{\sqrt{2 \lambda} y } dy + \frac{e^{\sqrt{2 \lambda} x} }{\sqrt{2 \lambda}} \int_x^\infty g(y) e^{- \sqrt{2 \lambda} y} dy .
+    \end{align*}
+Then $f \in C_0(\mathbb{R})$ and is twice differentiable: 
+\begin{align*}
+    f^\prime (x) &= e^{- \sqrt{2 \lambda } x} \int_{-\infty}^x g(y) e^{\sqrt{2 \lambda} y } dy + e^{\sqrt{2 \lambda} x} \int_x^\infty g(y) e^{- \sqrt{2 \lambda} y} dy \\
+    f^{\prime \prime} (x) &= \sqrt{2 \lambda }e^{- \sqrt{2 \lambda } x} \int_{-\infty}^x g(y) e^{\sqrt{2 \lambda} y } dy +\sqrt{2 \lambda } e^{\sqrt{2 \lambda} x} \int_x^\infty g(y) e^{- \sqrt{2 \lambda} y} dy - 2 g(x) \\
+    &= 2(\lambda R_\lambda g(x) -g(x) ) = 2 (\lambda f(x) -g(x) ) \\
+    &\iff \frac{1}{2} f^{\prime \prime} = \lambda f- g = \lambda f - R_\lambda^{-1} f = Gf \\
+    &\iff Gf = \frac{1}{2} f^{\prime \prime}. 
+\end{align*}
+So $f^{\prime \prime} \in C_0(\mathbb{R})$ and thus 
+\[
+\mathcal{D}(G) \subseteq \{ f \in C_0 (\mathbb{R} \cap C^2(\mathbb{R})) \mid f^{\prime \prime} \in C_0(\mathbb{R}) \} =: A.
+\]  
+Now we show equality. Let $f \in A$ define 
+\[
+g := R_\lambda (\lambda f - \frac{1}{2} f^{\prime \prime}) \in R_\lambda C_0(\mathbb{R}).
+\]
+Set $h := f-g$, then $\forall \lambda >0$:
+\[
+\lambda h- \frac{1}{2} h^{\prime \prime} = \lambda f - \frac{1}{2} f^{\prime \prime} - (\lambda Id - G) R_\lambda (\lambda f - \frac{1}{2} f^{\prime \prime}) =0.
+\]
+Thus, $h=0$, as the above holds for every $\lambda >0$. We get $f =g = R_\lambda (\lambda f - \frac{1}{2} f^{\prime \prime})$ which implies that $f \in R_\lambda C_0 (\mathbb{R}) = \mathcal{D}(G)$. Thus $\mathcal{D}(G) =A$.
+}
+\thm{}{
+    A strong continuous semigroup linear contractions $(P_t)_{t \geq 0}$ is uniquely determined by its respective generator $(G,\mathcal{D}(G))$.
+}
+\thm{}{
+    Let $G$ be linear operator on $B$ with definition space $\mathcal{D}(G)$. $G$ is generator of a strong continuous semigroup $(P_t)_{t \geq 0}$ on $B$ $\iff$ 
+    \begin{itemize}
+        \item $\overline{\mathcal{D}(G)} = B (\equiv B_0)$
+        \item $(0,\infty) \in \rho (G)$ and $\forall \lambda>0$: $\| \lambda R_\lambda \| \leq 1$.
+    \end{itemize}
+}
+Is there a simpler to check criterion instead of ii) from the above for the reconstruction of a strong continuous semigroup linear contractions from the generator?
+\thm{}{
+    Let $E$ be a compact space and $G$ a linear operator on $C(E) (C_b (E) = C_0 (E))$ with definition space $\mathcal{D}(G)$. $G$ is generator of a strong, continuous and conservative sub-Markovian semigroup $(P_t)_{t \geq 0}$ linear contractions on $C(E)$ $\iff$
+    \begin{itemize}
+        \item $\overline{\mathcal{D}(G)} = C(E) (=B_0)$
+        \item $\forall \lambda >0, g \in C(E):$ $\lambda f - Gf = g$ has at least one solution in $\mathcal{D}(G)$ 
+        \item Maximum principle: $\forall f \in \mathcal{D}(G)$ with $f(x_0) := \max_{x \in E} f(x)$ holds 
+        \[
+        (Gf) (x_0) \leq 0
+        \]
+        \item $1 \in \mathcal{D}(G)$ and $G 1 =0$.
+    \end{itemize} 
+}   
+\defn{}{
+    A process is called progressively measurable if $\forall t\geq 0$: 
+    \[
+    [0,t] \times \Omega \to E, \quad (s,\omega) \mapsto X_s (\omega)
+    \]
+    is $\mathcal{B}([0,t]) \otimes \mathcal{F}_t$ measurable.
+}
+This implies that $X$ is $\mathcal{F}_t$ adapted.
+\thm{}{
+    Let $X$ be progressively measurable, $(E,\mathcal{E})$ valued Markov process on $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0})$ wrt. the distribution $(\mathbb{P}_x)_{x \in E}$ with generator $(G,\mathcal{D}(G))$, i.e. $G$ is generator on $B_0 \subseteq B(E)$ restricted to the respective semigroup $(P_t)_{t \geq 0}$, then 
+    \begin{itemize}
+        \item $\forall x \in E, f \in \mathcal{D}(G), t \geq 0:$
+        \[
+        M_t^f := f(X_t)- f(X_0) - \int_0^t (Gf) (X_r) dr 
+        \]
+        is a $(\mathcal{F}_t)$-martingale
+        \item $\forall x \in E, \lambda >0, f \in R_\lambda B_0, t \geq 0$: 
+        \[
+        M_t^{f,\lambda} := e^{-\lambda t} (R_\lambda f) (X_t) - (R_\lambda f)(X_0) + \int_0^t e^{-\lambda r} f(X_r) dr 
+        \]
+        is a $(\mathcal{F}_t)$-martingale.
+    \end{itemize}
+}
+\defn{}{
+    A $\mathcal{F}$-measurable mapping $T: \Omega\to [0,\infty]$ is called 
+    \begin{itemize}
+        \item $(\mathcal{F}_t)$ optional time if $\forall t \geq 0$: $\{ T \leq t \} \in \mathcal{F}_t^+ := \bigcap_{\epsilon >0} \mathcal{F}_{t+\epsilon}$.
+        \item $(\mathcal{F}_t)$ stopping time if $\forall t \geq 0$: $\{ T \leq t \} \in \mathcal{F}_t$.
+    \end{itemize}
+}
+
+\thm{}{
+    Let $X$ be a strong Markov process on $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, (\mathbb{P}_x)_{x \in E})$ with values in the polish space $(E,B(E))$. Denote by $(G,\mathcal{D}(G))$ the generator of the respective semigroup $(P_t)_{t \geq 0}$ on $B_0 \subseteq B(E)$. Then for every $f \in \mathcal{D}(G)$ and every $\mathcal{F}_t$ optional time $S$ with $\mathbb{E}_x [S]< \infty$, where $x \in E$ we have 
+    \[
+    \mathbb{E}_x [f(X_S)] =f(x) + \mathbb{E}_x [ \int_0^S (Gf) (X_r) dr ].
+    \]
+}
+
+    Dirichlet Problem:\\
+    Let $D \subseteq \mathbb{R}^d$ be open and bounded with smooth boundary, $g: \overline{D} \to \mathbb{R}$, $\varphi: \partial D \to \mathbb{R}$ continuous. Find $f \in C^2(C) \cap C(\overline{D})$: 
+    \[
+    \frac{1}{2} \Delta f =g, \quad \text{ on } D \quad \text{and} \quad f = \varphi \text{ on } \partial D.
+    \]
+
+\thm{}{
+    For $f \in C^2(D) \cap C(\overline{D})$ solution to the Dirichlet problem, $(B_t)_{t \geq 0}$ a d-dimensional Brownian motion on $(\Omega, \mathcal{F},(\mathcal{F}_t)_{t \geq 0}, (\mathbb{P}_x)_{x \in \mathbb{R}^d})$ and $T_{D^C} := \inf \{ t \geq 0 \mid B_t \notin D \}$ it holds $\forall x \in \bar{D}$: 
+    \[
+    f(x) = \mathbb{E}_x [ \varphi(B_{T_{D^C}}) + \int_0^{T_{D^C}} g(B_r) dr ]
+    \]
+    and $f$ is uniquely determined.
+}
+\pf{
+    As $D^C$ is closed it follows that $T_{D^C}$ is $(\mathcal{F}_t)$ stopping time. \\
+    To show: $\forall x \in \mathbb{R}^d$: $\mathbb{E}_x[ T_{D^C}  ]< \infty$. \\
+    Define the Lyaponov function 
+    \[
+    h(x) := - \underbrace{ 2 e^{- \min_{x \in \bar{D}} x_1 } }_{=: \mu} e^{x_1},
+    \]
+    then 
+    \[
+    (Gh) (x) = \frac{1}{2} (\Delta h) (x) = - \frac{\mu}{2} e^{x_1} \leq - \frac{\mu}{2} e^{\min_{x \in \mathcal{D}} x_1} = -1.
+    \]
+    For the bounded optimal time $T_{D^C} \wedge t$ and $x \in D$ we have 
+    \begin{align*}
+        \mathbb{E}_x [ T_{D^C} \wedge t ] & \stackrel{???}{\leq} \mathbb{E}_x [\int_0^{T_{D^C} \wedge t} (Gh) (B_r) dr] \\
+        &\stackrel{Thm.Above}{=} h(x) - \mathbb{E}_x [ h(B_{T_{D^C} \wedge t})] \stackrel{???}{\leq} 2 \max_{y \in \bar{D} } |h(y)|.
+    \end{align*} 
+    Thus, with Lemma of Fatou we have $\forall x \in D$: 
+    \[
+    \mathbb{E}_x [ T_{D^C} ] \leq \liminf_{t \to \infty} \mathbb{E}_x [ T_{D^C} \wedge ] \leq 2 \max_{y \in \bar{D}} |h(y)| < \infty.
+    \]
+    Because $\mathbb{P}_x (T_{D^C} =0) =1$ for every $x \in D^C$, it follows that for every $x \in \mathbb{R}^d$ that $\mathbb{E}_x[T_{D^C}]< \infty$. Thus, for every $x \in \bar{D}$: 
+    \begin{align*}
+        f(x) &= \mathbb{E}_x[ \underbrace{f(B_{T_{D^C} })}_{= \varphi(B_{T_{D^C}})}- \int_0^{T_{D^C}} \underbrace{(Gh) (B_r)}_{= -g (B_r)} dr  ]\\
+        &= \mathbb{E}_x [ \varphi(B_{T_{D^C}}) + \int_0^{T_{D^C}} g(B_r) dr ].
+    \end{align*}
+}
+\rmkb{
+    $u: [0,\infty) \to D(G)$ is a solution of the iVP if 
+    \[
+    \frac{d}{dt} u(t) := s-\lim_{h \searrow} \frac{u(t+h)-u(t)}{h},
+    \]
+    exists and strong continuous in $t$.
+}
+
+\thm{}{
+    Let $(P_t)_{t \geq 0}$ be semigroup linear contractions on a Banach space $B$ with generator $(G,D(G))$. Additionally, let $f \in D(G)$ and $g: [0,\infty) \to B_0$ continuously differentiable in strong sense. Then the iVP 
+    \[
+    \frac{d}{dt} u(t) = G u(t) + g(t), \quad t \geq 0, \quad u(0) = f
+    \]
+    has exactly one solution 
+    \[
+    u: [0,\infty) \to D(G), \quad t \mapsto u(t) = P_t f + \int_0^t P_{t-s} g_s ds.
+    \]
+}
+\pf{
+    \begin{itemize}
+        \item Uniqueness: Assume $u_1$ and $u_2$ are two solutions and define $v:= u_1 - u_2: [0,\infty) \to D(G)$ Then it solves the iVP 
+        \[
+        \frac{d}{dt} v(t) = Gv(t), \quad t \geq 0, \quad v(0) =0.
+        \]
+        To show: $\| v(t) \| =0$, $t \geq 0$.\\
+        Fix $T>0$. Because $Gu: [0,\infty) \to B$ is strongly continuous the mapping $[0,T] \ni t \mapsto G v(t)$ is uniformly strongly continuous, i.e. 
+        \[
+        \forall \epsilon >0 \exists \delta>0 \forall s,t \in [0,T] \text{ with } |s-t|< \delta: \quad \| Gv(t) - Gv(s) \| \leq \frac{\epsilon}{T}.
+        \]
+        Choose $0=t_0 < ...< t_n=T$ a partition of $[0,T]$ with $|t_k - t_{k-1}| < \delta$, $k=1,...,n$, then due to $u(t) \in D(G) = R_\lambda B_0$, $\lambda >0$, it follows that 
+        \begin{align*}
+            \| v(T) \| - \| v(0) \| &= \sum_{k=1}^n \| v(t_k) \| - \| v (t_{k-1}) \| \\
+            & = \sum_{k=1}^n \| \underbrace{ R_{(t_k-t_{k-1})^{-1}} \frac{1}{t_k - t_{k-1} } (Id - G) } v(t_k) \| - \| v(t_{k-1}) \| \\
+            &\leq \sum_{k=1}^n \underbrace{\| R_{(t_k-t_{k-1})^{-1}} \|}_{\leq (t_k-t_{k-1})^{-1}}  \| \frac{1}{t_k - t_{k-1} } (Id - G) v(t_k) \| - \| v(t_k) - \int_{t_{k-1}}^{t_k} G v(t_k) ds \| \\
+            & \leq \sum_{k=1}^n  \| v(t_k) - \int_{t_{k-1}}^{t_k} Gv(t_k) ds \| - \| v(t_k) - \int_{t_{k-1}}^{t_k} Gv(s) ds \| \\
+            &\stackrel{ \| A \| - \| B \| \leq \| A-B \| }{\leq} \sum_{k=1}^n \int_{t_{k-1}}^{t_k} \| Gv (s) - Gv(t_k) \| ds < \epsilon.
+            \end{align*}
+            Because by assumption $\| v(0) \| =0$ and $\epsilon>0$ the assertion follows. 
+            \item Existence: \\
+            Consider $\forall t \geq 0$: $u(t) := P_t f + \int_0^t P_{t-s} g(s) ds$. \\
+            To show: $u$ solves the iVP.\\
+            Because $f \in D(G)$ and $P_t f \in D(G)$ and $G P_t f = P_t G f$ it follows 
+            \begin{align*}
+                \int_0^t P_{t-s} g(s) ds &= \int_0^t P_{t-s} (g(0) + \int_0^s g^\prime (r) dr) ds \\
+                &= \int_0^t P_{t-s} g(0) ds + \int_0^t \int_r^t P_{t-s} g^\prime (r ) ds dr \\
+                &= \underbrace{ \int_0^t P_s g(0) ds}_{\in D(G)} + \int_0^t \underbrace{\int_0^{t-r} P_s g^\prime (r) ds }_{\in D(G), \forall r \in [0,t]} dr.
+            \end{align*}
+            Thus, for all $t \geq 0$: $u(t) \in D(G)$. Additionally, 
+            \begin{align*}
+                \frac{d}{dt} u(t) &= \frac{d}{dt} P_t f + \frac{d}{dt} \int_0^t P_{t-s} g(s) ds \\
+                &= GP_t f + \frac{d}{dt} ( \int_0^t P_s g(0) ds + \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr ) \\
+                & \stackrel{???}{=} \underbrace{G P_t f}_{= G u (t) - G ( \int_0^t P_s g(0) ds + \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr )}+ P_t g(0) + \int_0^t P_{t-r} g^\prime (r )dr 
+            \end{align*}
+            The theorem from stated that $P_t f -f = G( \int_0^t P_s f ds)$ yields that 
+            \begin{align*}
+                \frac{1}{h} (P_h - Id) \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr &= \int_0^t \frac{1}{h} ( \int_h^{t-r+h} P_s g^\prime (r) ds - \int_0^{t-r} P_s g^\prime (r) ds ) dr \\
+                &= \int_0^t \underbrace{ \frac{1}{h} \int_{t-r}^{t-r+h} P_s g^\prime (r) ds}_{\to P_{t-r} g^\prime (r), h \searrow 0} - \underbrace{ \frac{1}{h} \int_0^h P_s g^\prime (r) ds }_{\to g^\prime (r), h \searrow 0} dr.
+            \end{align*}
+            Thus, with the theorem of Lebesgue it follows 
+            \begin{align*}
+                G \left( \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr \right) &= \lim_{h \searrow 0} \frac{1}{h} (P_h - Id) \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr \\
+                & \stackrel{above}{=} \int_0^t P_{t-r} g^\prime (r) dr - \int_0^t g^\prime (r) dr \\
+                &= \int_0^t P_{t-r} g^\prime (r) dr - (g(t) - g(0)).
+            \end{align*}
+            Hence, finally 
+            \begin{align*}
+                \frac{d}{dt} u(t) &= G u(t) - G \left( \int_0^t P_s g(0) ds + \int_0^t \int_0^{t-r} P_s g^\prime (r) ds dr \right) + P_t g(0) + \int_0^t P_{t-r} g^\prime (r) dr\\
+                &= Gu (t) + g(t) + g(0) - P_t g(0) \stackrel{???}{=} Gu(t) + g(t).
+            \end{align*}
+    \end{itemize}
+}
+\cor{
+    Let $X$ be progressively measurable Markov process on $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, (\mathbb{P}_x)_{x \in E})$ with values in the polish space $(E,\mathcal{B}(E))$. Additionally, $(G,D(G))$ generates the respective semigroup $(P_t)_{t \geq 0}$ on $B_0 \subseteq B(E)$. Then for $f \in D(G)$ and $g: [0,\infty) \to B_0$ continuously differentiable in the strong sense, then
+    \[
+    u(t,x) = \mathbb{E}_x [ f(X_t) + \int_0^t g(t-s,X_s) ds ]
+    \]
+    is the unique solution of the iVP 
+    \[
+    \frac{d}{dt} u(t) = G u(t) + g(t), t \geq 0, \quad u(0) = f.
+    \]
+}
+\pf{
+    Because $g: [0,\infty) \times E \to \mathbb{R}$ is continuous in the first argument and measurable in the second, it follows that $g$ is $(\mathcal{B}([0,\infty)) \otimes \mathcal{B}(E) , \mathcal{B}(\mathbb{R}))$ measurable and by assumption bounded. Thus, the integral is well-defined. Finally, 
+    \begin{align*}
+        u(t,x) &= (P_t f) (x) + \int_0^t P_{t-s} g(s,x) ds = \mathbb{E}_x [ f(X_t)] + \int_0^t \mathbb{E}_x [ g(s,X_{t-s})] ds \\
+        &= \mathbb{E}_x[ f(X_t)] + \int_0^t \mathbb{E}_x [ g(t-s,X_s) ]ds \\
+        &= \mathbb{E}_x[ f(X_t) + \int_0^t g(t-s,X_s)ds ].
+    \end{align*}
+}
+
+
+\section{Backward Markov Processes}
+\section{Time-Reversal of Diffusions}
+
+
+
+
+
+
+
+\printbibliography
 \end{document}
