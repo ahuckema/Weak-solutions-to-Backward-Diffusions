@@ -2239,20 +2239,76 @@ implies that for every test function $\phi \in C_0([0,\infty))$ it holds
 
 Now the goal is to prove that $\bar{X}$ is a Markov process with transition semigroup $(\hat{P}_t)_{t \geq 0}$.
 
+To extend this duality from continuous functions to all positive arbitrary Borel functions, we apply the functional version of the Monotone Class Theorem. 
 
+Let $\mathcal{H}$ be the collection of all bounded Borel measurable functions $\phi: [0,\infty) \to \mathbb{R}$ for which the duality holds:
+\[
+    \langle P_\phi f, g \rangle_\nu = \langle f, \hat{P}_\phi g \rangle_\nu.
+\]
+We have already established that $C_0([0,\infty)) \subset \mathcal{H}$.
 
+Denote by
+\[
+\mathcal{H} := \{ \phi: [0,\infty) \to \mathbb{R} \mid \phi \text{Bounded Borel measurable, } \langle P_\phi f,g \rangle_\nu = \langle f,\hat{P}_\phi g \rangle_\nu \}.
+\]
+It is clear that $C_0([0,\infty)) \subset \mathcal{H}$. Supoose that $(\phi_n)_{n \in \mathbb{N}} \subset \mathcal{H}$ is a sequence of uniformly bounded functions with limit $\phi$. WIth the DCT we have that 
+\[
+\langle P_\phi f,g \rangle_\nu \stackrel{DCT}{=} \lim_{n \to \infty} \rangle P_{\phi_n} f,g \rangle_\nu = \lim_{n \to \infty} \langle f,\hat{P}_{\phi_n} g \rangle_\nu  \stackrel{DCT}{=} \langle f,\hat{P}_\phi g \rangle_\nu.
+\]
+Thus, the limit also satisfies that condition, i.e. $\phi \in \mathcal{H}$ So $\mathcal{H}$ is a monotone class. It follows with the monotone class theorem that $\sigma (C([0,\infty) ))\subseteq \mathcal{H}$. Because the continous functions generate the Borel $\sigma$-algebra, it follows that every bounded borel measurable function is in $\mathcal{H}$. To show that possibly unbounded positive Borel measurable functions are in $\mathcal{H}$, define the truncated sequence $\phi_n (t) := \min \{ \phi(t),n \}$, s.t. $\phi_n \nearrow \phi$ holds pointwise. With the MCT it holds 
+\[
+\langle P_\phi f, g \rangle_\nu \stackrel{MCT}{=} \lim_{n \to \infty} \langle P_{\phi_n} f,g \rangle_\nu = \lim_{n \to \infty} \langle  f,\hat{P}_{\phi_n}g \rangle_\nu  \stackrel{MCT}{=} \langle f, \hat{P}_\phi g \rangle_\nu.
+\]
+Thus, positive Borel functions lie in $\mathcal{H}$.
 
+\lem{}{
+    For $r>0$, $\phi$ a positive Borel function on $\mathbb{R}_+$ and $H$ a positive $\bar{\mathcal{F}}_r$-measurable random variable, then for any $f$ that is a positive Borel functions on $E$, we have 
+    \[
+    \int_0^\infty \phi (t) \mathbb{E}_\mu [ f(\bar{X}_{t+r})H] dt = \int_E f h_\phi d \nu= \langle f,h_\phi \rangle_\nu, \quad h_\phi (x) := \mathbb{E}_x [ H \phi (L-r) \textbf{1}_{r< L} ].
+    \]
+    For $s>r$ we have 
+    \[
+    \int_0^\infty \phi (t) \mathbb{E}_\mu [ f(\bar{X}_{t+s}) H ]dt = \int_E f P_{s-r} h_\phi d \nu = \langle f,P_{s-r} h_\phi \rangle_\nu
+    \]
+}
+\pf{
+    We know that if $L$ is a cooptional  time then $L^\prime := (L-r)^+$ is another cooptional time. Let $(\tilde{X}_t)_{t \geq 0}$ be another reverse process at the new turn around $L^\prime$. Then for every $t<L^\prime$: 
+    \[
+    \tilde{X}_t = X_{L^\prime -t} = X_{L -r-t} =X_{L- (t+r)} = \bar{X}_{t+r}.
+    \]
+    Because for every $u \geq 0$ we have 
+    \[
+    \{ L^\prime >u \} \iff \{ (L-r)^+ > u \} \iff \{ L>r+u \}
+    \]
+    and on $\{L>r+u\}: H\circ \theta_u = H$, it also holds that on $\{ L^\prime >u \}:$ $H =H\circ \theta_u$. This gives us for $H$ is wrt. $L^\prime$ $\bar{\mathcal{F}}_0$ measurable. So evaluating the reverse process $\bar{X}$ at $t+r$ is equivalent to evaluating the new reverse process $\tilde{X}$ at $t$, i.e. $r=0$. This gives us 
+    \[
+    \int_0^\infty \phi(t) \mathbb{E}_\mu [ f(\bar{X}_{t+r}) H ]dt = \int_0^\infty \phi(t) \mathbb{E}_\mu [ f(X_{L^\prime -t}) \textbf{1}_{L^\prime >t} H ]dt.
+    \]
+    We then have 
+    \begin{align*}
+        \int_0^\infty \phi (t) \mathbb{E}_\mu [ f(X_{L^\prime -t}) \textbf{1}_{L^\prime >t} H] dt &= \mathbb{E}_\mu [ \int_0^\infty \phi (t) f(X_{L^\prime -t}) \textbf{1}_{L^\prime >t} H dt ]\\
+        &= \mathbb{E}_\mu [ \int_0^\infty \phi(L^\prime - u) f(X_u) \textbf{1}_{L^\prime > u} H du ]\\
+        &= \int_0^\infty \mathbb{E}_\mu [ (H \phi(L^\prime) \textbf{1}_{L^\prime >0}) \circ \theta_u f(X_u) ]du \\
+        &= \int_0^\infty \mathbb{E}_\mu [ \mathbb{E}_\mu[ (H \phi(L^\prime) \textbf{1}_{L^\prime >0}) \circ \theta_u f(X_u) \mid \mathcal{F}_u ] ]du \\
+        &= \int_0^\infty \mathbb{E}_\mu [ f(X_u) \mathbb{E}[ (H \phi(L^\prime) \textbf{1}_{L^\prime >0}) \circ \theta_u  \mid \mathcal{F}_u ] ]du \\
+        &= \int_0^\infty \mathbb{E}_\mu [ f(X_u) \mathbb{E}_{X_u}[ H \phi(L^\prime) \textbf{1}_{L^\prime >0} ] ]du \\
+        &= \int_0^\infty \mathbb{E}_\mu [ f(X_u) h_\phi (X_u) ] du \\
+        &= \int_0^\infty \int_E \int_E f(y) h_\phi (y) P_u (x,dy) d \mu (x) d u \\
+        &= \int_E \int_E f(y) h_\phi (y) \int_0^\infty P_u (x,dy) du d \mu (x) \\
+        &= \int_E \int_E f(y) h_\phi (y) U(x,dy) d \mu (x), \quad \nu := \mu U \\
+        &=\int_E f h_\phi d \nu.
+    \end{align*}
+}
+The backward dynamics $\bar{X}_{t+r}$ and a $\bar{\mathcal{F}}_t$-measurable random variable $H$ that represents the reverse process up to time $r$ are evaluted according to the expectation of the forward dynamic. \\
+$h_\phi (x)$ represts the expected value of the $\bar{F}_r$ past given that the forward process started in $x$. So this is a spatial weighing function. The first assertion shows that time smeared expectation wrt. the forward process over the backward process is the same as taking the $L^2$ inner product of the test dunction and the history function $h_\phi$.\\
+The second equation states if we instead take the backward process up to time $t+s$ for $s>r$, where $H$ is still $\bar{\mathcal{F}}_t$, then the time smeared expectation corresponds to the inner product, however we move the history function $h_\phi$ with the forward transition semigroup $P_{s-r}$.
 
-
-
-
-
-
-
-
-
-
-
+\lem{}{
+    If $\psi$ is another positive Borel function on $\mathbb{R}_+$ we have 
+    \[
+    P_\psi h_\phi = h_{\psi * \phi} = P_\phi h_\psi,\quad h_\phi (x) := \mathbb{E}_x [ H \phi (L-r) \textbf{1}_{r< L} ].
+    \]
+}
 
 
 
