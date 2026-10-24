@@ -1,0 +1,5 @@
+\beamer@sectionintoc {1}{Roadmap}{2}{0}{1}
+\beamer@sectionintoc {2}{Brownian motion}{3}{0}{2}
+\beamer@sectionintoc {3}{Motivation}{4}{0}{3}
+\beamer@sectionintoc {4}{Resolvent framework}{5}{0}{4}
+\beamer@sectionintoc {5}{Density extension}{7}{0}{5}

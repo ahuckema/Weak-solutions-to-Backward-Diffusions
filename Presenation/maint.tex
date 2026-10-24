@@ -1,0 +1,247 @@
+\documentclass[11pt,aspectratio=169]{beamer}
+
+% Core packages
+\usepackage{amsmath,amssymb}
+\usepackage{tikz-cd}
+\usepackage{animate}
+\usepackage{multicol}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+
+% Color palette
+\definecolor{Ink}{HTML}{14243A}
+\definecolor{Midnight}{HTML}{10253F}
+\definecolor{Teal}{HTML}{16B8A6}
+\definecolor{Coral}{HTML}{F47763}
+\definecolor{Gold}{HTML}{F2B84B}
+\definecolor{Mist}{HTML}{F3F7FA}
+\definecolor{Muted}{HTML}{64748B}
+
+% Clean, spacious slide styling
+\setbeamercolor{normal text}{fg=Ink,bg=white}
+\setbeamercolor{structure}{fg=Teal}
+\setbeamercolor{frametitle}{fg=Ink,bg=white}
+\setbeamercolor{block title}{fg=white,bg=Midnight}
+\setbeamercolor{block body}{fg=Ink,bg=Mist}
+\setbeamercolor{alerted text}{fg=Coral}
+\setbeamercolor{recall}{fg=Ink,bg=Mist}
+\setbeamerfont{frametitle}{series=\bfseries,size=\Large}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize item}{\color{Teal}\raisebox{0.15ex}{\small\textbullet}}
+\setbeamertemplate{itemize subitem}{\color{Coral}\raisebox{0.15ex}{\tiny\textbullet}}
+\setbeamertemplate{frametitle}{%
+  \vspace{0.28cm}%
+  \noindent\makebox[\linewidth][s]{%
+    {\color{Muted}\fontsize{7}{8}\selectfont\insertauthor}%
+    \hfill
+    {\color{Muted}\fontsize{7}{8}\selectfont\sectionprogress}%
+  }\par
+  \vspace{0.18cm}%
+  \insertframetitle\par
+  \vspace{0.12cm}%
+  {\color{Teal}\rule{0.12\paperwidth}{2.2pt}}%
+  \hfill{\color{Coral}\rule{0.035\paperwidth}{2.2pt}}%
+  \vspace{0.18cm}%
+}
+\setbeamertemplate{footline}{%
+  \leavevmode%
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1.2ex,leftskip=0.7cm,rightskip=0.7cm]{normal text}%
+      {\color{Muted}\scriptsize Resolvents and Laplace transforms}%
+      \hfill{\color{Muted}\scriptsize\insertframenumber}%
+    \end{beamercolorbox}%
+  }%
+}
+\setbeamersize{text margin left=0.8cm,text margin right=0.8cm}
+
+\newcommand{\sectionprogress}{%
+  \pgfmathtruncatemacro{\currentsectionframe}{\insertpagenumber-\insertsectionstartpage+1}%
+  \pgfmathtruncatemacro{\totalsectionframes}{\insertsectionendpage-\insertsectionstartpage+1}%
+  \pgfmathsetlengthmacro{\sectionprogresswidth}{1.15cm*\currentsectionframe/\totalsectionframes}%
+  \begin{tikzpicture}[baseline=-0.5ex]
+    \fill[Mist] (0,0) rectangle (1.15cm,1.2pt);
+    \fill[Teal] (0,0) rectangle (\sectionprogresswidth,1.2pt);
+  \end{tikzpicture}%
+  \hspace{0.25em}\currentsectionframe/\totalsectionframes
+}
+\newcommand{\recallbox}[2][Recall]{%
+  \begin{beamercolorbox}[wd=\linewidth,sep=0.65em,rounded=true]{recall}%
+    {\color{Coral}\scriptsize\bfseries #1}\hspace{0.65em}%
+    {\small #2}%
+  \end{beamercolorbox}%
+}
+
+\title{Time Reversal of Diffusions}
+\subtitle{Subtitile}
+\author{Arne Huckemann}
+\date{06.11.2026}
+
+\begin{document}
+
+{\setbeamertemplate{footline}{}
+\begin{frame}[plain]
+  \begin{tikzpicture}[remember picture,overlay]
+    \fill[Midnight] (current page.south west) rectangle (current page.north east);
+    \fill[Teal] (current page.north west) rectangle ([yshift=-0.16cm]current page.north east);
+    \fill[Coral] ([xshift=0.78\paperwidth]current page.south west) rectangle (current page.south east);
+    \fill[Gold] ([xshift=0.72\paperwidth]current page.south west) rectangle ([xshift=0.78\paperwidth,yshift=0.08cm]current page.south west);
+    \fill[Teal,opacity=0.16] ([xshift=0.68\paperwidth,yshift=0.38\paperheight]current page.south west) circle (2.2cm);
+    \fill[Coral,opacity=0.14] ([xshift=0.82\paperwidth,yshift=0.62\paperheight]current page.south west) circle (1.2cm);
+  \end{tikzpicture}
+  \vspace*{1.3cm}
+  {\color{Teal}\large\textsc{Operator semigroups}}\par
+  \vspace{0.45cm}
+  {\color{white}\huge\bfseries\inserttitle}\par
+  \vspace{0.28cm}
+  {\color{white!75}\large\insertsubtitle}\par
+  \vfill
+  {\color{white}\normalsize\insertauthor}\hspace{0.7em}
+  {\color{white!55}\small\textbullet}\hspace{0.7em}
+  {\color{white!75}\normalsize\insertdate}
+  \vspace{0.8cm}
+\end{frame}}
+
+
+
+\section{Roadmap}
+\begin{frame}{From foundations to time reversal}
+  \centering
+  \begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\sffamily\scriptsize]
+    \node[font=\tiny\bfseries,text=Muted] at (0,2.28) {FOUNDATIONAL TOOLS};
+
+    \node[rounded corners=2mm,draw=Teal!75!Ink,fill=Teal!8,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (calculus) at (-3.8,1.88) {\bfseries Stochastic Calculus};
+    \node[rounded corners=2mm,draw=Coral!75!Ink,fill=Coral!9,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (processes) at (0,1.88) {\bfseries Stochastic Processes};
+    \node[rounded corners=2mm,draw=Gold!75!Ink,fill=Gold!18,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (markov) at (3.8,1.88) {\bfseries Markov Processes};
+
+    \draw[Teal!75!Ink,line width=0.7pt] (calculus.south) -- (-3.8,1.42);
+    \draw[Coral!75!Ink,line width=0.7pt] (processes.south) -- (0,1.12);
+    \draw[Gold!75!Ink,line width=0.7pt] (markov.south) -- (3.8,1.42);
+    \draw[Ink!40,line width=0.7pt] (-3.8,1.42) -- (3.8,1.42);
+    \fill[Teal] (0,1.12) circle (1.3pt);
+
+    \node[rounded corners=2mm,fill=Midnight,text=white,text width=6.2cm,minimum height=0.62cm,align=center,inner sep=4pt] (weak) at (0,0.62) {\bfseries Weak solutions for SDEs\\[-1pt]{\color{white!80}Formulated through the martingale problem}};
+    \draw[Ink!50,->,line width=0.8pt] (0,1.12) -- (weak.north);
+
+    \node[rounded corners=2mm,draw=Teal!75!Ink,fill=Teal!8,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (reverse) at (-3.8,-0.78) {\bfseries Reverse process\\is Markov};
+    \node[rounded corners=2mm,draw=Coral!75!Ink,fill=Coral!9,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (pde) at (0,-0.78) {\bfseries PDE methods\\derive reverse dynamics};
+    \node[rounded corners=2mm,draw=Gold!75!Ink,fill=Gold!18,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (sde) at (3.8,-0.78) {\bfseries Reverse SDE\\and its generator};
+
+    \draw[Ink!50,->,line width=0.8pt] (weak.south) -- (0,0.02) -- (-3.8,0.02) -- (reverse.north);
+    \draw[Teal!75!Ink,->,line width=0.9pt] (reverse.east) -- (pde.west);
+    \draw[Coral!75!Ink,->,line width=0.9pt] (pde.east) -- (sde.west);
+
+    \node[rounded corners=2mm,fill=Mist,draw=Midnight!30,text width=7.2cm,minimum height=0.5cm,align=center,inner sep=4pt] (paper) at (0,-2) {{\color{Muted}\tiny APPLICATION}\hspace{0.6em}{\bfseries Time Reversal of Diffusions}};
+    \draw[Gold!75!Ink,->,line width=0.9pt] (sde.south) -- (paper.north);
+  \end{tikzpicture}
+\end{frame}
+
+
+\section{Brownian motion}
+\begin{frame}{Sample paths of Brownian motion}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.67\textwidth}
+      \vspace{0.05cm}
+      \centering
+      \animategraphics[autoplay,loop,controls,poster=last,width=0.88\linewidth]{10}{brownian-assets/frame-}{0}{39}
+    \end{column}
+    \begin{column}{0.30\textwidth}
+      \vspace{0.2cm}
+      {\color{Teal}\small\bfseries Six independent paths}\par
+      \vspace{0.15cm}
+      \raggedright Each curve is a realization of standard Brownian motion. All paths begin at zero and evolve independently.
+      \par\smallskip\centering{\scriptsize \(B_0^{(k)}=0,\quad k=1,\ldots,6.\)}\par
+      \vfill
+      {\color{Muted}\scriptsize The animation loops as each trajectory unfolds.}
+    \end{column}
+  \end{columns}
+\end{frame}
+
+\section{Motivation}
+\begin{frame}{The Idea of Diffusion}
+  \begin{block}{Start with a weighted semigroup average}
+    For a kernel $\phi$, define
+    \[
+      P_\phi f(x) := \int_0^\infty \phi(t)\,P_t f(x)\,dt.
+    \]
+  \end{block}
+
+  Taking the exponential kernel
+  \[
+    \phi_p(t) := e^{-pt}, \qquad p>0,
+  \]
+  recovers the resolvent, which is the Laplace transform of the semigroup:
+  \[
+    \alert{R_p \equiv P_{\phi_p}}.
+  \]
+\end{frame}
+
+
+\section{Resolvent framework}
+\begin{frame}{The exponential kernel gives the resolvent}
+  \begin{block}{Start with a weighted semigroup average}
+    For a kernel $\phi$, define
+    \[
+      P_\phi f(x) := \int_0^\infty \phi(t)\,P_t f(x)\,dt.
+    \]
+  \end{block}
+
+  Taking the exponential kernel
+  \[
+    \phi_p(t) := e^{-pt}, \qquad p>0,
+  \]
+  recovers the resolvent, which is the Laplace transform of the semigroup:
+  \[
+    \alert{R_p \equiv P_{\phi_p}}.
+  \]
+\end{frame}
+
+\begin{frame}{Build a class from exponential kernels}
+  Consider finite linear combinations of exponentials:
+  \[
+    \mathcal{C} := \left\{
+      \phi:[0,\infty)\to\mathbb{R}\;\middle|\;
+      \phi(t)=\sum_{i=1}^{n} c_i e^{-p_i t},\;
+      c_i\in\mathbb{R},\;p_i>0,\;n\in\mathbb{N}
+    \right\}.
+  \]
+
+  By linearity, every $\phi\in\mathcal{C}$ satisfies
+  \[
+    \langle P_\phi f,g\rangle_\nu
+    = \sum_{i=1}^{n} c_i\langle R_{p_i}f,g\rangle_\nu
+    = \langle f,\widehat{P}_\phi g\rangle_\nu.
+  \]
+
+  \vfill
+  \noindent
+  \begin{minipage}[c]{0.52\linewidth}
+    {\small Linearity carries the resolvent adjoint relation to finite exponential sums.}
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.42\linewidth}
+    \recallbox[Previous result]{For each $p>0$, $R_p=P_{\phi_p}$.}
+  \end{minipage}
+\end{frame}
+
+\section{Density extension}
+\begin{frame}{Density extends the identity to $C_0$}
+  The exponential class is dense in $C_0([0,\infty))$. Thus, for each
+  $\phi\in C_0([0,\infty))$, there is a sequence $\phi_n\in\mathcal{C}$ such that
+  \[
+    \lim_{n\to\infty}\;\sup_{t\ge 0}
+    \bigl|\phi_n(t)-\phi(t)\bigr|=0.
+  \]
+
+  \vfill
+  \begin{center}
+    \begin{tikzpicture}[baseline=-0.5ex]
+      \node[rounded corners=3pt,fill=Mist,inner xsep=14pt,inner ysep=9pt] {
+        \color{Ink}\large Uniform approximation\quad
+        {\color{Teal}\(\Longrightarrow\)}\quad
+        \color{Ink}\large extension beyond exponentials
+      };
+    \end{tikzpicture}
+  \end{center}
+  \vspace{0.25cm}
+\end{frame}
+
+\end{document}

@@ -2113,7 +2113,8 @@ This implies that $X$ is $\mathcal{F}_t$ adapted.
         &= \mathbb{E}_x[ f(X_t) + \int_0^t g(t-s,X_s)ds ].
     \end{align*}
 }
-\section{Backward Markov Processes}
+\section{Backward Processes}
+\subsection{Backward Process is Markov Process}
 A continuous time stochastic process is a family of random variables $X_t : \Omega \to E$, $t \in [0,\infty)$. A random variable needs to be well defined for every $\omega \in \Omega$. If a process explodes, or is terminated after finite time, it is no longer measurable. By defining $\Delta$ as an isolated state, where $X_t (\omega)$ takes its values when it explodes/terminates, one gets back the measurability, when extending the state space $E_\Delta := E \cup \Delta$. Define 
 \[
 \zeta := \inf \{ t \geq 0 \mid X_t (\omega)=\Delta \}
@@ -2272,6 +2273,7 @@ Thus, positive Borel functions lie in $\mathcal{H}$.
     \]
 }
 \pf{
+    \textbf{1)}\\
     We know that if $L$ is a cooptional  time then $L^\prime := (L-r)^+$ is another cooptional time. Let $(\tilde{X}_t)_{t \geq 0}$ be another reverse process at the new turn around $L^\prime$. Then for every $t<L^\prime$: 
     \[
     \tilde{X}_t = X_{L^\prime -t} = X_{L -r-t} =X_{L- (t+r)} = \bar{X}_{t+r}.
@@ -2296,8 +2298,27 @@ Thus, positive Borel functions lie in $\mathcal{H}$.
         &= \int_0^\infty \int_E \int_E f(y) h_\phi (y) P_u (x,dy) d \mu (x) d u \\
         &= \int_E \int_E f(y) h_\phi (y) \int_0^\infty P_u (x,dy) du d \mu (x) \\
         &= \int_E \int_E f(y) h_\phi (y) U(x,dy) d \mu (x), \quad \nu := \mu U \\
-        &=\int_E f h_\phi d \nu.
+        &=\int_E f h_\phi d \nu.    
     \end{align*}
+\textbf{2)}\\
+Similiar as in the first part choose $L^\prime := (L-r)^+$ and $u := s-r$, then for every $s>r$ we have 
+\begin{align*}
+    \mathbb{E}_x [ H \phi (L^\prime -u) \textbf{1}_{u<L^\prime} ] &= \mathbb{E}_x[ H \phi (L-r-s+r) \textbf{1}_{s<L} ]\\
+    &= \mathbb{E}_x [ H \phi (L-s) \textbf{1}_{s<L} ]\\
+    &= \mathbb{E}_x[ (H \phi (L -r) \textbf{1}_{r<L}) \circ \theta_{s-r} ]\\
+    &= \mathbb{E}_x[  \mathbb{E}[ (H\phi(L-r)\textbf{1}_{r<L}) \circ \theta_{s-r} \mid \mathcal{F}_{s-r} ] ]\\
+    &= \mathbb{E}_x[ \mathbb{E}_{X_{s-r}}[ H \phi (L -r) \textbf{1}_{r< L} ] ]\\
+    &= \mathbb{E}_x[ h_\phi (X_{s-r}) ] = \int_E h_\phi (y) P_{s-r}(x,dy) \stackrel{Def}{=} P_{s-r} h_\phi (x)
+\end{align*}
+This yields with step 1) that 
+\begin{align*}
+    \int_0^\infty \phi (t) \mathbb{E}_\mu [ f(\bar{X}_{t+s}) H] dt &= \int_E f(x) h_\phi (x) d \nu (x) = \int_E f(x) \mathbb{E}_x[H \phi(L^\prime -u) \textbf{1}_{u<L^\prime} ] d \nu (x)\\
+    &=  \int_E f(x) \int_E h_\phi (y) P_{s-r} (x,dy)  d \nu (x)\\
+    &= \int_E f(x) P_{s-r} h_\phi (x) d \nu (x). 
+\end{align*}
+
+
+
 }
 The backward dynamics $\bar{X}_{t+r}$ and a $\bar{\mathcal{F}}_t$-measurable random variable $H$ that represents the reverse process up to time $r$ are evaluted according to the expectation of the forward dynamic. \\
 $h_\phi (x)$ represts the expected value of the $\bar{F}_r$ past given that the forward process started in $x$. So this is a spatial weighing function. The first assertion shows that time smeared expectation wrt. the forward process over the backward process is the same as taking the $L^2$ inner product of the test dunction and the history function $h_\phi$.\\
@@ -2310,11 +2331,94 @@ The second equation states if we instead take the backward process up to time $t
     \]
 }
 
+The Markov property is equivalent to the functional one: 
+\[
+\mathbb{P}_x[ X_{t+s} \in A \mid \mathcal{F}_s ] = \mathbb{P}_{X_s}(X_t \in A) \quad \mathbb{P}_x-a.s. \quad \iff \quad \mathbb{E}_x [ f(X_{t+s}) \mid \mathcal{F}_s ]= \mathbb{E}_{X_s}[ f(X_t) ]\quad \mathbb{P}_x-a.s..
+\]
+Because 
+\begin{align*}
+    &\mathbb{E}_\mu[ \mathbb{E}_\mu [ f(X_{t+s}) \mid \mathcal{F}_s ] \textbf{1}_A ]\\
+    \mathbb{E}_\mu[ f(X_{t+s}) \textbf{1}_A ]&= \int_E \mathbb{E}_x[ f(X{t+s}) \textbf{1}_A ] d \mu (x) \\
+    &= \int_E \mathbb{E}_x[ \mathbb{E}_x [ f(X_{t+s}) \mid \mathcal{F}_s ] \textbf{1}_A ]d \mu (x)\\
+    &= \int_E \mathbb{E}_x [ P_t f(X_s) \textbf{1}_A] d \mu (x) = \mathbb{E}_\mu[ P_t f(X_s) \textbf{1}_A ].
+\end{align*}
+we can also formulate the Markov property wrt. to the initial distribution
+\[
+ \mathbb{E}_\mu [ f(X_{t+s}) \mid \mathcal{F}_s ] = P_t f(X_s) \quad \mathbb{P}_\mu-a.s.
+\]
+
+\thm{}{
+    Under $\mathbb{P}_\mu$ the reverse process $\bar{X}$ is a Markov process wrt. $(\bar{\mathcal{F}}_t)_{t \geq 0}$ with transition function $(\hat{P}_t)_{t \geq 0}$.
+}
+\pf{
+We want to prove that for every positive Borel measurable function $\mathbb{E}_\mu [ f(X_{t+s}) \mid \mathcal{F}_s ] = P_t f(X_s)$ $\mathbb{P}_\mu$-a.s.. We then have 
+\begin{align*}
+    \int_r^\infty \psi (s-r) \langle f,P_{s-r} h_\phi \rangle_\nu ds &= \int_r^\infty \psi (s-r) \int_0^\infty \phi (t) \mathbb{E}_\mu [ f(\bar{X}_{t+s}) H ]dt ds \\
+    &= \langle f, \int_r^\infty \psi(s-r) P_{s-r} h_\phi ds \rangle_\nu = \langle f, P_\psi h_\phi \rangle_\nu \\
+    &= \langle f, P_\phi h_\psi \rangle_\nu = \langle \hat{P}_\phi f, h_\psi \rangle_\nu \\
+    &= \int_0^\infty \psi (t) \mathbb{E}_\mu [ \hat{P}_\phi f(\bar{X}_{t+r}) H ] dt \\
+    &= \int_r^\infty \psi (s-r) \mathbb{E}_\mu [ \hat{P}_\phi f(\bar{X}_s) H ] ds \\
+    &= \int_r^\infty \psi (s-r) \mathbb{E}_\mu [ \int_0^\infty  \phi(t) \hat{P}_t f(\bar{X}_s) dt H]ds \\
+    &= \int_r^\infty \psi (s-r) \int_0^\infty \phi (t) \mathbb{E}_\mu [ \hat{P}_t f(\bar{X}_s) H ] dt ds
+\end{align*}
+Because the above holds for arbitrary test functions $\psi$ and $\phi$ we have for $\lambda$-a.e. $s,t \geq 0$ that
+\[
+\mathbb{E}_\mu [ \hat{P}_\phi f(\bar{X}_s) H ] = \mathbb{E}_\mu[ f(\bar{X}_{t+s}) H ] 
+\]
+Finally, due to 
+\[
+\mathbb{E}_\mu[ f(\bar{X}_{t+s}) H ] = \mathbb{E}_\mu [ \mathbb{E}_\mu [ f(\bar{X}_{t+s}) H \mid \bar{\mathcal{F}}_s ] ] = \mathbb{E}_\mu [ \mathbb{E}_\mu[ f(\bar{X}_{t+s}) \mid \bar{\mathcal{F}_s} ] H ].
+\]
+As again $H$ is an arbitrary $\bar{F}_s$-measurable random variable, we have 
+\[
+\mathbb{E}_\mu [ f(\bar{X}_{t+s}) \mid \bar{\mathcal{F}}_s ](\cdot) = \hat{P}_t f(\bar{X}_s) \quad \mathbb{P}_\mu -a.s. \lambda-a.e.
+\]
+}
+
+\subsection{Existence of the Backward Process using PDEs and Sobolev Spaces}
+
+Let $\Omega= C([0,T], \mathbb{R}^n)$. The existence of the proability measure $\mathbb{P}$ solving the Martingale problem wrt. 
+\[
+L  := \frac{1}{2} \sum_{i,j=1}^n a_{ij} \frac{\partial^2}{\partial x_i \partial x_j} + \sum_{i=1}^n b_i \frac{\partial}{\partial x_i},
+\]
+for carrying the forward difssion only requires continuouity and boundedness of $a_{ij}$ and $b_i$. For the backward problem we need an entirely different approach. Denote by 
+\[
+\mu_t (A) := \mathbb{P}(X_t \in A), \quad \bar{\mu}_t (A) := \mathbb{P}(\bar{X}_t \in A), \quad A \in \mathcal{B}(\Omega), 
+\]
+the marginal densities of the forward an backward process (???). With Ito we then have for any test function $\phi \in C_c^\infty ( \mathbb{R}^d \times [0,T])$ (???) that for $a:= \sigma^T \sigma$
+\begin{align*}
+    0= \mathbb{E}[ \phi(X_T,T)- \phi(X_0,0) ]&= \mathbb{E}[ \int_0^T \frac{\partial}{\partial s} \phi (X_s,s)+\nabla \phi (X_s,s) b(X_s,s) + \Delta \phi (X_s,s) a(X_s,s)ds  ] \\
+    &+ \underbrace{\mathbb{E}[ \int_0^T \nabla \phi (X_s,s) \sigma(X_s,s)d W_s ]}_{=0, \text{ as integral process is martingale}.}\\
+    &= \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \phi (x,s) + b(x,s)^T \nabla \phi (x,s) + \Delta \phi (x,s) \right) u(x,s) dx ds,
+\end{align*}
+where $u(\cdot,t)$ denotes the density of $\mu_t$. The backward density of $\bar{\mu}_t$ is denoted by $\bar{u}(\cdot, t)$. Define the reverse time test function $\psi (x,t) := \phi (x,T-t)$. With the chain rule we have 
+\[
+\frac{\partial}{\partial t} \psi (x,t) = - \frac{\partial}{\partial t} \phi (x,t).
+\]
+With the change of variables $s \mapsto T-t$ (???) we get 
+\begin{align*}
+  &0=  \int_0^T \int_{\mathbb{R}^n} \left( -\frac{\partial}{\partial s} \psi (x,s) + b(x,T-s)^T \nabla \psi(x,s)+ \Delta \psi (x,s) \right) \bar{u}(x,s) dx ds \\
+  &\iff 0=  \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \psi (x,s) - b(x,T-s)^T \nabla \psi(x,s)- \Delta \psi (x,s) \right) \bar{u}(x,s) dx ds \\
+  & \qquad \stackrel{(*)}{=}  \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \psi (x,s) - b(x,T-s)^T \nabla \psi(x,s)+\Delta \psi (x,s)- 2 \Delta \psi (x,s) \right) \bar{u}(x,s) dx ds \\
+  & \qquad \stackrel{(**)}{=}  \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \psi (x,s) - b(x,T-s)^T \nabla \psi(x,s)+\Delta \psi(x,s) + 2 \nabla \log( \bar{u}(x,s))^T \nabla \psi (x,s)  \right) \bar{u}(x,s) dx ds \\
+  & =  \int_0^T \int_{\mathbb{R}^n}- \frac{\partial}{\partial s} \bar{u}(x,s) \psi (x,s) + \nabla \cdot( b(x,T-s) \bar{u}(x,s)) \psi(x,s)+\Delta \bar{u}(x,s) \psi(x,s) \\
+  &- 2 \nabla \cdot ( \bar{u}(x,s) \nabla \log( \bar{u}(x,s)))  \psi (x,s)   dx ds, 
+\end{align*}
+although in $(*)$ we multiplied by we added and subtracted with $2 \Delta \psi (x,s)$ and in $(**)$ we used Greens identity and the fact that the strong Maximums principle guarantees that $\bar{u}>0$: 
+\[
+-2 \int_{\mathbb{R}^n} \bar{u}(x,t) \Delta \psi (x,t)dx = 2 \int_{\mathbb{R}^n} \nabla \bar{u}(x,t)^T \nabla \psi (x,t) dx = 2 \int_{\mathbb{R}^n} \nabla \log (\bar{u}(x,t))^T \nabla \psi (x,t) \bar{u}(x,t) dx .
+\]
+As the test function was chosen arbitrary we have in a weak sense the following PDE 
+\[
+-\frac{\partial}{\partial t} \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ) + \Delta \bar{u} - 2 \nabla \cdot ( \bar{u} \nabla \log (\bar{u}))=0.
+\]
+Now we want to show the existence of the solution on specific spaces.
+
+
+
 
 
 \section{Time-Reversal of Diffusions}
-
-
 
 
 
