@@ -1,57 +1,73 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import os
 
-# Create the folder your LaTeX code expects
-output_dir = "brownian-assets"
-os.makedirs(output_dir, exist_ok=True)
+def compute_stationary(P):
+    evals, evecs = np.linalg.eig(P.T)
+    pi = np.real(evecs[:, np.isclose(evals, 1.0)].flatten())
+    return pi / np.sum(pi)
 
-# Simulation parameters
-n_paths = 10000       # Large N for a smooth empirical distribution
-n_frames = 40
-T = 1.0
-t = np.linspace(0, T, n_frames)
-dt = t[1] - t[0]
-
-# 1. Simulate Brownian paths: W(t+dt) = W(t) + sqrt(dt)*N(0,1)
-dW = np.random.normal(0, np.sqrt(dt), (n_paths, n_frames - 1))
-W = np.hstack([np.zeros((n_paths, 1)), np.cumsum(dW, axis=1)])
-
-# Spatial grid for the exact Heat Equation solution
-x_grid = np.linspace(-3, 3, 200)
-hist_bins = np.linspace(-3, 3, 60)
-
-for i in range(n_frames):
-    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 4.5))
-    current_time = t[i]
-
-    # LEFT PANEL: Stochastic view (Brownian Paths)
-    # We plot only 100 paths to avoid visual clutter
-    ax1.plot(t[:i+1], W[:100, :i+1].T, color="#16B8A6", alpha=0.15)
-    ax1.axvline(current_time, color="#F47763", linestyle="--", linewidth=1.5)
-    ax1.set_xlim(0, T)
-    ax1.set_ylim(-3, 3)
-    ax1.set_title(r"Stochastic: Sample Paths $W(t)$")
-    ax1.set_xlabel(r"Time $t$")
-    ax1.set_ylabel(r"Position $x$")
-
-    # RIGHT PANEL: Deterministic view (Heat Equation)
-    # Empirical histogram of all 10,000 particles
-    ax2.hist(W[:, i], bins=hist_bins, density=True, color="#16B8A6", alpha=0.6, label="Empirical Density")
-    ax2.set_xlim(-3, 3)
-    ax2.set_ylim(0, 1.5)
-    ax2.set_title(rf"Deterministic: Density at $t = {current_time:.3f}$")
-    ax2.set_xlabel(r"Position $x$")
-
-    # Exact solution to the heat equation
-    if current_time > 0:
-        heat_eq = np.exp(-x_grid**2 / (2 * current_time)) / np.sqrt(2 * np.pi * current_time)
-        ax2.plot(x_grid, heat_eq, color="#F47763", linewidth=2.5, label="Heat Eq Solution")
+def simulate_trajectory(P, pi, num_steps):
+    states = np.arange(len(pi))
+    path = np.zeros(num_steps, dtype=int)
+    path[0] = np.random.choice(states, p=pi)
     
-    ax2.legend(loc="upper right", frameon=False)
+    for t in range(1, num_steps):
+        path[t] = np.random.choice(states, p=P[path[t-1]])
+    return path
 
-    plt.tight_layout()
-    plt.savefig(f"{output_dir}/frame-{i}.png", dpi=300)
-    plt.close()
+N = 20
 
-print(f"Successfully generated {n_frames} frames in '{output_dir}/'.")
+# 1. Reversible: Symmetric walk on a line with reflecting boundaries
+P_rev = np.zeros((N, N))
+for i in range(N):
+    if i == 0:
+        P_rev[i, 0], P_rev[i, 1] = 0.5, 0.5
+    elif i == N - 1:
+        P_rev[i, N-2], P_rev[i, N-1] = 0.5, 0.5
+    else:
+        P_rev[i, i-1], P_rev[i, i+1] = 0.5, 0.5
+
+pi_rev = compute_stationary(P_rev)
+
+# 2. Non-Reversible: Biased walk on a ring (drift + diffusion)
+P_nonrev = np.zeros((N, N))
+for i in range(N):
+    P_nonrev[i, i] = 0.1
+    P_nonrev[i, (i+1) % N] = 0.8  # Strong forward drift
+    P_nonrev[i, (i-1) % N] = 0.1
+
+pi_nonrev = compute_stationary(P_nonrev)
+
+num_steps = 150
+np.random.seed(42)
+
+path_rev_fwd = simulate_trajectory(P_rev, pi_rev, num_steps)
+path_rev_bwd = path_rev_fwd[::-1] 
+
+path_nonrev_fwd = simulate_trajectory(P_nonrev, pi_nonrev, num_steps)
+path_nonrev_bwd = path_nonrev_fwd[::-1] 
+
+fig, axes = plt.subplots(2, 2, figsize=(14, 7), sharey=True)
+
+axes[0, 0].step(range(num_steps), path_rev_fwd, where='post', color='blue')
+axes[0, 0].set_title(r"Reversible: Forward $X_t$ (Diffusion)")
+axes[0, 0].set_ylabel("State space $S$")
+
+axes[0, 1].step(range(num_steps), path_rev_bwd, where='post', color='teal')
+axes[0, 1].set_title(r"Reversible: Backward $X_{T-t}$")
+
+axes[1, 0].step(range(num_steps), path_nonrev_fwd, where='post', color='red')
+axes[1, 0].set_title(r"Non-Reversible: Forward $X_t$ (Clockwise drift)")
+axes[1, 0].set_ylabel("State space $S$")
+axes[1, 0].set_xlabel("Time step $t$")
+
+axes[1, 1].step(range(num_steps), path_nonrev_bwd, where='post', color='darkred')
+axes[1, 1].set_title(r"Non-Reversible: Backward $X_{T-t}$ (Counter-clockwise drift)")
+axes[1, 1].set_xlabel("Time step $t$")
+
+for ax in axes.flatten():
+    ax.set_yticks(range(0, N, 4))
+    ax.grid(True, alpha=0.3)
+
+plt.tight_layout()
+plt.show()

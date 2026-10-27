@@ -18,6 +18,7 @@
 \contentsline {section}{\numberline {8}Backward Processes}{53}{section.8}%
 \contentsline {subsection}{\numberline {8.1}Backward Process is Markov Process}{53}{subsection.8.1}%
 \contentsline {subsection}{\numberline {8.2}Existence of the Backward Process using PDEs and Sobolev Spaces}{58}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Some PDE Backround}{60}{subsection.8.3}%
 \contentsline {section}{\numberline {9}Time-Reversal of Diffusions}{60}{section.9}%
-\contentsline {section}{References}{60}{section.9}%
+\contentsline {section}{References}{61}{tcb@cnt@mydefinition.2}%
 \contentsfinish 

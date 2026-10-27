@@ -135,6 +135,53 @@
   \end{tikzpicture}
 \end{frame}
 
+\section{Foundations}
+\begin{frame}{Markov Chains}
+  \tiny
+  
+  The transition function of a Markov Chain $(X_n)_{n \in \mathbb{N}_0}$ is given by 
+  \[
+  P(x,y):= \mathbb{P}( X_{n+1} =x \mid  X_0 =x_0,..., X_n = y) \stackrel{Markov}{=} \mathbb{P}( X_{n+1} =x \mid X_n = y).
+  \]
+  \begin{block}{Invariant Measures}
+    A measure $\pi$ on $E$ is called invariant measure wrt. $P$ if 
+    \[
+    \forall x \in E: \quad \pi (x) = \sum_{y \in E} \pi (y) p (y,x).
+    \]
+  \end{block}
+  By definition 
+  \[
+  \pi = \pi P^n.
+  \]
+  \noindent
+  \begin{minipage}[c]{0.52\linewidth}
+   So if we initialize the Markov-Chain $(X_n)_{n \in \mathbb{N}_0}$ with transition function $P$ with the invariant measure $\pi$: 
+  \[
+  \forall x \in E: \quad \mathbb{P}_\pi (X_n = x) := \sum_{y \in E} \pi (y) \mathbb{P}_y (X_n =x) = \sum_{y \in E} \pi (y) P^n(y,x) = \pi (x)
+  \]
+  \end{minipage}\hfill
+  \begin{minipage}[c]{0.42\linewidth}
+    \recallbox[Intuition:]{\tiny The invariant measure describes the equilibrium distribution of the Markov-Chain.}
+  \end{minipage}
+\end{frame}
+
+
+\begin{frame}{Markov Chains}
+  \tiny
+  \begin{block}{Reversibility}
+    A Markov Chain is reversible if going forward or backward in time in equilibrium is the same: 
+    \[
+    \forall x,y \in E: \quad \pi (x) P(x,y) = \pi(y) p (y,x).
+    \]
+  \end{block}
+  Denote by $(X_n)_{n=1,...,N}$ a Markov-Chain with transition Matrix $P$ up to time $N: \Omega \to \mathbb{N} \cap \{\infty \}$. The Backward Markov-Chain $(\bar{X}_n := X_{N-n})_{n =1,...,N}$ has the transition Matrix 
+  \begin{align*}
+    \bar{P}(x,y & := \mathbb{P}( \bar{X}_{n+1} =y \mid \bar{X}_n =x ) = \mathbb{P}(X_{N- (n+1)}=y \mid X_{N-n} =x) \\
+    &= \frac{\mathbb{P}(X_{N-(n+1)} =y, X_{N-n} =x)}{\mathbb{P}(X_{N-n}=x)} \stackrel{\text{if reversible}}{=} \frac{\pi(y) P(y,x)}{\pi(x)}
+  \end{align*}
+  The forward and backward Markov chain have the same transition Matrix if and only if it is reversible.
+\end{frame}
+
 
 \section{Brownian motion}
 \begin{frame}{Sample paths of Brownian motion}
@@ -156,23 +203,18 @@
   \end{columns}
 \end{frame}
 
+
+
+
+
 \section{Motivation}
 \begin{frame}{The Idea of Diffusion}
   \begin{block}{Start with a weighted semigroup average}
-    For a kernel $\phi$, define
-    \[
-      P_\phi f(x) := \int_0^\infty \phi(t)\,P_t f(x)\,dt.
-    \]
-  \end{block}
-
-  Taking the exponential kernel
-  \[
-    \phi_p(t) := e^{-pt}, \qquad p>0,
-  \]
-  recovers the resolvent, which is the Laplace transform of the semigroup:
-  \[
-    \alert{R_p \equiv P_{\phi_p}}.
-  \]
+  Standard diffusion 
+\[
+dX_t =b(X_t) dt + \sigma(X_t) dW_t
+\]
+\end{block}
 \end{frame}
 
 

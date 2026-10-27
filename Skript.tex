@@ -2412,15 +2412,76 @@ As the test function was chosen arbitrary we have in a weak sense the following 
 \[
 -\frac{\partial}{\partial t} \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ) + \Delta \bar{u} - 2 \nabla \cdot ( \bar{u} \nabla \log (\bar{u}))=0.
 \]
-Now we want to show the existence of the solution on specific spaces.
+This is equivalent to this PDE 
+\[
+\frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ),
+\]
+which is ill-posed, as after finite time the solution will explode. To find the solution for this PDE we consider a different approach. The idea is to formulate the forward diffusion process 
+\[
+dX_t = b(X_t) dt + \sigma (X_t) d W_t,
+\] 
+as the equivalent forward Fokker-Plank equation 
+\[
+\frac{\partial}{\partial t} u = \Delta u - \nabla (b u).
+\]
+Remember that 
+\begin{align*}
+    0= \mathbb{E}[ \phi(X_T,T)- \phi(X_0,0) ]&= \mathbb{E}[ \int_0^T \frac{\partial}{\partial s} \phi (X_s,s)+\nabla \phi (X_s,s) b(X_s,s) + \Delta \phi (X_s,s) a(X_s,s)ds  ] \\
+    &+ \underbrace{\mathbb{E}[ \int_0^T \nabla \phi (X_s,s) \sigma(X_s,s)d W_s ]}_{=0, \text{ as integral process is martingale}.}\\
+    &= \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \phi (x,s) + b(x,s)^T \nabla \phi (x,s) + \Delta \phi (x,s) \right) u(x,s) dx ds \\
+    &= \int_0^T \int_{\mathbb{R}^n} - \left( \frac{\partial}{\partial s} u (x,s) +  \nabla \cdot (b(x,s) u (x,s)) - \Delta u (x,s) \right) \phi (x,s) dx ds \\
+\end{align*}
 
+\subsection{Some PDE Backround}
+\defn{}{
+    $f \in L^1_{loc} (E)$ is called weakly differentiable of index $\alpha$, if 
+    \[
+    \exists g \in L^1_{loc} (E) \forall v \in C_0^\infty (E) : \quad \int_E f D^\alpha v d x = (-1)^{|\alpha|} \int_E g(x) v(x)dx.
+    \]
+    The weak derivative is denoted by $g=: D^\alpha f$.
+}
 
 
 
 
 \section{Time-Reversal of Diffusions}
 
+\assu{}{
+    \label{Assumption: A}
+}
 
+\thm{}{
+    Under \ref{Assumption: A} $(\bar{X}_t)_{t \in [0,1)}$ is a Markov diffusion process wrt. $\bar{L}_t$.
+}
+\pf{
+    We know already that $(\bar{X}_t)_{t \in [0,1)}$ is a Markov process and since $\bar{L}_t$ is a second order differential operator, we only need to show that $\bar{L}_t$ is the respective generator, i.e. $(\bar{X}_t)_{t \in [0,1)}$ solves the martingale problem associated wrt. $\bar{L}_t$. Let $f,g \in C_c^\infty(\mathbb{R}^n)$ be arbitrary test functions, then we need to show that for $0 \leq s < t < 1$: 
+    \[
+    \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ]=0.
+    \]
+    Because $(\bar{X}_t)_{t \in [0,1)}$ is a Markov process and $g \in C_c^\infty (\mathbb{R}^n)$ is arbitrary, we have 
+    \begin{align*}
+        \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ] &= \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \bar{X}_s] \\
+        &= \mathbb{E}[ \left(f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz  \right) g(\bar{X}_s)] =0.
+    \end{align*}
+    Define the change of variables $1-s \to t, 1-t \to s$, i.e. $0 < s<t \leq 1$, then define 
+    \begin{align*}
+        (\tilde{L}_z f)(x) := - (\bar{L}_{1-z} f)(x) &= - \frac{1}{2} a^{ij} (z,x) \partial_{x_i x_j} f(x) \\
+        &+ \underbrace{ b^i (z,x)- p(z,x)^{-1} \partial_{x_j} (a^{ij} (z,x) p (z,x)) }_{ = \bar{b}(z,x)} \partial_{x_i} f(x).
+    \end{align*}
+    We then have that the above is equivalent to 
+    \[
+    \mathbb{E}[ \left(f(X_t)- f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz  \right) g(X_t)] =0.
+    \]
+    Because $\bar{b}$ contains the term $p(z,x)^{-1}$, $\bar{b}$ does not necessarly need to be bouned yielding that the integral $\int_s^t (\bar{L}_z f) (\bar{X}_z) dz$ is not trivially well defined in $L^1(\Omega)$. However, as the forward process' generator $L_t$ has coefficients $b$ and $a$ that are "well behaved" it follows that $\int_s^t (\tilde{L}_z f)(X_z) dz$ is in $L^1(\Omega)$. Thus, 
+    \[
+    \mathbb{E}[ \int_s^t |(\bar{L}_z f)(\bar{X}_z)| dz ] = \mathbb{E}[ \int_s^t |(\tilde{L}f)(X_z)|dz ]< \infty,
+    \]
+    despite that fact that $\bar{b}$ may not be locally, bounded. So $f(\bar{X}_t)- \int_s^t (\bar{L}_z f) (\bar{X}_z) dz$ is integrable. So finally, it suffices to show that 
+    \[
+    \mathbb{E}[ (f(X_t) - f(X_s) - \int_s^t (\tilde{L}_z f) (X_z) dz ) g(X_t) ]=0,
+    \]
+    for almoust every $t,s$. (???)
+}
 
 
 

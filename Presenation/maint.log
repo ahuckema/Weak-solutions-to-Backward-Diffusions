@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 OCT 2026 15:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  24 OCT 2026 18:11
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -932,324 +932,342 @@ File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [2
 
 ]
-<brownian-assets/frame-0.png, id=54, 722.7pt x 325.215pt>
-File: brownian-assets/frame-0.png Graphic file (type png)
-<use brownian-assets/frame-0.png>
-Package pdftex.def Info: brownian-assets/frame-0.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-0.png> <a0,fr0>
-<brownian-assets/frame-1.png, id=59, 722.7pt x 325.215pt>
-File: brownian-assets/frame-1.png Graphic file (type png)
-<use brownian-assets/frame-1.png>
-Package pdftex.def Info: brownian-assets/frame-1.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-1.png> <a0,fr1>
-<brownian-assets/frame-2.png, id=63, 722.7pt x 325.215pt>
-File: brownian-assets/frame-2.png Graphic file (type png)
-<use brownian-assets/frame-2.png>
-Package pdftex.def Info: brownian-assets/frame-2.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-2.png> <a0,fr2>
-<brownian-assets/frame-3.png, id=67, 722.7pt x 325.215pt>
-File: brownian-assets/frame-3.png Graphic file (type png)
-<use brownian-assets/frame-3.png>
-Package pdftex.def Info: brownian-assets/frame-3.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-3.png> <a0,fr3>
-<brownian-assets/frame-4.png, id=71, 722.7pt x 325.215pt>
-File: brownian-assets/frame-4.png Graphic file (type png)
-<use brownian-assets/frame-4.png>
-Package pdftex.def Info: brownian-assets/frame-4.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-4.png> <a0,fr4>
-<brownian-assets/frame-5.png, id=75, 722.7pt x 325.215pt>
-File: brownian-assets/frame-5.png Graphic file (type png)
-<use brownian-assets/frame-5.png>
-Package pdftex.def Info: brownian-assets/frame-5.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-5.png> <a0,fr5>
-<brownian-assets/frame-6.png, id=79, 722.7pt x 325.215pt>
-File: brownian-assets/frame-6.png Graphic file (type png)
-<use brownian-assets/frame-6.png>
-Package pdftex.def Info: brownian-assets/frame-6.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-6.png> <a0,fr6>
-<brownian-assets/frame-7.png, id=83, 722.7pt x 325.215pt>
-File: brownian-assets/frame-7.png Graphic file (type png)
-<use brownian-assets/frame-7.png>
-Package pdftex.def Info: brownian-assets/frame-7.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-7.png> <a0,fr7>
-<brownian-assets/frame-8.png, id=87, 722.7pt x 325.215pt>
-File: brownian-assets/frame-8.png Graphic file (type png)
-<use brownian-assets/frame-8.png>
-Package pdftex.def Info: brownian-assets/frame-8.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-8.png> <a0,fr8>
-<brownian-assets/frame-9.png, id=91, 722.7pt x 325.215pt>
-File: brownian-assets/frame-9.png Graphic file (type png)
-<use brownian-assets/frame-9.png>
-Package pdftex.def Info: brownian-assets/frame-9.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-9.png> <a0,fr9>
-<brownian-assets/frame-10.png, id=95, 722.7pt x 325.215pt>
-File: brownian-assets/frame-10.png Graphic file (type png)
-<use brownian-assets/frame-10.png>
-Package pdftex.def Info: brownian-assets/frame-10.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-10.png> <a0,fr10>
-<brownian-assets/frame-11.png, id=99, 722.7pt x 325.215pt>
-File: brownian-assets/frame-11.png Graphic file (type png)
-<use brownian-assets/frame-11.png>
-Package pdftex.def Info: brownian-assets/frame-11.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-11.png> <a0,fr11>
-<brownian-assets/frame-12.png, id=103, 722.7pt x 325.215pt>
-File: brownian-assets/frame-12.png Graphic file (type png)
-<use brownian-assets/frame-12.png>
-Package pdftex.def Info: brownian-assets/frame-12.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-12.png> <a0,fr12>
-<brownian-assets/frame-13.png, id=107, 722.7pt x 325.215pt>
-File: brownian-assets/frame-13.png Graphic file (type png)
-<use brownian-assets/frame-13.png>
-Package pdftex.def Info: brownian-assets/frame-13.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-13.png> <a0,fr13>
-<brownian-assets/frame-14.png, id=111, 722.7pt x 325.215pt>
-File: brownian-assets/frame-14.png Graphic file (type png)
-<use brownian-assets/frame-14.png>
-Package pdftex.def Info: brownian-assets/frame-14.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-14.png> <a0,fr14>
-<brownian-assets/frame-15.png, id=115, 722.7pt x 325.215pt>
-File: brownian-assets/frame-15.png Graphic file (type png)
-<use brownian-assets/frame-15.png>
-Package pdftex.def Info: brownian-assets/frame-15.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-15.png> <a0,fr15>
-<brownian-assets/frame-16.png, id=119, 722.7pt x 325.215pt>
-File: brownian-assets/frame-16.png Graphic file (type png)
-<use brownian-assets/frame-16.png>
-Package pdftex.def Info: brownian-assets/frame-16.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-16.png> <a0,fr16>
-<brownian-assets/frame-17.png, id=123, 722.7pt x 325.215pt>
-File: brownian-assets/frame-17.png Graphic file (type png)
-<use brownian-assets/frame-17.png>
-Package pdftex.def Info: brownian-assets/frame-17.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-17.png> <a0,fr17>
-<brownian-assets/frame-18.png, id=127, 722.7pt x 325.215pt>
-File: brownian-assets/frame-18.png Graphic file (type png)
-<use brownian-assets/frame-18.png>
-Package pdftex.def Info: brownian-assets/frame-18.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-18.png> <a0,fr18>
-<brownian-assets/frame-19.png, id=131, 722.7pt x 325.215pt>
-File: brownian-assets/frame-19.png Graphic file (type png)
-<use brownian-assets/frame-19.png>
-Package pdftex.def Info: brownian-assets/frame-19.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-19.png> <a0,fr19>
-<brownian-assets/frame-20.png, id=135, 722.7pt x 325.215pt>
-File: brownian-assets/frame-20.png Graphic file (type png)
-<use brownian-assets/frame-20.png>
-Package pdftex.def Info: brownian-assets/frame-20.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-20.png> <a0,fr20>
-<brownian-assets/frame-21.png, id=139, 722.7pt x 325.215pt>
-File: brownian-assets/frame-21.png Graphic file (type png)
-<use brownian-assets/frame-21.png>
-Package pdftex.def Info: brownian-assets/frame-21.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-21.png> <a0,fr21>
-<brownian-assets/frame-22.png, id=143, 722.7pt x 325.215pt>
-File: brownian-assets/frame-22.png Graphic file (type png)
-<use brownian-assets/frame-22.png>
-Package pdftex.def Info: brownian-assets/frame-22.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-22.png> <a0,fr22>
-<brownian-assets/frame-23.png, id=147, 722.7pt x 325.215pt>
-File: brownian-assets/frame-23.png Graphic file (type png)
-<use brownian-assets/frame-23.png>
-Package pdftex.def Info: brownian-assets/frame-23.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-23.png> <a0,fr23>
-<brownian-assets/frame-24.png, id=151, 722.7pt x 325.215pt>
-File: brownian-assets/frame-24.png Graphic file (type png)
-<use brownian-assets/frame-24.png>
-Package pdftex.def Info: brownian-assets/frame-24.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-24.png> <a0,fr24>
-<brownian-assets/frame-25.png, id=155, 722.7pt x 325.215pt>
-File: brownian-assets/frame-25.png Graphic file (type png)
-<use brownian-assets/frame-25.png>
-Package pdftex.def Info: brownian-assets/frame-25.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-25.png> <a0,fr25>
-<brownian-assets/frame-26.png, id=159, 722.7pt x 325.215pt>
-File: brownian-assets/frame-26.png Graphic file (type png)
-<use brownian-assets/frame-26.png>
-Package pdftex.def Info: brownian-assets/frame-26.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-26.png> <a0,fr26>
-<brownian-assets/frame-27.png, id=163, 722.7pt x 325.215pt>
-File: brownian-assets/frame-27.png Graphic file (type png)
-<use brownian-assets/frame-27.png>
-Package pdftex.def Info: brownian-assets/frame-27.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-27.png> <a0,fr27>
-<brownian-assets/frame-28.png, id=167, 722.7pt x 325.215pt>
-File: brownian-assets/frame-28.png Graphic file (type png)
-<use brownian-assets/frame-28.png>
-Package pdftex.def Info: brownian-assets/frame-28.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-28.png> <a0,fr28>
-<brownian-assets/frame-29.png, id=171, 722.7pt x 325.215pt>
-File: brownian-assets/frame-29.png Graphic file (type png)
-<use brownian-assets/frame-29.png>
-Package pdftex.def Info: brownian-assets/frame-29.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-29.png> <a0,fr29>
-<brownian-assets/frame-30.png, id=175, 722.7pt x 325.215pt>
-File: brownian-assets/frame-30.png Graphic file (type png)
-<use brownian-assets/frame-30.png>
-Package pdftex.def Info: brownian-assets/frame-30.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-30.png> <a0,fr30>
-<brownian-assets/frame-31.png, id=179, 722.7pt x 325.215pt>
-File: brownian-assets/frame-31.png Graphic file (type png)
-<use brownian-assets/frame-31.png>
-Package pdftex.def Info: brownian-assets/frame-31.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-31.png> <a0,fr31>
-<brownian-assets/frame-32.png, id=183, 722.7pt x 325.215pt>
-File: brownian-assets/frame-32.png Graphic file (type png)
-<use brownian-assets/frame-32.png>
-Package pdftex.def Info: brownian-assets/frame-32.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-32.png> <a0,fr32>
-<brownian-assets/frame-33.png, id=187, 722.7pt x 325.215pt>
-File: brownian-assets/frame-33.png Graphic file (type png)
-<use brownian-assets/frame-33.png>
-Package pdftex.def Info: brownian-assets/frame-33.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-33.png> <a0,fr33>
-<brownian-assets/frame-34.png, id=191, 722.7pt x 325.215pt>
-File: brownian-assets/frame-34.png Graphic file (type png)
-<use brownian-assets/frame-34.png>
-Package pdftex.def Info: brownian-assets/frame-34.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-34.png> <a0,fr34>
-<brownian-assets/frame-35.png, id=195, 722.7pt x 325.215pt>
-File: brownian-assets/frame-35.png Graphic file (type png)
-<use brownian-assets/frame-35.png>
-Package pdftex.def Info: brownian-assets/frame-35.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-35.png> <a0,fr35>
-<brownian-assets/frame-36.png, id=199, 722.7pt x 325.215pt>
-File: brownian-assets/frame-36.png Graphic file (type png)
-<use brownian-assets/frame-36.png>
-Package pdftex.def Info: brownian-assets/frame-36.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-36.png> <a0,fr36>
-<brownian-assets/frame-37.png, id=203, 722.7pt x 325.215pt>
-File: brownian-assets/frame-37.png Graphic file (type png)
-<use brownian-assets/frame-37.png>
-Package pdftex.def Info: brownian-assets/frame-37.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-37.png> <a0,fr37>
-<brownian-assets/frame-38.png, id=207, 722.7pt x 325.215pt>
-File: brownian-assets/frame-38.png Graphic file (type png)
-<use brownian-assets/frame-38.png>
-Package pdftex.def Info: brownian-assets/frame-38.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-38.png> <a0,fr38>
-<brownian-assets/frame-39.png, id=211, 722.7pt x 325.215pt>
-File: brownian-assets/frame-39.png Graphic file (type png)
-<use brownian-assets/frame-39.png>
-Package pdftex.def Info: brownian-assets/frame-39.png  used on input line 157.
-(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
- <./brownian-assets/frame-39.png> <a0,fr39>
-LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 157.
+LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 157.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 157.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 157.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 157.
+(Font)              <6> on input line 166.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 157.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 157.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 157.
+(Font)              <5> on input line 166.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 157.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 166.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 157.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 157.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 166.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 157.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 166.
+
+Overfull \hbox (10.78285pt too wide) detected at line 166
+\OMS/lmsy/m/n/6 8\T1/lmss/m/sl/6 x \OMS/lmsy/m/n/6 2 \T1/lmss/m/sl/6 E \OT1/lmss/m/n/6 :  \U/msb/m/n/6 P[]\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 X[] \OT1/lmss/m/n/6 = \T1/lmss/m/sl/6 x\OT1/lmss/m/n/6 ) := [] \OML/lmm/m/it/6 ^^Y\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 y\OT1/lmss/m/n/6 )\U/msb/m/n/6 P[]\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 X[] \OT1/lmss/m/n/6 = \T1/lmss/m/sl/6 x\OT1/lmss/m/n/6 ) = [] \OML/lmm/m/it/6 ^^Y\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 y\OT1/lmss/m/n/6 )\T1/lmss/m/sl/6 P[]\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 y\OML/lmm/m/it/6 ; \T1/lmss/m/sl/6 x\OT1/lmss/m/n/6 ) = \OML/lmm/m/it/6 ^^Y\OT1/lmss/m/n/6 (\T1/lmss/m/sl/6 x\OT1/lmss/m/n/6 )
+ []
+
+
+Overfull \vbox (13.16458pt too high) detected at line 166
+ []
+
 
 
 [3
 
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 176.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 176.
-
+{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
 
 [4
 
-{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}]
+]
+<brownian-assets/frame-0.png, id=79, 722.7pt x 325.215pt>
+File: brownian-assets/frame-0.png Graphic file (type png)
+<use brownian-assets/frame-0.png>
+Package pdftex.def Info: brownian-assets/frame-0.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-0.png> <a0,fr0>
+<brownian-assets/frame-1.png, id=84, 722.7pt x 325.215pt>
+File: brownian-assets/frame-1.png Graphic file (type png)
+<use brownian-assets/frame-1.png>
+Package pdftex.def Info: brownian-assets/frame-1.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-1.png> <a0,fr1>
+<brownian-assets/frame-2.png, id=88, 722.7pt x 325.215pt>
+File: brownian-assets/frame-2.png Graphic file (type png)
+<use brownian-assets/frame-2.png>
+Package pdftex.def Info: brownian-assets/frame-2.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-2.png> <a0,fr2>
+<brownian-assets/frame-3.png, id=92, 722.7pt x 325.215pt>
+File: brownian-assets/frame-3.png Graphic file (type png)
+<use brownian-assets/frame-3.png>
+Package pdftex.def Info: brownian-assets/frame-3.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-3.png> <a0,fr3>
+<brownian-assets/frame-4.png, id=96, 722.7pt x 325.215pt>
+File: brownian-assets/frame-4.png Graphic file (type png)
+<use brownian-assets/frame-4.png>
+Package pdftex.def Info: brownian-assets/frame-4.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-4.png> <a0,fr4>
+<brownian-assets/frame-5.png, id=100, 722.7pt x 325.215pt>
+File: brownian-assets/frame-5.png Graphic file (type png)
+<use brownian-assets/frame-5.png>
+Package pdftex.def Info: brownian-assets/frame-5.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-5.png> <a0,fr5>
+<brownian-assets/frame-6.png, id=104, 722.7pt x 325.215pt>
+File: brownian-assets/frame-6.png Graphic file (type png)
+<use brownian-assets/frame-6.png>
+Package pdftex.def Info: brownian-assets/frame-6.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-6.png> <a0,fr6>
+<brownian-assets/frame-7.png, id=108, 722.7pt x 325.215pt>
+File: brownian-assets/frame-7.png Graphic file (type png)
+<use brownian-assets/frame-7.png>
+Package pdftex.def Info: brownian-assets/frame-7.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-7.png> <a0,fr7>
+<brownian-assets/frame-8.png, id=112, 722.7pt x 325.215pt>
+File: brownian-assets/frame-8.png Graphic file (type png)
+<use brownian-assets/frame-8.png>
+Package pdftex.def Info: brownian-assets/frame-8.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-8.png> <a0,fr8>
+<brownian-assets/frame-9.png, id=116, 722.7pt x 325.215pt>
+File: brownian-assets/frame-9.png Graphic file (type png)
+<use brownian-assets/frame-9.png>
+Package pdftex.def Info: brownian-assets/frame-9.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-9.png> <a0,fr9>
+<brownian-assets/frame-10.png, id=120, 722.7pt x 325.215pt>
+File: brownian-assets/frame-10.png Graphic file (type png)
+<use brownian-assets/frame-10.png>
+Package pdftex.def Info: brownian-assets/frame-10.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-10.png> <a0,fr10>
+<brownian-assets/frame-11.png, id=124, 722.7pt x 325.215pt>
+File: brownian-assets/frame-11.png Graphic file (type png)
+<use brownian-assets/frame-11.png>
+Package pdftex.def Info: brownian-assets/frame-11.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-11.png> <a0,fr11>
+<brownian-assets/frame-12.png, id=128, 722.7pt x 325.215pt>
+File: brownian-assets/frame-12.png Graphic file (type png)
+<use brownian-assets/frame-12.png>
+Package pdftex.def Info: brownian-assets/frame-12.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-12.png> <a0,fr12>
+<brownian-assets/frame-13.png, id=132, 722.7pt x 325.215pt>
+File: brownian-assets/frame-13.png Graphic file (type png)
+<use brownian-assets/frame-13.png>
+Package pdftex.def Info: brownian-assets/frame-13.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-13.png> <a0,fr13>
+<brownian-assets/frame-14.png, id=136, 722.7pt x 325.215pt>
+File: brownian-assets/frame-14.png Graphic file (type png)
+<use brownian-assets/frame-14.png>
+Package pdftex.def Info: brownian-assets/frame-14.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-14.png> <a0,fr14>
+<brownian-assets/frame-15.png, id=140, 722.7pt x 325.215pt>
+File: brownian-assets/frame-15.png Graphic file (type png)
+<use brownian-assets/frame-15.png>
+Package pdftex.def Info: brownian-assets/frame-15.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-15.png> <a0,fr15>
+<brownian-assets/frame-16.png, id=144, 722.7pt x 325.215pt>
+File: brownian-assets/frame-16.png Graphic file (type png)
+<use brownian-assets/frame-16.png>
+Package pdftex.def Info: brownian-assets/frame-16.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-16.png> <a0,fr16>
+<brownian-assets/frame-17.png, id=148, 722.7pt x 325.215pt>
+File: brownian-assets/frame-17.png Graphic file (type png)
+<use brownian-assets/frame-17.png>
+Package pdftex.def Info: brownian-assets/frame-17.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-17.png> <a0,fr17>
+<brownian-assets/frame-18.png, id=152, 722.7pt x 325.215pt>
+File: brownian-assets/frame-18.png Graphic file (type png)
+<use brownian-assets/frame-18.png>
+Package pdftex.def Info: brownian-assets/frame-18.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-18.png> <a0,fr18>
+<brownian-assets/frame-19.png, id=156, 722.7pt x 325.215pt>
+File: brownian-assets/frame-19.png Graphic file (type png)
+<use brownian-assets/frame-19.png>
+Package pdftex.def Info: brownian-assets/frame-19.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-19.png> <a0,fr19>
+<brownian-assets/frame-20.png, id=160, 722.7pt x 325.215pt>
+File: brownian-assets/frame-20.png Graphic file (type png)
+<use brownian-assets/frame-20.png>
+Package pdftex.def Info: brownian-assets/frame-20.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-20.png> <a0,fr20>
+<brownian-assets/frame-21.png, id=164, 722.7pt x 325.215pt>
+File: brownian-assets/frame-21.png Graphic file (type png)
+<use brownian-assets/frame-21.png>
+Package pdftex.def Info: brownian-assets/frame-21.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-21.png> <a0,fr21>
+<brownian-assets/frame-22.png, id=168, 722.7pt x 325.215pt>
+File: brownian-assets/frame-22.png Graphic file (type png)
+<use brownian-assets/frame-22.png>
+Package pdftex.def Info: brownian-assets/frame-22.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-22.png> <a0,fr22>
+<brownian-assets/frame-23.png, id=172, 722.7pt x 325.215pt>
+File: brownian-assets/frame-23.png Graphic file (type png)
+<use brownian-assets/frame-23.png>
+Package pdftex.def Info: brownian-assets/frame-23.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-23.png> <a0,fr23>
+<brownian-assets/frame-24.png, id=176, 722.7pt x 325.215pt>
+File: brownian-assets/frame-24.png Graphic file (type png)
+<use brownian-assets/frame-24.png>
+Package pdftex.def Info: brownian-assets/frame-24.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-24.png> <a0,fr24>
+<brownian-assets/frame-25.png, id=180, 722.7pt x 325.215pt>
+File: brownian-assets/frame-25.png Graphic file (type png)
+<use brownian-assets/frame-25.png>
+Package pdftex.def Info: brownian-assets/frame-25.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-25.png> <a0,fr25>
+<brownian-assets/frame-26.png, id=184, 722.7pt x 325.215pt>
+File: brownian-assets/frame-26.png Graphic file (type png)
+<use brownian-assets/frame-26.png>
+Package pdftex.def Info: brownian-assets/frame-26.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-26.png> <a0,fr26>
+<brownian-assets/frame-27.png, id=188, 722.7pt x 325.215pt>
+File: brownian-assets/frame-27.png Graphic file (type png)
+<use brownian-assets/frame-27.png>
+Package pdftex.def Info: brownian-assets/frame-27.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-27.png> <a0,fr27>
+<brownian-assets/frame-28.png, id=192, 722.7pt x 325.215pt>
+File: brownian-assets/frame-28.png Graphic file (type png)
+<use brownian-assets/frame-28.png>
+Package pdftex.def Info: brownian-assets/frame-28.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-28.png> <a0,fr28>
+<brownian-assets/frame-29.png, id=196, 722.7pt x 325.215pt>
+File: brownian-assets/frame-29.png Graphic file (type png)
+<use brownian-assets/frame-29.png>
+Package pdftex.def Info: brownian-assets/frame-29.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-29.png> <a0,fr29>
+<brownian-assets/frame-30.png, id=200, 722.7pt x 325.215pt>
+File: brownian-assets/frame-30.png Graphic file (type png)
+<use brownian-assets/frame-30.png>
+Package pdftex.def Info: brownian-assets/frame-30.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-30.png> <a0,fr30>
+<brownian-assets/frame-31.png, id=204, 722.7pt x 325.215pt>
+File: brownian-assets/frame-31.png Graphic file (type png)
+<use brownian-assets/frame-31.png>
+Package pdftex.def Info: brownian-assets/frame-31.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-31.png> <a0,fr31>
+<brownian-assets/frame-32.png, id=208, 722.7pt x 325.215pt>
+File: brownian-assets/frame-32.png Graphic file (type png)
+<use brownian-assets/frame-32.png>
+Package pdftex.def Info: brownian-assets/frame-32.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-32.png> <a0,fr32>
+<brownian-assets/frame-33.png, id=212, 722.7pt x 325.215pt>
+File: brownian-assets/frame-33.png Graphic file (type png)
+<use brownian-assets/frame-33.png>
+Package pdftex.def Info: brownian-assets/frame-33.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-33.png> <a0,fr33>
+<brownian-assets/frame-34.png, id=216, 722.7pt x 325.215pt>
+File: brownian-assets/frame-34.png Graphic file (type png)
+<use brownian-assets/frame-34.png>
+Package pdftex.def Info: brownian-assets/frame-34.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-34.png> <a0,fr34>
+<brownian-assets/frame-35.png, id=220, 722.7pt x 325.215pt>
+File: brownian-assets/frame-35.png Graphic file (type png)
+<use brownian-assets/frame-35.png>
+Package pdftex.def Info: brownian-assets/frame-35.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-35.png> <a0,fr35>
+<brownian-assets/frame-36.png, id=224, 722.7pt x 325.215pt>
+File: brownian-assets/frame-36.png Graphic file (type png)
+<use brownian-assets/frame-36.png>
+Package pdftex.def Info: brownian-assets/frame-36.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-36.png> <a0,fr36>
+<brownian-assets/frame-37.png, id=228, 722.7pt x 325.215pt>
+File: brownian-assets/frame-37.png Graphic file (type png)
+<use brownian-assets/frame-37.png>
+Package pdftex.def Info: brownian-assets/frame-37.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-37.png> <a0,fr37>
+<brownian-assets/frame-38.png, id=232, 722.7pt x 325.215pt>
+File: brownian-assets/frame-38.png Graphic file (type png)
+<use brownian-assets/frame-38.png>
+Package pdftex.def Info: brownian-assets/frame-38.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-38.png> <a0,fr38>
+<brownian-assets/frame-39.png, id=236, 722.7pt x 325.215pt>
+File: brownian-assets/frame-39.png Graphic file (type png)
+<use brownian-assets/frame-39.png>
+Package pdftex.def Info: brownian-assets/frame-39.png  used on input line 204.
+(pdftex.def)             Requested size: 722.69823pt x 325.2142pt.
+ <./brownian-assets/frame-39.png> <a0,fr39>
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <8> on input line 204.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 204.
+
 
 [5
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 223.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 223.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 223.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 223.
+(Font)              <10.95> on input line 218.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 218.
 
 
 [6
 
 ]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 245.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 245.
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <14.4> on input line 245.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <14.4> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 245.
-
 
 [7
+
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <10> on input line 265.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <7> on input line 265.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 265.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 265.
+
+
+[8
+
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <12> on input line 287.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <12> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 287.
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <14.4> on input line 287.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <14.4> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 287.
+
+
+[9
 
 ]
 \tf@nav=\write6
@@ -1267,21 +1285,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `maint.out' has not changed.
-(rerunfilecheck)             Checksum: 807170BD658A75B688D9C2380EA9D8C2;564.
+(rerunfilecheck)             Checksum: E59CCA9E3A41E9D3F0FCD85B95386073;662.
  ) 
 Here is how much of TeX's memory you used:
- 28180 strings out of 473190
- 573169 string characters out of 5715801
- 943298 words of memory out of 5000000
- 50831 multiletter control sequences out of 15000+600000
+ 28205 strings out of 473190
+ 573614 string characters out of 5715801
+ 942341 words of memory out of 5000000
+ 50851 multiletter control sequences out of 15000+600000
  660001 words of font info for 105 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,15n,123p,458b,867s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on maint.pdf (7 pages, 16487534 bytes).
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on maint.pdf (9 pages, 16520721 bytes).
 PDF statistics:
- 416 PDF objects out of 1000 (max. 8388607)
- 229 compressed objects within 3 object streams
- 20 named destinations out of 1000 (max. 500000)
- 591 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 463 PDF objects out of 1000 (max. 8388607)
+ 262 compressed objects within 3 object streams
+ 25 named destinations out of 1000 (max. 500000)
+ 599 words of extra memory for PDF output out of 10000 (max. 10000000)
 
