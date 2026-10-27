@@ -2480,7 +2480,55 @@ Remember that
     \[
     \mathbb{E}[ (f(X_t) - f(X_s) - \int_s^t (\tilde{L}_z f) (X_z) dz ) g(X_t) ]=0,
     \]
-    for almoust every $t,s$. (???)
+    for almoust every $t,s$. We need this weaker formuation, as we will derive this from the Fokker-Plank PDE. It holds in this weaker sense, as assume that $\mathcal{N}$ is the null set on which it does not hold and choose $(s_n)_{n \in \mathbb{N}}, (t_n)_{n \in \mathbb{N}} \subseteq [0,T] \setminus \mathcal{N}$ such that $s_n \to s$ and $t_n \to t$. Define 
+    \[
+    Y_t := f(X_t) - \int_0^t (\tilde{L}_z f) (X_z) dz,
+    \]
+    then $(Y_{t_n}-Y_{s_n}) g(X_{t_n}) \to (Y_t-Y_s) g(X_t)$ $n \to \infty$ a.s. Because $\int_0^T |(\tilde{L}_z f )(X_z)| dz$ is in $L^1(\Omega)$, $(Y_{t_n} -Y_{s_n}) g(X_{t_n})$ is dominated by an integrable random variable with DCT we have 
+    \begin{align*}
+        & \lim_{n \to \infty} \mathbb{E}[ (f(X_{t_n}) - f(X_{s_n})- \int_{s_n}^{t_n} (\tilde{L}_z f)(X_z) dz ) g(X_{t_n}) ] \\
+        &= \mathbb{E}[ ( f(X_t)-f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz ) g(X_t) ],
+    \end{align*}
+    although the left hand side is for almoust all $s,t$ zero. The forward marginal density $p(\cdot,t)$ of $X_t$ of the forward diffusion process solves the Fokker-Plank equation 
+    \[
+    \frac{\partial}{\partial t} p = \Delta p - \nabla \cdot (b p) =: L_t^* p,
+    \]
+    although $L_t^*$ is the adjoint of $L_t p = \Delta p + \nabla \cdot (bp)$, in a weak sense, i.e. for every $\phi \in C_c^\infty (\mathbb{R}^n)$: 
+    \[
+    \frac{d}{dt} ( p(t,\cdot),\phi ) =( p(t,\cdot),L_t \phi) = (p(t,\cdot) L_t^*, \phi),
+    \]
+    where $p(t,\cdot) \in L_{loc}^1(\mathbb{R}^n)$. For $0 < s\leq t \leq 1$ define 
+    \[
+    v(s,x):= \mathbb{E}[ g(X_t) \mid X_s =x] = \mathbb{E}_{s,x}[ g(X_t) ].
+    \]
+    Then we have that 
+    \begin{align*}
+        \mathbb{E}[ f(X_s) g(X_t) ]&= \mathbb{E}[\mathbb{E}[ f(X_s) g(X_t) \mid \mathcal{F}_s ] ]= \mathbb{E}[ f(X_s) \mathbb{E}[ g(X_t) \mid \mathcal{F}_s ] ] \\
+        &= \mathbb{E}[ f(X_s) \mathbb{E}[ g(X_t) \mid X_s ] ] = \mathbb{E}[ f(X_s) v(s,X_s) ] \\
+        &= \int_{\mathbb{R}^n} f(x) v(s,x) p(s,x) dx = (f p(s,\cdot),v(s,\cdot) ).
+    \end{align*}
+    Because $v(t,X_t)$ is continuous martignale wrt. $\mathcal{F}_t$ we have with Its formula that 
+    \begin{align*}
+        v(t,X_t) = v(r,X_r) &+ \int_r^t \frac{\partial}{\partial s} v(s,X_s) + \nabla v(s,X_s)^T b(X_s) + \frac{1}{2} \Delta v(s,X_s) |\sigma(X_s)|^2 ds \\
+        &+ \int_r^t \nabla v(s,X_s)^T \sigma (X_s) d W_s \\
+        &= v(r,X_r) + \int_r^t \frac{\partial}{\partial s} v(s,X_s)+ L_s v(s,X_s)ds + \int_r^t \nabla v(s,X_s)^T \sigma (X_s) dW_s.
+    \end{align*}
+    Because the integral process is a martingale we have 
+    \[
+    \mathbb{E}[ v(t,X_t)- v(r,X_r)] = \mathbb{E}[ \int_r^t \frac{\partial}{\partial s} v(s,X_s)+ L_s v(s,X_s)ds ].
+    \]
+    Because $v(t,X_t)$ is a martingale we have 
+    \[
+    0=  \mathbb{E}[ \int_r^t \frac{\partial}{\partial s} v(s,X_s)+ L_s v(s,X_s)ds ]
+    \]
+    which implies that 
+    \[
+    \frac{\partial}{\partial t} v(t,X_t) + L_t v(t,X_t) =0 \quad a.s.
+    \]
+    Under the assumption that the diffusion matrix is non degenerate, there is a positive probability that $X_t$ reaches any point in an open neighborhood of $\mathbb{R}^n$. Thus, 
+    \[
+    \frac{\partial}{\partial t} v(t,x) + L_t v(t,x) =0.
+    \]
 }
 
 
