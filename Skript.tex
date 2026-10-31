@@ -2434,21 +2434,147 @@ Remember that
 
 \subsection{Some PDE Backround}
 \defn{}{
-    $f \in L^1_{loc} (E)$ is called weakly differentiable of index $\alpha$, if 
+    The set of test functions is:
     \[
-    \exists g \in L^1_{loc} (E) \forall v \in C_0^\infty (E) : \quad \int_E f D^\alpha v d x = (-1)^{|\alpha|} \int_E g(x) v(x)dx.
+    \mathcal{D}(\Omega) := \{ f \in C_0^\infty(\Omega) \mid f_n \to f \in C_0^\infty (\Omega) : \iff \substack{\exists K \subset \Omega \text{ compact } \forall n \in \mathbb{N}: \quad supp f_n \subset K \\ \forall \alpha \in \mathbb{N}_0^n: \quad \sup_{K} |\partial^\alpha f_n - \partial^\alpha f| \to 0, n \to \infty }  \}.
     \]
-    The weak derivative is denoted by $g=: D^\alpha f$.
+    It is equipped with the semi-norm (constant functions are zero)
+    \[
+    \| \cdot \|_{K,\alpha}: C_0^\infty (\Omega) \to \mathbb{R} \quad \phi \mapsto \| \phi \|_{K,\alpha} := \sup_{x \in K} |\partial^\alpha f_n - \partial^\alpha f| \to 0, n \to \infty.
+    \]
+    The Dual space that are continuous wrt. this norm is called the set of distributions:
+    \[
+    \mathcal{D}^\prime (\Omega) := \{ F: \mathcal{D}(\Omega)\to \mathbb{R} \mid F \text{ continuous wrt. } \| \cdot \|_{K,\alpha} \}.
+    \]
 }
+One can check that 
+\[
+F_f :C_0^\infty (\Omega) \to \mathbb{R}, \phi \mapsto \int_\Omega f \phi d \mu, \quad \forall f \in L_{loc}^1 (\Omega),
+\]
+is a distribution. Distributions that can be written in this form are called regular.\\
+We can define the weak partial derivative as a distribution 
+\defn{}{
+For every $F \in \mathcal{D}^\prime (\Omega)$ define 
+\[
+\partial_i F_\cdot : \mathcal{D}(\Omega) \to \mathbb{R}, \quad \phi \mapsto -F_\cdot (\partial_i \phi).
+\]
+}
+Because the test functions are infinitely differentiable, distributions are also infinitely differentiable.
+\defn{}{
+    The Sobolev space is defined as 
+    \[
+    H^1(\Omega) := \{ u \in L^2(\Omega) \mid \nabla u \in L^2(\Omega) \},
+    \]
+    and is equipped with the norm 
+    \[
+    \| u \|_{H^1} := \| u \|_{L^2} + \| \nabla u \|_{L^2}.
+    \]
+    The dual space of Sobolev space is denoted as 
+    \[
+    H^{-1} (\Omega) := (H^1(\Omega))^\prime.
+    \]
+    To induce time, define 
+    \[
+    L^2(t,T; H^1(\Omega)) := \{ u \mid \int_t^T \| u (t,\cdot) \|_{H^1}^2 dt < \infty  \}
+    \]
+}
+We need a slighter weaker formulation for the Sobolev space 
+\defn{}{
+    \[
+    \tilde{H}_{loc}^1 (\Omega) := \{ u \in L_{loc}^2(\Omega) \mid \nabla \cdot (\sigma^j u) \in L_{loc}^2(\Omega), j=1,...,l \},
+    \]
+    where 
+    \[
+    L_{loc}^2 (\Omega) := \{ u \mid \forall \mathcal{O} \subseteq \Omega \text{ open}: \quad \int_\mathcal{O} |u(x)|^2 dx < \infty \}.
+    \]
+}
+We can now write regular distributions on $L^2(t,T; \tilde{H}^1_{loc} (\Omega))$ as 
+
+\thm{}{
+    If $f \in L_{loc}^1(\Omega)$ satisfies for every $\phi \in C_0^\infty (\Omega)$ that $F_f(\phi)\geq 0$ then $f \geq 0$ $\lambda$-a.e. and $L_{loc}^1(\Omega) \to \mathcal{D}^\prime (\Omega), f \mapsto F_f$ is injective.
+}
+The second assertion implies that if for two $f,g \in L^1(\Omega)$ their distributions equal, i.e. $F_f (\phi) =F_g (\phi)$ for every $\phi \in C_0^\infty (\Omega)$, then $f=g$ $\lambda$-a.e. \\
+Because $L^2(t,T; \tilde{H}_{loc}^1(\mathbb{R}^n)) \subseteq L^1_{loc}( (t,T) \times \mathbb{R}^n)$, the above result also holds for our newly constucted space.
 
 
 
 
 \section{Time-Reversal of Diffusions}
 
+
+Consider the forward diffusion process 
+\[
+dX_t = b(X_t,t) dt + \sigma (X_t,t) dW_t.
+\]
+We only consider $t \in [0,1]$, because ???
+
+
 \assu{}{
     \label{Assumption: A}
+    \begin{itemize}
+        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ are borel measurable and satisfy 
+        \begin{align*}
+            |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
+            |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
+        \end{align*}
+        for some constant $K$.
+        \item For $\lambda$-a.e. $t >0$,, $X_t \sim p(t,\cdot)$ such that $\forall t_0>0$: 
+        \[
+        p \in L^2( t_0,1; \tilde{H}_{loc}^1 ).
+        \]
+    \end{itemize}
 }
+For a solution to exist we need the first condition. However, it is not sufficient, because the density $p$ is not differentiable. For the equivalent Fokker-Plank equation 
+\[
+\frac{\partial}{\partial t} p (x,t) = L_t^* p(x,t)
+\]
+to have a solution in the strong sense, we need to assume that $p \in C^{1,2} ([0,1] \times \mathbb{R}^n)$. This does not hold, as $b$ and $\sigma$ do not give the density $p$ enough regularity. The second condition in the assumption is what we need, to formulate a solution in the weak sense. The weak derivative for $p \in L^2(s,t; \tilde{H}_{loc}^1)$ is 
+ \[
+    \partial_i p:  \mathcal{D}((s,t) \times \mathbb{R}^n) \to \mathbb{R}, \quad \phi \mapsto  \langle \partial_i p,\phi \rangle := - \langle p, \partial_i \phi \rangle = -\int_s^t \int_{\mathbb{R}^n} p \partial_i \phi dx dz.
+    \]
+
+We have that $(\sigma^*)^T \nabla p \in L_{loc}^2( (0,1) \times \mathbb{R}^n)$, because for any $K:= [s,t] \times K_x \subset (0,1) \times \mathbb{R}^n$, where $K_x$ contains an open bounded domain $\mathcal{O}$ we have 
+\begin{align*}
+    \int_K |\sigma^* (x,t)^T \nabla p(x,t) |^2 d(x,t) & \leq \int_s^t \int_{K_x} \sum_{i=1}^n | \sum_{j=1}^n \sigma^{ij} (x,t) \frac{\partial}{\partial x_j} p(x,t) |^2 dx dt \\
+    &\leq \int_{t_0}^1 \int_\mathcal{O} \sum_{i=1}^n | (\sigma^{i\cdot})^* \nabla p |^2 + |p(x,t)| dx dt < \infty, 
+\end{align*}
+as $p \in L^2(t_0,1; \tilde{H}_{loc}^1)$. Second, to show that $\langle L_z^* p, \cdot \rangle \in \mathcal{H}^{-1} := L^2(s,t; H^{-1} (\mathbb{R}^n))$ we need to do a little more work. First, see that for the test functions $\phi \in C_0^\infty ([0,1])$ and $\psi \in C_0^\infty (\mathbb{R}^n)$ it holds 
+\begin{align*}
+\langle \frac{\partial}{\partial t} \bar{p}, \phi \psi \rangle &= - \langle \bar{p}, \psi \frac{\partial}{\partial t} \phi \rangle \\
+&= - \int_s^t \int_{\mathbb{R}^n} \bar{p}(x,z) \psi (x) \frac{d}{dz} \phi (z) dx dz \\
+&= - \int_s^t( \frac{d}{dz} \phi (z) \bar{p}(\cdot,z), \psi ) dz=- \int_s^t \frac{d}{dz} \phi (z) (p(\cdot,z), f_1 \psi)   dz  \\
+&= \int_s^t \phi (z) \frac{d}{dz} (p(\cdot,z),f_1 \psi) dz \stackrel{PDE}{=} \int_s^t \phi (z) (p(\cdot,z), L_z (f_1 \psi)) dz \\
+&= \int_s^t \phi (z) (p(\cdot,z), f_1 L_z ( \psi)) dz \\
+&= \int_s^t \phi (z) (\bar{p}(\cdot,z),  L_z ( \psi)) dz = \langle L_\cdot^* \bar{p}, \phi \psi \rangle.
+\end{align*} 
+Because for $\phi \psi =:\Phi \in C_0^\infty((s,t)\times \mathbb{R}^n)$:
+\begin{align*}
+    L_z \Phi = \frac{1}{2} \sum_{ij} a_{ij} \Delta \Phi + b^T \nabla \Phi &= \frac{1}{2} \sum_{ij}( \nabla (a_{ij} \nabla \Phi) -\nabla a_{ij} \nabla \Phi )+ b^T \nabla \Phi \\
+    &= \frac{1}{2} \sum_{ij} \nabla( a_{ij} \nabla \Phi ) + \nabla \Phi^T (b-\frac{1}{2} \nabla a )
+\end{align*}
+we have that 
+\begin{align*}
+    ( p(\cdot,z), L_z (\Phi(\cdot,z)) ) &= \int_{\mathbb{R}^n} p(x,z) ( \frac{1}{2}( \nabla \cdot (\frac{1}{2} \nabla a^T \nabla \Phi )) + \nabla \Phi^T (b -\frac{1}{2} \nabla a) ) dx \\
+    &=\int_{\mathbb{R}^n} - \frac{1}{2} \nabla p(x,z)^T ( (\sigma \sigma^*)^* \nabla \Phi  )dx + (p, \nabla \Phi^T (b-\frac{1}{2} \nabla a) )\\
+    &=- \frac{1}{2} ( \sigma^* \nabla p, \sigma^* \nabla \Phi ) + (p, \nabla \Phi^T (b-\frac{1}{2} \nabla a)).
+\end{align*}
+So in total we have shown that 
+\[
+\langle \frac{\partial}{\partial t} \bar{p}, \Phi \langle = \langle \bar{p}, L \Phi \rangle = \int_s^t - \frac{1}{2} (\sigma^* \nabla \bar{p}, \sigma^* \nabla \Phi)+ (p,\nabla \Phi^T (b-\frac{1}{2} \nabla a))dz =: A(p,\phi).
+\]
+Because the left side is a distribution $A (p,\cdot)$ is a distribution.
+
+
+
+
+
+
+
+
+We have shown that 
+\[
+0= \mathbb{E}[ \phi(X_T,T) - \phi (X_0,0) ] = \int_0^T \int_{\mathbb{R}^n} ( \frac{\partial}{\partial s} \phi (x,s) + b(x,s)^T \nabla \phi (x,s) + \Delta \phi (x,s) a(x,s) ) p(x,s) dx ds.
+\]
 
 \thm{}{
     Under \ref{Assumption: A} $(\bar{X}_t)_{t \in [0,1)}$ is a Markov diffusion process wrt. $\bar{L}_t$.
@@ -2529,6 +2655,46 @@ Remember that
     \[
     \frac{\partial}{\partial t} v(t,x) + L_t v(t,x) =0.
     \]
+    Due to the fact that (note $\Delta f:= \sum_{i,j=1}^n a_{ij} \frac{\partial^2}{\partial x_i \partial x_j} f$.)
+    \[
+    L_z^* (fp) = - \nabla \cdot(bfp) + \frac{1}{2} \Delta (fp) = - f \nabla \cdot (bp) - p \nabla \cdot (bf) + \frac{1}{2} \Delta (fp)
+    \]
+    and because we can write 
+    \[
+    \Delta (fp) = \sum_{i,j=1}^n \frac{\partial^2}{\partial x_i \partial x_j} (a_{ij} fp) = \sum_{i,j=1}^n \frac{\partial^2}{\partial x_i \partial x_j} (a_{ij} p) + \sum_{i,j=1}^n \frac{\partial}{\partial x_i} f \frac{\partial}{\partial x_j} (a_{ij} p) + \sum_{i,j=1}^n a_{ij} p \frac{\partial^2}{\partial x_i \partial x_j} f.
+    \]
+    Using this we get that 
+    \begin{align*}
+        L_z^* (fp) &= f (- \nabla \cdot (bp) + \frac{1}{2} \sum_{i,j=1}^n \frac{\partial^2}{\partial x_i \partial x_j} (a_{ij}p)) + p ( \frac{1}{2} \sum_{i,j=1}^n a_{ij} \frac{\partial^2}{\partial x_i \partial x_j} f - \nabla \cdot (bf) + \frac{1}{p} \sum_{i,j=1}^n \frac{\partial}{\partial x_i} f \frac{\partial}{\partial x_j} (a_{ij} p) )\\
+        &= fLz^* (p) - p \tilde{L}_z (f).
+    \end{align*}
+    This gives us that 
+    \begin{align*}
+        ( f p(s), v(s)) &= ( f p(s), v(s)) - (fp(t), v(t)) + ( f p(t), v(t)) \\
+        &=( f p(t), v(t)) - \int_{\mathbb{R}^n} \int_s^t \frac{d}{d z} fp (z) v(z) d z dx \\
+        &= ( f p(t), v(t)) - \int_{\mathbb{R}^n} \int_s^t (\frac{d}{d z} fp (z))  v(z) + fp(z) \frac{d}{dz} v(z) d z dx \\
+        &= ( f p(t), v(t)) - \int_s^t  ( \frac{d}{d z} fp (z),v(z) ) + (fp(z), \frac{d}{dz} v(z)) dz \\
+        &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t (  f\frac{d}{d z}p (z),v(z) ) + (fp(z), L_z v(z)) dz \\
+        &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t (  f L_t^* p (z),v(z) ) - (fp(z), L_z v(z)) dz \\
+        &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t (p(z) \tilde{L}_z f, v(z)) + ( L_z^* (fp)v(z)) - (fp(z), L_z v(z)) dz \\
+        &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t (p(z) \tilde{L}_z f, v(z))  dz \\
+         &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t \mathbb{E}[ \tilde{L}_z (f) v(z,X_z) ]  dz \\
+         &= \mathbb{E}[ f(X_t) g(X_t)] - \int_s^t \mathbb{E}[ \tilde{L}_z (f(X_z)) \mathbb{E}[ g(X_t) \mid X_z =x ] ]  dz \\
+         &= \mathbb{E}[ (f(X_t) g(X_t) - \int_s^t \tilde{L}_z (f(X_z))    dz ) g(X_t) ] 
+    \end{align*}
+    So we have shown that 
+    \begin{align*}
+        \mathbb{E}[ f(X_s) g(X_t) ] &=  (fp(s),v(s)) = \mathbb{E}[ ( f(X_t)- \int_s^t \tilde{L}_z f(X_z) dz ) g(X_t) ]\\
+        0 &= \mathbb{E}[ ( f(X_t) - f(X_s) - \int_s^t \tilde{L}_z f(X_z) dz ) g(X_t) ]
+    \end{align*}
+
+
+
+
+
+    
+    
+
 }
 
 

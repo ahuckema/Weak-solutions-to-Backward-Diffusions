@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Time Reversal of Diffusions</title>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+<style>
+  /* Color Palette */
+  :root {
+    --ink: #14243A;
+    --midnight: #10253F;
+    --teal: #16B8A6;
+    --coral: #F47763;
+    --gold: #F2B84B;
+    --mist: #F3F7FA;
+    --muted: #64748B;
+  }
+
+  body, html {
+    margin: 0; padding: 0;
+    width: 100vw; height: 100vh;
+    background-color: #333;
+    display: flex; justify-content: center; align-items: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  }
+
+  /* 16:9 Presentation Container */
+  #presentation {
+    width: 100vw;
+    height: 56.25vw; /* 16:9 aspect ratio */
+    max-height: 100vh;
+    max-width: 177.78vh;
+    background-color: white;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    color: var(--ink);
+    font-size: 2.2vmin; /* Scalable font size */
+    overflow: hidden;
+  }
+
+  .slide {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    box-sizing: border-box;
+    padding: 0 4%;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .slide.active {
+    display: flex;
+    flex-direction: column;
+    opacity: 1;
+  }
+
+  .slide-content {
+    flex-grow: 1;
+    position: relative;
+    margin-top: 15%; /* Space for header */
+    margin-bottom: 5%; /* Space for footer */
+  }
+
+  /* Layout elements */
+  .center { display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; }
+  .grid-2 { display: flex; width: 100%; height: 100%; }
+  .col-67 { width: 67%; padding-right: 3%; }
+  .col-30 { width: 33%; display: flex; flex-direction: column; justify-content: center; font-size: 0.9em; }
+
+  /* Typography */
+  h1, h2, h3 { margin: 0; font-weight: bold; }
+  .text-teal { color: var(--teal); }
+  .text-coral { color: var(--coral); }
+  .text-gold { color: var(--gold); }
+  .text-muted { color: var(--muted); }
+  .text-white { color: white; }
+  .bg-midnight { background-color: var(--midnight); }
+  .small { font-size: 0.8em; }
+  .tiny { font-size: 0.6em; }
+
+  /* Header (Frametitle) */
+  #header {
+    position: absolute;
+    top: 3%; left: 4%; right: 4%;
+    z-index: 10;
+  }
+  .header-top { display: flex; justify-content: space-between; font-size: 0.65em; color: var(--muted); margin-bottom: 1%; }
+  .header-title { font-size: 1.5em; font-weight: bold; margin-bottom: 0.5%; }
+  .header-lines { display: flex; justify-content: space-between; align-items: center; }
+  .line-teal { height: 3px; width: 12%; background-color: var(--teal); }
+  .line-coral { height: 3px; width: 3.5%; background-color: var(--coral); }
+
+  /* Progress Bar */
+  .progress-container { display: inline-block; width: 40px; height: 2px; background-color: var(--mist); margin-right: 5px; vertical-align: middle; }
+  .progress-bar { height: 100%; background-color: var(--teal); width: 0%; }
+
+  /* Footer */
+  #footer {
+    position: absolute;
+    bottom: 2%; left: 4%; right: 4%;
+    display: flex; justify-content: space-between;
+    font-size: 0.65em; color: var(--muted);
+    z-index: 10;
+  }
+
+  /* Blocks */
+  .beamer-block { margin-top: 1.5em; border-radius: 4px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%; }
+  .block-title { background-color: var(--midnight); color: white; padding: 0.4em 0.8em; font-weight: bold; font-size: 0.9em; display: flex; align-items: center; }
+  .block-body { background-color: var(--mist); color: var(--ink); padding: 0.8em; font-size: 0.9em; }
+  
+  .recall-box { background-color: var(--mist); color: var(--ink); border-radius: 6px; padding: 0.6em; font-size: 0.8em; margin-top: 1em; display: inline-block;}
+  .recall-title { color: var(--coral); font-weight: bold; margin-right: 0.5em; }
+
+  /* Custom Inline Icons */
+  .icon-inline { display: inline-block; width: 1.2em; height: 1.2em; vertical-align: middle; margin-right: 0.2em; }
+
+  /* Toolbox */
+  #toolbox {
+    position: absolute;
+    top: 5%; right: 4%;
+    background-color: var(--mist);
+    border: 2px solid var(--midnight);
+    border-radius: 6px;
+    padding: 1% 1.5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 20;
+    min-width: 35%;
+  }
+  .toolbox-title { font-size: 0.55em; font-weight: bold; color: var(--midnight); margin-bottom: 5px; letter-spacing: 1px; }
+  .toolbox-items { display: flex; justify-content: space-between; width: 100%; }
+  .tb-item { display: flex; flex-direction: column; align-items: center; width: 14%; position: relative; }
+  .tb-text { font-size: 0.4em; color: var(--midnight); text-align: center; line-height: 1.2; height: 2.5em; margin-bottom: 2px; }
+  .tb-svg { width: 100%; height: 25px; overflow: visible; }
+  
+  /* Slide 1 Specifics */
+  .s1-bg { position: absolute; top:0; left:0; width:100%; height:100%; z-index:-1; }
+
+  /* Slide 2 Flowchart */
+  .flowchart { position: relative; width: 100%; height: 100%; font-size: 0.7em; }
+  .fc-node { position: absolute; border-radius: 4px; padding: 0.5em; text-align: center; font-weight: bold; transform: translate(-50%, -50%); display: flex; flex-direction: column; justify-content: center; align-items: center;}
+  
+  canvas { border-radius: 4px; background: #fff; box-shadow: 0 0 10px rgba(0,0,0,0.05); }
+
+</style>
+</head>
+<body>
+
+<div id="presentation">
+
+  <!-- Header Overlay -->
+  <div id="header">
+    <div class="header-top">
+      <span id="header-author">Arne Huckemann</span>
+      <span>
+        <div class="progress-container"><div class="progress-bar" id="header-progress"></div></div>
+        <span id="header-progress-text">1/1</span>
+      </span>
+    </div>
+    <div class="header-title" id="header-title">Frame Title</div>
+    <div class="header-lines">
+      <div class="line-teal"></div>
+      <div class="line-coral"></div>
+    </div>
+  </div>
+
+  <!-- Toolbox Overlay -->
+  <div id="toolbox">
+    <div class="toolbox-title">TOOLBOX</div>
+    <div class="toolbox-items">
+      <!-- 1. Calculus (Teal Circle) -->
+      <div class="tb-item">
+        <div class="tb-text">Stochastic<br>Calculus</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-calc">
+          <circle cx="0" cy="0" r="8" fill="none" stroke="var(--teal)" stroke-width="1.5" class="outline"></circle>
+          <clipPath id="clip-calc"><rect x="-10" y="10" width="20" height="0" id="fill-calc"/></clipPath>
+          <circle cx="0" cy="0" r="8" fill="var(--teal)" clip-path="url(#clip-calc)"></circle>
+        </svg>
+      </div>
+      <!-- 2. PDE (Coral Square) -->
+      <div class="tb-item">
+        <div class="tb-text">Partielle<br>Differential-<br>gleichungen</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-pde">
+          <rect x="-7.5" y="-7.5" width="15" height="15" fill="none" stroke="var(--coral)" stroke-width="1.5" class="outline"></rect>
+          <clipPath id="clip-pde"><rect x="-10" y="10" width="20" height="0" id="fill-pde"/></clipPath>
+          <rect x="-7.5" y="-7.5" width="15" height="15" fill="var(--coral)" clip-path="url(#clip-pde)"></rect>
+        </svg>
+      </div>
+      <!-- 3. Ableitungen (Gold Tri Up) -->
+      <div class="tb-item">
+        <div class="tb-text">Schwache<br>Ableitungen<br>u. Lösungen</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-abl">
+          <polygon points="0,-9 -9,7 9,7" fill="none" stroke="var(--gold)" stroke-width="1.5" class="outline"></polygon>
+          <clipPath id="clip-abl"><rect x="-10" y="10" width="20" height="0" id="fill-abl"/></clipPath>
+          <polygon points="0,-9 -9,7 9,7" fill="var(--gold)" clip-path="url(#clip-abl)"></polygon>
+        </svg>
+      </div>
+      <!-- 4. Zusammenführung (Ink Diamond) -->
+      <div class="tb-item">
+        <div class="tb-text">Zusammenführung<br>SDEs u. PDEs</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-markov">
+          <polygon points="0,-9 9,0 0,9 -9,0" fill="none" stroke="var(--ink)" stroke-width="1.5" class="outline"></polygon>
+          <clipPath id="clip-markov"><rect x="-10" y="10" width="20" height="0" id="fill-markov"/></clipPath>
+          <polygon points="0,-9 9,0 0,9 -9,0" fill="var(--ink)" clip-path="url(#clip-markov)"></polygon>
+        </svg>
+      </div>
+      <!-- 5. Martingale (Teal Tri Down) -->
+      <div class="tb-item">
+        <div class="tb-text">Markov<br>Prozesse</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-mart">
+          <polygon points="0,9 -9,-7 9,-7" fill="none" stroke="var(--teal)" stroke-width="1.5" class="outline"></polygon>
+          <clipPath id="clip-mart"><rect x="-10" y="10" width="20" height="0" id="fill-mart"/></clipPath>
+          <polygon points="0,9 -9,-7 9,-7" fill="var(--teal)" clip-path="url(#clip-mart)"></polygon>
+        </svg>
+      </div>
+      <!-- 6. Rückwärts (Coral Hexagon) -->
+      <div class="tb-item">
+        <div class="tb-text">Martingale<br>Problem</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-rueck">
+          <polygon points="0,-9 7.5,-4.5 7.5,4.5 0,9 -7.5,4.5 -7.5,-4.5" fill="none" stroke="var(--coral)" stroke-width="1.5" class="outline"></polygon>
+          <clipPath id="clip-rueck"><rect x="-10" y="10" width="20" height="0" id="fill-rueck"/></clipPath>
+          <polygon points="0,-9 7.5,-4.5 7.5,4.5 0,9 -7.5,4.5 -7.5,-4.5" fill="var(--coral)" clip-path="url(#clip-rueck)"></polygon>
+        </svg>
+      </div>
+      <!-- 7. Sobolev (Gold Pentagon) -->
+      <div class="tb-item">
+        <div class="tb-text">Rückwärts<br>Prozess</div>
+        <svg class="tb-svg" viewBox="-12 -12 24 24" id="tb-sob">
+          <polygon points="0,-9 8.5,-3 5.5,7 -5.5,7 -8.5,-3" fill="none" stroke="var(--gold)" stroke-width="1.5" class="outline"></polygon>
+          <clipPath id="clip-sob"><rect x="-10" y="10" width="20" height="0" id="fill-sob"/></clipPath>
+          <polygon points="0,-9 8.5,-3 5.5,7 -5.5,7 -8.5,-3" fill="var(--gold)" clip-path="url(#clip-sob)"></polygon>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer Overlay -->
+  <div id="footer">
+    <span id="footer-left">Resolvents and Laplace transforms</span>
+    <span id="footer-center"></span>
+    <span id="footer-right">1</span>
+  </div>
+
+  <!-- ============================================== -->
+  <!-- SLIDES -->
+  <!-- ============================================== -->
+
+  <!-- Slide 1: Title -->
+  <div class="slide" data-title="false" data-sec="0">
+    <svg class="s1-bg">
+      <rect x="0" y="0" width="100%" height="100%" fill="var(--midnight)" />
+      <rect x="0" y="0" width="100%" height="15%" fill="var(--teal)" />
+      <rect x="78%" y="80%" width="22%" height="20%" fill="var(--coral)" />
+      <rect x="72%" y="80%" width="6%" height="20%" fill="var(--gold)" />
+      <circle cx="68%" cy="62%" r="12%" fill="var(--teal)" opacity="0.16" />
+      <circle cx="82%" cy="38%" r="6%" fill="var(--coral)" opacity="0.14" />
+    </svg>
+    <div style="position:absolute; top:25%; left: 8%; color: white;">
+      <div class="text-teal" style="font-variant: small-caps; font-size: 1.2em; margin-bottom: 2em;">Operator semigroups</div>
+      <div style="font-size: 2.8em; font-weight: bold; margin-bottom: 0.3em;">Time Reversal of Diffusions</div>
+      <div style="font-size: 1.5em; color: rgba(255,255,255,0.75);">Subtitile</div>
+    </div>
+    <div style="position:absolute; bottom: 15%; left: 8%; color: white; display: flex; align-items: center; gap: 1em;">
+      <span>Arne Huckemann</span>
+      <span style="color: rgba(255,255,255,0.55); font-size: 0.8em;">●</span>
+      <span style="color: rgba(255,255,255,0.75);">06.11.2026</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: Flowchart -->
+  <div class="slide" data-sec="1" data-secname="Motivation" data-title="From foundations to time reversal">
+    <div class="slide-content flowchart">
+      <div style="position:absolute; top:0; left:50%; transform:translateX(-50%); font-size:0.8em; font-weight:bold; color:var(--muted)">FOUNDATIONAL TOOLS</div>
+      
+      <!-- Top Row -->
+      <div class="fc-node" style="top: 15%; left: 20%; width: 20%; background: #e3f5f3; border: 2px solid var(--teal); color: var(--ink);">Stochastic Calculus</div>
+      <div class="fc-node" style="top: 15%; left: 50%; width: 20%; background: #fde8e5; border: 2px solid var(--coral); color: var(--ink);">Stochastic Processes</div>
+      <div class="fc-node" style="top: 15%; left: 80%; width: 20%; background: #fdf2de; border: 2px solid var(--gold); color: var(--ink);">Markov Processes</div>
+      
+      <!-- Lines to Center -->
+      <svg style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:-1;">
+        <line x1="20%" y1="15%" x2="20%" y2="30%" stroke="var(--teal)" stroke-width="2"/>
+        <line x1="80%" y1="15%" x2="80%" y2="30%" stroke="var(--gold)" stroke-width="2"/>
+        <line x1="50%" y1="15%" x2="50%" y2="35%" stroke="var(--coral)" stroke-width="2"/>
+        <line x1="20%" y1="30%" x2="80%" y2="30%" stroke="rgba(20,36,58,0.4)" stroke-width="2"/>
+        <circle cx="50%" cy="30%" r="3" fill="var(--teal)"/>
+        
+        <!-- Center to Weak -->
+        <defs><marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="rgba(20,36,58,0.5)"/></marker></defs>
+        <defs><marker id="arrowT" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--teal)"/></marker></defs>
+        <defs><marker id="arrowC" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--coral)"/></marker></defs>
+        <defs><marker id="arrowG" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--gold)"/></marker></defs>
+
+        <line x1="50%" y1="30%" x2="50%" y2="40%" stroke="rgba(20,36,58,0.5)" stroke-width="3" marker-end="url(#arrow)"/>
+        <line x1="50%" y1="52%" x2="50%" y2="65%" stroke="rgba(20,36,58,0.5)" stroke-width="3"/>
+        <line x1="50%" y1="65%" x2="20%" y2="65%" stroke="rgba(20,36,58,0.5)" stroke-width="3"/>
+        <line x1="20%" y1="65%" x2="20%" y2="72%" stroke="rgba(20,36,58,0.5)" stroke-width="3" marker-end="url(#arrow)"/>
+
+        <line x1="30%" y1="78%" x2="40%" y2="78%" stroke="var(--teal)" stroke-width="3" marker-end="url(#arrowT)"/>
+        <line x1="60%" y1="78%" x2="70%" y2="78%" stroke="var(--coral)" stroke-width="3" marker-end="url(#arrowC)"/>
+        <line x1="80%" y1="84%" x2="80%" y2="92%" stroke="var(--gold)" stroke-width="3" marker-end="url(#arrowG)"/>
+      </svg>
+
+      <!-- Middle Row -->
+      <div class="fc-node bg-midnight text-white" style="top: 46%; left: 50%; width: 45%;">
+        Weak solutions for SDEs<br><span style="color:rgba(255,255,255,0.8); font-size:0.8em; font-weight:normal;">Formulated through the martingale problem</span>
+      </div>
+
+      <!-- Bottom Row -->
+      <div class="fc-node" style="top: 78%; left: 20%; width: 18%; background: #e3f5f3; border: 2px solid var(--teal); color: var(--ink);">Reverse process<br>is Markov</div>
+      <div class="fc-node" style="top: 78%; left: 50%; width: 18%; background: #fde8e5; border: 2px solid var(--coral); color: var(--ink);">PDE methods<br>derive reverse dynamics</div>
+      <div class="fc-node" style="top: 78%; left: 80%; width: 18%; background: #fdf2de; border: 2px solid var(--gold); color: var(--ink);">Reverse SDE<br>and its generator</div>
+
+      <!-- Footer node -->
+      <div class="fc-node" style="top: 96%; left: 50%; width: 50%; background: var(--mist); border: 1px solid rgba(16,37,63,0.3);">
+        <span style="font-size:0.7em; color:var(--muted); margin-right: 1em;">APPLICATION</span> Time Reversal of Diffusions
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 3: Brownian Motion -->
+  <div class="slide" data-sec="1" data-secname="Motivation" data-title="Sample paths of Brownian motion" data-animate-brownian="true">
+    <div class="slide-content grid-2">
+      <div class="col-67">
+        <canvas id="brownianCanvas" width="800" height="500" style="width:100%; height:auto;"></canvas>
+      </div>
+      <div class="col-30">
+        <div class="text-teal" style="font-weight:bold; margin-bottom: 0.5em;">Six independent paths</div>
+        <p>Each curve is a realization of standard Brownian motion. All paths begin at zero and evolve independently.</p>
+        <p style="text-align: center;">\(B_0^{(k)}=0,\quad k=1,\ldots,6.\)</p>
+        <div style="flex-grow:1;"></div>
+        <p class="text-muted tiny">The animation loops as each trajectory unfolds.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 4: Diffusion -->
+  <div class="slide" data-sec="1" data-secname="Motivation" data-title="Diffusion die Idee">
+    <div class="slide-content">
+      <div class="beamer-block">
+        <div class="block-title">Start with a weighted semigroup average</div>
+        <div class="block-body">
+          Standard diffusion 
+          \[ dX_t = b(X_t) dt + \sigma(X_t) dW_t \]
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 5: Stoc Calc -->
+  <div class="slide" data-sec="2" data-secname="Stochastic Calculus" data-subsec="Ito Integral" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+  <!-- Slide 6 -->
+  <div class="slide" data-sec="2" data-secname="Stochastic Calculus" data-subsec="Starke Lösungen Stochastische Differentialgleichungen" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+  <!-- Slide 7 -->
+  <div class="slide" data-sec="2" data-secname="Stochastic Calculus" data-subsec="Schwache Lösungen von Stochastische Differentialgleichungen" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 8: PDEs -->
+  <div class="slide" data-sec="3" data-secname="Partielle Differentialgleichungen" data-title="Distributionen">
+    <div class="slide-content">
+      <div class="beamer-block">
+        <div class="block-title">Test Funktionen</div>
+        <div class="block-body" style="font-size: 0.85em;">
+          Die Menge der Testfunktionen 
+          \[
+          \mathcal{D}(\Omega) := \left\{ f \in C_0^\infty(\Omega) \mid f_n \to f \in C_0^\infty (\Omega) : \iff \begin{matrix} \exists K \subset \Omega \text{ compact } \forall n \in \mathbb{N}: \quad \text{supp } f_n \subset K \\ \forall \alpha \in \mathbb{N}_0^n: \quad \sup_{K} |\partial^\alpha f_n - \partial^\alpha f| \to 0, n \to \infty \end{matrix} \right\}
+          \]
+          wird ausgestattet mit der halb Norm (konstante Funktionen haben Norm null)
+          \[
+            \| \cdot \|_{K,\alpha}: C_0^\infty (\Omega) \to \mathbb{R} \quad \phi \mapsto \| \phi \|_{K,\alpha} := \sup_{x \in K} |\partial^\alpha f_n - \partial^\alpha f| \to 0, n \to \infty.
+          \]
+        </div>
+      </div>
+      <p style="margin-top: 2em; font-weight: bold;">BILD</p>
+    </div>
+  </div>
+
+  <!-- Slide 9 -->
+  <div class="slide" data-sec="3" data-secname="Partielle Differentialgleichungen" data-title="Distributionen">
+    <div class="slide-content">
+      <div class="beamer-block">
+        <div class="block-title">Reguläre Distributionen</div>
+        <div class="block-body">
+          Sind im Dualraum der Testfunktionen und sind von der Form 
+          \[
+          F_f: C_0^\infty (\Omega) \to \mathbb{R}, \phi \mapsto \int_\Omega f \phi d \mu, \quad \forall f \in ???
+          \]
+        </div>
+      </div>
+      <div class="beamer-block">
+        <div class="block-title">Sobolev Raum</div>
+        <div class="block-body">
+          \[
+          \tilde{H}_{loc}^1 (\Omega) := \{ u \in L_{loc}^2(\Omega) \mid \nabla \cdot (\sigma^j u) \in L_{loc}^2(\Omega), j=1,...,l \},
+          \]
+          wobei 
+          \[
+          L_{loc}^2 (\Omega) := \{ u \mid \forall \mathcal{O} \subseteq \Omega \text{ open}: \quad \int_\mathcal{O} |u(x)|^2 dx < \infty \}.
+          \]
+        </div>
+      </div>
+      <p style="font-size: 0.9em; margin-top: 1em;">Wir wollen nun für nicht differenzierbare Funktionen auf dem Sobolevraum ein schwaches Differntial definieren.</p>
+    </div>
+  </div>
+
+  <!-- Slide 10 -->
+  <div class="slide" data-sec="3" data-secname="Partielle Differentialgleichungen" data-title="Schwache Ableitung">
+    <div class="slide-content">
+      <p style="font-size: 0.9em;">Dazu kombinieren wir nun Distributionen und den Sobolevraum.</p>
+      <div class="beamer-block">
+        <div class="block-title">Schwache Ableitung als Distribution</div>
+        <div class="block-body">
+          Für jede Distribution \(F \in \mathcal{D}^\prime (\Omega)\) definiere den linearen operator 
+          \[
+          \partial_i F_\cdot : \mathcal{D}(\Omega) \to \mathbb{R},  \quad \phi \mapsto F_\cdot (\phi).
+          \]
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 11 -->
+  <div class="slide" data-sec="4" data-secname="Schwache Ableitungen und Lösungen" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 12: Regularity (Strong vs Weak) SVG -->
+  <div class="slide" data-sec="4" data-secname="Schwache Ableitungen und Lösungen" data-title="Regularity: Strong vs. Weak Solutions">
+    <div class="slide-content center">
+      <svg viewBox="0 0 1000 400" width="90%" height="90%">
+        <!-- Left Side: Strong -->
+        <g transform="translate(250, 200)">
+          <text x="0" y="-120" font-family="sans-serif" font-weight="bold" font-size="24" fill="var(--midnight)" text-anchor="middle">Strong Solution</text>
+          <text x="0" y="-80" font-family="sans-serif" font-size="18" fill="var(--muted)" text-anchor="middle">u ∈ C²(Ω)</text>
+          
+          <!-- Axes -->
+          <line x1="-150" y1="50" x2="150" y2="50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrowMuted)" />
+          <text x="160" y="55" font-family="sans-serif" font-size="18" fill="var(--muted)">x</text>
+          <line x1="0" y1="65" x2="0" y2="-50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrowMuted)" />
+          <text x="0" y="-60" font-family="sans-serif" font-size="18" fill="var(--muted)" text-anchor="middle">u(x)</text>
+
+          <!-- Curve -->
+          <path d="M -140 50 Q -70 50, -40 10 T 0 -30 T 40 10 T 140 50" fill="none" stroke="var(--teal)" stroke-width="4" stroke-linecap="round" />
+          
+          <!-- Tangents -->
+          <line x1="-70" y1="20" x2="-10" y2="-20" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
+          <line x1="10" y1="-20" x2="70" y2="20" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
+          <line x1="-40" y1="-30" x2="40" y2="-30" stroke="var(--teal)" stroke-width="2" stroke-dasharray="6 6" opacity="0.5"/>
+          
+          <!-- Label -->
+          <rect x="-120" y="90" width="240" height="60" rx="5" fill="var(--mist)" />
+          <text x="0" y="115" font-family="sans-serif" font-size="14" fill="var(--midnight)" text-anchor="middle">Classical formulation:</text>
+          <text x="0" y="135" font-family="sans-serif" font-size="16" fill="var(--midnight)" text-anchor="middle">Δu(x) = f(x)   ∀x ∈ Ω</text>
+        </g>
+
+        <!-- Divider -->
+        <line x1="500" y1="0" x2="500" y2="350" stroke="var(--muted)" stroke-width="2" stroke-dasharray="8 8" opacity="0.3" />
+
+        <!-- Right Side: Weak -->
+        <g transform="translate(750, 200)">
+          <text x="0" y="-120" font-family="sans-serif" font-weight="bold" font-size="24" fill="var(--midnight)" text-anchor="middle">Weak Solution</text>
+          <text x="0" y="-80" font-family="sans-serif" font-size="18" fill="var(--muted)" text-anchor="middle">u ∈ H¹(Ω) \ C²(Ω)</text>
+          
+          <!-- Axes -->
+          <line x1="-150" y1="50" x2="150" y2="50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrowMuted)" />
+          <text x="160" y="55" font-family="sans-serif" font-size="18" fill="var(--muted)">x</text>
+          <line x1="0" y1="65" x2="0" y2="-50" stroke="var(--muted)" stroke-width="1.5" marker-end="url(#arrowMuted)" />
+          <text x="0" y="-60" font-family="sans-serif" font-size="18" fill="var(--muted)" text-anchor="middle">u(x)</text>
+
+          <!-- Curve -->
+          <path d="M -140 50 L 0 -30 L 140 50" fill="none" stroke="var(--coral)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+          
+          <!-- Kink Highlight -->
+          <circle cx="0" cy="-30" r="6" fill="var(--gold)" />
+          <path d="M 80 -45 Q 40 -40, 15 -35" fill="none" stroke="var(--gold)" stroke-width="2" marker-end="url(#arrowGold)" />
+          <text x="85" y="-40" font-family="sans-serif" font-size="16" fill="var(--midnight)" text-anchor="start">∇u undefined</text>
+
+          <!-- Label -->
+          <rect x="-130" y="90" width="260" height="60" rx="5" fill="var(--mist)" />
+          <text x="0" y="115" font-family="sans-serif" font-size="14" fill="var(--midnight)" text-anchor="middle">Variational formulation:</text>
+          <text x="0" y="135" font-family="sans-serif" font-size="16" fill="var(--midnight)" text-anchor="middle">∫_Ω ∇u · ∇φ dx = ⟨f, φ⟩</text>
+        </g>
+
+        <!-- Arrow Markers definition -->
+        <defs>
+          <marker id="arrowMuted" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="var(--muted)" />
+          </marker>
+          <marker id="arrowGold" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+            <path d="M 0 2 L 10 5 L 0 8 z" fill="var(--gold)" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+  </div>
+
+  <!-- Slide 13: Zusammenführung -->
+  <div class="slide" data-sec="5" data-secname="Zusammenführung von SDEs und PDEs" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 14: Markov -->
+  <div class="slide" data-sec="6" data-secname="Markov Prozesse" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 15: Martingale -->
+  <div class="slide" data-sec="7" data-secname="Martingale Problem" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 16: Rueckwaerts -->
+  <div class="slide" data-sec="8" data-secname="Rückwärts Prozesse" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 17 -->
+  <div class="slide" data-sec="8" data-secname="Rückwärts Prozesse" data-title=".">
+    <div class="slide-content grid-2">
+      <div style="width: 52%; padding-right: 5%;">
+        . . .
+      </div>
+      <div style="width: 43%;">
+        <div class="recall-box"><span class="recall-title">Intuition:</span> ...</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 18: Anwendung -->
+  <div class="slide" data-sec="9" data-secname="Anwendung zu Diffusion" data-title=".">
+    <div class="slide-content">.</div>
+  </div>
+
+  <!-- Slide 19: Anwendung Blocks with Icons -->
+  <!-- We add data-activetools to trigger the thick black border in the toolbox for this slide only -->
+  <div class="slide" data-sec="9" data-secname="Anwendung zu Diffusion" data-title="Zusammensetzen der Puzzleteile" data-activetools="pde,mart,calc,sob,rueck">
+    <div class="slide-content">
+      
+      <div class="beamer-block">
+        <div class="block-title">
+          <svg class="icon-inline" viewBox="-12 -12 24 24"><rect x="-7.5" y="-7.5" width="15" height="15" fill="var(--coral)"/></svg>
+          PDE Approach
+        </div>
+        <div class="block-body">
+          Hier verwenden wir Methoden der partiellen Differentialgleichungen.
+        </div>
+      </div>
+      
+      <div style="margin-top: 2em; font-size: 0.9em;">
+        Wir wenden nun das Martingale Problem an, um die schwache Lösung zu charakterisieren:
+        \[
+          \text{\raisebox{-0.2em}{
+            <svg class="icon-inline" viewBox="-12 -12 24 24"><polygon points="0,9 -9,-7 9,-7" fill="var(--teal)"/></svg>
+          }} \quad \mathbb{E} \left[ f(X_t) - f(X_0) - \int_0^t L f(X_s) ds \right] = 0
+        \]
+      </div>
+      
+      <div style="margin-top: 2em; font-size: 0.9em;">
+        Durch die Kombination von 
+        <svg class="icon-inline" viewBox="-12 -12 24 24"><circle cx="0" cy="0" r="8" fill="var(--teal)"/></svg>
+        (Stochastic Calculus) und 
+        <svg class="icon-inline" viewBox="-12 -12 24 24"><polygon points="0,-9 8.5,-3 5.5,7 -5.5,7 -8.5,-3" fill="var(--gold)"/></svg>
+        (Sobolev Räumen) erhalten wir die finale Rückwärts-Dynamik 
+        <svg class="icon-inline" viewBox="-12 -12 24 24"><polygon points="0,-9 7.5,-4.5 7.5,4.5 0,9 -7.5,4.5 -7.5,-4.5" fill="var(--coral)"/></svg>.
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* Navigation & State */
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.slide');
+  const totalSlides = slides.length;
+  
+  // Elements
+  const header = document.getElementById('header');
+  const footer = document.getElementById('footer');
+  const toolbox = document.getElementById('toolbox');
+  const headerTitle = document.getElementById('header-title');
+  const headerProgress = document.getElementById('header-progress');
+  const headerProgressText = document.getElementById('header-progress-text');
+  const footerCenter = document.getElementById('footer-center');
+  const footerRight = document.getElementById('footer-right');
+
+  // Total Sections (1 to 9 based on the data-sec tags)
+  const TOTAL_SECTIONS = 9;
+
+  function updateToolbox(sec, activeToolsStr) {
+    const tools = [
+      { id: 'calc', fillAfter: 2 },
+      { id: 'pde', fillAfter: 3 },
+      { id: 'abl', fillAfter: 4 },
+      { id: 'markov', fillAfter: 5 },
+      { id: 'mart', fillAfter: 6 },
+      { id: 'rueck', fillAfter: 7 },
+      { id: 'sob', fillAfter: 8 }
+    ];
+
+    const activeTools = activeToolsStr ? activeToolsStr.split(',') : [];
+
+    tools.forEach(tool => {
+      const fillRect = document.getElementById(`fill-${tool.id}`);
+      const svg = document.getElementById(`tb-${tool.id}`);
+      const outline = svg.querySelector('.outline');
+      
+      // Calculate fill amount
+      let fillAmt = 0;
+      if (sec > tool.fillAfter) fillAmt = 1;
+      else if (sec === tool.fillAfter) {
+        // Find progress within this section
+        const secSlides = Array.from(slides).filter(s => parseInt(s.dataset.sec) === sec);
+        const currentIndex = secSlides.indexOf(slides[currentSlide]);
+        if (currentIndex !== -1) {
+          fillAmt = (currentIndex + 1) / secSlides.length;
+        }
+      }
+      
+      // The clip rect maps height 0 to 20 over the 24x24 viewBox (y from 10 upwards to -10)
+      fillRect.setAttribute('height', fillAmt * 20);
+      fillRect.setAttribute('y', 10 - (fillAmt * 20));
+
+      // Handle active tool black border
+      if (activeTools.includes(tool.id)) {
+        outline.setAttribute('stroke', 'black');
+        outline.setAttribute('stroke-width', '2.5');
+      } else {
+        // Reset to original colors
+        const origColors = {
+          'calc': 'var(--teal)', 'pde': 'var(--coral)', 'abl': 'var(--gold)',
+          'markov': 'var(--ink)', 'mart': 'var(--teal)', 'rueck': 'var(--coral)', 'sob': 'var(--gold)'
+        };
+        outline.setAttribute('stroke', origColors[tool.id]);
+        outline.setAttribute('stroke-width', '1.5');
+      }
+    });
+  }
+
+  function showSlide(index) {
+    if(index < 0) index = 0;
+    if(index >= totalSlides) index = totalSlides - 1;
+    
+    slides[currentSlide].classList.remove('active');
+    currentSlide = index;
+    const slide = slides[currentSlide];
+    slide.classList.add('active');
+
+    // Title slide check (hide decorations)
+    if (slide.dataset.title === "false") {
+      header.style.display = 'none';
+      footer.style.display = 'none';
+      toolbox.style.display = 'none';
+    } else {
+      header.style.display = 'block';
+      footer.style.display = 'flex';
+      toolbox.style.display = 'flex';
+
+      const sec = parseInt(slide.dataset.sec) || 1;
+      const secName = slide.dataset.secname || '';
+      const subsecName = slide.dataset.subsec || '';
+      const title = slide.dataset.title || '';
+
+      // Update Header
+      headerTitle.innerText = title;
+      const secSlides = Array.from(slides).filter(s => parseInt(s.dataset.sec) === sec);
+      const currentIndex = secSlides.indexOf(slide) + 1;
+      const progressPercent = (currentIndex / secSlides.length) * 100;
+      headerProgress.style.width = `${progressPercent}%`;
+      headerProgressText.innerText = `${currentIndex}/${secSlides.length}`;
+
+      // Update Footer
+      footerCenter.innerText = secName + (subsecName ? ` -- ${subsecName}` : '');
+      footerRight.innerText = (currentSlide + 1).toString();
+
+      // Update Toolbox
+      updateToolbox(sec, slide.dataset.activetools);
+    }
+
+    // Trigger Brownian Motion if on that slide
+    if (slide.dataset.animateBrownian) {
+      startBrownianMotion();
+    } else {
+      stopBrownianMotion();
+    }
+  }
+
+  /* Keyboard Navigation */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') showSlide(currentSlide + 1);
+    else if (e.key === 'ArrowLeft') showSlide(currentSlide - 1);
+  });
+  /* Click Navigation */
+  document.getElementById('presentation').addEventListener('click', (e) => {
+    if(e.clientX > window.innerWidth / 2) showSlide(currentSlide + 1);
+    else showSlide(currentSlide - 1);
+  });
+
+  /* ========================================================
+     Dynamic Brownian Motion Animation 
+  ======================================================== */
+  const canvas = document.getElementById('brownianCanvas');
+  const ctx = canvas.getContext('2d');
+  let bmAnimFrame;
+  let bmStep = 0;
+  const numPaths = 6;
+  const maxSteps = 300;
+  let pathsData = [];
+  const bmColors = ['#16B8A6', '#F47763', '#F2B84B', '#14243A', '#64748B', '#83C5BE'];
+
+  function initBrownianPaths() {
+    pathsData = [];
+    for(let i=0; i<numPaths; i++) {
+      let path = [0]; // Start at 0
+      let currentVal = 0;
+      for(let j=1; j<maxSteps; j++) {
+        // Random normal approximation
+        let u = 0, v = 0;
+        while(u === 0) u = Math.random();
+        while(v === 0) v = Math.random();
+        let randNormal = Math.sqrt(-2.0 * Math.log(u)) * Math.cos(2.0 * Math.PI * v);
+        currentVal += randNormal * 3; // Scaling factor
+        path.push(currentVal);
+      }
+      pathsData.push(path);
+    }
+  }
+
+  function drawBrownianStep() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+    // Draw Grid / Axes
+    ctx.strokeStyle = '#e2e8f0';
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height/2);
+    ctx.lineTo(canvas.width, canvas.height/2);
+    ctx.stroke();
+
+    const stepWidth = canvas.width / maxSteps;
+    
+    for(let i=0; i<numPaths; i++) {
+      ctx.beginPath();
+      ctx.strokeStyle = bmColors[i];
+      ctx.lineWidth = 2;
+      ctx.lineJoin = 'round';
+      ctx.moveTo(0, canvas.height/2); // Origin
+      
+      for(let j=1; j<=bmStep; j++) {
+        let x = j * stepWidth;
+        let y = (canvas.height/2) - pathsData[i][j];
+        ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+    }
+
+    bmStep++;
+    if (bmStep >= maxSteps) {
+      // Loop with slight delay
+      setTimeout(() => {
+        bmStep = 0;
+        initBrownianPaths();
+        if(document.querySelector('.slide.active').dataset.animateBrownian) {
+          bmAnimFrame = requestAnimationFrame(drawBrownianStep);
+        }
+      }, 1000);
+    } else {
+      bmAnimFrame = requestAnimationFrame(drawBrownianStep);
+    }
+  }
+
+  function startBrownianMotion() {
+    if (!bmAnimFrame) {
+      bmStep = 0;
+      initBrownianPaths();
+      drawBrownianStep();
+    }
+  }
+
+  function stopBrownianMotion() {
+    if (bmAnimFrame) {
+      cancelAnimationFrame(bmAnimFrame);
+      bmAnimFrame = null;
+    }
+  }
+
+  // Initialize
+  window.onload = () => {
+    showSlide(0);
+  };
+</script>
+
+</body>
+</html>

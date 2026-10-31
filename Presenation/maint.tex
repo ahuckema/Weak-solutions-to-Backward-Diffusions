@@ -30,11 +30,11 @@
 \setbeamertemplate{itemize item}{\color{Teal}\raisebox{0.15ex}{\small\textbullet}}
 \setbeamertemplate{itemize subitem}{\color{Coral}\raisebox{0.15ex}{\tiny\textbullet}}
 \setbeamertemplate{frametitle}{%
-  \vspace{0.28cm}%
+  \vspace{0.68cm}
+ % 1. Autor-Zeile mit unsichtbarem Platzhalter (hält den vertikalen Abstand exakt ein)
   \noindent\makebox[\linewidth][s]{%
     {\color{Muted}\fontsize{7}{8}\selectfont\insertauthor}%
-    \hfill
-    {\color{Muted}\fontsize{7}{8}\selectfont\sectionprogress}%
+    \hfill\phantom{\sectionprogress}% Hält den Raum frei, rendert aber nichts
   }\par
   \vspace{0.18cm}%
   \insertframetitle\par
@@ -47,7 +47,14 @@
   \leavevmode%
   \hbox{%
     \begin{beamercolorbox}[wd=\paperwidth,ht=2.8ex,dp=1.2ex,leftskip=0.7cm,rightskip=0.7cm]{normal text}%
-      {\color{Muted}\scriptsize Resolvents and Laplace transforms}%
+      {\color{Muted}\scriptsize%
+        \ifx\insertsection\empty\relax\else
+          \insertsection%
+          \ifx\insertsubsection\empty\relax\else
+            \ -- \insertsubsection%
+          \fi
+        \fi
+      }%
       \hfill{\color{Muted}\scriptsize\insertframenumber}%
     \end{beamercolorbox}%
   }%
@@ -71,8 +78,222 @@
   \end{beamercolorbox}%
 }
 
+
+
+% --- Globale Schalter für aktive Tools & Sichtbarkeit ---
+\gdef\isactiveCalculus{0}
+\gdef\isactivePDE{0}
+\gdef\isactiveAbleitung{0}
+\gdef\isactiveMarkov{0}
+\gdef\isactiveMartingale{0}
+\gdef\isactiveRueckwaerts{0}
+\gdef\isactiveSobolev{0}
+\gdef\ToolboxVisible{1} % 1 = sichtbar, 0 = versteckt
+
+% Befehl zum Ausblenden auf der aktuellen Folie
+\newcommand{\hidetoolbox}{\gdef\ToolboxVisible{0}}
+
+% --- Toolbox Icons für den Einsatz im Text ---
+% Beim Aufruf wird das Icon gezeichnet UND das Tool in der Toolbox vergrößert
+\newcommand{\iconCalculus}{%
+  \gdef\isactiveCalculus{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Teal] (0,0) circle (0.144cm);
+  \end{tikzpicture}%
+}
+\newcommand{\iconPDE}{%
+  \gdef\isactivePDE{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Coral] (-0.132cm,-0.132cm) rectangle (0.132cm,0.132cm);
+  \end{tikzpicture}%
+}
+\newcommand{\iconAbleitung}{%
+  \gdef\isactiveAbleitung{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Gold] (0,0.156cm) -- (-0.156cm,-0.12cm) -- (0.156cm,-0.12cm) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconMarkov}{%
+  \gdef\isactiveMarkov{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Ink] (0,0.156cm) -- (0.156cm,0) -- (0,-0.156cm) -- (-0.156cm,0) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconMartingale}{%
+  \gdef\isactiveMartingale{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Teal] (0,-0.156cm) -- (-0.156cm,0.12cm) -- (0.156cm,0.12cm) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconRueckwaerts}{%
+  \gdef\isactiveRueckwaerts{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Coral] (0,0.156cm) -- (0.132cm,0.078cm) -- (0.132cm,-0.078cm) -- (0,-0.156cm) -- (-0.132cm,-0.078cm) -- (-0.132cm,0.078cm) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconSobolev}{%
+  \gdef\isactiveSobolev{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Gold] (0,0.156cm) -- (0.144cm,0.048cm) -- (0.096cm,-0.12cm) -- (-0.096cm,-0.12cm) -- (-0.144cm,0.048cm) -- cycle;
+  \end{tikzpicture}%
+}
+
+% --- Toolbox Logik ---
+\newcommand{\toolbox}{%
+  \ifnum\ToolboxVisible=1
+    \begin{tikzpicture}[remember picture, overlay]
+      % Fortschritt der aktuellen Section berechnen
+      \pgfmathtruncatemacro{\currentsec}{\value{section}}
+      \pgfmathtruncatemacro{\currframe}{\insertpagenumber-\insertsectionstartpage+1}
+      \pgfmathtruncatemacro{\totframes}{\insertsectionendpage-\insertsectionstartpage+1}
+      \pgfmathsetmacro{\secprog}{ifthenelse(\totframes>0, \currframe/\totframes, 1)}
+      
+      % Toolbox Hintergrund
+      \node[
+        anchor=north east,
+        xshift=-0.4cm, yshift=-0.4cm,
+        draw=Midnight, thick, fill=Mist, rounded corners=3.5pt,
+        inner xsep=4pt, inner ysep=3pt,
+        minimum width=8.4cm, minimum height=1.15cm
+      ] (toolbox) at (current page.north east) {};
+      
+      % Titel der Toolbox
+      \node[anchor=north, font=\sffamily\fontsize{5.5}{6}\bfseries, text=Midnight, yshift=9pt] at (toolbox.north) {TOOLBOX};
+      
+      \begin{scope}[shift={(toolbox.center)}, yshift=-0.20cm] 
+        
+        % 1. (Sec 2) - Teal, Kreis
+        \begin{scope}[xshift=-3.30cm]
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Stochastic\\Calculus};
+          \def\radius{0.144cm}
+          \ifnum\isactiveCalculus=1
+            \draw[black, very thick] (0,0) circle (\radius);
+          \else
+            \draw[Teal, thick] (0,0) circle (\radius);
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 2, 1, ifthenelse(\currentsec == 2, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.144 + 0.288*\fillamt});
+            \fill[Teal] (0,0) circle (\radius);
+          \end{scope}
+        \end{scope}
+
+        % 2. (Sec 3) - Coral, Quadrat
+        \begin{scope}[xshift=-2.20cm]
+          \node[anchor=south, font=\sffamily\fontsize{3.8}{4.5}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Partielle\\Differential-\\gleichungen};
+          \def\size{0.132cm}
+          \ifnum\isactivePDE=1
+            \draw[black, very thick] (-\size,-\size) rectangle (\size,\size);
+          \else
+            \draw[Coral, thick] (-\size,-\size) rectangle (\size,\size);
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 3, 1, ifthenelse(\currentsec == 3, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.132 + 0.264*\fillamt});
+            \fill[Coral] (-\size,-\size) rectangle (\size,\size);
+          \end{scope}
+        \end{scope}
+        
+        % 3. (Sec 4) - Gold, Dreieck nach oben
+        \begin{scope}[xshift=-1.10cm]
+          \node[anchor=south, font=\sffamily\fontsize{3.8}{4.5}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Zusammenführung \\ SDEs u. PDEs};
+          \def\tripath{(0, 0.156cm) -- (-0.156cm, -0.12cm) -- (0.156cm, -0.12cm) -- cycle}
+          \ifnum\isactiveAbleitung=1
+            \draw[black, very thick] \tripath;
+          \else
+            \draw[Gold, thick] \tripath;
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 4, 1, ifthenelse(\currentsec == 4, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.12 + 0.276*\fillamt});
+            \fill[Gold] \tripath;
+          \end{scope}
+        \end{scope}
+        
+        % 4. (Sec 5) - Ink, Raute
+        \begin{scope}[xshift=0cm]
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Markov\\Prozesse};
+          \def\diapath{(0, 0.156cm) -- (0.156cm, 0) -- (0, -0.156cm) -- (-0.156cm, 0) -- cycle}
+          \ifnum\isactiveMarkov=1
+            \draw[black, very thick] \diapath;
+          \else
+            \draw[Ink, thick] \diapath;
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 5, 1, ifthenelse(\currentsec == 5, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.156 + 0.312*\fillamt});
+            \fill[Ink] \diapath;
+          \end{scope}
+        \end{scope}
+
+        % 5. (Sec 6) - Teal, Dreieck nach unten
+        \begin{scope}[xshift=1.10cm]
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Rückwärts\\Prozess};
+          \def\invtripath{(0, -0.156cm) -- (-0.156cm, 0.12cm) -- (0.156cm, 0.12cm) -- cycle}
+          \ifnum\isactiveMartingale=1
+            \draw[black, very thick] \invtripath;
+          \else
+            \draw[Teal, thick] \invtripath;
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 6, 1, ifthenelse(\currentsec == 6, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.156 + 0.276*\fillamt});
+            \fill[Teal] \invtripath;
+          \end{scope}
+        \end{scope}
+
+        % 6. (Sec 7) - Coral, Hexagon
+        \begin{scope}[xshift=2.20cm]
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Schwache\\Ableitungen\\u. Lösungen};
+          \def\hexpath{(0, 0.156cm) -- (0.132cm, 0.078cm) -- (0.132cm, -0.078cm) -- (0, -0.156cm) -- (-0.132cm, -0.078cm) -- (-0.132cm, 0.078cm) -- cycle}
+          \ifnum\isactiveRueckwaerts=1
+            \draw[black, very thick] \hexpath;
+          \else
+            \draw[Coral, thick] \hexpath;
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 7, 1, ifthenelse(\currentsec == 7, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.156 + 0.312*\fillamt});
+            \fill[Coral] \hexpath;
+          \end{scope}
+        \end{scope}
+        
+        % 7. (Sec 8) - Gold, Fünfeck
+        \begin{scope}[xshift=3.30cm]
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Martingale\\Problem};
+          \def\pentapath{(0, 0.156cm) -- (0.144cm, 0.048cm) -- (0.096cm, -0.12cm) -- (-0.096cm, -0.12cm) -- (-0.144cm, 0.048cm) -- cycle}
+          \ifnum\isactiveSobolev=1
+            \draw[black, very thick] \pentapath;
+          \else
+            \draw[Gold, thick] \pentapath;
+          \fi
+          \pgfmathsetmacro{\fillamt}{ifthenelse(\currentsec > 8, 1, ifthenelse(\currentsec == 8, \secprog, 0))}
+          \begin{scope}
+            \clip (-0.25,-0.25) rectangle (0.25, {-0.12 + 0.276*\fillamt});
+            \fill[Gold] \pentapath;
+          \end{scope}
+        \end{scope}
+
+      \end{scope}
+    \end{tikzpicture}%
+  \fi
+  
+  % Zwingender globaler Reset ALLER Schalter am Ende der Folie
+  \gdef\isactiveCalculus{0}%
+  \gdef\isactivePDE{0}%
+  \gdef\isactiveAbleitung{0}%
+  \gdef\isactiveMarkov{0}%
+  \gdef\isactiveMartingale{0}%
+  \gdef\isactiveRueckwaerts{0}%
+  \gdef\isactiveSobolev{0}%
+  \gdef\ToolboxVisible{1}% <-- Setzt die Toolbox für die NÄCHSTE Folie/Overlay automatisch wieder auf sichtbar
+}
+\addtobeamertemplate{footline}{}{\toolbox}
+
+
+
 \title{Time Reversal of Diffusions}
-\subtitle{Subtitile}
+\subtitle{Schwache Lösungen von Diffusionprozessen}
 \author{Arne Huckemann}
 \date{06.11.2026}
 
@@ -89,7 +310,7 @@
     \fill[Coral,opacity=0.14] ([xshift=0.82\paperwidth,yshift=0.62\paperheight]current page.south west) circle (1.2cm);
   \end{tikzpicture}
   \vspace*{1.3cm}
-  {\color{Teal}\large\textsc{Operator semigroups}}\par
+  {\color{Teal}\large\textsc{Universität Mannheim}}\par
   \vspace{0.45cm}
   {\color{white}\huge\bfseries\inserttitle}\par
   \vspace{0.28cm}
@@ -103,187 +324,641 @@
 
 
 
-\section{Roadmap}
-\begin{frame}{From foundations to time reversal}
-  \centering
-  \begin{tikzpicture}[x=1cm,y=1cm,>=Stealth,font=\sffamily\scriptsize]
-    \node[font=\tiny\bfseries,text=Muted] at (0,2.28) {FOUNDATIONAL TOOLS};
-
-    \node[rounded corners=2mm,draw=Teal!75!Ink,fill=Teal!8,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (calculus) at (-3.8,1.88) {\bfseries Stochastic Calculus};
-    \node[rounded corners=2mm,draw=Coral!75!Ink,fill=Coral!9,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (processes) at (0,1.88) {\bfseries Stochastic Processes};
-    \node[rounded corners=2mm,draw=Gold!75!Ink,fill=Gold!18,text width=3.0cm,minimum height=0.56cm,align=center,inner sep=3pt] (markov) at (3.8,1.88) {\bfseries Markov Processes};
-
-    \draw[Teal!75!Ink,line width=0.7pt] (calculus.south) -- (-3.8,1.42);
-    \draw[Coral!75!Ink,line width=0.7pt] (processes.south) -- (0,1.12);
-    \draw[Gold!75!Ink,line width=0.7pt] (markov.south) -- (3.8,1.42);
-    \draw[Ink!40,line width=0.7pt] (-3.8,1.42) -- (3.8,1.42);
-    \fill[Teal] (0,1.12) circle (1.3pt);
-
-    \node[rounded corners=2mm,fill=Midnight,text=white,text width=6.2cm,minimum height=0.62cm,align=center,inner sep=4pt] (weak) at (0,0.62) {\bfseries Weak solutions for SDEs\\[-1pt]{\color{white!80}Formulated through the martingale problem}};
-    \draw[Ink!50,->,line width=0.8pt] (0,1.12) -- (weak.north);
-
-    \node[rounded corners=2mm,draw=Teal!75!Ink,fill=Teal!8,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (reverse) at (-3.8,-0.78) {\bfseries Reverse process\\is Markov};
-    \node[rounded corners=2mm,draw=Coral!75!Ink,fill=Coral!9,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (pde) at (0,-0.78) {\bfseries PDE methods\\derive reverse dynamics};
-    \node[rounded corners=2mm,draw=Gold!75!Ink,fill=Gold!18,text width=2.75cm,minimum height=0.72cm,align=center,inner sep=4pt] (sde) at (3.8,-0.78) {\bfseries Reverse SDE\\and its generator};
-
-    \draw[Ink!50,->,line width=0.8pt] (weak.south) -- (0,0.02) -- (-3.8,0.02) -- (reverse.north);
-    \draw[Teal!75!Ink,->,line width=0.9pt] (reverse.east) -- (pde.west);
-    \draw[Coral!75!Ink,->,line width=0.9pt] (pde.east) -- (sde.west);
-
-    \node[rounded corners=2mm,fill=Mist,draw=Midnight!30,text width=7.2cm,minimum height=0.5cm,align=center,inner sep=4pt] (paper) at (0,-2) {{\color{Muted}\tiny APPLICATION}\hspace{0.6em}{\bfseries Time Reversal of Diffusions}};
-    \draw[Gold!75!Ink,->,line width=0.9pt] (sde.south) -- (paper.north);
-  \end{tikzpicture}
-\end{frame}
-
-\section{Foundations}
-\begin{frame}{Markov Chains}
-  \tiny
-  
-  The transition function of a Markov Chain $(X_n)_{n \in \mathbb{N}_0}$ is given by 
-  \[
-  P(x,y):= \mathbb{P}( X_{n+1} =x \mid  X_0 =x_0,..., X_n = y) \stackrel{Markov}{=} \mathbb{P}( X_{n+1} =x \mid X_n = y).
-  \]
-  \begin{block}{Invariant Measures}
-    A measure $\pi$ on $E$ is called invariant measure wrt. $P$ if 
-    \[
-    \forall x \in E: \quad \pi (x) = \sum_{y \in E} \pi (y) p (y,x).
-    \]
-  \end{block}
-  By definition 
-  \[
-  \pi = \pi P^n.
-  \]
-  \noindent
-  \begin{minipage}[c]{0.52\linewidth}
-   So if we initialize the Markov-Chain $(X_n)_{n \in \mathbb{N}_0}$ with transition function $P$ with the invariant measure $\pi$: 
-  \[
-  \forall x \in E: \quad \mathbb{P}_\pi (X_n = x) := \sum_{y \in E} \pi (y) \mathbb{P}_y (X_n =x) = \sum_{y \in E} \pi (y) P^n(y,x) = \pi (x)
-  \]
-  \end{minipage}\hfill
-  \begin{minipage}[c]{0.42\linewidth}
-    \recallbox[Intuition:]{\tiny The invariant measure describes the equilibrium distribution of the Markov-Chain.}
-  \end{minipage}
-\end{frame}
-
-
-\begin{frame}{Markov Chains}
-  \tiny
-  \begin{block}{Reversibility}
-    A Markov Chain is reversible if going forward or backward in time in equilibrium is the same: 
-    \[
-    \forall x,y \in E: \quad \pi (x) P(x,y) = \pi(y) p (y,x).
-    \]
-  \end{block}
-  Denote by $(X_n)_{n=1,...,N}$ a Markov-Chain with transition Matrix $P$ up to time $N: \Omega \to \mathbb{N} \cap \{\infty \}$. The Backward Markov-Chain $(\bar{X}_n := X_{N-n})_{n =1,...,N}$ has the transition Matrix 
-  \begin{align*}
-    \bar{P}(x,y & := \mathbb{P}( \bar{X}_{n+1} =y \mid \bar{X}_n =x ) = \mathbb{P}(X_{N- (n+1)}=y \mid X_{N-n} =x) \\
-    &= \frac{\mathbb{P}(X_{N-(n+1)} =y, X_{N-n} =x)}{\mathbb{P}(X_{N-n}=x)} \stackrel{\text{if reversible}}{=} \frac{\pi(y) P(y,x)}{\pi(x)}
-  \end{align*}
-  The forward and backward Markov chain have the same transition Matrix if and only if it is reversible.
-\end{frame}
-
-
-\section{Brownian motion}
-\begin{frame}{Sample paths of Brownian motion}
-  \begin{columns}[T,onlytextwidth]
-    \begin{column}{0.67\textwidth}
-      \vspace{0.05cm}
-      \centering
-      \animategraphics[autoplay,loop,controls,poster=last,width=0.88\linewidth]{10}{brownian-assets/frame-}{0}{39}
-    \end{column}
-    \begin{column}{0.30\textwidth}
-      \vspace{0.2cm}
-      {\color{Teal}\small\bfseries Six independent paths}\par
-      \vspace{0.15cm}
-      \raggedright Each curve is a realization of standard Brownian motion. All paths begin at zero and evolve independently.
-      \par\smallskip\centering{\scriptsize \(B_0^{(k)}=0,\quad k=1,\ldots,6.\)}\par
-      \vfill
-      {\color{Muted}\scriptsize The animation loops as each trajectory unfolds.}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-
-
-
-
 \section{Motivation}
-\begin{frame}{The Idea of Diffusion}
-  \begin{block}{Start with a weighted semigroup average}
-  Standard diffusion 
+
+\begin{frame}{Idee von Diffusion}\hidetoolbox
+\begin{minipage}[c]{0.40\linewidth}{\small
+ \begin{itemize}
+      \item Wir wollen eine Verteilung $Y \sim \mu$ lernen
+      \item Idee: Verrausche eine Verteilung, bis nur noch eine Normalverteilung übrig ist
+      \item $f$ ist irgend eine Abbildung, die $Y$ über die Zeit $t$ verrauscht:
+      \[
+      f(Y,t) \to Z \sim \mathcal{N}(0,1), \quad \text{für } t \to \infty
+      \]
+      \item Finde die inverse $f^{-1}$ und generiere von $\mu$ samples, indem aus $Z \sim \mathcal{N}(0,1)$ hoffentlich gilt
+      \[
+      f^{-1} (Z,t) \to Y \sim \mu, \quad \text{für } t \to \infty. 
+      \]
+    \end{itemize}}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.60\linewidth}
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Bilder/4.png} 
+\end{figure}
+\end{minipage}
+\end{frame}
+
+
+
+\begin{frame}{Präziesere Formulierung}\hidetoolbox
+
+Für die Anfangsverteilung $X_0 \sim \mathbb{P}_0$ löst die forwärts Diffusion $(X_t)_{t \geq 0}$ die Differentialgleichung
 \[
-dX_t =b(X_t) dt + \sigma(X_t) dW_t
+dX_t =b(X_t) dt + \sigma(X_t) dW_t, \quad X_t \sim p(\cdot,t)
 \]
+wobei $(W_t)_{t \geq 0}$ Brownsche Bewegung bzgl. $(\mathcal{F}_t)_{t \geq 0}$.\\
+Der Rückwärtsprozess ist definiert als $\bar{X}_t := X_{T-t}$ und wir werden zeigen, dass dieser die folgende Differentialgleichung erfüllt.
+\[
+d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
+\]
+wobei $\tilde{W}_t$ Brownsche Bewegung bzgl. Rückwärtsfiltration $\bar{\mathcal{F}_t} := ???$.
+\end{frame}
+
+\begin{frame}{Wir beantworten heute folgende Fragen}\hidetoolbox
+\begin{itemize}
+  \item Was ist eine Differentialgleichung?
+  \item Wie sieht die marginale Verteilung $X_t \sim p(\cdot,t)$ aus und welche Probleme entstehen dort?
+  \item Wie können wir dieses Problem lösen? Stichwort: Partielle Differentialgleichungen 
+  \item Welche Differentialgleichung löst der Rückwärtsprozess und welche Eigenschaften erfüllt die Lösung.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Interessant, aber nicht Thema heute}\hidetoolbox
+
+\begin{minipage}[c]{0.52\linewidth}{\small
+ \begin{itemize}
+      \item Das Ziel: Beim Rückwärtsprozess die Score-function $\nabla \log(p(t,x))$ zu lernen. 
+      \item Idee: Parametrisiere die Score-function durch $s_\theta (x,t)$ und minimiere
+       \[
+\mathbb{E}^{t \sim \mathcal{U}([0,T])} [ \mathbb{E}^{X_t \sim p(t,\cdot)} [ \| \nabla \log(p(t,x) - s_\theta(t,x) \|_2^2 ] ] 
+\]
+    \end{itemize}}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.42\linewidth}
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Bilder/3.png} 
+\end{figure}
+\end{minipage}
+\recallbox[Erinnerung:]{\small
+$d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), $
+}
+\end{frame}
+
+
+\begin{frame}{Heutige Agenda}
+\begin{center}{\color{Teal}{\huge
+  Ziel: Wir zeigen, dass der Rückwärtsprozess ein Markovprozess ist und bestimmen den Generator bzgl. dieses Prozesses!}}
+\end{center}
+
+  
+
+\end{frame}
+
+
+
+
+
+
+
+
+
+
+\section{Stochastic Calculus}
+
+\subsection{Ito Integral}
+
+
+\begin{frame}{Erweiterung des Integrals} 
+  \begin{block}{Partitionen und Nullfolgen Partitionen}
+    \begin{itemize}
+      \item Eine Partition $\Pi$ von $[0,1]$ ist eine Familie von disjunktien Intervallen $J := (s_J,T_J]$, die $[0,T]$ überdecken.
+      \item Gittergröße: $|\Pi| := \sup_{J \in \Pi} |t_J - s_J|$
+      \item Wir nenn eine Folge von Partitionen $(\Pi_n)_{n \in \mathbb{N}}$ von $[0,T]$ Nullfolge von Partitionen wenn $|\Pi_n|\to 0$, $n\to \infty$.
+    \end{itemize}
+  \end{block}
+
+\end{frame}
+
+
+\begin{frame}{Variationsprozess}
+\begin{block}{Variationsprozess}
+  Sei $(X_t)_{t \geq 0}$ ein stochastischer Prozess, dann nennt man 
+  \[
+  |X|_t := \sup_\Pi \sum_{J \in \Pi} |X_{t\wedge v} -X_{u \wedge t}|, \quad J:= (u,v].
+  \]
+  \end{block}
+  Erinnerung: Riemann Integral 
+\[
+\int_0^t f(x) dx := \lim_{n \to \infty} \sum_{i=1}^{N_n-1} f(z_i^n) (t_{i+1}^n - t_i^n), \quad z_i^n \in (t_{i}^n, t_{i+1}^n).
+\] 
+\end{frame}
+
+
+\begin{frame}{Erweiterung Idee für Stochastische Integration}
+Erweiterung: Riemann-Stieljes Integral
+\[
+\int_0^t f(x) dg (x) := \lim_{n \to \infty} \sum_{i=1}^{N_n-1} f(z_i^n) (g(t_{i+1}^n) - g(t_i^n)), \quad z_i^n \in (t_{i}^n, t_{i+1}^n).
+\] 
+Können wir über die Brownsche Bewegung $(W_t)_{t \geq 0}$ genauso integrieren? 
+\[
+\forall \omega \in \Omega: \quad \int_0^t f(s,\omega) dW_s (\omega) := \lim_{n \to \infty} \sum_{i=0}^{N_n-1} f(z_i^n,\omega) (W_{t_{i+1}^n} - W_{t_{i}^n}), \quad z_n \in (t_{i+1}^n,t_i^n].
+\]
+Problem: Da $\mathbb{P}(|W|_t = \infty, t \geq 0) =1$ konvergiert das Integral nicht!
+\end{frame}
+
+
+\begin{frame}{Ein neuer Variationsbegriff}
+
+  \begin{block}{Quadratische Variation}
+    Sei $(X_t)_{t \geq 0}$ ein stetiges locales Martingal und $(\Pi_n)_{n \in \mathbb{N}}$ eine Nullfolge von Partitionen, dann nennen wir 
+    \[
+    \langle X \rangle_t := \lim_{n \to \infty} \sum_{J \in \Pi_n} (X_{t\wedge v} -X_{t \wedge u})^2, \quad \mathbb{P}-a.s. \quad J := (u,v]
+    \]
+    die Quadratische variation des stochastischen Prozesses $(X_t)_{t \geq 0}$.
+  \end{block}
+\end{frame}
+
+\begin{frame}{Quadratische Variation}
+\begin{minipage}[c]{0.30\linewidth}{\small
+ \begin{itemize}
+      \item Variationsprozess:
+      \item Quadratische Variation
+    \end{itemize}}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.70\linewidth}
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Bilder/1.png}
+\end{figure}
+\begin{figure}[h]
+    \includegraphics[width=1\textwidth]{Bilder/2.png} 
+\end{figure}
+\end{minipage}
+\end{frame}
+
+
+\begin{frame}{Einfache Ito Integral}
+Für einfache Prozesse $(f_n(\cdot,t))_{t \geq 0}$, d.h. der form
+\[
+f_n (\cdot,t) := \sum_{i=1}^{n-1} X_i, \textbf{1}_{(t_i,t_{i+1}]} (t), \quad X_i \in L^2( (\Omega,\mathcal{F}_{t_i}, \mathbb{P}); \mathbb{R}^d )
+\]
+definieren wir das einfache Ito Integral 
+\[
+I(f(\cdot,\cdot))_t := \sum_{i=1}^{n-1} X_i (W_{t_{i+1} \wedge t} - W_{t_i \wedge t}), \quad t \in [0,T].
+\]
+\end{frame}
+
+\begin{frame}{Integranten des Ito Integrals}
+Man kann zeigen, dass
+\[
+\mathbb{E}[ \int_0^T f^2(\cdot,s) ds ]= \mathbb{E}[ \int_0^T f^2(\cdot,s) d\langle W \rangle_s ] = \mathbb{E}[ \left(\int_0^T f(\cdot,s) dW_s \right)^2 ].
+\]
+Wir definieren, das Ito Integral (prozess) auf der Menge der Zulässigen integranten: Funktionen in $L^2( \Omega \times [0,T], \mathbb{P} \otimes \lambda )$ und noch ein paar Eigenschaften erfüllen: 
+\[
+\mathcal{L}_T := \{ f: \Omega \times [0,T] \to \mathbb{R} \mid f \text{ messbar, adaptiert und } \mathbb{E}[ \int_0^T f^2(\cdot,s) ds ]<\infty \}. 
+\]
+\end{frame}
+
+\begin{frame}{Ito Integral}
+\begin{block}{Existenz}
+  Für jedes $f \in \mathcal{L}_T$ existiert $( (f_n(\cdot,t))_{t \geq 0} )_{n \in \mathbb{N}}$ sodass 
+  \[
+  \| f_n - f \|_{\mathcal{L}_T} \to 0, \quad n\to \infty.
+  \]
+\end{block}
+Das Ito Integral für $(f(\cdot,t))_{t \geq 0}$ ist damit der Grenzwert des einfaches Ito Integrals 
+\[
+\int_0^t f(\cdot,t) dW_t := \mathcal{L}_T - \lim_{n \to \infty} I(f_n(\cdot,\cdot))_t.
+\]
+\end{frame}
+
+
+
+\begin{frame}{Girsanov Theorem}
+  Für das Martingal 
+  \[
+  L:= \left( L_t := \exp \left( \int_0^t X_s dW_s - \frac{1}{2} \int_0^t X_s^2 ds  \right)  \right)_{t \in [0,T]},
+  \]
+  auf $(\Omega,\mathcal{F}_T, \mathbb{P})$ bzgl. der Brownschen Filtration, d.h. $\left( \mathcal{F}_t := \sigma (W_s : s \leq t) \right)_{t \in [0,T]}$ ist für $\tilde{W}_t := W_t - \int_0^t X_s ds$ der Prozess $\tilde{W} := (\tilde{W}_t)_{t \geq 0}$ eine Brownsche Bewegung auf $(\Omega,\mathcal{F}_T,(\mathcal{F}_t)_{t \in [0,T]}, Q)$, wobei 
+
+\begin{minipage}[c]{0.40\linewidth}{
+\[
+  \frac{d}{d\mathbb{P}} Q = L_T.
+  \]
+}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.60\linewidth}
+\recallbox[Radon-Nikodym:]{\small
+$ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q d \mathbb{P} $.
+}
+\end{minipage}
+\end{frame}
+
+\subsection{Starke Lösungen von Stochastische Differentialgleichungen}
+
+\begin{frame}{Stochastische Differentialgleichung}
+Seien $b: \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: \mathbb{R}^n \to \mathbb{R}^{n \times m}$, dann nennen wir den stochastischen Prozess $(X_t)_{t \in [0,T]}$ mit stetigen Pfaden \textbf{starke}-Lösung der SDE 
+\[
+d X_t = b (X_t) dt + \sigma (X_t) d W_t, \quad t \in [0,T], \quad X_0 =x_0 \in \mathbb{R}^n,
+\]
+falls \\
+
+\begin{minipage}[c]{0.30\linewidth}{\tiny
+  \begin{itemize}
+    \item $(X_t)_{t \in [0,T]}$ ist $(\mathcal{F}_t)_{t \in [0,T]}$ adaptiert
+    \item $\mathbb{P}(X_0 =x_0) =1$
+  \end{itemize}}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.70\linewidth}{\tiny
+\begin{itemize}
+  \item $
+        \forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
+        $
+        \item 
+        $
+        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j \quad \mathbb{P}-f.s.
+        $
+\end{itemize}
+}
+\end{minipage}
+\end{frame}
+
+\begin{frame}{Existenz der Starke Lösung}
+
+  \begin{block}{Existenz}
+    Für $b : \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: \mathbb{R}^n \to \mathbb{R}^{n\times m}$ mit  
+    \[
+    \exists C>0 \forall x,y \in \mathbb{R}^n: \substack{ |b(x)-b(y)|^2 + |\sigma (x) - \sigma(y)|^2 \leq C |x-y|^2 \\ |b(x)|^2 + |\sigma (x)|^2 \leq C(1+|x|^2)}
+    \]
+    existiert eine eindeutige starke Lösung der SDE in $X \in \mathcal{L}_T$, d.h. für eine weitere starke Lösung $Y \in \mathcal{L}_T$ gilt 
+    \[
+    \mathbb{P} (X_t = Y_t, t \in [0,T]) =1.
+    \]
+  \end{block}
+\end{frame}
+
+\begin{frame}{Hauptsatz Integralrechnung für Ito Integrale}
+  Der Hauptsatz der Integralrechnung aus der Analysis gibt es auch für Ito Integrale. Eine vereinfachte Version mit $n=m=1$ ist: 
+ \begin{block}{Ito Formel}
+  Für $F \in C^2(\mathbb{R};\mathbb{R})$ und es gibt $C>0 , p \geq 1$ sodass 
+  \[
+  \forall x \in \mathbb{R}^n: \quad |F(x)| + |F^\prime (x)| \leq C (1+ |x|^p),
+  \]
+  und $X$ Lösung der SDE, dann gilt 
+  \[
+  F(X_t) - F(X_0) = \int_0^t F^\prime (X_s) a(X_s) ds + \underbrace{ \int_0^t F^\prime (X_s) \sigma (X_s) d W_s + \frac{1}{2} \int_0^t F^{\prime \prime} (X_s) |\sigma (X_s)|^2 ds }_{Neu} \quad \mathbb{P}-f.s.
+  \]
+   \end{block}
+\end{frame}
+
+
+
+\section{Partielle Differentialgleichungen}
+\begin{frame}{Gewöhnliche Differentialgleichung}
+
+\begin{minipage}[c]{0.60\linewidth}
+   \begin{block}{Anfangswertproblem}
+    Sei $f: U \subset \mathbb{R}^2 \to \mathbb{R}$ and $(\xi,\eta) \in U$. Eine differenzierbare Funktion $u: I \subset \mathbb{R} \to \mathbb{R}$ mit $\xi \in I$ nennt man Lösung des Anfangswertproblems, falls 
+    \begin{align*}
+    \forall t \in I: \frac{d}{dt} u(t) &= f(t,u(t)) \\ u(\xi) &= \eta .
+    \end{align*}
+    \end{block}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.40\linewidth}
+\begin{figure}[h]
+    \includegraphics[width=0.6\textwidth]{Bilder/5.png}
+\end{figure}
+\begin{figure}[h]
+    \includegraphics[width=0.6\textwidth]{Bilder/6.png} 
+\end{figure}
+\end{minipage}
+\end{frame}
+
+
+
+
+\begin{frame}{Differential Operatoren}
+\begin{block}{Differential Operator} 
+  Für offene und verbundene Teilmengen $A \subset \mathbb{R}^n$ nennen wir den linearen Operator 
+  \begin{align*}
+  &L: C^2(A) \to C^0 (A), u \mapsto (c\mapsto (Lu)(x)), \\
+  &Lu:= -\sum_{i,j=1}^n a_{ij} (\cdot) \frac{\partial^2}{\partial x_i \partial x_j} u(\cdot) + \sum_{i=1}^n b_i (\cdot) \frac{\partial}{\partial x_i} u(\cdot) + c(\cdot) u(\cdot),
+  \end{align*}
+  Differential Operator.
 \end{block}
 \end{frame}
 
+\begin{frame}{Differentialgleichungen}  \tiny
+Eine Differentialgleichung zweiter Ordnung ist gegeben durch 
+\[
+\forall x \in A: \quad \frac{\partial}{\partial t} u(x,t)= (Lu(\cdot,t))(x)
+\]
+und $u \in C^2 (A \times [0,T]) \cap C^0 (A \times [0,T])$ nennt man klassische Lösung.
 
-\section{Resolvent framework}
-\begin{frame}{The exponential kernel gives the resolvent}
-  \begin{block}{Start with a weighted semigroup average}
-    For a kernel $\phi$, define
+\centering
+  \begin{tikzpicture}[>=Stealth, line cap=round, line join=round]
+    
+    % --- LEFT: HEAT EQUATION (Dynamics / Evolution) ---
+    \begin{scope}[xshift=-3.5cm]
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Heat Equation};
+      \node[font=\footnotesize, text=Muted] at (0, 2.5) {$\partial_t u = \Delta u \quad A=\mathbb{R}^n $};
+      
+      % Axes
+      \draw[->, Muted, thin] (-2.2, 0) -- (2.2, 0) node[right] {$x$};
+      \draw[->, Muted, thin] (0, -0.2) -- (0, 1.8) node[above] {$u(x,t)$};
+      
+      % Multiple time points of the fundamental solution (Gaussians)
+      % t1 (sharp, early time)
+      \draw[Coral, very thick, domain=-2:2, samples=100] plot (\x, {1.6*exp(-\x*\x/0.15)});
+      \node[font=\scriptsize, text=Coral] at (0.6, 1.45) {$t_1$};
+      
+      % t2 (medium spread)
+      \draw[Gold, very thick, domain=-2:2, samples=100] plot (\x, {0.85*exp(-\x*\x/0.6)});
+      \node[font=\scriptsize, text=Gold] at (1.1, 0.75) {$t_2$};
+      
+      % t3 (wide, late time)
+      \draw[Teal, very thick, domain=-2:2, samples=100] plot (\x, {0.4*exp(-\x*\x/2.0)});
+      \node[font=\scriptsize, text=Teal] at (1.6, 0.35) {$t_3$};
+      
+      % Arrow indicating the flow of time
+      \draw[->, Midnight, thick] (1.3, 1.4) to[bend left=15] (1.8, 0.6);
+      \node[font=\tiny\bfseries, text=Midnight, right] at (1.6, 1.0) {$t \to \infty$};
+      
+     
+    \end{scope}
+    
+    % --- RIGHT: LAPLACE EQUATION (Steady State / Equilibrium) ---
+    \begin{scope}[xshift=3.5cm]
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Laplace Equation};
+      \node[font=\footnotesize, text=Muted] at (0, 2.5) {$\Delta u = 0 \quad  A\subset \mathbb{R}^n$};
+      
+      % 3D Scope for the Saddle/Membrane (z = x^2 - y^2)
+      \begin{scope}[shift={(0,0.5)}, x={(0.7cm, -0.3cm)}, y={(0.7cm, 0.3cm)}, z={(0cm, 0.7cm)}]
+        
+        % Z-Axis
+        \draw[->, Muted, thin] (0,0,-1.2) -- (0,0,1.6) node[above, font=\scriptsize] {$u(x,y)$};
+        
+        % Membrane Grid (orthogonal curvatures cancel each other out)
+        \foreach \i in {-1, -0.6, -0.2, 0.2, 0.6, 1} {
+           % x-constant lines
+           \draw[Coral, thick, opacity=0.8] plot[domain=-1:1, samples=25] (\i, \x, {\i*\i - \x*\x});
+           % y-constant lines
+           \draw[Teal, thick, opacity=0.8] plot[domain=-1:1, samples=25] (\x, \i, {\x*\x - \i*\i});
+        }
+        
+        % Fixed boundary (wireframe holding the membrane)
+        \draw[Midnight, very thick] plot[domain=-1:1, samples=25] (1, \x, {1 - \x*\x});
+        \draw[Midnight, very thick] plot[domain=-1:1, samples=25] (-1, \x, {1 - \x*\x});
+        \draw[Midnight, very thick] plot[domain=-1:1, samples=25] (\x, 1, {\x*\x - 1});
+        \draw[Midnight, very thick] plot[domain=-1:1, samples=25] (\x, -1, {\x*\x - 1});
+        
+      \end{scope}
+      
+     
+    \end{scope}
+
+    % Divider
+    \draw[Muted!30, thick, dashed] (0, -1.2) -- (0, 3.2);
+
+  \end{tikzpicture}
+
+
+\end{frame}
+
+\section{Zusammenführung von SDEs und PDEs}
+
+\begin{frame}{Von SDEs zu PDEs}\tiny
+Sei $\phi \in C_c^\infty ( \mathbb{R}^d \times [0,T])$ beliebig, $X$ eine Lösung der SDE, wobei die marginale dichte von $X_t$ gegeben ist durch $p(\cdot,t)$ und $a:= \sigma^T \sigma$, dann gilt 
+\begin{align*}
+    0= \mathbb{E}[ \phi(X_T,T)- \phi(X_0,0) ]&\stackrel{Ito-Formel}{=} \mathbb{E}[ \int_0^T \frac{\partial}{\partial s} \phi (X_s,s)+\nabla \phi (X_s,s) b(X_s,s) + \Delta \phi (X_s,s) a(X_s,s)ds  ] \\
+    &+ \underbrace{\mathbb{E}[ \int_0^T \nabla \phi (X_s,s) \sigma(X_s,s)d W_s ]}_{=0, \text{ Integralprozess ist Martingal}}\\
+    &= \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \phi (x,s) + b(x,s)^T \nabla \phi (x,s) + \Delta \phi (x,s) \right) p(x,s) dx ds\\
+    &=\int_0^T \int_{\mathbb{R}^n} \left(- \frac{\partial}{\partial s} p (x,s) -\nabla \cdot ( p(x,s) b(x,s))   + \Delta p (x,s) \right) \phi (x,s) dx ds 
+\end{align*}
+Man sagt, $p$ löst die Differentialgleichung $\frac{\partial}{\partial t} p (x,t) + \nabla \cdot ( p(x,t) b(x,t)) = \Delta p(x,t)$ im schwachen Sine.
+\end{frame}
+
+
+
+\section{Markov Prozesse}
+\begin{frame}{Markovkern}
+.
+\end{frame}
+
+\begin{frame}{Generatoren}
+.
+\end{frame}
+
+\begin{frame}{Halbgruppen}
+.
+\end{frame}
+
+\begin{frame}{Resolventen}
+.
+\end{frame}
+
+\begin{frame}{Martingale}
+.
+\end{frame}
+
+\begin{frame}{Cauchy Problem}
+.
+\end{frame}
+
+
+\section{Rückwärts Prozesse}
+\begin{frame}{Rückwärts Prozess}
+.
+\end{frame}
+
+\begin{frame}{Wo stehen wir jetzt und was ist das Problem?}
+.
+\end{frame}
+
+\section{Schwache Formulierungen}
+
+\subsection{Brownsche Bewegung und Erweiterte Wahrscheinlichkeitsräume}
+
+\begin{frame}{Brownsche Familie}
+.
+\end{frame}
+
+\begin{frame}{Filtrationen nicht fest gewählt}
+.
+\end{frame}
+
+\subsection{Schwache Formulierung von Stochastische Differentialgleichungen}
+
+\begin{frame}{Schwache Lösung von Stochastische Differentialgleichungen}
+.
+\end{frame}
+
+\begin{frame}{Beispiel: Schwache Lösung von Stochastische Differentialgleichungen}
+.
+\end{frame}
+
+
+\subsection{Schwache Formulierung von Partiellen Differentialgleichungen}
+
+\begin{frame}{Distributionen}
+.
+\end{frame}
+
+\begin{frame}{Schwache Ableitung}
+  Dazu kombinieren wir nun Distributionen und den Sobolevraum.
+  \begin{block}{Schwache Ableitung als Distribution}
+    Für jede Distribution $F \in \mathcal{D}^\prime (\Omega)$ definiere den linearen operator 
     \[
-      P_\phi f(x) := \int_0^\infty \phi(t)\,P_t f(x)\,dt.
+    \partial_i F_\cdot : \mathcal{D}(\Omega) \to \mathbb{R},  \quad \phi \mapsto F_\cdot (\phi).
     \]
+\end{block}
+
+\end{frame}
+
+\begin{frame}{Laplace Gleichung Schwache Lösung}
+.
+\end{frame}
+
+
+\begin{frame}{Regularität: Stark vs. Schwache Lösungen}
+  \centering
+  \begin{tikzpicture}[>=Stealth, line cap=round, line join=round]
+    
+    % --- LEFT: STRONG SOLUTION ---
+    \begin{scope}[xshift=-3.5cm]
+      % Überschriften nach oben verschoben (y=3.0 und y=2.5)
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Strong Solution};
+      \node[font=\footnotesize, text=Muted] at (0, 2.5) {$u \in C^2(\Omega)$};
+      
+      % Coordinate system
+      \draw[->, Muted, thin] (-2.2, 0) -- (2.2, 0) node[right] {$x$};
+      \draw[->, Muted, thin] (0, -0.2) -- (0, 1.8) node[above] {$u(x)$};
+      
+      % Smooth curve (e.g., Gaussian/Bell curve representing C^2 solution)
+      \draw[Teal, very thick, domain=-2:2, samples=100] plot (\x, {1.5*exp(-\x*\x/0.8)});
+      
+      % Tangent lines to show continuous first derivative
+      \draw[Teal!50!white, thick, dashed] (-1, 0.43) -- (-0.2, 1.25);
+      \draw[Teal!50!white, thick, dashed] (0.2, 1.25) -- (1, 0.43);
+      \draw[Teal!50!white, thick, dashed] (-0.6, 1.5) -- (0.6, 1.5);
+      
+      % Math label
+      \node[font=\scriptsize, text=Midnight, align=center, fill=Mist, rounded corners, inner sep=3pt] 
+        at (0, -0.8) {Classical formulation:\\$\Delta u(x) = f(x) \quad \forall x \in \Omega$};
+    \end{scope}
+    
+    % --- RIGHT: WEAK SOLUTION ---
+    \begin{scope}[xshift=3.5cm]
+      % Überschriften nach oben verschoben (y=3.0 und y=2.5)
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Weak Solution};
+      \node[font=\footnotesize, text=Muted] at (0, 2.5) {$u \in H^1(\Omega) \setminus C^2(\Omega)$};
+      
+      % Coordinate system
+      \draw[->, Muted, thin] (-2.2, 0) -- (2.2, 0) node[right] {$x$};
+      \draw[->, Muted, thin] (0, -0.2) -- (0, 1.8) node[above] {$u(x)$};
+      
+      % Tent function (representing H^1 solution with a point singularity)
+      \draw[Coral, very thick] (-2, 0.1) -- (0, 1.5) -- (2, 0.1);
+      
+      % Highlighting the kink (non-differentiable point)
+      \fill[Gold] (0, 1.5) circle (2.5pt);
+      \draw[->, Gold, thick] (1.3, 1.8) node[right, font=\scriptsize, text=Midnight] {$\nabla u$ undefined} to[bend right=15] (0.1, 1.55);
+      
+      % Math label
+      \node[font=\scriptsize, text=Midnight, align=center, fill=Mist, rounded corners, inner sep=3pt] 
+        at (0, -0.8) {Variational formulation:\\$\int_\Omega \nabla u \cdot \nabla \phi \, dx = \langle f, \phi \rangle$};
+    \end{scope}
+
+    % Trennlinie (nach oben verlängert, um den neuen Abstand auszufüllen)
+    \draw[Muted!30, thick, dashed] (0, -1.2) -- (0, 3.2);
+
+  \end{tikzpicture}
+\end{frame}
+
+
+
+
+
+\section{Martingale Problem}
+\begin{frame}{Martingal Problem}
+.
+\end{frame}
+
+\begin{frame}{Martingal Problem gibt schwache Lösung der SDE}
+.
+\end{frame}
+
+\begin{frame}{Wohl Definiertheit}
+.
+\end{frame}
+
+\begin{frame}{Starke Markoveigenschaft des Martingal Problems}
+.
+\end{frame}
+
+
+
+\begin{frame}{Generator des Rückwärts Prozesses}
+.
+\end{frame}
+
+\begin{frame}{Rückwärts Prozesses ist Markovprozess}
+.
+\end{frame}
+
+
+\begin{frame}{.}
+.
+\noindent
+\begin{minipage}[c]{0.52\linewidth}
+...
+\end{minipage}\hfill
+\begin{minipage}[c]{0.42\linewidth}
+
+\end{minipage}
+\end{frame}
+
+
+
+\section{Anwendung zu Diffusion}
+\begin{frame}{Recap und Problemstellung}
+.
+\end{frame}
+
+\begin{frame}{Generator für den Rückwärtsprozess}
+.
+\end{frame}
+
+\begin{frame}{Beweis}
+.
+\end{frame}
+
+\begin{frame}{Beweis}
+.
+\end{frame}
+
+\begin{frame}{Beweis}
+.
+\end{frame}
+
+\begin{frame}{Beweis}
+.
+\end{frame}
+
+
+
+\section{Anwendung zu Diffusion}
+\begin{frame}{Zusammensetzen der Puzzleteile}
+  
+  % Beispiel 1: Im Titel eines Blocks
+  \begin{block}{\iconPDE \hspace{2pt} PDE Approach}
+    Hier verwenden wir Methoden der partiellen Differentialgleichungen.
   \end{block}
-
-  Taking the exponential kernel
+  
+  \vspace{0.3cm}
+  
+  % Beispiel 2: Neben einer mathematischen Gleichung
+  Wir wenden nun das Martingale Problem an, um die schwache Lösung zu charakterisieren:
   \[
-    \phi_p(t) := e^{-pt}, \qquad p>0,
+    \iconMartingale \quad \mathbb{E} \left[ f(X_t) - f(X_0) - \int_0^t L f(X_s) ds \right] = 0
   \]
-  recovers the resolvent, which is the Laplace transform of the semigroup:
-  \[
-    \alert{R_p \equiv P_{\phi_p}}.
-  \]
-\end{frame}
-
-\begin{frame}{Build a class from exponential kernels}
-  Consider finite linear combinations of exponentials:
-  \[
-    \mathcal{C} := \left\{
-      \phi:[0,\infty)\to\mathbb{R}\;\middle|\;
-      \phi(t)=\sum_{i=1}^{n} c_i e^{-p_i t},\;
-      c_i\in\mathbb{R},\;p_i>0,\;n\in\mathbb{N}
-    \right\}.
-  \]
-
-  By linearity, every $\phi\in\mathcal{C}$ satisfies
-  \[
-    \langle P_\phi f,g\rangle_\nu
-    = \sum_{i=1}^{n} c_i\langle R_{p_i}f,g\rangle_\nu
-    = \langle f,\widehat{P}_\phi g\rangle_\nu.
-  \]
-
-  \vfill
-  \noindent
-  \begin{minipage}[c]{0.52\linewidth}
-    {\small Linearity carries the resolvent adjoint relation to finite exponential sums.}
-  \end{minipage}\hfill
-  \begin{minipage}[c]{0.42\linewidth}
-    \recallbox[Previous result]{For each $p>0$, $R_p=P_{\phi_p}$.}
-  \end{minipage}
-\end{frame}
-
-\section{Density extension}
-\begin{frame}{Density extends the identity to $C_0$}
-  The exponential class is dense in $C_0([0,\infty))$. Thus, for each
-  $\phi\in C_0([0,\infty))$, there is a sequence $\phi_n\in\mathcal{C}$ such that
-  \[
-    \lim_{n\to\infty}\;\sup_{t\ge 0}
-    \bigl|\phi_n(t)-\phi(t)\bigr|=0.
-  \]
-
-  \vfill
-  \begin{center}
-    \begin{tikzpicture}[baseline=-0.5ex]
-      \node[rounded corners=3pt,fill=Mist,inner xsep=14pt,inner ysep=9pt] {
-        \color{Ink}\large Uniform approximation\quad
-        {\color{Teal}\(\Longrightarrow\)}\quad
-        \color{Ink}\large extension beyond exponentials
-      };
-    \end{tikzpicture}
-  \end{center}
-  \vspace{0.25cm}
+  
+  \vspace{0.3cm}
+  
+  % Beispiel 3: Als Aufzählungszeichen oder Markierung im Fließtext
+  Durch die Kombination von \iconCalculus (Stochastic Calculus) und \iconSobolev (Sobolev Räumen) erhalten wir die finale Rückwärts-Dynamik \iconRueckwaerts.
+  
 \end{frame}
 
 \end{document}
+
+
