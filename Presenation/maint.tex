@@ -196,7 +196,7 @@
         
         % 3. (Sec 4) - Gold, Dreieck nach oben
         \begin{scope}[xshift=-1.10cm]
-          \node[anchor=south, font=\sffamily\fontsize{3.8}{4.5}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Zusammenführung \\ SDEs u. PDEs};
+          \node[anchor=south, font=\sffamily\fontsize{3.8}{4.5}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Markov\\Prozesse};
           \def\tripath{(0, 0.156cm) -- (-0.156cm, -0.12cm) -- (0.156cm, -0.12cm) -- cycle}
           \ifnum\isactiveAbleitung=1
             \draw[black, very thick] \tripath;
@@ -212,7 +212,7 @@
         
         % 4. (Sec 5) - Ink, Raute
         \begin{scope}[xshift=0cm]
-          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Markov\\Prozesse};
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Rückwärts\\Prozess};
           \def\diapath{(0, 0.156cm) -- (0.156cm, 0) -- (0, -0.156cm) -- (-0.156cm, 0) -- cycle}
           \ifnum\isactiveMarkov=1
             \draw[black, very thick] \diapath;
@@ -228,7 +228,7 @@
 
         % 5. (Sec 6) - Teal, Dreieck nach unten
         \begin{scope}[xshift=1.10cm]
-          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Rückwärts\\Prozess};
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Zusammenführung \\ SDEs u. PDEs};
           \def\invtripath{(0, -0.156cm) -- (-0.156cm, 0.12cm) -- (0.156cm, 0.12cm) -- cycle}
           \ifnum\isactiveMartingale=1
             \draw[black, very thick] \invtripath;
@@ -714,6 +714,117 @@ und $u \in C^2 (A \times [0,T]) \cap C^0 (A \times [0,T])$ nennt man klassische 
 
 \end{frame}
 
+
+
+
+
+
+
+
+
+
+
+
+
+\section{Markov Prozesse}
+\begin{frame}{Sub-Markov Übergangsfunktion}
+Eine Abbildung $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ nennt man zeithomogene Markov Übergangsfunktion auf $(E,\mathcal{E})$, falls 
+\begin{itemize}
+  \item $\forall t \geq 0$: $P(t,\cdot,\cdot)$ ist Markovkern von $(E,\mathcal{E})$ nach $(E,\mathcal{E})$
+  \item $\forall s,t \geq 0$: $P(s+t,\cdot,\cdot)= P(t,\cdot,\cdot)\circ P(s,\cdot,\cdot)$
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Halbgruppen}
+
+  \begin{block}{Halbgruppe}
+  Eine Familie $(P_t)_{t \geq 0}$ heißt Markov Halbgruppe, falls für alle $s,t \geq 0$: 
+
+\begin{minipage}[c]{0.50\linewidth}
+  \begin{itemize}
+    \item $P_t: \mathcal{B}(E) \to \mathcal{B}(E)$ beschränkt
+    \item $\forall f \in \mathcal{B}(E)$ mit $0\leq f \leq 1$: $0\leq P_t f \leq 1$
+  \end{itemize}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.50\linewidth}
+\begin{itemize}
+  \item $P_{t+s} =P_s \circ P_t$
+  \item $\forall (f_n)_{n \in \mathbb{N}} \subseteq \mathcal{B}(E)$ mit $f_n \searrow 0$: $P_t f_n \searrow 0$.
+\end{itemize}
+\end{minipage}
+\end{block}
+
+\begin{block}{Markov Halbgruppe}
+  Sei $P$ eine Markov Übergangsfunktion auf $(E,\mathcal{B}(E))$ dann ist 
+  \[
+  \forall f \in \mathcal{B}(E), x \in E, t \geq 0: \quad (P_t f) (x) := \int_E f(y) d (\mathbb{P}_x \circ X_t^{-1})(y),
+  \]
+  eine Markov Halbgruppe.
+
+\end{block}
+
+
+\end{frame}
+
+
+
+\begin{frame}{Markovprozess}
+Sei $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0})$ ein filtrierter Raum, $(E,\mathcal{B}(E))$ ein polnischer Raum auf $(\Omega,\mathcal{F})$ und $(\mathbb{P}_x)_{x \in E}$ eine Familie von von Wahrscheinlichkeitsmaßen auf $(\Omega,\mathcal{F})$. Wir nennen $(X_t)_{t \geq 0}$ einen Markovprozess, falls 
+\begin{itemize}
+  \item $\forall B \in \mathcal{F}_\infty^X : x \mapsto \mathbb{P}_x (B)$ is $\mathcal{B}(E)$ messbar
+  \item Die schwache Markoveigenschaft gilt 
+  \[
+  \forall x \in E, A \in \mathcal{B}(E), s,t \geq 0: \quad \mathbb{P}_x [ X_{t+s} \in A \mid \mathcal{F}_s ] = \mathbb{P}_{X_s} (X_t \in A), \quad \mathbb{P}_x-f.s.
+  \]
+\end{itemize}
+
+\recallbox[]{\tiny
+$P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ ... $\iff$ ...
+}
+\end{frame}
+
+
+\begin{frame}{Generatoren}
+\begin{block}{Generator}
+  Sei $(P_t)_{t \geq 0}$ eine Markov Halbgruppe auf $\mathcal{B}(E)$, dann heißt 
+  \[
+  G: \mathcal{D}(F):= \{ f \in \mathcal{B}(E) \mid s-\lim_{t \searrow 0} (P_t f-f) \text{ existiert} \} \subseteq B(\mathcal{E}) \to \mathcal{B}(E)
+  \] 
+  infitesimal generator von $(P_t)_{t \geq 0}$, falls 
+  \[
+  \forall f \in \mathcal{D}(G): \quad Gf= s-\lim_{t \searrow 0} (P_t f-f).
+  \]
+\end{block}
+\end{frame}
+
+
+\begin{frame}{Key Message}
+
+  $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. 
+  
+\end{frame}
+
+
+
+
+\section{Rückwärts Prozesse}
+\begin{frame}{Rückwärts Prozess}
+
+Der Rückwärtsprozess ist definiert als 
+\[
+\forall t \geq 0: \quad \bar{X}_t (\omega) := \begin{cases}
+  \Delta &, L(\omega) \leq t \vee L(\omega) =\infty \\
+  X_{L(\omega)-t} (\omega) &, t \in (0,L(\omega))
+\end{cases}, \quad \bar{X}_0 := \begin{cases}
+  X_{L-} &, L \in (0,\infty)\\
+  \Delta &\text{sonst}
+\end{cases}
+\]
+und die Rückwärtsfiltration $\bar{\mathcal{F}}_t := \sigma (\bar{X}_s : s \leq t)$.
+
+\end{frame}
+
 \section{Zusammenführung von SDEs und PDEs}
 
 \begin{frame}{Von SDEs zu PDEs}\tiny
@@ -727,44 +838,49 @@ Sei $\phi \in C_c^\infty ( \mathbb{R}^d \times [0,T])$ beliebig, $X$ eine Lösun
 Man sagt, $p$ löst die Differentialgleichung $\frac{\partial}{\partial t} p (x,t) + \nabla \cdot ( p(x,t) b(x,t)) = \Delta p(x,t)$ im schwachen Sine.
 \end{frame}
 
+\begin{frame}{Die SDE und PDE für den Rückwärtsprozess}\tiny
+Auf ähnliche Art und Weise kann man für Testfunktionen $\psi (x,t) := \phi (x,T-t)$ zeigen, dass 
+\begin{align*}
+0&=  \int_0^T \int_{\mathbb{R}^n}- \frac{\partial}{\partial s} \bar{u}(x,s) \psi (x,s) + \nabla \cdot( b(x,T-s) \bar{u}(x,s)) \psi(x,s)+\Delta \bar{u}(x,s) \psi(x,s) \\
+&- 2 \nabla \cdot ( \bar{u}(x,s) \nabla \log( \bar{u}(x,s)))  \psi (x,s)   dx ds.
+\end{align*}
+Dies ist äquivalent zu 
+\[
+-\frac{\partial}{\partial t} \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ) + \Delta \bar{u} - 2 \nabla \cdot ( \bar{u} \nabla \log (\bar{u}))=0 \quad \iff \quad 
+\frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ),
+\]
+was uns die SDE gibt: 
+\[
+d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
+\]
 
-
-\section{Markov Prozesse}
-\begin{frame}{Markovkern}
-.
 \end{frame}
 
-\begin{frame}{Generatoren}
-.
-\end{frame}
-
-\begin{frame}{Halbgruppen}
-.
-\end{frame}
-
-\begin{frame}{Resolventen}
-.
-\end{frame}
-
-\begin{frame}{Martingale}
-.
-\end{frame}
-
-\begin{frame}{Cauchy Problem}
-.
-\end{frame}
-
-
-\section{Rückwärts Prozesse}
-\begin{frame}{Rückwärts Prozess}
-.
-\end{frame}
 
 \begin{frame}{Wo stehen wir jetzt und was ist das Problem?}
-.
+  \textbf{Problem}: Die PDE explodiert nach endlicher Zeit und der Drift der SDE ist nicht Lipschitzstetig! \textbf{Wir brauchen einen neuen Lösungsbegriff!}
+  \[
+  \frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ),
+  \]
+  und
+  \[
+d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
+\]
 \end{frame}
 
+
 \section{Schwache Formulierungen}
+
+
+
+
+
+
+\begin{frame}{Schwache Lösung der SDE}
+
+
+\end{frame}
+
 
 \subsection{Brownsche Bewegung und Erweiterte Wahrscheinlichkeitsräume}
 
@@ -869,8 +985,20 @@ Man sagt, $p$ löst die Differentialgleichung $\frac{\partial}{\partial t} p (x,
 
 
 \section{Martingale Problem}
-\begin{frame}{Martingal Problem}
-.
+
+\begin{frame}{Martingale Problem}
+
+\recallbox[]{\tiny
+ $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
+}
+\end{frame}
+
+\begin{frame}{Martingale Problem und Starke Markov Eigenschaft}
+
+
+\recallbox[]{\tiny
+$P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
+}
 \end{frame}
 
 \begin{frame}{Martingal Problem gibt schwache Lösung der SDE}
