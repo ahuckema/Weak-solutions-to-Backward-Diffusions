@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber Skript"] 0 "Skript.bcf" "Skript.bbl" "Skript" 1793702716.74057 -1
+["biber Skript"] 0 "Skript.bcf" "Skript.bbl" "Skript" 1793727359.03737 -1
   "References.bib" 1791647030.9295 1432 82a4a03657aa5da98f175eab7d40f2a1 ""
-  "Skript.bcf" 1793702716.48864 107978 67c64ef300636345e37439845b6b9f50 "pdflatex"
+  "Skript.bcf" 1793727358.84544 107978 67c64ef300636345e37439845b6b9f50 "pdflatex"
   (generated)
   "Skript.bbl"
   "Skript.blg"
   (rewritten before read)
-["pdflatex"] 1793702711.68687 "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" "Skript.pdf" "Skript" 1793702716.74107 0
-  "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" 1793702711.34589 168425 3c381e459b0c35baf7aa8d207e10a84f ""
+["pdflatex"] 1793727354.64763 "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" "Skript.pdf" "Skript" 1793727359.03768 0
+  "/Users/arne/Desktop/Uni Mannheim/Master/5. Sem/Seminar 2/Script/Skript.tex" 1793727354.41766 171330 cbf837056ca384bb35e034704d8bbce6 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -309,12 +309,12 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1757064974 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "Skript.aux" 1793702716.48189 4607 97d72130c1de9ff04c46d091da408296 "pdflatex"
+  "Skript.aux" 1793727358.84147 4607 e11a79f50e258d8ebde760ab74cfcc30 "pdflatex"
   "Skript.bbl" 1791648352.79896 6635 6aaf9e117b290647853da1b43409dc0c "biber Skript"
-  "Skript.out" 1793702716.48486 4635 1125408e1b715b3b754b693f6f7658a6 "pdflatex"
-  "Skript.run.xml" 1793702716.48951 2319 0d4058b8f73b80b55bbea62b44f4e77c "pdflatex"
-  "Skript.tex" 1793702711.34589 168425 3c381e459b0c35baf7aa8d207e10a84f ""
-  "Skript.toc" 1793702716.48972 2126 b849a267514e411ce2f95a7cff640f49 "pdflatex"
+  "Skript.out" 1793727358.84303 4635 1125408e1b715b3b754b693f6f7658a6 "pdflatex"
+  "Skript.run.xml" 1793727358.84608 2319 0d4058b8f73b80b55bbea62b44f4e77c "pdflatex"
+  "Skript.tex" 1793727354.41766 171330 cbf837056ca384bb35e034704d8bbce6 ""
+  "Skript.toc" 1793727358.84615 2126 eba2cb79a4ccb94d7c36d1f16aad3eca "pdflatex"
   "amd.sty" 1792837942.95403 5645 cc72d93a64d855bc5f58111277485d87 ""
   "theorems.tex" 1788945460.55625 5895 7227ea2efeb515def078ccd53b33c777 ""
   (generated)

@@ -2690,9 +2690,9 @@ We have shown that
 
 
 \begin{align*}
-    \int_s^t (L_z^* \bar{p},\Phi) dz &= \int_s^t - \frac{d}{dz} (\bar{p},\Phi) dz = - \int_s^t \frac{d}{dz} \phi (z) \int_{\mathbb{R}^n} p(x,z) f_1 (x) \psi (x) dx dz \\
+    \int_s^t (L_z^* \bar{p},\Phi) dz &= \int_s^t - \frac{d}{dz} (\bar{p},\Phi) dz = \int_s^t \frac{d}{dz} \phi (z) \int_{\mathbb{R}^n} p(x,z) f_1 (x) \psi (x) dx dz \\
     &= \int_s^t \phi (z) \frac{d}{dz} (p,f_1 \psi) dz = - \int_s^t \phi (z) (p,L_z(f_1 \psi)) dz \\
-    &= \int_s^t \phi (z) ( \frac{\partial}{\partial z} p, f_1 \psi ) dz.
+    &= \int_s^t \phi (z) ( \frac{\partial}{\partial z} p, f_1 \psi ) dz = \langle \frac{\partial}{\partial t} p, f_1 \Phi \rangle 
  \end{align*}
  Thus 
  \begin{align*}
@@ -2700,8 +2700,40 @@ We have shown that
     &= \int_s^t \phi (z) \frac{\partial}{\partial z} (p,\psi f_1) dz = -\int_s^t \frac{\partial}{\partial z} \phi (z) (p, \psi f_1)dz \\
     &= \langle \frac{\partial}{\partial t} p, \Phi f_1 \rangle =: A_{f_1} (p,\Phi).
  \end{align*}
-
-
+ $A_{f_1} (p,\cdot)$ is a distribution. Define the space 
+ \[
+ \mathcal{H} := L^2(s,t; H) = L^2 ((s,t) \times \mathbb{R}^n), \quad \text{and} \quad \mathcal{H}^1 := L^2(s,t; H^1)
+ \]
+ and 
+ \[
+ \tilde{\mathcal{H}}^1 := \overline{ C_c^\infty((s,t) \times \mathbb{R}^n) }, \text{ with} \quad \| u \|_\sim := \left( \int_s^t \int_{\mathbb{R}^n} |u(x,z)|^2 + \sum_{i=1}^n |\chi (x) \sigma_{ij} (x,z) \frac{\partial}{\partial x_j} u(x,z) |^2 dx dz \right),
+ \]
+ where $\chi \in C_c^\infty (\mathbb{R}^n)$ is arbitrary such that $\chi (x) =1$ for all $x \in supp f_1 \cup supp f_2$.
+ 
+ 
+ 
+ 
+ We want to show that it is in $L^2(s,t; H^{-1})$. Because 
+ \begin{align*}
+    A_{f_1} (p,\Phi) &=  \int_s^t (L_z^* p,f_1 \Phi) dz =  \int_s^t ( p, L_z (f_1\Phi)) dz \\
+    &=\int_s^t \int_{\mathbb{R}^n} p(x,z) ( \frac{1}{2} \nabla \cdot (a_{i\cdot}^T \nabla (f_1\Phi)) + \nabla (f_1\Phi)^T (b- \frac{1}{2} a_{i\cdot})) dxdz \\
+    &= \int_s^t \int_{\mathbb{R}^n} - \frac{1}{2} \nabla p(x,z)^T ( (\sigma \sigma^*)^* \nabla (f_1\Phi) ) dx + (p(\cdot,z), \nabla (f_1\Phi)^T (b-\frac{1}{2} a_{i\cdot})) \\
+    &= \int_s^t - \frac{1}{2} ( \sigma^* \nabla p(\cdot,z), \sigma^* \nabla (f_1\Phi) ) + (p(\cdot,z), \nabla (f_1 \Phi)^T (b-\frac{1}{2}a_{i\cdot})) dz 
+ \end{align*}
+We then have for $\Psi := f_1 \Phi$ that 
+\begin{align*}
+    |A_{f_1}(p,\Phi)| &\leq \int_s^t \int_{\mathbb{R}^n} \frac{1}{2} |(\sigma^* \nabla p)^T \sigma^* \nabla \Psi | + |\nabla \Psi^T ( p (b-\frac{1}{2}a_{i\cdot}) ) | dx dz \\
+    &\leq \int_s^t \int_{\mathbb{R}^n} \frac{1}{2} |\sigma^* \nabla p| |\sigma^* \nabla \Psi| dx dz + \int_s^t \int_{\mathbb{R}^n} |\nabla \Psi| | p(b-\frac{1}{2}a_{i\cdot}) | dx dz \\
+    &\stackrel{CS}{\leq} \left( \int_s^t \int_{\mathbb{R}^n} \frac{1}{2} |\sigma^* \nabla p|^2 dx dz \right)^{1/2} \left( \int_s^t \int_{\mathbb{R}^n} \frac{1}{2} |\sigma^* \nabla \Psi|^2 dx dz \right)^{1/2} + \| \nabla \Psi \|_{L^2(s,t;H^1)} \| p(b-\frac{1}{2}a_{i\cdot}) \|_{L^2(s,t; H^1)} \\
+    &\leq \left( \int_s^t \int_{\mathbb{R}^n} |p|^2 + | (\chi \sigma^*)^T \nabla p |^2 dx dz \right)^{1/2} \| (\sigma^*)^T \nabla \Psi \|_{L^2(s,t; H^1)} + \| p \|_{L^2(s,t;H^1)} C_{b,a} \\
+    &\leq \| p \|_\sim \frac{1}{2} \| \sigma^* \Psi \|_{L^2(s,t; H^1)} + C_{f_1} C_{b,a} \| \Phi \|_{L^2(s,t;H^1)} \| p \|_{L^2(s,t;H^1)} \\
+    &\leq \frac{1}{2} C_{f_1} C_\sigma \| p \|_\sim \| \Phi \|_{L^2(s,t;H^1)} + C_{f_1} C_{b,a} \| \Phi \|_{L^2(s,t;H^1)} \| p \|_\sim \leq const. \| p \|_\sim \|\Phi\|_{L^2(s,t;H^1)}.
+\end{align*}
+Finally, we can now show that 
+\begin{align*}
+    \| A_{f_1} (p,\cdot) \|_{OP} &= \sup_{\| \Phi \|_\sim \leq 1} |A_{f_1} (p,\Phi)| \leq const. \| p \|_\sim < \infty,
+\end{align*}
+by assumption. Finally, we need to show that $ v \in \tilde{\mathcal{H}}^{-1}$ and then the proof is concluded, as the solution to the two PDEs solve the Martingale problem.
     
     
 

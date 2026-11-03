@@ -327,7 +327,7 @@
 \section{Motivation}
 
 \begin{frame}{Idee von Diffusion}\hidetoolbox
-\begin{minipage}[c]{0.50\linewidth}{\small
+\begin{minipage}[c]{0.50\linewidth}{\tiny
  \begin{itemize}
       \item Wir wollen eine Verteilung $Y \sim \mu$ lernen
       \item Idee: Verrausche eine Verteilung, bis nur noch eine Normalverteilung übrig ist
@@ -361,7 +361,7 @@ Der Rückwärtsprozess ist definiert als $\bar{X}_t := X_{T-t}$ und wir werden z
 \[
 d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
 \]
-wobei $\tilde{W}_t$ Brownsche Bewegung bzgl. Rückwärtsfiltration $\bar{\mathcal{F}_t} := ???$.
+wobei $\tilde{W}_t$ Brownsche Bewegung bzgl. Rückwärtsfiltration $\bar{\mathcal{F}_t}$.
 \end{frame}
 
 \begin{frame}{Wir beantworten heute folgende Fragen}\hidetoolbox
@@ -523,25 +523,7 @@ Das Ito Integral für $(f(\cdot,t))_{t \geq 0}$ ist damit der Grenzwert des einf
 
 
 
-\begin{frame}{Girsanov Theorem}
-  Für das Martingal 
-  \[
-  L:= \left( L_t := \exp \left( \int_0^t X_s dW_s - \frac{1}{2} \int_0^t X_s^2 ds  \right)  \right)_{t \in [0,T]},
-  \]
-  auf $(\Omega,\mathcal{F}_T, \mathbb{P})$ bzgl. der Brownschen Filtration, d.h. $\left( \mathcal{F}_t := \sigma (W_s : s \leq t) \right)_{t \in [0,T]}$ ist für $\tilde{W}_t := W_t - \int_0^t X_s ds$ der Prozess $\tilde{W} := (\tilde{W}_t)_{t \geq 0}$ eine Brownsche Bewegung auf $(\Omega,\mathcal{F}_T,(\mathcal{F}_t)_{t \in [0,T]}, Q)$, wobei 
 
-\begin{minipage}[c]{0.40\linewidth}{
-\[
-  \frac{d}{d\mathbb{P}} Q = L_T.
-  \]
-}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.60\linewidth}
-\recallbox[Radon-Nikodym:]{\small
-$ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q d \mathbb{P} $.
-}
-\end{minipage}
-\end{frame}
 
 \subsection{Starke Lösungen von Stochastische Differentialgleichungen}
 
@@ -586,7 +568,7 @@ falls \\
   \end{block}
 \end{frame}
 
-\begin{frame}{Hauptsatz Integralrechnung für Ito Integrale}
+\begin{frame}{Hauptsatz Integralrechnung für Ito Integrale}\small
   Der Hauptsatz der Integralrechnung aus der Analysis gibt es auch für Ito Integrale. Eine vereinfachte Version mit $n=m=1$ ist: 
  \begin{block}{Ito Formel}
   Für $F \in C^2(\mathbb{R};\mathbb{R})$ und es gibt $C>0 , p \geq 1$ sodass 
@@ -600,6 +582,25 @@ falls \\
    \end{block}
 \end{frame}
 
+\begin{frame}{Girsanov Theorem}
+  Für das Martingal 
+  \[
+  L:= \left( L_t := \exp \left( \int_0^t X_s dW_s - \frac{1}{2} \int_0^t X_s^2 ds  \right)  \right)_{t \in [0,T]},
+  \]
+  auf $(\Omega,\mathcal{F}_T, \mathbb{P})$ bzgl. der Brownschen Filtration, d.h. $\left( \mathcal{F}_t := \sigma (W_s : s \leq t) \right)_{t \in [0,T]}$ ist für $\tilde{W}_t := W_t - \int_0^t X_s ds$ der Prozess $\tilde{W} := (\tilde{W}_t)_{t \geq 0}$ eine Brownsche Bewegung auf $(\Omega,\mathcal{F}_T,(\mathcal{F}_t)_{t \in [0,T]}, Q)$, wobei 
+
+\begin{minipage}[c]{0.40\linewidth}{
+\[
+  \frac{d}{d\mathbb{P}} Q = L_T.
+  \]
+}
+\end{minipage}\hfill
+\begin{minipage}[c]{0.60\linewidth}
+\recallbox[Radon-Nikodym:]{\small
+$ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q d \mathbb{P} $.
+}
+\end{minipage}
+\end{frame}
 
 
 \section{Partielle Differentialgleichungen}
@@ -727,7 +728,7 @@ und $u \in C^2 (A \times [0,T]) \cap C^0 (A \times [0,T])$ nennt man klassische 
 
 
 \section{Markov Prozesse}
-\begin{frame}{Sub-Markov Übergangsfunktion}
+\begin{frame}{Markov Übergangsfunktion}
 Eine Abbildung $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ nennt man zeithomogene Markov Übergangsfunktion auf $(E,\mathcal{E})$, falls 
 \begin{itemize}
   \item $\forall t \geq 0$: $P(t,\cdot,\cdot)$ ist Markovkern von $(E,\mathcal{E})$ nach $(E,\mathcal{E})$
@@ -948,55 +949,21 @@ d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\b
 
 
 
-
-
-\begin{frame}{Schwache Lösung der SDE}
-
-
-\end{frame}
-
-
-\subsection{Brownsche Bewegung und Erweiterte Wahrscheinlichkeitsräume}
-
-\begin{frame}{Brownsche Familie}
-.
-\end{frame}
-
-\begin{frame}{Filtrationen nicht fest gewählt}
-.
-\end{frame}
-
-\subsection{Schwache Formulierung von Stochastische Differentialgleichungen}
-
-\begin{frame}{Schwache Lösung von Stochastische Differentialgleichungen}
-.
-\end{frame}
-
-\begin{frame}{Beispiel: Schwache Lösung von Stochastische Differentialgleichungen}
-.
-\end{frame}
-
-
 \subsection{Schwache Formulierung von Partiellen Differentialgleichungen}
 
 \begin{frame}{Distributionen}
-.
+  Für $A \subseteq \mathbb{R}^n$ ist der Lineare operator 
+\[
+\langle \partial_i f, \cdot \rangle : \mathcal{D}(A) \to \mathbb{R}, \quad \phi \mapsto \langle \partial_i f , \phi \rangle :=- \langle f, \partial_i \phi \rangle
+\]
+eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $\partial_t u = L u$ ist definiert als die Lösung $u: A \to \mathbb{R}$ sodass 
+\[
+\forall \phi \in C_0^\infty (A): \langle \partial_t u, \phi \rangle = -\int_s^t \int_{\mathbb{R}^n} u (x,z) \partial_t \phi (x,z) dx dz = -\int_s^t \int_{\mathbb{R}^n} u(x,z) L_z \phi (x,z) dx dz = \langle L u , \phi \rangle 
+\]
 \end{frame}
 
-\begin{frame}{Schwache Ableitung}
-  Dazu kombinieren wir nun Distributionen und den Sobolevraum.
-  \begin{block}{Schwache Ableitung als Distribution}
-    Für jede Distribution $F \in \mathcal{D}^\prime (\Omega)$ definiere den linearen operator 
-    \[
-    \partial_i F_\cdot : \mathcal{D}(\Omega) \to \mathbb{R},  \quad \phi \mapsto F_\cdot (\phi).
-    \]
-\end{block}
 
-\end{frame}
 
-\begin{frame}{Laplace Gleichung Schwache Lösung}
-.
-\end{frame}
 
 
 \begin{frame}{Regularität: Stark vs. Schwache Lösungen}
@@ -1058,14 +1025,84 @@ d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\b
 
 
 
+\subsection{Schwache Formulierung von Stochastische Differentialgleichungen}
+
+
+
+\begin{frame}{Schwache Lösung der SDE}
+  Eine schwaceh Lösung der mit Startverteilung $\mu$ auf $\mathcal{B}(\mathbb{R}^d)$ von 
+    \[
+    dX_t = b(t,X_t) dt + \sigma (t,X_t) dW_t
+    \]
+    ist ein Tupel $((\Omega,\mathcal{F},\mathbb{P}), (\mathcal{F}_t)_{t \geq 0}, X, W)$ wobei $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ ein filtrierter Wahrscheinlichkeitsraum ist, wobei die Filtration die üblichen Bedinungen erfüllt, $X$ ist $(\mathcal{F}_t)$-adaptiert, $\mathbb{R}^d$ wertiger Prozess und $W$ ein $r$-dimensionale $(\mathcal{F}_t)$-Brownsche Bewegung $W$
+    \begin{itemize}
+        \item 
+        \[
+        \forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
+        \]
+        \item 
+        \[
+        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.
+        \]
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Filtrationen nicht fest gewählt}
+  Further, the randomness in a strong solution only comes from
+the randomness of the augmented standard Brownian filtration, whereas the randomness in a weak
+solution comes from any filtration, with the restriction that W has to be a (Ft)-Brownian motion.
+This means, that the solution at time t can not only be given by the initial condition, a measurable
+functional given by the Brownian path and th
+\end{frame}
+
+
+
+
 \section{Martingale Problem}
 
 \begin{frame}{Martingale Problem}
+
+   Assume $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$, $i=1,...,d, j=1,...,r$ are bounded on compact subsets of $\mathbb{R}^d$. We call a proability measure $\mathbb{P}$ on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ under which for all $s,t \in [0,\infty), s<t, f \in C_0^2(\mathbb{R}^d)$: 
+    \[
+    \mathbb{E}[ f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}f)(y(u)) du \mid \mathcal{B}_s ] =0, \quad \mathbb{P}-a.s.
+    \]
+    a solution of the time-homogenous martingale problem. We denote by $\mathbb{P}^x$ any solution to this problem if it satisfies 
+    \[
+    \mathbb{P}^x (y \in C([0,\infty)^d ), y (0) =x)=1.
+    \]
+    The time-homogenous martingale problem is well posed if for every $x \in \mathbb{R}^d$, there is exactly one solution $\mathbb{P}^x$.
 
 \recallbox[]{\tiny
  $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
 }
 \end{frame}
+
+
+
+
+\begin{frame}{Markov Eigenschaft der schwachen Lösung}
+  Suppose the coefficients $b$ and $\sigma$ are bounded on compact subsets of $\mathbb{R}^d$ and the time-homogenous martingale problem is well posed. Then for every $\mathcal{B}_t$-stopping time $T$, $F \in \mathcal{B}(C([0,\infty)^d))$ and $x \in \mathbb{R}^d$: 
+    \[
+    \mathbb{P}^x[ \theta_T^{-1} (F) \mid \mathcal{B}_T ](\omega) = \mathbb{P}^{\omega(T)} (F), \quad \mathbb{P}^x-a.s. \text{ on } \{ T < \infty \}.
+    \]
+\end{frame}
+
+\begin{frame}
+  Let $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ be bounded and continuous and the time-homogenous SDE 
+    \[
+    dX_t = b(X_t) dt + \sigma (X_t)dW_t.
+    \]
+    For every initial distribution $\mu$ on $\mathcal{B}(\mathbb{R}^d)$ such that 
+    \[
+    \exists m>1: \quad \int_{\mathbb{R}^d} \| x \|^{2m} d \mu (x)< \infty,
+    \]
+    exists a weak solution. 
+\end{frame}
+
+\begin{frame}{Existenz }
+   Let $\mathbb{P}$ be a probability measure on $(C([0,\infty)^d ), \mathcal{B}(C([0,\infty)^d))$ under which the process $M^f$ is a continuous local $\mathcal{F}_t$-martingale where $f(x) =x_i$ or $f(x) =x_i x_k$ for $i,k =1,...,d$. Then there exists a Brownian motion $W$ wrt. $(\tilde{\mathcal{F}}_t)_{t \geq 0}$ defined on the extension $(\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{\mathbb{P}})$ of $(C([0,\infty)),\mathcal{B}(C([0,\infty)^d)),\mathbb{P})$ such that $((X_t := y(t),W_t),(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}}),(\tilde{\mathcal{F}}_t))$ is a weak solution to the functional SDE.
+\end{frame}
+
 
 \begin{frame}{Martingale Problem und Starke Markov Eigenschaft}
 
@@ -1073,28 +1110,6 @@ d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\b
 \recallbox[]{\tiny
 $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
 }
-\end{frame}
-
-\begin{frame}{Martingal Problem gibt schwache Lösung der SDE}
-.
-\end{frame}
-
-\begin{frame}{Wohl Definiertheit}
-.
-\end{frame}
-
-\begin{frame}{Starke Markoveigenschaft des Martingal Problems}
-.
-\end{frame}
-
-
-
-\begin{frame}{Generator des Rückwärts Prozesses}
-.
-\end{frame}
-
-\begin{frame}{Rückwärts Prozesses ist Markovprozess}
-.
 \end{frame}
 
 
@@ -1113,23 +1128,76 @@ $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff
 
 \section{Anwendung zu Diffusion}
 \begin{frame}{Recap und Problemstellung}
-.
+  Betrachte die SDE $dX_t = b(X_t,t) dt + \sigma(X_t,t) d W_t$.
+\begin{itemize}
+        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ are borel measurable and satisfy 
+        \begin{align*}
+            |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
+            |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
+        \end{align*}
+        for some constant $K$.
+        \item For $\lambda$-a.e. $t >0$,, $X_t \sim p(t,\cdot)$ such that $\forall t_0>0$: 
+        \[
+        p \in L^2( t_0,1; \tilde{H}_{loc}^1 ).
+        \]
+    \end{itemize}
 \end{frame}
 
-\begin{frame}{Generator für den Rückwärtsprozess}
-.
-\end{frame}
 
 \begin{frame}{Beweis}
-.
+Problem: Der Drift vom Rückwärtsprozesses 
+\[
+\bar{b}(x,t) := -b(\bar{X}_t)  + \sigma(\bar{X}_t)^2 \nabla \log (p(T-t,\bar{X}_t)),
+\]
+ist nicht beschränkt auf kompakten teilmengen von $\mathbb{R}^n$! D.h. keine stetige Pfade! Martingal Problem vom Rückwärtsprozess bzgl. Rückwärtsgenerator $\bar{L}_z$ würde die Voraussetzungen nicht erfüllen!\\
+Trick: Schreibe das Martingalproblem um, sodass es vom forwärts prozess abhängt bzgl. einem neuen generator.
 \end{frame}
 
-\begin{frame}{Beweis}
-.
+\begin{frame}{Markovprozess}
+\begin{block}{Satz}
+Angenommen
+\begin{itemize}
+        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ are borel measurable and satisfy 
+        \begin{align*}
+            |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
+            |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
+        \end{align*}
+        for some constant $K$.
+        \item For $\lambda$-a.e. $t >0$,, $X_t \sim p(t,\cdot)$ such that $\forall t_0>0$: 
+        \[
+        p \in L^2( t_0,1; \tilde{H}_{loc}^1 ),
+        \]
+    \end{itemize}
+    dann ist $(\bar{X}_t)_{t \geq 0}$ ein Markov prozess mit generator 
+    \[
+    \bar{L}_t f:= \sum_{i,j=1}^n \frac{1}{2} a_{ij} (x,1-t) \frac{\partial^2}{\partial x_i \partial x_j} f(x)+ \sum_{i=1}^n (-b_i (x,1-t) + p(x,1-t)^{-1} \frac{\partial}{\partial x_j} (a_{ij} (x,1-t) p(x,1-t)) ) \frac{\partial}{\partial x_i} f(x) + 
+    \]
+\end{block}
 \end{frame}
 
-\begin{frame}{Beweis}
-.
+\begin{frame}{Problem}
+Beliebige Testfunktionen: $f,g \in C_c^\infty(\mathbb{R}^n)$ und zeige für $0 \leq s < t < 1$: 
+    \[
+    \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ]=0.
+    \]
+    Weil $(\bar{X}_t)_{t \in [0,1)}$ Markov Prozess
+    \begin{align*}
+        \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ] &= \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \bar{X}_s] \\
+        &= \mathbb{E}[ \left(f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz  \right) g(\bar{X}_s)] =0.
+    \end{align*}
+    Man kann zeigen, dass dies äquivalent ist zu 
+    \[
+    \mathbb{E}[ \left(f(X_t)- f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz  \right) g(X_t)] =0.
+    \]
+    However, as the forward process' generator $L_t$ has coefficients $b$ and $a$ that are "well behaved" it follows that $\int_s^t (\tilde{L}_z f)(X_z) dz$ is in $L^1(\Omega)$. Thus, 
+    \[
+    \mathbb{E}[ \int_s^t |(\bar{L}_z f)(\bar{X}_z)| dz ] = \mathbb{E}[ \int_s^t |(\tilde{L}f)(X_z)|dz ]< \infty,
+    \]
+    despite that fact that $\bar{b}$ may not be locally, bounded. So $f(\bar{X}_t)- \int_s^t (\bar{L}_z f) (\bar{X}_z) dz$ is integrable. So finally, it suffices to show that 
+    \[
+    \mathbb{E}[ (f(X_t) - f(X_s) - \int_s^t (\tilde{L}_z f) (X_z) dz ) g(X_t) ]=0,
+    \]
+    for almoust every $t,s$.
 \end{frame}
 
 \begin{frame}{Beweis}
@@ -1159,6 +1227,15 @@ $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff
   % Beispiel 3: Als Aufzählungszeichen oder Markierung im Fließtext
   Durch die Kombination von \iconCalculus (Stochastic Calculus) und \iconSobolev (Sobolev Räumen) erhalten wir die finale Rückwärts-Dynamik \iconRueckwaerts.
   
+\end{frame}
+
+
+\begin{frame}
+  
+
+\begin{align*}
+| A_{f_1} (p,\cdot) |{OP} = \sup_{ \| \Phi \|_{L^2(s,t;H^1)} \leq 1} |A{f_1} (p,\Phi)| \leq \text{const.} | p |_{L^2(s,t; H^1)} < \infty.
+\end{align*}
 \end{frame}
 
 \end{document}
