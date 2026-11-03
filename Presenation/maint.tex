@@ -327,7 +327,7 @@
 \section{Motivation}
 
 \begin{frame}{Idee von Diffusion}\hidetoolbox
-\begin{minipage}[c]{0.40\linewidth}{\small
+\begin{minipage}[c]{0.50\linewidth}{\small
  \begin{itemize}
       \item Wir wollen eine Verteilung $Y \sim \mu$ lernen
       \item Idee: Verrausche eine Verteilung, bis nur noch eine Normalverteilung übrig ist
@@ -341,9 +341,9 @@
       \]
     \end{itemize}}
 \end{minipage}\hfill
-\begin{minipage}[c]{0.60\linewidth}
+\begin{minipage}[c]{0.50\linewidth}
 \begin{figure}[h]
-    \includegraphics[width=1\textwidth]{Bilder/4.png} 
+    \includegraphics[width=0.9\textwidth]{Bilder/4.png} 
 \end{figure}
 \end{minipage}
 \end{frame}
@@ -801,7 +801,7 @@ $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff
 
 \begin{frame}{Key Message}
 
-  $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. 
+  $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ $(G,\mathcal{D}(G))$ Generator
   
 \end{frame}
 
@@ -809,6 +809,53 @@ $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff
 
 
 \section{Rückwärts Prozesse}
+
+\begin{frame}{Explodierende und Terminierende Prozesse und die Messbarkeit}
+ 
+Ein stochastischer Prozess muss für alle $\omega \in \Omega$ wohl definiert sein. Wenn $(X_t)_{t \geq 0}$
+\begin{itemize}
+  \item nach endlicher Zeit explodiert oder 
+  \item nach endlicher Zeit terminiert wird
+\end{itemize} 
+ist $(X_t)_{t \geq 0}$ nicht mehr messbar! Sei $\Delta$ der Zustand, den der Proess annimmt, wenn er explodiert oder terminiert wird. Betrachte $E_\Delta := E \cup \Delta$ und 
+\[
+\zeta (\omega) := \inf \{ t \geq 0 \mid X_t(\omega) = \Delta \}
+\]
+Eintrittszeit von $\Delta$.
+\end{frame}
+
+
+\begin{frame}{Problem der Stoppzeit}\tiny
+Sei $T: \Omega \to \mathbb{N}\cup \{\infty \}$ eine Stoppzeit bzw. erste Eintrittszeit von  $A \in \mathcal{F}$ und $\theta_u : \Omega \to \Omega, \omega \mapsto (\theta_u \omega)(\cdot) := \omega (u+\cdot)$ Verschiebungsoperator, dann gilt 
+\begin{align*}
+T(\theta_t \omega) = \inf \{ s\geq 0 \mid X_{t+s} (\omega)\in A \} = \inf \left( \underbrace{\{ s \geq 0 \mid X_s (\omega)\in A \}}_{=:S} \cap [0,\infty) \right) -t = \inf \{ s \geq t \mid X_s (\omega) \in A \}-t =: D_t -t.
+\end{align*}
+\begin{itemize}
+  \item Fall $\omega \in \{ T \geq t \}$: 
+  \[
+  T(\theta_t \omega) = \inf \left( \underbrace{S}_{\subseteq [T,\infty) \subseteq [t,\infty) } \cap [t,\infty) \right) -t = \inf (S) -t = T(\omega) -t.
+  \]
+  Wir können Stoppzeiten bzgl. der Vergangheit verschieben.
+  \item Fall $\omega \in \{ T < t \}$:
+  \[
+  D_t (\omega) \geq t \quad \implies \quad T \circ \theta_t = D_t -t \geq 0 = (T-t)_+.
+  \]
+  Wir können Stoppzeiten nicht bzgl. der Zukunft verschieben!
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Lösung des Problems}
+  
+  \begin{block}{Ko-Optionale Zeiten}
+    Eine Zufallsvariable $L: \Omega \to \mathbb{R}^+$, falls 
+    \begin{itemize}
+      \item $\{L< \infty \} \subseteq \{L< \zeta\}$
+      \item $\forall t \geq 0:$ $L \circ \theta_T = (T-t)_+$.
+    \end{itemize}
+  \end{block}
+\end{frame}
+
+
 \begin{frame}{Rückwärts Prozess}
 
 Der Rückwärtsprozess ist definiert als 
@@ -822,8 +869,35 @@ Der Rückwärtsprozess ist definiert als
 \end{cases}
 \]
 und die Rückwärtsfiltration $\bar{\mathcal{F}}_t := \sigma (\bar{X}_s : s \leq t)$.
+\end{frame}
+
+\begin{frame}{Von Reversibilität zur Markoveigenschaft (1/2)}
+
+\begin{block}{Reversibilität}
+Sei $(P_t)_{t \geq 0}$ eine halb-Gruppe eines Markov Prozesses. Wir nenn ihn reversibel bzgl. dem Wahrscheinlichkeitsmaß $\nu$, falls alle $P_t$ selbstadjungiert sind im Hilbertraum $L^2(E,\nu)$, d.h. 
+\[
+\forall t \geq 0, f,g \in L^2(E,\nu): \quad \langle P_t f,g \rangle_\nu := \int_E (P_t f) g d \nu = \int_E f (P_t g) d \nu = \langle f,P_t g \rangle_\nu.
+\]  
+\end{block}
+Die Brownsche Bewegung $(W_t)_{t \geq 0}$ ist reversibel, da der Generator $\frac{1}{2} \Delta$ selbstadjungiert ist in $L^2(E,\nu)$: 
+\[
+\langle \Delta f,g \rangle= \int_E \Delta f g d \nu = \int_E f \Delta g d \nu = \langle f,\Delta g \rangle.
+\]
+\end{frame}
+
+\begin{frame}{Von Reversibilität zur Markoveigenschaft (2/2)}
+
+  \[
+  \forall A \in \bar{\mathcal{F}}_t: \quad A \cap \{ L \cap \{ L > t+u \} = \theta_u^{-1} (A \cap \{ L> t \}),
+  \]
+  dann 
+  \[
+  \mathbb{P}( A \cap \{ L> t+ u \} \mid \mathcal{F}_u ) = \mathbb{P}( \theta_u^{-1} ( A \cap \{L>t+u\}) \mid \mathcal{F}_u) =\mathbb{P}_{X_u} (A \cap \{L> t+u\}).
+  \]
 
 \end{frame}
+
+
 
 \section{Zusammenführung von SDEs und PDEs}
 

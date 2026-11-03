@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  1 NOV 2026 17:52
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  3 NOV 2026 11:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -964,16 +964,6 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
-
-Overfull \hbox (15.67474pt too wide) detected at line 349
-\T1/lmss/m/sl/10 f\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 Y\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 t\OT1/lmss/m/n/10 ) \OMS/lmsy/m/n/10 ! \T1/lmss/m/sl/10 Z \OMS/lmsy/m/n/10 ^^X N\OT1/lmss/m/n/10 (\T1/lmss/m/n/10 0\OML/lmm/m/it/10 ; \T1/lmss/m/n/10 1\OT1/lmss/m/n/10 )\OML/lmm/m/it/10 ;  []\T1/lmss/m/sl/10 t \OMS/lmsy/m/n/10 ! 1
- []
-
-
-Overfull \hbox (3.04587pt too wide) detected at line 349
-\T1/lmss/m/sl/10 f[]\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 Z\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 t\OT1/lmss/m/n/10 ) \OMS/lmsy/m/n/10 ! \T1/lmss/m/sl/10 Y \OMS/lmsy/m/n/10 ^^X \OML/lmm/m/it/10 ^^V;  []\T1/lmss/m/sl/10 t \OMS/lmsy/m/n/10 ! 1\OML/lmm/m/it/10 :
- []
-
 LaTeX Font Info:    External font `lmex10' loaded for size
 (Font)              <10.95> on input line 349.
 LaTeX Font Info:    External font `lmex10' loaded for size
@@ -990,9 +980,9 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 File: Bilder/4.png Graphic file (type png)
 <use Bilder/4.png>
 Package pdftex.def Info: Bilder/4.png  used on input line 349.
-(pdftex.def)             Requested size: 245.8342pt x 81.8162pt.
+(pdftex.def)             Requested size: 184.37253pt x 61.36215pt.
 
-Overfull \vbox (31.37802pt too high) detected at line 349
+Overfull \vbox (7.37802pt too high) detected at line 349
  []
 
 
@@ -1158,11 +1148,6 @@ Overfull \vbox (31.18431pt too high) detected at line 768
 [26
 
 ]
-Overfull \hbox (2.81099pt too wide) detected at line 826
-\OMS/lmsy/m/n/10.95 8\T1/lmss/m/sl/10.95 t \OMS/lmsy/m/n/10.95 ^^U \T1/lmss/m/n/10.95 0 \OT1/lmss/m/n/10.95 :  [](\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] \OML/lmm/m/it/10.95 ;  [] \OT1/lmss/m/n/10.95 := []
- []
-
-
 
 [27
 
@@ -1175,10 +1160,19 @@ Overfull \hbox (2.81099pt too wide) detected at line 826
 [29
 
 ]
+Overfull \hbox (2.81099pt too wide) detected at line 872
+\OMS/lmsy/m/n/10.95 8\T1/lmss/m/sl/10.95 t \OMS/lmsy/m/n/10.95 ^^U \T1/lmss/m/n/10.95 0 \OT1/lmss/m/n/10.95 :  [](\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] \OML/lmm/m/it/10.95 ;  [] \OT1/lmss/m/n/10.95 := []
+ []
+
+
 
 [30
 
 ]
+Overfull \vbox (2.88649pt too high) detected at line 886
+ []
+
+
 
 [31
 
@@ -1275,6 +1269,26 @@ Overfull \hbox (2.81099pt too wide) detected at line 826
 [54
 
 ]
+
+[55
+
+]
+
+[56
+
+]
+
+[57
+
+]
+
+[58
+
+]
+
+[59
+
+]
 \tf@nav=\write6
 \openout6 = `maint.nav'.
 
@@ -1290,21 +1304,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `maint.out' has not changed.
-(rerunfilecheck)             Checksum: 7183C8C83C4B85DE0D032AB129B5914A;3149.
+(rerunfilecheck)             Checksum: 7218970C8E3673F1B3694BF3A3B895DB;3149.
  ) 
 Here is how much of TeX's memory you used:
- 28708 strings out of 473190
- 576075 string characters out of 5715801
- 974206 words of memory out of 5000000
- 51253 multiletter control sequences out of 15000+600000
+ 28747 strings out of 473190
+ 576685 string characters out of 5715801
+ 974606 words of memory out of 5000000
+ 51282 multiletter control sequences out of 15000+600000
  667231 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,17n,123p,510b,1107s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on maint.pdf (54 pages, 4150549 bytes).
+Output written on maint.pdf (59 pages, 4171323 bytes).
 PDF statistics:
- 753 PDF objects out of 1000 (max. 8388607)
- 543 compressed objects within 6 object streams
- 124 named destinations out of 1000 (max. 500000)
+ 796 PDF objects out of 1000 (max. 8388607)
+ 576 compressed objects within 6 object streams
+ 134 named destinations out of 1000 (max. 500000)
  199 words of extra memory for PDF output out of 10000 (max. 10000000)
 

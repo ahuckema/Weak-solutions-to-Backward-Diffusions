@@ -2689,7 +2689,17 @@ We have shown that
     \end{align*}
 
 
-
+\begin{align*}
+    \int_s^t (L_z^* \bar{p},\Phi) dz &= \int_s^t - \frac{d}{dz} (\bar{p},\Phi) dz = - \int_s^t \frac{d}{dz} \phi (z) \int_{\mathbb{R}^n} p(x,z) f_1 (x) \psi (x) dx dz \\
+    &= \int_s^t \phi (z) \frac{d}{dz} (p,f_1 \psi) dz = - \int_s^t \phi (z) (p,L_z(f_1 \psi)) dz \\
+    &= \int_s^t \phi (z) ( \frac{\partial}{\partial z} p, f_1 \psi ) dz.
+ \end{align*}
+ Thus 
+ \begin{align*}
+    \langle \frac{\partial}{\partial t} \bar{p}, \Phi \rangle &= - \langle \bar{p}, \frac{\partial}{\partial t} \Phi \rangle \\
+    &= \int_s^t \phi (z) \frac{\partial}{\partial z} (p,\psi f_1) dz = -\int_s^t \frac{\partial}{\partial z} \phi (z) (p, \psi f_1)dz \\
+    &= \langle \frac{\partial}{\partial t} p, \Phi f_1 \rangle =: A_{f_1} (p,\Phi).
+ \end{align*}
 
 
     
