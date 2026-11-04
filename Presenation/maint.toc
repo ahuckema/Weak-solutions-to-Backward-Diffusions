@@ -5,10 +5,10 @@
 \beamer@sectionintoc {3}{Partielle Differentialgleichungen}{19}{0}{3}
 \beamer@sectionintoc {4}{Markov Prozesse}{22}{0}{4}
 \beamer@sectionintoc {5}{Rückwärts Prozesse}{27}{0}{5}
-\beamer@sectionintoc {6}{Zusammenführung von SDEs und PDEs}{33}{0}{6}
-\beamer@sectionintoc {7}{Schwache Formulierungen}{36}{0}{7}
-\beamer@subsectionintoc {7}{1}{Schwache Formulierung von Partiellen Differentialgleichungen}{36}{0}{7}
-\beamer@subsectionintoc {7}{2}{Schwache Formulierung von Stochastische Differentialgleichungen}{38}{0}{7}
-\beamer@sectionintoc {8}{Martingale Problem}{40}{0}{8}
-\beamer@sectionintoc {9}{Anwendung zu Diffusion}{46}{0}{9}
-\beamer@sectionintoc {10}{Anwendung zu Diffusion}{51}{0}{10}
+\beamer@sectionintoc {6}{Zusammenführung von SDEs und PDEs}{32}{0}{6}
+\beamer@sectionintoc {7}{Schwache Formulierungen}{35}{0}{7}
+\beamer@subsectionintoc {7}{1}{Schwache Formulierung von Partiellen Differentialgleichungen}{35}{0}{7}
+\beamer@subsectionintoc {7}{2}{Schwache Formulierung von Stochastische Differentialgleichungen}{37}{0}{7}
+\beamer@sectionintoc {8}{Martingale Problem}{39}{0}{8}
+\beamer@sectionintoc {9}{Anwendung zu Diffusion}{41}{0}{9}
+\beamer@sectionintoc {10}{Anwendung zu Diffusion}{49}{0}{10}

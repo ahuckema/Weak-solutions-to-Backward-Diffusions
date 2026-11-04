@@ -366,10 +366,9 @@ wobei $\tilde{W}_t$ Brownsche Bewegung bzgl. Rückwärtsfiltration $\bar{\mathca
 
 \begin{frame}{Wir beantworten heute folgende Fragen}\hidetoolbox
 \begin{itemize}
-  \item Was ist eine Differentialgleichung?
-  \item Wie sieht die marginale Verteilung $X_t \sim p(\cdot,t)$ aus und welche Probleme entstehen dort?
-  \item Wie können wir dieses Problem lösen? Stichwort: Partielle Differentialgleichungen 
-  \item Welche Differentialgleichung löst der Rückwärtsprozess und welche Eigenschaften erfüllt die Lösung.
+  \item Was ist eine stochastische und partielle Differentialgleichung?
+  \item Welches Problem entsteht beim Rückwärtsprozess?
+  \item Wie können wir dieses Problem lösen? Stichwort: Schwache Lösungen!
 \end{itemize}
 \end{frame}
 
@@ -779,10 +778,6 @@ Sei $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0})$ ein filtrierter Raum, $(E
   \forall x \in E, A \in \mathcal{B}(E), s,t \geq 0: \quad \mathbb{P}_x [ X_{t+s} \in A \mid \mathcal{F}_s ] = \mathbb{P}_{X_s} (X_t \in A), \quad \mathbb{P}_x-f.s.
   \]
 \end{itemize}
-
-\recallbox[]{\tiny
-$P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ ... $\iff$ ...
-}
 \end{frame}
 
 
@@ -848,7 +843,7 @@ T(\theta_t \omega) = \inf \{ s\geq 0 \mid X_{t+s} (\omega)\in A \} = \inf \left(
 \begin{frame}{Lösung des Problems}
   
   \begin{block}{Ko-Optionale Zeiten}
-    Eine Zufallsvariable $L: \Omega \to \mathbb{R}^+$, falls 
+    Eine Zufallsvariable $L: \Omega \to \mathbb{R}^+$ heißt ko-Optionale Zeit, falls 
     \begin{itemize}
       \item $\{L< \infty \} \subseteq \{L< \zeta\}$
       \item $\forall t \geq 0:$ $L \circ \theta_T = (T-t)_+$.
@@ -872,7 +867,7 @@ Der Rückwärtsprozess ist definiert als
 und die Rückwärtsfiltration $\bar{\mathcal{F}}_t := \sigma (\bar{X}_s : s \leq t)$.
 \end{frame}
 
-\begin{frame}{Von Reversibilität zur Markoveigenschaft (1/2)}
+\begin{frame}{Der Triviale Fall}
 
 \begin{block}{Reversibilität}
 Sei $(P_t)_{t \geq 0}$ eine halb-Gruppe eines Markov Prozesses. Wir nenn ihn reversibel bzgl. dem Wahrscheinlichkeitsmaß $\nu$, falls alle $P_t$ selbstadjungiert sind im Hilbertraum $L^2(E,\nu)$, d.h. 
@@ -886,17 +881,6 @@ Die Brownsche Bewegung $(W_t)_{t \geq 0}$ ist reversibel, da der Generator $\fra
 \]
 \end{frame}
 
-\begin{frame}{Von Reversibilität zur Markoveigenschaft (2/2)}
-
-  \[
-  \forall A \in \bar{\mathcal{F}}_t: \quad A \cap \{ L \cap \{ L > t+u \} = \theta_u^{-1} (A \cap \{ L> t \}),
-  \]
-  dann 
-  \[
-  \mathbb{P}( A \cap \{ L> t+ u \} \mid \mathcal{F}_u ) = \mathbb{P}( \theta_u^{-1} ( A \cap \{L>t+u\}) \mid \mathcal{F}_u) =\mathbb{P}_{X_u} (A \cap \{L> t+u\}).
-  \]
-
-\end{frame}
 
 
 
@@ -951,12 +935,12 @@ d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\b
 
 \subsection{Schwache Formulierung von Partiellen Differentialgleichungen}
 
-\begin{frame}{Distributionen}
+\begin{frame}{Distributionen}\small
   Für $A \subseteq \mathbb{R}^n$ ist der Lineare operator 
 \[
 \langle \partial_i f, \cdot \rangle : \mathcal{D}(A) \to \mathbb{R}, \quad \phi \mapsto \langle \partial_i f , \phi \rangle :=- \langle f, \partial_i \phi \rangle
 \]
-eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $\partial_t u = L u$ ist definiert als die Lösung $u: A \to \mathbb{R}$ sodass 
+eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $\partial_t u = L u$ erfüllt:
 \[
 \forall \phi \in C_0^\infty (A): \langle \partial_t u, \phi \rangle = -\int_s^t \int_{\mathbb{R}^n} u (x,z) \partial_t \phi (x,z) dx dz = -\int_s^t \int_{\mathbb{R}^n} u(x,z) L_z \phi (x,z) dx dz = \langle L u , \phi \rangle 
 \]
@@ -973,7 +957,7 @@ eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $
     % --- LEFT: STRONG SOLUTION ---
     \begin{scope}[xshift=-3.5cm]
       % Überschriften nach oben verschoben (y=3.0 und y=2.5)
-      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Strong Solution};
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Starke Lösung};
       \node[font=\footnotesize, text=Muted] at (0, 2.5) {$u \in C^2(\Omega)$};
       
       % Coordinate system
@@ -990,13 +974,13 @@ eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $
       
       % Math label
       \node[font=\scriptsize, text=Midnight, align=center, fill=Mist, rounded corners, inner sep=3pt] 
-        at (0, -0.8) {Classical formulation:\\$\Delta u(x) = f(x) \quad \forall x \in \Omega$};
+        at (0, -0.8) {klassische Formulierung:\\$\Delta u(x) = f(x) \quad \forall x \in \Omega$};
     \end{scope}
     
     % --- RIGHT: WEAK SOLUTION ---
     \begin{scope}[xshift=3.5cm]
       % Überschriften nach oben verschoben (y=3.0 und y=2.5)
-      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Weak Solution};
+      \node[font=\sffamily\small\bfseries, text=Midnight] at (0, 3.0) {Schwache Lösung};
       \node[font=\footnotesize, text=Muted] at (0, 2.5) {$u \in H^1(\Omega) \setminus C^2(\Omega)$};
       
       % Coordinate system
@@ -1008,11 +992,11 @@ eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $
       
       % Highlighting the kink (non-differentiable point)
       \fill[Gold] (0, 1.5) circle (2.5pt);
-      \draw[->, Gold, thick] (1.3, 1.8) node[right, font=\scriptsize, text=Midnight] {$\nabla u$ undefined} to[bend right=15] (0.1, 1.55);
+      \draw[->, Gold, thick] (1.3, 1.8) node[right, font=\scriptsize, text=Midnight] {$\nabla u$ undefiniert} to[bend right=15] (0.1, 1.55);
       
       % Math label
       \node[font=\scriptsize, text=Midnight, align=center, fill=Mist, rounded corners, inner sep=3pt] 
-        at (0, -0.8) {Variational formulation:\\$\int_\Omega \nabla u \cdot \nabla \phi \, dx = \langle f, \phi \rangle$};
+        at (0, -0.8) {Schwache Formulierung:\\$\int_\Omega \nabla u \cdot \nabla \phi \, dx = \langle f, \phi \rangle$};
     \end{scope}
 
     % Trennlinie (nach oben verlängert, um den neuen Abstand auszufüllen)
@@ -1029,30 +1013,28 @@ eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $
 
 
 
-\begin{frame}{Schwache Lösung der SDE}
-  Eine schwaceh Lösung der mit Startverteilung $\mu$ auf $\mathcal{B}(\mathbb{R}^d)$ von 
+\begin{frame}{Schwache Lösung der SDE}\small
+  Eine schwache Lösung der SDE 
     \[
     dX_t = b(t,X_t) dt + \sigma (t,X_t) dW_t
     \]
-    ist ein Tupel $((\Omega,\mathcal{F},\mathbb{P}), (\mathcal{F}_t)_{t \geq 0}, X, W)$ wobei $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ ein filtrierter Wahrscheinlichkeitsraum ist, wobei die Filtration die üblichen Bedinungen erfüllt, $X$ ist $(\mathcal{F}_t)$-adaptiert, $\mathbb{R}^d$ wertiger Prozess und $W$ ein $r$-dimensionale $(\mathcal{F}_t)$-Brownsche Bewegung $W$
+    mit Startverteilung $\mu$ auf $\mathcal{B}(\mathbb{R}^d)$ ist ein Tupel $((\Omega,\mathcal{F},\mathbb{P}), (\mathcal{F}_t)_{t \geq 0}, X, W)$ wobei $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ ein filtrierter Wahrscheinlichkeitsraum ist, wobei die Filtration die üblichen Bedinungen erfüllt, $X$ ist $(\mathcal{F}_t)$-adaptiert, $\mathbb{R}^d$ wertiger Prozess und $W$ ein $r$-dimensionale $(\mathcal{F}_t)$-Brownsche Bewegung $W$
     \begin{itemize}
-        \item 
-        \[
-        \forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
-        \]
-        \item 
-        \[
-        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.
-        \]
+        \item $\forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1$
+        \item $\forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.$
     \end{itemize}
 \end{frame}
 
-\begin{frame}{Filtrationen nicht fest gewählt}
-  Further, the randomness in a strong solution only comes from
-the randomness of the augmented standard Brownian filtration, whereas the randomness in a weak
-solution comes from any filtration, with the restriction that W has to be a (Ft)-Brownian motion.
-This means, that the solution at time t can not only be given by the initial condition, a measurable
-functional given by the Brownian path and th
+\begin{frame}{Intuition}
+  \begin{itemize}
+    \item Betrachte $\Omega:= C([0,\infty), \mathbb{R}^d)$ und $\mathcal{F}:= \sigma (X_s \mid s \geq 0) = \sigma(X)$, dann $X_t(\omega) = \omega(t)$ ist ein stochastischer Prozess auf $(\Omega,\mathcal{F},\mathbb{P})$. 
+    \item Jede Brownsche Bewegegung erfüllt $\sigma(W) \subseteq \mathcal{F} = \sigma(X)$. 
+    \item Doobs factorization Lemma sagt, dass für alle $t \geq 0$ existiert ein $\mathbb{P}_X$-f.s. eindeutige messbare Funktion $\varphi_t := C([0,\infty),\mathbb{R}^d) \to \mathbb{R}^d$, dass 
+    \[
+    W_t = \varphi_t (X).
+    \]
+    $W$ ist nur transformation von $X$.
+  \end{itemize}
 \end{frame}
 
 
@@ -1060,150 +1042,174 @@ functional given by the Brownian path and th
 
 \section{Martingale Problem}
 
-\begin{frame}{Martingale Problem}
+\begin{frame}{Martingal Problem}
 
-   Assume $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$, $i=1,...,d, j=1,...,r$ are bounded on compact subsets of $\mathbb{R}^d$. We call a proability measure $\mathbb{P}$ on $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ under which for all $s,t \in [0,\infty), s<t, f \in C_0^2(\mathbb{R}^d)$: 
+   Angenommen $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$, $i=1,...,d, j=1,...,r$ sind beschränkt auf kompakten Teilmengen von $\mathbb{R}^d$. Wir nennen ein Wahrscheinlichkeitsmaß $\mathbb{P}$ auf $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ wobei für alle $s,t \in [0,\infty), s<t, f \in C_0^2(\mathbb{R}^d)$: 
     \[
     \mathbb{E}[ f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}f)(y(u)) du \mid \mathcal{B}_s ] =0, \quad \mathbb{P}-a.s.
     \]
-    a solution of the time-homogenous martingale problem. We denote by $\mathbb{P}^x$ any solution to this problem if it satisfies 
+    eine Lösung des zeithomogenen Martingal Problems. Mit $\mathbb{P}^x$ schreiben wir eine Lösung, die 
     \[
-    \mathbb{P}^x (y \in C([0,\infty)^d ), y (0) =x)=1.
+    \mathbb{P}^x (y \in C([0,\infty)^d ), y (0) =x)=1
     \]
-    The time-homogenous martingale problem is well posed if for every $x \in \mathbb{R}^d$, there is exactly one solution $\mathbb{P}^x$.
+    erfüllt. Das zeithomogene Martingal Problem nennen wir wohl gestellt, wenn für alle $x \in \mathbb{R}^d$, genau eine Lösung $\mathbb{P}^x$ existert.
 
-\recallbox[]{\tiny
- $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
-}
 \end{frame}
 
 
 
 
-\begin{frame}{Markov Eigenschaft der schwachen Lösung}
-  Suppose the coefficients $b$ and $\sigma$ are bounded on compact subsets of $\mathbb{R}^d$ and the time-homogenous martingale problem is well posed. Then for every $\mathcal{B}_t$-stopping time $T$, $F \in \mathcal{B}(C([0,\infty)^d))$ and $x \in \mathbb{R}^d$: 
-    \[
-    \mathbb{P}^x[ \theta_T^{-1} (F) \mid \mathcal{B}_T ](\omega) = \mathbb{P}^{\omega(T)} (F), \quad \mathbb{P}^x-a.s. \text{ on } \{ T < \infty \}.
-    \]
+\begin{frame}{Vom Martingal Problem zur Schwachen Lösung}
+\begin{block}{Existenz}
+Die Existenz der Lösung $\mathbb{P}$ des Martingal Problems bzgl. dem Generator $(\mathcal{A}_t)_{t \geq 0}$ ist äquivalent zur Existenz der schwachen Lösung $((\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{P}), (X,W), (\mathcal{F}_t)_{t \geq 0})$ der SDE . 
+\end{block}  
+\begin{block}{Eindeutigkeit}
+  Die Eindeutigkeit der Lösung $\mathbb{P}$ des Martingal Problems bzgl. dem Generator $(\mathcal{A}_t)_{t \geq 0}$ mit Anfangsverteilung 
+  \[
+  \forall A \in \mathcal{B}(\mathbb{R}^n): \quad \mathbb{P} (X_0 \in A) = \mu (A),
+  \]
+  ist äquivalent zur Eindeutigkeit der Dichte $X_t \sim p (\cdot,t)$, $t \geq 0$, der SDE.
+\end{block}
 \end{frame}
 
-\begin{frame}
-  Let $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ be bounded and continuous and the time-homogenous SDE 
-    \[
-    dX_t = b(X_t) dt + \sigma (X_t)dW_t.
-    \]
-    For every initial distribution $\mu$ on $\mathcal{B}(\mathbb{R}^d)$ such that 
-    \[
-    \exists m>1: \quad \int_{\mathbb{R}^d} \| x \|^{2m} d \mu (x)< \infty,
-    \]
-    exists a weak solution. 
-\end{frame}
-
-\begin{frame}{Existenz }
-   Let $\mathbb{P}$ be a probability measure on $(C([0,\infty)^d ), \mathcal{B}(C([0,\infty)^d))$ under which the process $M^f$ is a continuous local $\mathcal{F}_t$-martingale where $f(x) =x_i$ or $f(x) =x_i x_k$ for $i,k =1,...,d$. Then there exists a Brownian motion $W$ wrt. $(\tilde{\mathcal{F}}_t)_{t \geq 0}$ defined on the extension $(\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{\mathbb{P}})$ of $(C([0,\infty)),\mathcal{B}(C([0,\infty)^d)),\mathbb{P})$ such that $((X_t := y(t),W_t),(\tilde{\Omega},\tilde{\mathcal{F}},\tilde{\mathbb{P}}),(\tilde{\mathcal{F}}_t))$ is a weak solution to the functional SDE.
-\end{frame}
-
-
-\begin{frame}{Martingale Problem und Starke Markov Eigenschaft}
-
-
-\recallbox[]{\tiny
-$P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ $(\mathbb{P}_x)_{x \in E}$ Wohlg. Mart. Probl. $\iff$ $(G,\mathcal{D}(G))$ Gen.
-}
-\end{frame}
-
-
-\begin{frame}{.}
-.
-\noindent
-\begin{minipage}[c]{0.52\linewidth}
-...
-\end{minipage}\hfill
-\begin{minipage}[c]{0.42\linewidth}
-
-\end{minipage}
-\end{frame}
 
 
 
 \section{Anwendung zu Diffusion}
 \begin{frame}{Recap und Problemstellung}
-  Betrachte die SDE $dX_t = b(X_t,t) dt + \sigma(X_t,t) d W_t$.
-\begin{itemize}
-        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ are borel measurable and satisfy 
-        \begin{align*}
-            |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
-            |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
-        \end{align*}
-        for some constant $K$.
-        \item For $\lambda$-a.e. $t >0$,, $X_t \sim p(t,\cdot)$ such that $\forall t_0>0$: 
-        \[
-        p \in L^2( t_0,1; \tilde{H}_{loc}^1 ).
-        \]
-    \end{itemize}
+  Wir wollen für die SDE
+  \[
+  dX_t = b(X_t,t) dt + \sigma(X_t,t) d W_t
+  \]
+  die schwache Lösung des Rückwärtsprozesses 
+  \[
+  d \bar{X}_t = \bar{b}(\bar{X}_t,t) dt + \sigma (\bar{X}_t, T-t) d \bar{W}_t
+  \]
+  finden, indem wir das Martingal Problem lösen.
 \end{frame}
 
 
-\begin{frame}{Beweis}
-Problem: Der Drift vom Rückwärtsprozesses 
-\[
-\bar{b}(x,t) := -b(\bar{X}_t)  + \sigma(\bar{X}_t)^2 \nabla \log (p(T-t,\bar{X}_t)),
-\]
-ist nicht beschränkt auf kompakten teilmengen von $\mathbb{R}^n$! D.h. keine stetige Pfade! Martingal Problem vom Rückwärtsprozess bzgl. Rückwärtsgenerator $\bar{L}_z$ würde die Voraussetzungen nicht erfüllen!\\
-Trick: Schreibe das Martingalproblem um, sodass es vom forwärts prozess abhängt bzgl. einem neuen generator.
-\end{frame}
 
-\begin{frame}{Markovprozess}
+
+\begin{frame}{Markovprozess}\tiny
 \begin{block}{Satz}
 Angenommen
 \begin{itemize}
-        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ are borel measurable and satisfy 
+        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ sind Borel messbar und erfüllen 
         \begin{align*}
             |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
             |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
         \end{align*}
-        for some constant $K$.
-        \item For $\lambda$-a.e. $t >0$,, $X_t \sim p(t,\cdot)$ such that $\forall t_0>0$: 
+        für eine beliebige Konstante $K$.
+        \item Für $\lambda$-f.a. $t >0$ sei $X_t \sim p(t,\cdot)$ sodass:
         \[
         p \in L^2( t_0,1; \tilde{H}_{loc}^1 ),
         \]
     \end{itemize}
     dann ist $(\bar{X}_t)_{t \geq 0}$ ein Markov prozess mit generator 
     \[
-    \bar{L}_t f:= \sum_{i,j=1}^n \frac{1}{2} a_{ij} (x,1-t) \frac{\partial^2}{\partial x_i \partial x_j} f(x)+ \sum_{i=1}^n (-b_i (x,1-t) + p(x,1-t)^{-1} \frac{\partial}{\partial x_j} (a_{ij} (x,1-t) p(x,1-t)) ) \frac{\partial}{\partial x_i} f(x) + 
+    \bar{L}_t f:= \sum_{i,j=1}^n \frac{1}{2} a_{ij} (x,1-t) \frac{\partial^2}{\partial x_i \partial x_j} f(x)+ \sum_{i=1}^n (-b_i (x,1-t) + p(x,1-t)^{-1} \frac{\partial}{\partial x_j} (a_{ij} (x,1-t) p(x,1-t)) ) \frac{\partial}{\partial x_i} f(x) 
     \]
 \end{block}
 \end{frame}
 
-\begin{frame}{Problem}
-Beliebige Testfunktionen: $f,g \in C_c^\infty(\mathbb{R}^n)$ und zeige für $0 \leq s < t < 1$: 
+\begin{frame}{Ziel: Martingalproblem des Rückwärtsprozesses}
+Für beliebige Testfunktionen $f,g \in C_c^\infty(\mathbb{R}^n)$ und $0 \leq s < t < 1$ ist zu zeigen: 
     \[
-    \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ]=0.
+    \mathbb{E}\left[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) \right]=0.
     \]
-    Weil $(\bar{X}_t)_{t \in [0,1)}$ Markov Prozess
-    \begin{align*}
-        \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) ] &= \mathbb{E}[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \bar{X}_s] \\
-        &= \mathbb{E}[ \left(f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz  \right) g(\bar{X}_s)] =0.
-    \end{align*}
-    Man kann zeigen, dass dies äquivalent ist zu 
+    Man kann zeigen, dass dies durch Zeitumkehr äquivalent ist zu 
     \[
-    \mathbb{E}[ \left(f(X_t)- f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz  \right) g(X_t)] =0.
+    \mathbb{E}\left[ \left(f(X_t)- f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz  \right) g(X_t) \right] =0 \quad \text{für } s,t \, \lambda\text{-f.ü.}
     \]
-    However, as the forward process' generator $L_t$ has coefficients $b$ and $a$ that are "well behaved" it follows that $\int_s^t (\tilde{L}_z f)(X_z) dz$ is in $L^1(\Omega)$. Thus, 
+    wobei der Vorwärts-Ersatzoperator definiert ist als:
     \[
-    \mathbb{E}[ \int_s^t |(\bar{L}_z f)(\bar{X}_z)| dz ] = \mathbb{E}[ \int_s^t |(\tilde{L}f)(X_z)|dz ]< \infty,
+    \tilde{L}_z f := - \bar{L}_{1-z} f.
     \]
-    despite that fact that $\bar{b}$ may not be locally, bounded. So $f(\bar{X}_t)- \int_s^t (\bar{L}_z f) (\bar{X}_z) dz$ is integrable. So finally, it suffices to show that 
-    \[
-    \mathbb{E}[ (f(X_t) - f(X_s) - \int_s^t (\tilde{L}_z f) (X_z) dz ) g(X_t) ]=0,
-    \]
-    for almoust every $t,s$.
 \end{frame}
 
-\begin{frame}{Beweis}
-.
+
+\begin{frame}{Sobolevräume}
+\begin{minipage}[c]{0.5\linewidth}
+ Der Sobolevraum ist definiert als 
+\[
+    H^1(\Omega) := \{ u \in L^2(\Omega) \mid \nabla u \in L^2(\Omega) \},
+\]
+und ausgestattet mit der Norm 
+\[
+    \| u \|_{H^1} := \| u \|_{L^2} + \| \nabla u \|_{L^2}.
+    \]
+\end{minipage}\hfill
+\begin{minipage}[c]{0.5\linewidth}
+Für den Dualraum des Sobolevraums schreiben wir 
+ \[
+    H^{-1} (\Omega) := (H^1(\Omega))^\prime.
+    \]
+Der Zeitabhänige Sobolevraum ist 
+\[
+    L^2(t,T; H^1(\Omega)) := \{ u \mid \int_t^T \| u (t,\cdot) \|_{H^1}^2 dt < \infty  \}
+    \]
+
+\end{minipage}    \hfill
 \end{frame}
 
+\begin{frame}{Schwache Lösung im Sobolevraum}
+Für 
+\[
+p \in L^2(0,T;\tilde{H}_{loc}^1(\mathbb{R}^n)) \quad \text{ mit } \quad \partial_t p \in L^2(0,T; H^{-1} (\mathbb{R}^n)),
+\]
+nennen wir $p$ eine schwache Lösung der Fokker-Planck-Gleichung $\partial_t p = L_t^* p$, falls für alle $\varphi \in L^2 (0,T; H^1(\mathbb{R}^n))$ gilt:
+\[
+\langle \partial_t p, \varphi \rangle_{H^{-1}, H^1} = \langle p, L_t \varphi \rangle_{L^2, L^2}.
+\]
+\end{frame}
+
+\begin{frame}{Probleme}
+\textbf{1.} Da für die Koeffizienten nur die lineare Wachstumsbedingung gilt ($|b(x,t)| + |\sigma (x,t)| \leq K (1+|x|)$):
+\[
+|b(x,t)|, |\sigma (x,t)| \to \infty, \quad \text{für } \| x \| \to \infty.
+\]
+Daraus folgt, dass die Dichte global nicht abklingt: $p (\cdot,t) \notin H^1 (\mathbb{R}^n)$, sondern nur $p \in L^2(0,T; \tilde{H}_{loc}^1(\mathbb{R}^n))$.\\
+\textbf{2.} Da bei der Fokker-Planck-Gleichung $\partial_t p = L^*_z p$ die rechte Seite vom unbeschränkten Drift $\nabla \cdot (bp)$ abhängt, divergiert es global! D.h. 
+\[
+\partial_t p \notin L^2(0,T; H^{-1} (\mathbb{R}^n)).
+\]
+\end{frame}
+
+\begin{frame}{Lösung der Probleme}
+  Betrachte die Lokalisierung durch Testfunktionen $f \in C_c^\infty (\mathbb{R}^n)$. \\
+  \textbf{1.} Durch den kompakten Träger gilt $fp \in L^2(0,T; H^1 (\mathbb{R}^n))$ und 
+  \[
+  \forall x \in \text{supp}(f) \, \exists C_b, C_\sigma < \infty: \quad \| b \| \leq C_b \text{ und } \| \sigma \| \leq C_\sigma.
+  \]
+  \textbf{2.} Man zeigt $A_f(p, \cdot) := \langle \partial_t p, f \cdot \rangle \in L^2(0,T; H^{-1})$, indem man die Operatornorm beschränkt:
+  \[
+  \| A_f(p, \cdot) \|_{Op} \leq C \| p \|_{\sim} < \infty.
+  \]
+  Dies impliziert, dass $f \partial_t p$ ein beschränktes Funktional auf $H^1$ ist. Mit der Produktregel folgt $\partial_t (fp) \in L^2(0,T; H^{-1} (\mathbb{R}^n))$.
+\end{frame}
+
+
+
+
+
+
+\begin{frame}{Beweisidee: Verknüpfung durch PDEs}\tiny
+\textbf{1.} Für $X_t \sim p(\cdot,t)$ löst $p$ die Fokker-Planck-Gleichung im schwachen Sinne:
+\[
+\partial_z p = L_z^* p, \quad \forall z \in (0,1).
+\]
+\textbf{2.} Die Observable $v(x,z):= \mathbb{E} [ g(X_t) \mid X_z = x ]$ löst die Rückwärts-Kolmogorov-Gleichung auf $z \in (s,t)$:
+\[
+\partial_z v(x,z) + L_z v(x,z) = 0, \quad \text{mit Endbedingung } v(x,t) = g(x).
+\]
+Wendet man den Hauptsatz der Differential- und Integralrechnung an, erhält man für $(f,g) := \int_{\mathbb{R}^n} f(x) g(x) dx$:
+\begin{align*}
+  &( fp(\cdot,t),v(\cdot,t) )- (fp(\cdot,s),v(\cdot,s)) = \int_s^t ( \partial_z p(\cdot,z),fv(\cdot,z) ) + ( p(\cdot,z),f\partial_z v(\cdot,z) ) dz \\
+  &\iff \mathbb{E}[ f(X_s) g(X_t) ] = \mathbb{E}\left[ \left( f(X_t) - \int_s^t (\tilde{L}_z f)(X_z) dz \right) g(X_t) \right].
+\end{align*}
+Durch Umstellen folgt die Erwartungswert-Null-Eigenschaft. Damit ist das Martingalproblem gelöst!
+\end{frame}
 
 
 \section{Anwendung zu Diffusion}
@@ -1230,13 +1236,6 @@ Beliebige Testfunktionen: $f,g \in C_c^\infty(\mathbb{R}^n)$ und zeige für $0 \
 \end{frame}
 
 
-\begin{frame}
-  
-
-\begin{align*}
-| A_{f_1} (p,\cdot) |{OP} = \sup_{ \| \Phi \|_{L^2(s,t;H^1)} \leq 1} |A{f_1} (p,\Phi)| \leq \text{const.} | p |_{L^2(s,t; H^1)} < \infty.
-\end{align*}
-\end{frame}
 
 \end{document}
 
