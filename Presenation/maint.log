@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 NOV 2026 17:33
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 NOV 2026 22:47
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -968,7 +968,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
-<Bilder/4.png, id=84, 1317.92375pt x 438.63875pt>
+<Bilder/4.png, id=80, 1317.92375pt x 438.63875pt>
 File: Bilder/4.png Graphic file (type png)
 <use Bilder/4.png>
 Package pdftex.def Info: Bilder/4.png  used on input line 349.
@@ -978,6 +978,10 @@ Package pdftex.def Info: Bilder/4.png  used on input line 349.
 [2
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc} <./Bilder/4.png>]
+Overfull \vbox (0.92358pt too high) detected at line 365
+ []
+
+
 
 [3
 
@@ -999,7 +1003,7 @@ Overfull \hbox (11.05545pt too wide) detected at line 394
 \U/msb/m/n/10 E[]\OT1/lmss/m/n/10 [\U/msb/m/n/10 E[]\OT1/lmss/m/n/10 [\OMS/lmsy/m/n/10 kr []\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 p\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 t\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 x\OT1/lmss/m/n/10 ) \OMS/lmsy/m/n/10 ^^@ \T1/lmss/m/sl/10 s[]\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 t\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 x\OT1/lmss/m/n/10 )\OMS/lmsy/m/n/10 k[]\OT1/lmss/m/n/10 ]]
  []
 
-<Bilder/3.png, id=123, 1464.47125pt x 837.1275pt>
+<Bilder/3.png, id=120, 1464.47125pt x 837.1275pt>
 File: Bilder/3.png Graphic file (type png)
 <use Bilder/3.png>
 Package pdftex.def Info: Bilder/3.png  used on input line 394.
@@ -1021,6 +1025,12 @@ Package pdftex.def Info: Bilder/3.png  used on input line 394.
 [8
 
 ]
+Overfull \hbox (2.47069pt too wide) detected at line 456
+\OMS/lmsy/m/n/10.95 8\OML/lmm/m/it/10.95 ! \OMS/lmsy/m/n/10.95 2 \OT1/lmss/m/n/10.95 
+ :  [][] \T1/lmss/m/sl/10.95 f\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 s\OML/lmm/m/it/10.95 ; !\OT1/lmss/m/n/10.95 )\T1/lmss/m/sl/10.95 dW[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] [] \T1/lmss/m/sl/10.95 f\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 z[]\OML/lmm/m/it/10.95 ; !\OT1/lmss/m/n/10.95 )(\T1/lmss/m/sl/10.95 W[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) \OMS/lmsy/m/n/10.95 ^^@ \T1/lmss/m/sl/10.95 W[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ))\OML/lmm/m/it/10.95 ;  \T1/lmss/m/sl/10.95 z[] \OMS/lmsy/m/n/10.95 2 \OT1/lmss/m/n/10.95 [\T1/lmss/m/sl/10.95 t[]\OML/lmm/m/it/10.95 ; \T1/lmss/m/sl/10.95 t[]\OT1/lmss/m/n/10.95 ]\OML/lmm/m/it/10.95 :
+ []
+
+
 
 [9
 
@@ -1029,18 +1039,18 @@ Package pdftex.def Info: Bilder/3.png  used on input line 394.
 [10
 
 ]
-<Bilder/1.png, id=187, 1082.0425pt x 276.03125pt>
+<Bilder/1.png, id=184, 1082.0425pt x 276.03125pt>
 File: Bilder/1.png Graphic file (type png)
 <use Bilder/1.png>
-Package pdftex.def Info: Bilder/1.png  used on input line 485.
+Package pdftex.def Info: Bilder/1.png  used on input line 486.
 (pdftex.def)             Requested size: 286.8024pt x 73.16055pt.
-<Bilder/2.png, id=188, 1073.00874pt x 277.035pt>
+<Bilder/2.png, id=185, 1073.00874pt x 277.035pt>
 File: Bilder/2.png Graphic file (type png)
 <use Bilder/2.png>
-Package pdftex.def Info: Bilder/2.png  used on input line 485.
+Package pdftex.def Info: Bilder/2.png  used on input line 486.
 (pdftex.def)             Requested size: 286.8024pt x 74.048pt.
 
-Overfull \vbox (11.14207pt too high) detected at line 485
+Overfull \vbox (11.14207pt too high) detected at line 486
  []
 
 
@@ -1048,6 +1058,13 @@ Overfull \vbox (11.14207pt too high) detected at line 485
 [11
 
  <./Bilder/1.png> <./Bilder/2.png>]
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+
 
 [12
 
@@ -1060,6 +1077,9 @@ Overfull \vbox (11.14207pt too high) detected at line 485
 [14
 
 ]
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 555.
+
 
 [15
 
@@ -1068,7 +1088,12 @@ Overfull \vbox (11.14207pt too high) detected at line 485
 [16
 
 ]
-Overfull \vbox (11.31058pt too high) detected at line 582
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 587.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <7> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 587.
+
+Overfull \vbox (13.81058pt too high) detected at line 587
  []
 
 
@@ -1076,58 +1101,64 @@ Overfull \vbox (11.31058pt too high) detected at line 582
 [17
 
 ]
-
-[18
-
-]
-<Bilder/5.png, id=275, 477.785pt x 353.32pt>
+<Bilder/5.png, id=261, 477.785pt x 353.32pt>
 File: Bilder/5.png Graphic file (type png)
 <use Bilder/5.png>
-Package pdftex.def Info: Bilder/5.png  used on input line 624.
+Package pdftex.def Info: Bilder/5.png  used on input line 610.
 (pdftex.def)             Requested size: 98.33217pt x 72.71141pt.
-<Bilder/6.png, id=276, 466.74374pt x 358.33875pt>
+<Bilder/6.png, id=262, 466.74374pt x 358.33875pt>
 File: Bilder/6.png Graphic file (type png)
 <use Bilder/6.png>
-Package pdftex.def Info: Bilder/6.png  used on input line 624.
+Package pdftex.def Info: Bilder/6.png  used on input line 610.
 (pdftex.def)             Requested size: 98.33217pt x 75.48846pt.
 
-Overfull \vbox (12.13339pt too high) detected at line 624
+Overfull \vbox (12.13339pt too high) detected at line 610
  []
 
 
 
-[19
+[18
 
  <./Bilder/5.png> <./Bilder/6.png>]
+
+[19
+
+]
+LaTeX Font Info:    External font `lmex10' loaded for size
+(Font)              <9> on input line 699.
+LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <9> not available
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 699.
+LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 699.
+
+Overfull \vbox (13.09447pt too high) detected at line 699
+ []
+
+
 
 [20
 
 ]
-LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 715.
-LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 715.
-
-Overfull \vbox (13.09447pt too high) detected at line 715
- []
-
-
 
 [21
 
 ]
-
-[22
-
-]
-Overfull \vbox (31.18431pt too high) detected at line 768
+Overfull \vbox (23.21097pt too high) detected at line 738
  []
 
 
 
+[22
+
+]
+
 [23
 
 ]
+Overfull \vbox (5.0499pt too high) detected at line 764
+ []
+
+
 
 [24
 
@@ -1148,12 +1179,16 @@ Overfull \vbox (31.18431pt too high) detected at line 768
 [28
 
 ]
+Overfull \hbox (36.62163pt too wide) detected at line 838
+\OMS/lmsy/m/n/10.95 8\T1/lmss/m/sl/10.95 t \OMS/lmsy/m/n/10.95 ^^U \T1/lmss/m/n/10.95 0 \OT1/lmss/m/n/10.95 : [](\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] \OML/lmm/m/it/10.95 ; []\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := []
+ []
+
+
 
 [29
 
 ]
-Overfull \hbox (2.81099pt too wide) detected at line 868
-\OMS/lmsy/m/n/10.95 8\T1/lmss/m/sl/10.95 t \OMS/lmsy/m/n/10.95 ^^U \T1/lmss/m/n/10.95 0 \OT1/lmss/m/n/10.95 :  [](\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] \OML/lmm/m/it/10.95 ;  [] \OT1/lmss/m/n/10.95 := []
+Overfull \vbox (5.9486pt too high) detected at line 852
  []
 
 
@@ -1161,10 +1196,6 @@ Overfull \hbox (2.81099pt too wide) detected at line 868
 [30
 
 ]
-Overfull \vbox (2.88649pt too high) detected at line 882
- []
-
-
 
 [31
 
@@ -1177,19 +1208,24 @@ Overfull \vbox (2.88649pt too high) detected at line 882
 [33
 
 ]
-
-[34
-
-]
-Overfull \hbox (10.94116pt too wide) detected at line 947
-\OMS/lmsy/m/n/10 8\OML/lmm/m/it/10 ^^^ \OMS/lmsy/m/n/10 2 \T1/lmss/m/sl/10 C[]\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 A\OT1/lmss/m/n/10 ) : \OMS/lmsy/m/n/10 h\OML/lmm/m/it/10 @[]\T1/lmss/m/sl/10 u\OML/lmm/m/it/10 ; ^^^\OMS/lmsy/m/n/10 i \OT1/lmss/m/n/10 = \OMS/lmsy/m/n/10 ^^@ [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\OML/lmm/m/it/10 @[]^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = \OMS/lmsy/m/n/10 ^^@ [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\T1/lmss/m/sl/10 L[]\OML/lmm/m/it/10 ^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = \OMS/lmsy/m/n/10 h\T1/lmss/m/sl/10 Lu\OML/lmm/m/it/10 ; ^^^\OMS/lmsy/m/n/10 i
+Overfull \hbox (12.45082pt too wide) detected at line 914
+\OMS/lmsy/m/n/10 8\OML/lmm/m/it/10 ^^^ \OMS/lmsy/m/n/10 2 \T1/lmss/m/sl/10 C[]\OT1/lmss/m/n/10 (\U/msb/m/n/10 R[] \OMS/lmsy/m/n/10 ^^B \OT1/lmss/m/n/10 (\T1/lmss/m/n/10 0\OML/lmm/m/it/10 ; \OMS/lmsy/m/n/10 1\OT1/lmss/m/n/10 )) :  \OMS/lmsy/m/n/10 ^^@ [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\OML/lmm/m/it/10 @[]^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 ) \T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\T1/lmss/m/sl/10 L[]\OML/lmm/m/it/10 ^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 ) \T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = \OMS/lmsy/m/n/10 h\T1/lmss/m/sl/10 Lu\OML/lmm/m/it/10 ; ^^^\OMS/lmsy/m/n/10 i\OML/lmm/m/it/10 ;
  []
 
 
 
+[34
+
+]
+
 [35
 
 ]
+Overfull \hbox (19.70189pt too wide) detected at line 997
+\T1/lmss/m/sl/10 L[]\OT1/lmss/m/n/10 ([\T1/lmss/m/n/10 0\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 T\OT1/lmss/m/n/10 ]; \T1/lmss/m/sl/10 H[]\OT1/lmss/m/n/10 (\U/msb/m/n/10 R[]\OT1/lmss/m/n/10 )) := [] \OML/lmm/m/it/10 :
+ []
+
+
 
 [36
 
@@ -1206,6 +1242,10 @@ Overfull \hbox (10.94116pt too wide) detected at line 947
 [39
 
 ]
+Overfull \vbox (7.2535pt too high) detected at line 1057
+ []
+
+
 
 [40
 
@@ -1214,26 +1254,19 @@ Overfull \hbox (10.94116pt too wide) detected at line 947
 [41
 
 ]
-Overfull \vbox (19.51758pt too high) detected at line 1114
- []
-
-
 
 [42
 
 ]
+Overfull \vbox (5.93918pt too high) detected at line 1107
+ []
+
+
 
 [43
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 1154--1154
-[]\T1/lmss/m/n/10.95 Für den Du-al-raum des Sobolevraums
- []
-
-
-Overfull \hbox (15.75888pt too wide) detected at line 1154
-\T1/lmss/m/sl/10.95 L[]\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 t\OML/lmm/m/it/10.95 ; \T1/lmss/m/sl/10.95 T\OT1/lmss/m/n/10.95 ; \T1/lmss/m/sl/10.95 H[]\OT1/lmss/m/n/10.95 (
-)) := \OMS/lmsy/m/n/10.95 f\T1/lmss/m/sl/10.95 u \OMS/lmsy/m/n/10.95 j [][] k\T1/lmss/m/sl/10.95 u\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 t\OML/lmm/m/it/10.95 ; \OMS/lmsy/m/n/10.95 ^^A\OT1/lmss/m/n/10.95 )\OMS/lmsy/m/n/10.95 k[]\T1/lmss/m/sl/10.95 dt \OML/lmm/m/it/10.95 < \OMS/lmsy/m/n/10.95 1g
+Overfull \vbox (3.20543pt too high) detected at line 1123
  []
 
 
@@ -1253,14 +1286,6 @@ Overfull \hbox (15.75888pt too wide) detected at line 1154
 [47
 
 ]
-
-[48
-
-]
-
-[49
-
-]
 \tf@nav=\write6
 \openout6 = `maint.nav'.
 
@@ -1276,21 +1301,21 @@ LaTeX2e <2024-11-01> patch level 2
 L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `maint.out' has not changed.
-(rerunfilecheck)             Checksum: D468994DE5EB9760F2B81150CFD212B4;2785.
+(rerunfilecheck)             Checksum: CC0C01117692BF97B3FC8BEA2D239145;2665.
  ) 
 Here is how much of TeX's memory you used:
- 28638 strings out of 473190
- 574848 string characters out of 5715801
- 973526 words of memory out of 5000000
- 51194 multiletter control sequences out of 15000+600000
- 667231 words of font info for 104 fonts, out of 8000000 for 9000
+ 28625 strings out of 473190
+ 574663 string characters out of 5715801
+ 974390 words of memory out of 5000000
+ 51186 multiletter control sequences out of 15000+600000
+ 672767 words of font info for 106 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,17n,123p,543b,1107s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 128i,17n,123p,626b,1107s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on maint.pdf (49 pages, 4162234 bytes).
+Output written on maint.pdf (47 pages, 4162021 bytes).
 PDF statistics:
- 699 PDF objects out of 1000 (max. 8388607)
- 503 compressed objects within 6 object streams
- 113 named destinations out of 1000 (max. 500000)
- 191 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 675 PDF objects out of 1000 (max. 8388607)
+ 484 compressed objects within 5 object streams
+ 108 named destinations out of 1000 (max. 500000)
+ 183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

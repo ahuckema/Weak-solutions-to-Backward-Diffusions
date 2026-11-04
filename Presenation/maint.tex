@@ -81,13 +81,13 @@
 
 
 % --- Globale Schalter für aktive Tools & Sichtbarkeit ---
-\gdef\isactiveCalculus{0}
-\gdef\isactivePDE{0}
-\gdef\isactiveAbleitung{0}
-\gdef\isactiveMarkov{0}
-\gdef\isactiveMartingale{0}
-\gdef\isactiveRueckwaerts{0}
-\gdef\isactiveSobolev{0}
+\gdef\isactiveCalculus{0}%
+\gdef\isactivePDE{0}%
+\gdef\isactiveMarkov{0}%
+\gdef\isactiveRueckwaerts{0}%
+\gdef\isactiveZus{0}%
+\gdef\isactiveSchwach{0}%
+\gdef\isactiveMartingal{0}%
 \gdef\ToolboxVisible{1} % 1 = sichtbar, 0 = versteckt
 
 % Befehl zum Ausblenden auf der aktuellen Folie
@@ -107,32 +107,32 @@
     \fill[Coral] (-0.132cm,-0.132cm) rectangle (0.132cm,0.132cm);
   \end{tikzpicture}%
 }
-\newcommand{\iconAbleitung}{%
-  \gdef\isactiveAbleitung{1}%
-  \begin{tikzpicture}[baseline=-0.6ex]
-    \fill[Gold] (0,0.156cm) -- (-0.156cm,-0.12cm) -- (0.156cm,-0.12cm) -- cycle;
-  \end{tikzpicture}%
-}
 \newcommand{\iconMarkov}{%
   \gdef\isactiveMarkov{1}%
   \begin{tikzpicture}[baseline=-0.6ex]
-    \fill[Ink] (0,0.156cm) -- (0.156cm,0) -- (0,-0.156cm) -- (-0.156cm,0) -- cycle;
-  \end{tikzpicture}%
-}
-\newcommand{\iconMartingale}{%
-  \gdef\isactiveMartingale{1}%
-  \begin{tikzpicture}[baseline=-0.6ex]
-    \fill[Teal] (0,-0.156cm) -- (-0.156cm,0.12cm) -- (0.156cm,0.12cm) -- cycle;
+    \fill[Gold] (0,0.156cm) -- (-0.156cm,-0.12cm) -- (0.156cm,-0.12cm) -- cycle;
   \end{tikzpicture}%
 }
 \newcommand{\iconRueckwaerts}{%
   \gdef\isactiveRueckwaerts{1}%
   \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Ink] (0,0.156cm) -- (0.156cm,0) -- (0,-0.156cm) -- (-0.156cm,0) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconZus}{%
+  \gdef\isactiveZus{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
+    \fill[Teal] (0,-0.156cm) -- (-0.156cm,0.12cm) -- (0.156cm,0.12cm) -- cycle;
+  \end{tikzpicture}%
+}
+\newcommand{\iconSchwach}{%
+  \gdef\isactiveSchwach{1}%
+  \begin{tikzpicture}[baseline=-0.6ex]
     \fill[Coral] (0,0.156cm) -- (0.132cm,0.078cm) -- (0.132cm,-0.078cm) -- (0,-0.156cm) -- (-0.132cm,-0.078cm) -- (-0.132cm,0.078cm) -- cycle;
   \end{tikzpicture}%
 }
-\newcommand{\iconSobolev}{%
-  \gdef\isactiveSobolev{1}%
+\newcommand{\iconMartingal}{%
+  \gdef\isactiveMartingal{1}%
   \begin{tikzpicture}[baseline=-0.6ex]
     \fill[Gold] (0,0.156cm) -- (0.144cm,0.048cm) -- (0.096cm,-0.12cm) -- (-0.096cm,-0.12cm) -- (-0.144cm,0.048cm) -- cycle;
   \end{tikzpicture}%
@@ -198,7 +198,7 @@
         \begin{scope}[xshift=-1.10cm]
           \node[anchor=south, font=\sffamily\fontsize{3.8}{4.5}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Markov\\Prozesse};
           \def\tripath{(0, 0.156cm) -- (-0.156cm, -0.12cm) -- (0.156cm, -0.12cm) -- cycle}
-          \ifnum\isactiveAbleitung=1
+          \ifnum\isactiveMarkov=1
             \draw[black, very thick] \tripath;
           \else
             \draw[Gold, thick] \tripath;
@@ -214,7 +214,7 @@
         \begin{scope}[xshift=0cm]
           \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Rückwärts\\Prozess};
           \def\diapath{(0, 0.156cm) -- (0.156cm, 0) -- (0, -0.156cm) -- (-0.156cm, 0) -- cycle}
-          \ifnum\isactiveMarkov=1
+          \ifnum\isactiveRueckwaerts=1
             \draw[black, very thick] \diapath;
           \else
             \draw[Ink, thick] \diapath;
@@ -230,7 +230,7 @@
         \begin{scope}[xshift=1.10cm]
           \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Zusammenführung \\ SDEs u. PDEs};
           \def\invtripath{(0, -0.156cm) -- (-0.156cm, 0.12cm) -- (0.156cm, 0.12cm) -- cycle}
-          \ifnum\isactiveMartingale=1
+          \ifnum\isactiveZus=1
             \draw[black, very thick] \invtripath;
           \else
             \draw[Teal, thick] \invtripath;
@@ -246,7 +246,7 @@
         \begin{scope}[xshift=2.20cm]
           \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Schwache\\Ableitungen\\u. Lösungen};
           \def\hexpath{(0, 0.156cm) -- (0.132cm, 0.078cm) -- (0.132cm, -0.078cm) -- (0, -0.156cm) -- (-0.132cm, -0.078cm) -- (-0.132cm, 0.078cm) -- cycle}
-          \ifnum\isactiveRueckwaerts=1
+          \ifnum\isactiveSchwach=1
             \draw[black, very thick] \hexpath;
           \else
             \draw[Coral, thick] \hexpath;
@@ -260,9 +260,9 @@
         
         % 7. (Sec 8) - Gold, Fünfeck
         \begin{scope}[xshift=3.30cm]
-          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Martingale\\Problem};
+          \node[anchor=south, font=\sffamily\fontsize{4.2}{5.0}\selectfont, text=Midnight, align=center] at (0, 0.20cm) {Martingal\\Problem};
           \def\pentapath{(0, 0.156cm) -- (0.144cm, 0.048cm) -- (0.096cm, -0.12cm) -- (-0.096cm, -0.12cm) -- (-0.144cm, 0.048cm) -- cycle}
-          \ifnum\isactiveSobolev=1
+          \ifnum\isactiveMartingal=1
             \draw[black, very thick] \pentapath;
           \else
             \draw[Gold, thick] \pentapath;
@@ -281,11 +281,11 @@
   % Zwingender globaler Reset ALLER Schalter am Ende der Folie
   \gdef\isactiveCalculus{0}%
   \gdef\isactivePDE{0}%
-  \gdef\isactiveAbleitung{0}%
   \gdef\isactiveMarkov{0}%
-  \gdef\isactiveMartingale{0}%
-  \gdef\isactiveRueckwaerts{0}%
-  \gdef\isactiveSobolev{0}%
+  \gdef\isactiveRückwärts{0}%
+  \gdef\isactiveZus{0}%
+  \gdef\isactiveSchwach{0}%
+  \gdef\isactiveMartingal{0}%
   \gdef\ToolboxVisible{1}% <-- Setzt die Toolbox für die NÄCHSTE Folie/Overlay automatisch wieder auf sichtbar
 }
 \addtobeamertemplate{footline}{}{\toolbox}
@@ -326,18 +326,18 @@
 
 \section{Motivation}
 
-\begin{frame}{Idee von Diffusion}\hidetoolbox
+\begin{frame}{Idee der Diffusion}\hidetoolbox
 \begin{minipage}[c]{0.50\linewidth}{\tiny
  \begin{itemize}
-      \item Wir wollen eine Verteilung $Y \sim \mu$ lernen
-      \item Idee: Verrausche eine Verteilung, bis nur noch eine Normalverteilung übrig ist
-      \item $f$ ist irgend eine Abbildung, die $Y$ über die Zeit $t$ verrauscht:
+      \item Wir wollen eine Zielverteilung $Y \sim \mu$ erlernen.
+      \item Idee: Verrausche die Daten, bis approximativ eine Normalverteilung resultiert.
+      \item $f$ sei eine Abbildung, die $Y$ über die Zeit $t$ verrauscht:
       \[
-      f(Y,t) \to Z \sim \mathcal{N}(0,1), \quad \text{für } t \to \infty
+      f(Y,t) \to Z \sim \mathcal{N}(0,1), \quad \text{für } t \to \infty.
       \]
-      \item Finde die inverse $f^{-1}$ und generiere von $\mu$ samples, indem aus $Z \sim \mathcal{N}(0,1)$ hoffentlich gilt
+      \item Finde die Inverse $f^{-1}$ und generiere Samples von $\mu$, indem für Startwerte $Z \sim \mathcal{N}(0,1)$ idealerweise gilt:
       \[
-      f^{-1} (Z,t) \to Y \sim \mu, \quad \text{für } t \to \infty. 
+      f^{-1}(Z,t) \to Y \sim \mu, \quad \text{für } t \to \infty. 
       \]
     \end{itemize}}
 \end{minipage}\hfill
@@ -350,23 +350,23 @@
 
 
 
-\begin{frame}{Präziesere Formulierung}\hidetoolbox
+\begin{frame}{Präzisere Formulierung}\hidetoolbox
 
-Für die Anfangsverteilung $X_0 \sim \mathbb{P}_0$ löst die forwärts Diffusion $(X_t)_{t \geq 0}$ die Differentialgleichung
+Für die Anfangsverteilung $X_0 \sim \mathbb{P}_0$ löst die Vorwärtsdiffusion $(X_t)_{t \geq 0}$ die stochastische Differentialgleichung
 \[
-dX_t =b(X_t) dt + \sigma(X_t) dW_t, \quad X_t \sim p(\cdot,t)
+dX_t = b(X_t) dt + \sigma(X_t) dW_t, \quad X_t \sim p(\cdot,t),
 \]
-wobei $(W_t)_{t \geq 0}$ Brownsche Bewegung bzgl. $(\mathcal{F}_t)_{t \geq 0}$.\\
-Der Rückwärtsprozess ist definiert als $\bar{X}_t := X_{T-t}$ und wir werden zeigen, dass dieser die folgende Differentialgleichung erfüllt.
+wobei $(W_t)_{t \geq 0}$ eine Brownsche Bewegung bzgl. der Filtration $(\mathcal{F}_t)_{t \geq 0}$ ist.\\
+Der Rückwärtsprozess ist definiert als $\bar{X}_t := X_{T-t}$, und wir werden zeigen, dass dieser die folgende stochastische Differentialgleichung erfüllt:
 \[
-d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
+d\bar{X}_t = \underbrace{\left( -b(\bar{X}_t) + \sigma(\bar{X}_t)^2 \nabla \log p(T-t,\bar{X}_t) \right)}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad \bar{X}_t \sim \bar{p}(\cdot,t), 
 \]
-wobei $\tilde{W}_t$ Brownsche Bewegung bzgl. Rückwärtsfiltration $\bar{\mathcal{F}_t}$.
+wobei $(\tilde{W}_t)_{t \in [0,T]}$ eine Brownsche Bewegung bzgl. der Rückwärtsfiltration $(\bar{\mathcal{F}}_t)_{t \in [0,T]}$ ist.
 \end{frame}
 
 \begin{frame}{Wir beantworten heute folgende Fragen}\hidetoolbox
 \begin{itemize}
-  \item Was ist eine stochastische und partielle Differentialgleichung?
+  \item Was ist eine stochastische und was eine partielle Differentialgleichung?
   \item Welches Problem entsteht beim Rückwärtsprozess?
   \item Wie können wir dieses Problem lösen? Stichwort: Schwache Lösungen!
 \end{itemize}
@@ -414,15 +414,15 @@ $d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\
 
 \section{Stochastic Calculus}
 
-\subsection{Ito Integral}
+\subsection{Itô-Integral}
 
 
 \begin{frame}{Erweiterung des Integrals} 
-  \begin{block}{Partitionen und Nullfolgen Partitionen}
+  \begin{block}{Partitionen und Nullfolgen von Partitionen}
     \begin{itemize}
-      \item Eine Partition $\Pi$ von $[0,1]$ ist eine Familie von disjunktien Intervallen $J := (s_J,T_J]$, die $[0,T]$ überdecken.
+      \item Eine Partition $\Pi$ von $[0,t]$ ist eine endliche Familie disjunkter Intervalle $J = (s_J, t_J]$, die $[0,t]$ überdecken.
       \item Gittergröße: $|\Pi| := \sup_{J \in \Pi} |t_J - s_J|$
-      \item Wir nenn eine Folge von Partitionen $(\Pi_n)_{n \in \mathbb{N}}$ von $[0,T]$ Nullfolge von Partitionen wenn $|\Pi_n|\to 0$, $n\to \infty$.
+      \item Wir nennen eine Folge von Partitionen $(\Pi_n)_{n \in \mathbb{N}}$ von $[0,t]$ Nullfolge von Partitionen, wenn $|\Pi_n| \to 0$ für $n \to \infty$.
     \end{itemize}
   \end{block}
 
@@ -431,47 +431,48 @@ $d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\
 
 \begin{frame}{Variationsprozess}
 \begin{block}{Variationsprozess}
-  Sei $(X_t)_{t \geq 0}$ ein stochastischer Prozess, dann nennt man 
+  Sei $(X_t)_{t \geq 0}$ ein stochastischer Prozess. Dann definiert man seinen Variationsprozess als
   \[
-  |X|_t := \sup_\Pi \sum_{J \in \Pi} |X_{t\wedge v} -X_{u \wedge t}|, \quad J:= (u,v].
+  |X|_t := \sup_\Pi \sum_{J \in \Pi} |X_{t \wedge v} - X_{t \wedge u}|, \quad J := (u,v].
   \]
   \end{block}
-  Erinnerung: Riemann Integral 
+  Erinnerung: Riemann-Integral 
 \[
-\int_0^t f(x) dx := \lim_{n \to \infty} \sum_{i=1}^{N_n-1} f(z_i^n) (t_{i+1}^n - t_i^n), \quad z_i^n \in (t_{i}^n, t_{i+1}^n).
+\int_0^t f(x) dx := \lim_{n \to \infty} \sum_{i=0}^{N_n-1} f(z_i^n) (t_{i+1}^n - t_i^n), \quad z_i^n \in [t_{i}^n, t_{i+1}^n].
 \] 
 \end{frame}
 
 
-\begin{frame}{Erweiterung Idee für Stochastische Integration}
-Erweiterung: Riemann-Stieljes Integral
+\begin{frame}{Erweiterungsidee für Stochastische Integration}
+Erweiterung: Riemann-Stieltjes-Integral
 \[
-\int_0^t f(x) dg (x) := \lim_{n \to \infty} \sum_{i=1}^{N_n-1} f(z_i^n) (g(t_{i+1}^n) - g(t_i^n)), \quad z_i^n \in (t_{i}^n, t_{i+1}^n).
+\int_0^t f(x) dg(x) := \lim_{n \to \infty} \sum_{i=0}^{N_n-1} f(z_i^n) (g(t_{i+1}^n) - g(t_i^n)), \quad z_i^n \in [t_{i}^n, t_{i+1}^n].
 \] 
 Können wir über die Brownsche Bewegung $(W_t)_{t \geq 0}$ genauso integrieren? 
 \[
-\forall \omega \in \Omega: \quad \int_0^t f(s,\omega) dW_s (\omega) := \lim_{n \to \infty} \sum_{i=0}^{N_n-1} f(z_i^n,\omega) (W_{t_{i+1}^n} - W_{t_{i}^n}), \quad z_n \in (t_{i+1}^n,t_i^n].
+\forall \omega \in \Omega: \quad \int_0^t f(s,\omega) dW_s(\omega) := \lim_{n \to \infty} \sum_{i=0}^{N_n-1} f(z_i^n,\omega) (W_{t_{i+1}^n}(\omega) - W_{t_{i}^n}(\omega)), \quad z_i^n \in [t_{i}^n, t_{i+1}^n].
 \]
-Problem: Da $\mathbb{P}(|W|_t = \infty, t \geq 0) =1$ konvergiert das Integral nicht!
+Problem: Da $\mathbb{P}(|W|_t = \infty \text{ für } t > 0) = 1$, konvergiert das Integral pfadweise im Allgemeinen nicht!
 \end{frame}
 
 
 \begin{frame}{Ein neuer Variationsbegriff}
 
   \begin{block}{Quadratische Variation}
-    Sei $(X_t)_{t \geq 0}$ ein stetiges locales Martingal und $(\Pi_n)_{n \in \mathbb{N}}$ eine Nullfolge von Partitionen, dann nennen wir 
+    Sei $(X_t)_{t \geq 0}$ ein stetiges lokales Martingal und $(\Pi_n)_{n \in \mathbb{N}}$ eine Nullfolge von Partitionen. Dann nennen wir 
     \[
-    \langle X \rangle_t := \lim_{n \to \infty} \sum_{J \in \Pi_n} (X_{t\wedge v} -X_{t \wedge u})^2, \quad \mathbb{P}-a.s. \quad J := (u,v]
+    \langle X \rangle_t := \lim_{n \to \infty} \sum_{J \in \Pi_n} (X_{t \wedge v} - X_{t \wedge u})^2 \quad \mathbb{P}-f.s., \quad J := (u,v]
     \]
-    die Quadratische variation des stochastischen Prozesses $(X_t)_{t \geq 0}$.
+    die quadratische Variation des stochastischen Prozesses $(X_t)_{t \geq 0}$.
   \end{block}
 \end{frame}
 
-\begin{frame}{Quadratische Variation}
+\begin{frame}{Quadratische Variation der Brownschen Bewegung}
 \begin{minipage}[c]{0.30\linewidth}{\small
  \begin{itemize}
       \item Variationsprozess:
-      \item Quadratische Variation
+      \vspace{2cm}
+      \item Quadratische Variation:
     \end{itemize}}
 \end{minipage}\hfill
 \begin{minipage}[c]{0.70\linewidth}
@@ -485,38 +486,38 @@ Problem: Da $\mathbb{P}(|W|_t = \infty, t \geq 0) =1$ konvergiert das Integral n
 \end{frame}
 
 
-\begin{frame}{Einfache Ito Integral}
-Für einfache Prozesse $(f_n(\cdot,t))_{t \geq 0}$, d.h. der form
+\begin{frame}{Einfaches Itô-Integral}
+Für einfache Prozesse $(f_n(\cdot,t))_{t \geq 0}$, d.h. von der Form
 \[
-f_n (\cdot,t) := \sum_{i=1}^{n-1} X_i, \textbf{1}_{(t_i,t_{i+1}]} (t), \quad X_i \in L^2( (\Omega,\mathcal{F}_{t_i}, \mathbb{P}); \mathbb{R}^d )
+f_n(\cdot,t) := \sum_{i=0}^{n-1} X_i \mathbf{1}_{(t_i,t_{i+1}]}(t), \quad X_i \in L^2(\Omega, \mathcal{F}_{t_i}, \mathbb{P}; \mathbb{R}),
 \]
-definieren wir das einfache Ito Integral 
+definieren wir das einfache Itô-Integral als
 \[
-I(f(\cdot,\cdot))_t := \sum_{i=1}^{n-1} X_i (W_{t_{i+1} \wedge t} - W_{t_i \wedge t}), \quad t \in [0,T].
+I(f_n(\cdot,\cdot))_t := \sum_{i=0}^{n-1} X_i (W_{t_{i+1} \wedge t} - W_{t_i \wedge t}), \quad t \in [0,T].
 \]
 \end{frame}
 
-\begin{frame}{Integranten des Ito Integrals}
+\begin{frame}{Integranden des Itô-Integrals}
 Man kann zeigen, dass
 \[
-\mathbb{E}[ \int_0^T f^2(\cdot,s) ds ]= \mathbb{E}[ \int_0^T f^2(\cdot,s) d\langle W \rangle_s ] = \mathbb{E}[ \left(\int_0^T f(\cdot,s) dW_s \right)^2 ].
+\mathbb{E}\left[ \int_0^T f^2(\cdot,s) ds \right] = \mathbb{E}\left[ \int_0^T f^2(\cdot,s) d\langle W \rangle_s \right] = \mathbb{E}\left[ \left(\int_0^T f(\cdot,s) dW_s \right)^2 \right].
 \]
-Wir definieren, das Ito Integral (prozess) auf der Menge der Zulässigen integranten: Funktionen in $L^2( \Omega \times [0,T], \mathbb{P} \otimes \lambda )$ und noch ein paar Eigenschaften erfüllen: 
+Wir definieren das Itô-Integral auf der Menge der zulässigen Integranden. Dies sind Prozesse in $L^2(\Omega \times [0,T], \mathbb{P} \otimes \lambda)$, die folgende Eigenschaften erfüllen: 
 \[
-\mathcal{L}_T := \{ f: \Omega \times [0,T] \to \mathbb{R} \mid f \text{ messbar, adaptiert und } \mathbb{E}[ \int_0^T f^2(\cdot,s) ds ]<\infty \}. 
+\mathcal{L}_T := \left\{ f: \Omega \times [0,T] \to \mathbb{R} \mid f \text{ messbar, adaptiert und } \mathbb{E}\left[ \int_0^T f^2(\cdot,s) ds \right] < \infty \right\}. 
 \]
 \end{frame}
 
-\begin{frame}{Ito Integral}
+\begin{frame}{Itô-Integral}
 \begin{block}{Existenz}
-  Für jedes $f \in \mathcal{L}_T$ existiert $( (f_n(\cdot,t))_{t \geq 0} )_{n \in \mathbb{N}}$ sodass 
+  Für jedes $f \in \mathcal{L}_T$ existiert eine Folge einfacher Prozesse $(f_n)_{n \in \mathbb{N}}$, sodass 
   \[
-  \| f_n - f \|_{\mathcal{L}_T} \to 0, \quad n\to \infty.
+  \| f_n - f \|_{\mathcal{L}_T} \to 0, \quad \text{für } n \to \infty.
   \]
 \end{block}
-Das Ito Integral für $(f(\cdot,t))_{t \geq 0}$ ist damit der Grenzwert des einfaches Ito Integrals 
+Das Itô-Integral des Prozesses $(f(\cdot,t))_{t \geq 0}$ ist damit definiert als der Grenzwert der einfachen Itô-Integrale in $L^2(\Omega)$:
 \[
-\int_0^t f(\cdot,t) dW_t := \mathcal{L}_T - \lim_{n \to \infty} I(f_n(\cdot,\cdot))_t.
+\int_0^t f(\cdot,s) dW_s := L^2(\Omega)\text{-}\lim_{n \to \infty} I(f_n(\cdot,\cdot))_t.
 \]
 \end{frame}
 
@@ -527,78 +528,62 @@ Das Ito Integral für $(f(\cdot,t))_{t \geq 0}$ ist damit der Grenzwert des einf
 \subsection{Starke Lösungen von Stochastische Differentialgleichungen}
 
 \begin{frame}{Stochastische Differentialgleichung}
-Seien $b: \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: \mathbb{R}^n \to \mathbb{R}^{n \times m}$, dann nennen wir den stochastischen Prozess $(X_t)_{t \in [0,T]}$ mit stetigen Pfaden \textbf{starke}-Lösung der SDE 
+Seien $b: \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: \mathbb{R}^n \to \mathbb{R}^{n \times m}$, dann nennen wir den stochastischen Prozess $(X_t)_{t \in [0,T]}$ mit stetigen Pfaden \textbf{starke Lösung} der SDE 
 \[
-d X_t = b (X_t) dt + \sigma (X_t) d W_t, \quad t \in [0,T], \quad X_0 =x_0 \in \mathbb{R}^n,
+d X_t = b(X_t) dt + \sigma(X_t) dW_t, \quad t \in [0,T], \quad X_0 = x_0 \in \mathbb{R}^n,
 \]
 falls \\
 
 \begin{minipage}[c]{0.30\linewidth}{\tiny
   \begin{itemize}
-    \item $(X_t)_{t \in [0,T]}$ ist $(\mathcal{F}_t)_{t \in [0,T]}$ adaptiert
-    \item $\mathbb{P}(X_0 =x_0) =1$
+    \item $(X_t)_{t \in [0,T]}$ ist $(\mathcal{F}_t)_{t \in [0,T]}$-adaptiert
+    \item $\mathbb{P}(X_0 = x_0) = 1$
   \end{itemize}}
 \end{minipage}\hfill
 \begin{minipage}[c]{0.70\linewidth}{\tiny
 \begin{itemize}
   \item $
-        \forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1
+        \forall i=1,\dots,n, \, j=1,\dots,m \text{ und } t \in [0,T]: \quad \mathbb{P}\left(\int_0^t |b_i(X_s)| + \sigma_{ij}^2(X_s) ds < \infty\right)=1
         $
         \item 
         $
-        \forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j \quad \mathbb{P}-f.s.
+        \forall t \in [0,T], \, i=1,\dots,n: \quad X_t^{i} = X_0^{i} + \int_0^t b_i(X_s) ds + \sum_{j=1}^m \int_0^t \sigma_{ij}(X_s) dW_s^j \quad \mathbb{P}\text{-f.s.}
         $
 \end{itemize}
 }
 \end{minipage}
 \end{frame}
 
-\begin{frame}{Existenz der Starke Lösung}
+\begin{frame}{Existenz der starken Lösung}
 
   \begin{block}{Existenz}
     Für $b : \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: \mathbb{R}^n \to \mathbb{R}^{n\times m}$ mit  
     \[
-    \exists C>0 \forall x,y \in \mathbb{R}^n: \substack{ |b(x)-b(y)|^2 + |\sigma (x) - \sigma(y)|^2 \leq C |x-y|^2 \\ |b(x)|^2 + |\sigma (x)|^2 \leq C(1+|x|^2)}
+    \exists C>0, \forall x,y \in \mathbb{R}^n: \quad 
+    \begin{cases}
+      |b(x)-b(y)|^2 + \|\sigma(x) - \sigma(y)\|^2 \leq C |x-y|^2 \\ 
+      |b(x)|^2 + \|\sigma(x)\|^2 \leq C(1+|x|^2)
+    \end{cases}
     \]
-    existiert eine eindeutige starke Lösung der SDE in $X \in \mathcal{L}_T$, d.h. für eine weitere starke Lösung $Y \in \mathcal{L}_T$ gilt 
+    existiert eine bis auf Ununterscheidbarkeit eindeutige starke Lösung der SDE $X \in \mathcal{L}_T^n$, d.h. für eine weitere starke Lösung $Y$ gilt 
     \[
-    \mathbb{P} (X_t = Y_t, t \in [0,T]) =1.
+    \mathbb{P} (\forall t \in [0,T]: X_t = Y_t) = 1.
     \]
   \end{block}
 \end{frame}
 
-\begin{frame}{Hauptsatz Integralrechnung für Ito Integrale}\small
-  Der Hauptsatz der Integralrechnung aus der Analysis gibt es auch für Ito Integrale. Eine vereinfachte Version mit $n=m=1$ ist: 
- \begin{block}{Ito Formel}
-  Für $F \in C^2(\mathbb{R};\mathbb{R})$ und es gibt $C>0 , p \geq 1$ sodass 
+\begin{frame}{Hauptsatz der Integralrechnung für Itô-Integrale}\small
+  Den Hauptsatz der Integralrechnung aus der Analysis gibt es in modifizierter Form auch für Itô-Integrale. Eine vereinfachte Version im Eindimensionalen ($n=m=1$) lautet: 
+ \begin{block}{Itô-Formel}
+  Sei $F \in C^2(\mathbb{R};\mathbb{R})$, sodass Konstanten $C>0 , p \geq 1$ existieren mit 
   \[
-  \forall x \in \mathbb{R}^n: \quad |F(x)| + |F^\prime (x)| \leq C (1+ |x|^p),
+  \forall x \in \mathbb{R}: \quad |F(x)| + |F^\prime(x)| \leq C (1+ |x|^p).
   \]
-  und $X$ Lösung der SDE, dann gilt 
+  Ist $X$ eine Lösung der SDE, dann gilt 
   \[
-  F(X_t) - F(X_0) = \int_0^t F^\prime (X_s) a(X_s) ds + \underbrace{ \int_0^t F^\prime (X_s) \sigma (X_s) d W_s + \frac{1}{2} \int_0^t F^{\prime \prime} (X_s) |\sigma (X_s)|^2 ds }_{Neu} \quad \mathbb{P}-f.s.
+  F(X_t) - F(X_0) = \int_0^t F^\prime(X_s) b(X_s) ds + \underbrace{ \int_0^t F^\prime(X_s) \sigma(X_s) dW_s + \frac{1}{2} \int_0^t F^{\prime \prime}(X_s) \sigma^2(X_s) ds }_{\text{Neu}} \quad \mathbb{P}\text{-f.s.}
   \]
    \end{block}
-\end{frame}
-
-\begin{frame}{Girsanov Theorem}
-  Für das Martingal 
-  \[
-  L:= \left( L_t := \exp \left( \int_0^t X_s dW_s - \frac{1}{2} \int_0^t X_s^2 ds  \right)  \right)_{t \in [0,T]},
-  \]
-  auf $(\Omega,\mathcal{F}_T, \mathbb{P})$ bzgl. der Brownschen Filtration, d.h. $\left( \mathcal{F}_t := \sigma (W_s : s \leq t) \right)_{t \in [0,T]}$ ist für $\tilde{W}_t := W_t - \int_0^t X_s ds$ der Prozess $\tilde{W} := (\tilde{W}_t)_{t \geq 0}$ eine Brownsche Bewegung auf $(\Omega,\mathcal{F}_T,(\mathcal{F}_t)_{t \in [0,T]}, Q)$, wobei 
-
-\begin{minipage}[c]{0.40\linewidth}{
-\[
-  \frac{d}{d\mathbb{P}} Q = L_T.
-  \]
-}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.60\linewidth}
-\recallbox[Radon-Nikodym:]{\small
-$ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q d \mathbb{P} $.
-}
-\end{minipage}
 \end{frame}
 
 
@@ -607,9 +592,10 @@ $ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q
 
 \begin{minipage}[c]{0.60\linewidth}
    \begin{block}{Anfangswertproblem}
-    Sei $f: U \subset \mathbb{R}^2 \to \mathbb{R}$ and $(\xi,\eta) \in U$. Eine differenzierbare Funktion $u: I \subset \mathbb{R} \to \mathbb{R}$ mit $\xi \in I$ nennt man Lösung des Anfangswertproblems, falls 
+    Sei $f: U \subset \mathbb{R}^2 \to \mathbb{R}$ und $(\xi,\eta) \in U$. Eine differenzierbare Funktion $u: I \subset \mathbb{R} \to \mathbb{R}$ mit $\xi \in I$ heißt Lösung des Anfangswertproblems, falls 
     \begin{align*}
-    \forall t \in I: \frac{d}{dt} u(t) &= f(t,u(t)) \\ u(\xi) &= \eta .
+    \forall t \in I: \quad \frac{d}{dt} u(t) &= f(t,u(t)), \\ 
+    u(\xi) &= \eta.
     \end{align*}
     \end{block}
 \end{minipage}\hfill
@@ -624,16 +610,14 @@ $ \forall A \in \mathcal{F}_T: \quad \int_A d Q = \int_A \frac{d}{d\mathbb{P}} Q
 \end{frame}
 
 
-
-
-\begin{frame}{Differential Operatoren}
-\begin{block}{Differential Operator} 
-  Für offene und verbundene Teilmengen $A \subset \mathbb{R}^n$ nennen wir den linearen Operator 
+\begin{frame}{Differentialoperatoren}
+\begin{block}{Differentialoperator} 
+  Für eine offene und zusammenhängende Teilmenge $A \subset \mathbb{R}^n$ nennen wir den linearen Operator 
   \begin{align*}
-  &L: C^2(A) \to C^0 (A), u \mapsto (c\mapsto (Lu)(x)), \\
-  &Lu:= -\sum_{i,j=1}^n a_{ij} (\cdot) \frac{\partial^2}{\partial x_i \partial x_j} u(\cdot) + \sum_{i=1}^n b_i (\cdot) \frac{\partial}{\partial x_i} u(\cdot) + c(\cdot) u(\cdot),
+  L: C^2(A) &\to C^0(A), \quad u \mapsto (x \mapsto (Lu)(x)), \\
+  (Lu)(x) &:= -\sum_{i,j=1}^n a_{ij}(x) \frac{\partial^2 u}{\partial x_i \partial x_j}(x) + \sum_{i=1}^n b_i(x) \frac{\partial u}{\partial x_i}(x) + c(x) u(x),
   \end{align*}
-  Differential Operator.
+  einen Differentialoperator.
 \end{block}
 \end{frame}
 
@@ -716,168 +700,154 @@ und $u \in C^2 (A \times [0,T]) \cap C^0 (A \times [0,T])$ nennt man klassische 
 
 
 
-
-
-
-
-
-
-
-
-
-
 \section{Markov Prozesse}
-\begin{frame}{Markov Übergangsfunktion}
-Eine Abbildung $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ nennt man zeithomogene Markov Übergangsfunktion auf $(E,\mathcal{E})$, falls 
+
+\begin{frame}{Markov-Übergangsfunktion}
+Eine Abbildung $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ heißt zeithomogene Markov-Übergangsfunktion auf $(E,\mathcal{E})$, falls:
 \begin{itemize}
-  \item $\forall t \geq 0$: $P(t,\cdot,\cdot)$ ist Markovkern von $(E,\mathcal{E})$ nach $(E,\mathcal{E})$
-  \item $\forall s,t \geq 0$: $P(s+t,\cdot,\cdot)= P(t,\cdot,\cdot)\circ P(s,\cdot,\cdot)$
+  \item $\forall t \geq 0$: $P(t,\cdot,\cdot)$ ist ein Markov-Kern von $(E,\mathcal{E})$ nach $(E,\mathcal{E})$.
+  \item $\forall s,t \geq 0$: $P(s+t,\cdot,\cdot)= P(t,\cdot,\cdot)\circ P(s,\cdot,\cdot)$ (Chapman-Kolmogorow-Gleichung).
 \end{itemize}
 \end{frame}
 
 
-\begin{frame}{Halbgruppen}
-
+\begin{frame}{Markov-Halbgruppen}\small
   \begin{block}{Halbgruppe}
-  Eine Familie $(P_t)_{t \geq 0}$ heißt Markov Halbgruppe, falls für alle $s,t \geq 0$: 
-
+  Eine Familie $(P_t)_{t \geq 0}$ linearer Operatoren heißt Markov-Halbgruppe auf dem Raum der beschränkten messbaren Funktionen $B_b(E)$, falls für alle $s,t \geq 0$: 
 \begin{minipage}[c]{0.50\linewidth}
   \begin{itemize}
-    \item $P_t: \mathcal{B}(E) \to \mathcal{B}(E)$ beschränkt
-    \item $\forall f \in \mathcal{B}(E)$ mit $0\leq f \leq 1$: $0\leq P_t f \leq 1$
+    \item $P_t: B_b(E) \to B_b(E)$ ist beschränkt.
+    \item $\forall f \in B_b(E)$ mit $0\leq f \leq 1$: $0\leq P_t f \leq 1$.
   \end{itemize}
 \end{minipage}\hfill
 \begin{minipage}[c]{0.50\linewidth}
 \begin{itemize}
-  \item $P_{t+s} =P_s \circ P_t$
-  \item $\forall (f_n)_{n \in \mathbb{N}} \subseteq \mathcal{B}(E)$ mit $f_n \searrow 0$: $P_t f_n \searrow 0$.
+  \item $P_{t+s} =P_s \circ P_t$.
+  \item $\forall (f_n)_{n \in \mathbb{N}} \subset B_b(E)$ mit $f_n \searrow 0$: $P_t f_n \searrow 0$.
 \end{itemize}
 \end{minipage}
 \end{block}
 
-\begin{block}{Markov Halbgruppe}
-  Sei $P$ eine Markov Übergangsfunktion auf $(E,\mathcal{B}(E))$ dann ist 
+\begin{block}{Induzierte Halbgruppe}
+  Sei $P$ eine Markov-Übergangsfunktion auf $(E,\mathcal{E})$. Dann definiert
   \[
-  \forall f \in \mathcal{B}(E), x \in E, t \geq 0: \quad (P_t f) (x) := \int_E f(y) d (\mathbb{P}_x \circ X_t^{-1})(y),
+  \forall f \in B_b(E), \, x \in E, \, t \geq 0: \quad (P_t f)(x) := \int_E f(y) P(t,x,dy)
   \]
-  eine Markov Halbgruppe.
-
+  eine Markov-Halbgruppe.
 \end{block}
-
-
 \end{frame}
 
 
-
-\begin{frame}{Markovprozess}
-Sei $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0})$ ein filtrierter Raum, $(E,\mathcal{B}(E))$ ein polnischer Raum auf $(\Omega,\mathcal{F})$ und $(\mathbb{P}_x)_{x \in E}$ eine Familie von von Wahrscheinlichkeitsmaßen auf $(\Omega,\mathcal{F})$. Wir nennen $(X_t)_{t \geq 0}$ einen Markovprozess, falls 
+\begin{frame}{Markov-Prozess}
+Sei $(\Omega,\mathcal{F}, (\mathcal{F}_t)_{t \geq 0})$ ein filtrierter Wahrscheinlichkeitsraum, $(E,\mathcal{E})$ ein messbarer Zustandsraum (typischerweise polnisch) und $(\mathbb{P}_x)_{x \in E}$ eine Familie von Wahrscheinlichkeitsmaßen auf $(\Omega,\mathcal{F})$. Wir nennen den adaptierten Prozess $(X_t)_{t \geq 0}$ einen Markov-Prozess, falls:
 \begin{itemize}
-  \item $\forall B \in \mathcal{F}_\infty^X : x \mapsto \mathbb{P}_x (B)$ is $\mathcal{B}(E)$ messbar
-  \item Die schwache Markoveigenschaft gilt 
+  \item $\forall B \in \mathcal{F}_\infty^X$: Die Abbildung $x \mapsto \mathbb{P}_x(B)$ ist $\mathcal{E}$-messbar.
+  \item Die Markoveigenschaft gilt:
   \[
-  \forall x \in E, A \in \mathcal{B}(E), s,t \geq 0: \quad \mathbb{P}_x [ X_{t+s} \in A \mid \mathcal{F}_s ] = \mathbb{P}_{X_s} (X_t \in A), \quad \mathbb{P}_x-f.s.
+  \forall x \in E, \, A \in \mathcal{E}, \, s,t \geq 0: \quad \mathbb{P}_x( X_{t+s} \in A \mid \mathcal{F}_s ) = \mathbb{P}_{X_s}(X_t \in A), \quad \mathbb{P}_x\text{-f.s.}
   \]
 \end{itemize}
 \end{frame}
 
 
 \begin{frame}{Generatoren}
-\begin{block}{Generator}
-  Sei $(P_t)_{t \geq 0}$ eine Markov Halbgruppe auf $\mathcal{B}(E)$, dann heißt 
+\begin{block}{Infinitesimaler Generator}
+  Sei $(P_t)_{t \geq 0}$ eine Markov-Halbgruppe auf $B_b(E)$. Der Operator $G: \mathcal{D}(G) \to B_b(E)$ auf dem Definitionsbereich 
   \[
-  G: \mathcal{D}(F):= \{ f \in \mathcal{B}(E) \mid s-\lim_{t \searrow 0} (P_t f-f) \text{ existiert} \} \subseteq B(\mathcal{E}) \to \mathcal{B}(E)
+  \mathcal{D}(G) := \left\{ f \in B_b(E) \ \middle| \ \lim_{t \searrow 0} \frac{P_t f - f}{t} \text{ existiert (bzgl. $\| \cdot \|$)} \right\}
   \] 
-  infitesimal generator von $(P_t)_{t \geq 0}$, falls 
+  heißt infinitesimaler Generator von $(P_t)_{t \geq 0}$, falls für alle $f \in \mathcal{D}(G)$ gilt:
   \[
-  \forall f \in \mathcal{D}(G): \quad Gf= s-\lim_{t \searrow 0} (P_t f-f).
+  Gf := \lim_{t \searrow 0} \frac{P_t f - f}{t}.
   \]
 \end{block}
 \end{frame}
 
 
-\begin{frame}{Key Message}
+\begin{frame}{Key Message: Äquivalenz der Perspektiven}
 
-  $P(t,\cdot,\cdot)$ Übergangsfkt. $\iff$ $(P_t)_{t \geq 0}$ Markov Halbgr. $\iff$ $X$ Markov Proz. $\iff$ $(G,\mathcal{D}(G))$ Generator
+  $P(t,\cdot,\cdot)$ Übergangsfunktion $\iff$ $(P_t)_{t \geq 0}$ Markov-Halbgruppe $\iff$ $X$ Markov-Prozess $\iff$ $(G,\mathcal{D}(G))$ Generator
   
+  \vspace{1cm}
+  \begin{itemize}
+      \item Dieselbe Dynamik aus unterschiedlichen Blickwinkeln: Maßtheorie (Übergänge), Funktionalanalysis (Operatoren), Wahrscheinlichkeitstheorie (Pfade) und Differentialgleichungen (Generator).
+  \end{itemize}
 \end{frame}
-
-
 
 
 \section{Rückwärts Prozesse}
-
-\begin{frame}{Explodierende und Terminierende Prozesse und die Messbarkeit}
- 
-Ein stochastischer Prozess muss für alle $\omega \in \Omega$ wohl definiert sein. Wenn $(X_t)_{t \geq 0}$
+\begin{frame}{Explodierende und terminierende Prozesse und Messbarkeit}
+Ein stochastischer Prozess muss für alle $\omega \in \Omega$ wohldefiniert sein. Wenn der Pfad $(X_t(\omega))_{t \geq 0}$
 \begin{itemize}
   \item nach endlicher Zeit explodiert oder 
-  \item nach endlicher Zeit terminiert wird
+  \item nach endlicher Zeit terminiert,
 \end{itemize} 
-ist $(X_t)_{t \geq 0}$ nicht mehr messbar! Sei $\Delta$ der Zustand, den der Proess annimmt, wenn er explodiert oder terminiert wird. Betrachte $E_\Delta := E \cup \Delta$ und 
+ist die Abbildung $X_t: \Omega \to E$ nicht mehr überall wohldefiniert und die Messbarkeit bricht zusammen! Sei $\Delta$ der Friedhofszustand (cemetery state), den der Prozess annimmt, wenn er explodiert oder terminiert. Betrachte den erweiterten Zustandsraum $E_\Delta := E \cup \{\Delta\}$ und 
 \[
 \zeta (\omega) := \inf \{ t \geq 0 \mid X_t(\omega) = \Delta \}
 \]
-Eintrittszeit von $\Delta$.
+als die Eintrittszeit in $\Delta$, d.h. die Lebensdauer des Prozesses.
 \end{frame}
 
 
-\begin{frame}{Problem der Stoppzeit}\tiny
-Sei $T: \Omega \to \mathbb{N}\cup \{\infty \}$ eine Stoppzeit bzw. erste Eintrittszeit von  $A \in \mathcal{F}$ und $\theta_u : \Omega \to \Omega, \omega \mapsto (\theta_u \omega)(\cdot) := \omega (u+\cdot)$ Verschiebungsoperator, dann gilt 
+\begin{frame}{Das Problem der Stoppzeit}\tiny
+Sei $T: \Omega \to [0,\infty]$ eine Stoppzeit (z.B. erste Eintrittszeit in $A \in \mathcal{E}$) und $\theta_t : \Omega \to \Omega, \omega \mapsto (\theta_t \omega)(\cdot) := \omega(t+\cdot)$ der Verschiebungsoperator. Dann gilt:
 \begin{align*}
-T(\theta_t \omega) = \inf \{ s\geq 0 \mid X_{t+s} (\omega)\in A \} = \inf \left( \underbrace{\{ s \geq 0 \mid X_s (\omega)\in A \}}_{=:S} \cap [0,\infty) \right) -t = \inf \{ s \geq t \mid X_s (\omega) \in A \}-t =: D_t -t.
+T(\theta_t \omega) &= \inf \{ s\geq 0 \mid X_{t+s} (\omega)\in A \} \\
+&= \inf \{ s \geq t \mid X_s (\omega) \in A \} - t =: D_t(\omega) - t.
 \end{align*}
 \begin{itemize}
   \item Fall $\omega \in \{ T \geq t \}$: 
   \[
-  T(\theta_t \omega) = \inf \left( \underbrace{S}_{\subseteq [T,\infty) \subseteq [t,\infty) } \cap [t,\infty) \right) -t = \inf (S) -t = T(\omega) -t.
+  T(\theta_t \omega) = \inf \left( \{ s \geq 0 \mid X_s(\omega) \in A \} \cap [t,\infty) \right) - t = T(\omega) - t.
   \]
-  Wir können Stoppzeiten bzgl. der Vergangheit verschieben.
+  Wir können Stoppzeiten bezüglich der Vergangenheit verschieben.
   \item Fall $\omega \in \{ T < t \}$:
   \[
-  D_t (\omega) \geq t \quad \implies \quad T \circ \theta_t = D_t -t \geq 0 = (T-t)_+.
+  D_t (\omega) \geq t \quad \implies \quad T(\theta_t \omega) = D_t(\omega) - t \geq 0 = (T(\omega)-t)_+.
   \]
-  Wir können Stoppzeiten nicht bzgl. der Zukunft verschieben!
+   Wir können Stoppzeiten nicht bezüglich der Zukunft verschieben!
 \end{itemize}
 \end{frame}
 
 \begin{frame}{Lösung des Problems}
   
-  \begin{block}{Ko-Optionale Zeiten}
-    Eine Zufallsvariable $L: \Omega \to \mathbb{R}^+$ heißt ko-Optionale Zeit, falls 
+  \begin{block}{Ko-optionale Zeiten}
+    Eine Zufallsvariable $L: \Omega \to [0,\infty]$ heißt ko-optionale Zeit, falls 
     \begin{itemize}
-      \item $\{L< \infty \} \subseteq \{L< \zeta\}$
-      \item $\forall t \geq 0:$ $L \circ \theta_T = (T-t)_+$.
+      \item $\{L < \infty \} \subseteq \{L < \zeta\}$
+      \item $\forall t \geq 0:$ $L \circ \theta_t = (L-t)_+$.
     \end{itemize}
   \end{block}
 \end{frame}
 
 
-\begin{frame}{Rückwärts Prozess}
+\begin{frame}{Der Rückwärtsprozess}
 
-Der Rückwärtsprozess ist definiert als 
+Der Rückwärtsprozess $(\bar{X}_t)_{t \geq 0}$ ist definiert als 
 \[
-\forall t \geq 0: \quad \bar{X}_t (\omega) := \begin{cases}
-  \Delta &, L(\omega) \leq t \vee L(\omega) =\infty \\
-  X_{L(\omega)-t} (\omega) &, t \in (0,L(\omega))
-\end{cases}, \quad \bar{X}_0 := \begin{cases}
-  X_{L-} &, L \in (0,\infty)\\
-  \Delta &\text{sonst}
+\forall t \geq 0:  \bar{X}_t (\omega) := \begin{cases}
+  \Delta, & L(\omega) \leq t \vee L(\omega) =\infty \\
+  X_{L(\omega)-t} (\omega), & t \in (0,L(\omega))
+\end{cases}, \bar{X}_0(\omega) := \begin{cases}
+  X_{L(\omega)-}(\omega), & L(\omega) \in (0,\infty)\\
+  \Delta, & \text{sonst}
 \end{cases}
 \]
-und die Rückwärtsfiltration $\bar{\mathcal{F}}_t := \sigma (\bar{X}_s : s \leq t)$.
+und die Rückwärtsfiltration als $\bar{\mathcal{F}}_t := \sigma (\bar{X}_s : s \leq t)$.
 \end{frame}
 
-\begin{frame}{Der Triviale Fall}
+\begin{frame}{Der triviale Fall}
 
-\begin{block}{Reversibilität}
-Sei $(P_t)_{t \geq 0}$ eine halb-Gruppe eines Markov Prozesses. Wir nenn ihn reversibel bzgl. dem Wahrscheinlichkeitsmaß $\nu$, falls alle $P_t$ selbstadjungiert sind im Hilbertraum $L^2(E,\nu)$, d.h. 
+\begin{block}{Reversibilität}\small
+Sei $(P_t)_{t \geq 0}$ die Halbgruppe eines Markov-Prozesses. Wir nennen den Prozess reversibel bezüglich eines Maßes $\nu$, falls alle Operatoren $P_t$ im Hilbertraum $L^2(E,\nu)$ selbstadjungiert sind, d.h. 
 \[
-\forall t \geq 0, f,g \in L^2(E,\nu): \quad \langle P_t f,g \rangle_\nu := \int_E (P_t f) g d \nu = \int_E f (P_t g) d \nu = \langle f,P_t g \rangle_\nu.
+\forall t \geq 0, \, f,g \in L^2(E,\nu): \quad \langle P_t f,g \rangle_\nu := \int_E (P_t f) g \, d \nu = \int_E f (P_t g) \, d \nu = \langle f,P_t g \rangle_\nu.
 \]  
 \end{block}
-Die Brownsche Bewegung $(W_t)_{t \geq 0}$ ist reversibel, da der Generator $\frac{1}{2} \Delta$ selbstadjungiert ist in $L^2(E,\nu)$: 
+Die Brownsche Bewegung $(W_t)_{t \geq 0}$ ist reversibel bezüglich des Lebesgue-Maßes, da der Generator $\frac{1}{2} \Delta$ in $L^2(\mathbb{R}^d, \lambda)$ selbstadjungiert ist (partielle Integration): 
 \[
-\langle \Delta f,g \rangle= \int_E \Delta f g d \nu = \int_E f \Delta g d \nu = \langle f,\Delta g \rangle.
+\left\langle \frac{1}{2} \Delta f,g \right\rangle = \frac{1}{2} \int_{\mathbb{R}^d} (\Delta f) g \, dx = \frac{1}{2} \int_{\mathbb{R}^d} f (\Delta g) \, dx = \left\langle f,\frac{1}{2} \Delta g \right\rangle.
 \]
 \end{frame}
 
@@ -885,48 +855,45 @@ Die Brownsche Bewegung $(W_t)_{t \geq 0}$ ist reversibel, da der Generator $\fra
 
 
 \section{Zusammenführung von SDEs und PDEs}
-
 \begin{frame}{Von SDEs zu PDEs}\tiny
-Sei $\phi \in C_c^\infty ( \mathbb{R}^d \times [0,T])$ beliebig, $X$ eine Lösung der SDE, wobei die marginale dichte von $X_t$ gegeben ist durch $p(\cdot,t)$ und $a:= \sigma^T \sigma$, dann gilt 
+Sei $\phi \in C_c^\infty(\mathbb{R}^n \times (0,T))$ eine Testfunktion und $X$ eine Lösung der SDE. Die marginale Dichte von $X_t$ sei $p(\cdot,t)$ und $a := \sigma^T \sigma$. Dann gilt:
 \begin{align*}
-    0= \mathbb{E}[ \phi(X_T,T)- \phi(X_0,0) ]&\stackrel{Ito-Formel}{=} \mathbb{E}[ \int_0^T \frac{\partial}{\partial s} \phi (X_s,s)+\nabla \phi (X_s,s) b(X_s,s) + \Delta \phi (X_s,s) a(X_s,s)ds  ] \\
-    &+ \underbrace{\mathbb{E}[ \int_0^T \nabla \phi (X_s,s) \sigma(X_s,s)d W_s ]}_{=0, \text{ Integralprozess ist Martingal}}\\
-    &= \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \phi (x,s) + b(x,s)^T \nabla \phi (x,s) + \Delta \phi (x,s) \right) p(x,s) dx ds\\
-    &=\int_0^T \int_{\mathbb{R}^n} \left(- \frac{\partial}{\partial s} p (x,s) -\nabla \cdot ( p(x,s) b(x,s))   + \Delta p (x,s) \right) \phi (x,s) dx ds 
+    0 = \mathbb{E}[\phi(X_T,T) - \phi(X_0,0)] &\stackrel{\text{Itô}}{=} \mathbb{E}\left[ \int_0^T \frac{\partial}{\partial s} \phi(X_s,s) + \nabla \phi(X_s,s) \cdot b(X_s,s) + \frac{1}{2} a(X_s,s) \Delta \phi(X_s,s) ds \right] \\
+    &\quad + \underbrace{\mathbb{E}\left[ \int_0^T \nabla \phi(X_s,s)^T \sigma(X_s,s) dW_s \right]}_{=0, \text{ da Integralprozess ein Martingal}} \\
+    &= \int_0^T \int_{\mathbb{R}^n} \left( \frac{\partial}{\partial s} \phi(x,s) + b(x,s) \cdot \nabla \phi(x,s) + \frac{1}{2} a(x,s) \Delta \phi(x,s) \right) p(x,s) \, dx ds \\
+    &= \int_0^T \int_{\mathbb{R}^n} \left( - \frac{\partial}{\partial s} p(x,s) - \nabla \cdot (p(x,s) b(x,s)) + \frac{1}{2} \Delta(a(x,s) p(x,s)) \right) \phi(x,s) \, dx ds.
 \end{align*}
-Man sagt, $p$ löst die Differentialgleichung $\frac{\partial}{\partial t} p (x,t) + \nabla \cdot ( p(x,t) b(x,t)) = \Delta p(x,t)$ im schwachen Sine.
+Man sagt, $p$ löst die Fokker-Planck-Gleichung $\frac{\partial}{\partial t} p(x,t) + \nabla \cdot (p(x,t) b(x,t)) = \frac{1}{2} \Delta(a(x,t) p(x,t))$ im schwachen Sinn.
 \end{frame}
 
 \begin{frame}{Die SDE und PDE für den Rückwärtsprozess}\tiny
-Auf ähnliche Art und Weise kann man für Testfunktionen $\psi (x,t) := \phi (x,T-t)$ zeigen, dass 
+Auf ähnliche Art und Weise kann man für Testfunktionen $\psi(x,t) := \phi(x,T-t)$ zeigen, dass 
 \begin{align*}
-0&=  \int_0^T \int_{\mathbb{R}^n}- \frac{\partial}{\partial s} \bar{u}(x,s) \psi (x,s) + \nabla \cdot( b(x,T-s) \bar{u}(x,s)) \psi(x,s)+\Delta \bar{u}(x,s) \psi(x,s) \\
-&- 2 \nabla \cdot ( \bar{u}(x,s) \nabla \log( \bar{u}(x,s)))  \psi (x,s)   dx ds.
+0 = \int_0^T \int_{\mathbb{R}^n} - \frac{\partial}{\partial s} \bar{u}(x,s) \psi(x,s) + \nabla \cdot(b(x,T-s) \bar{u}(x,s)) \psi(x,s) + \Delta \bar{u}(x,s) \psi(x,s) - 2 \nabla \cdot (\bar{u}(x,s) \nabla \log(\bar{u}(x,s))) \psi(x,s) \, dx ds.
 \end{align*}
-Dies ist äquivalent zu 
+Dies ist distributionell äquivalent zu 
 \[
--\frac{\partial}{\partial t} \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ) + \Delta \bar{u} - 2 \nabla \cdot ( \bar{u} \nabla \log (\bar{u}))=0 \quad \iff \quad 
-\frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ),
+-\frac{\partial}{\partial t} \bar{u} + \nabla \cdot (b(\cdot,T-\cdot) \bar{u}) + \Delta \bar{u} - 2 \nabla \cdot (\bar{u} \nabla \log(\bar{u})) = 0 \quad \iff \quad 
+\frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot (b(\cdot,T-\cdot) \bar{u}),
 \]
-was uns die SDE gibt: 
+was uns die folgende SDE für den Rückwärtsprozess liefert: 
 \[
-d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
+d\bar{X}_t = \underbrace{\left( -b(\bar{X}_t) + \sigma(\bar{X}_t)^2 \nabla \log p(T-t,\bar{X}_t) \right)}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d\tilde{W}_t, \quad \bar{X}_t \sim \bar{p}(\cdot,t).
 \]
-
 \end{frame}
 
 
 \begin{frame}{Wo stehen wir jetzt und was ist das Problem?}
-  \textbf{Problem}: Die PDE explodiert nach endlicher Zeit und der Drift der SDE ist nicht Lipschitzstetig! \textbf{Wir brauchen einen neuen Lösungsbegriff!}
+  \textbf{Problem:} Die PDE explodiert nach endlicher Zeit (ill-posed) und der Drift der SDE ist im Allgemeinen nicht Lipschitz-stetig!
   \[
-  \frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot ( b(\cdot,T-\cdot) \bar{u} ),
+  \frac{\partial}{\partial t} \bar{u} = - \Delta \bar{u} + \nabla \cdot (b(\cdot,T-\cdot) \bar{u}),
   \]
   und
   \[
-d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\bar{X}_t) )}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d \tilde{W}_{t}, \quad X_t \sim \bar{p}(\cdot,t), 
-\]
+  d\bar{X}_t = \underbrace{\left( -b(\bar{X}_t) + \sigma(\bar{X}_t)^2 \nabla \log p(T-t,\bar{X}_t) \right)}_{=: \bar{b}(\bar{X}_t)} dt + \sigma(\bar{X}_t) d\tilde{W}_t, \quad \bar{X}_t \sim \bar{p}(\cdot,t).
+  \]
+  \textbf{Wir brauchen einen neuen Lösungsbegriff!}
 \end{frame}
-
 
 \section{Schwache Formulierungen}
 
@@ -934,18 +901,17 @@ d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\b
 
 
 \subsection{Schwache Formulierung von Partiellen Differentialgleichungen}
-
 \begin{frame}{Distributionen}\small
-  Für $A \subseteq \mathbb{R}^n$ ist der Lineare operator 
+  Für $A \subseteq \mathbb{R}^n$ ist der lineare Operator 
 \[
-\langle \partial_i f, \cdot \rangle : \mathcal{D}(A) \to \mathbb{R}, \quad \phi \mapsto \langle \partial_i f , \phi \rangle :=- \langle f, \partial_i \phi \rangle
+\langle \partial_i f, \cdot \rangle : \mathcal{D}(A) \to \mathbb{R}, \quad \phi \mapsto \langle \partial_i f , \phi \rangle := - \langle f, \partial_i \phi \rangle
 \]
 eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $\partial_t u = L u$ erfüllt:
 \[
-\forall \phi \in C_0^\infty (A): \langle \partial_t u, \phi \rangle = -\int_s^t \int_{\mathbb{R}^n} u (x,z) \partial_t \phi (x,z) dx dz = -\int_s^t \int_{\mathbb{R}^n} u(x,z) L_z \phi (x,z) dx dz = \langle L u , \phi \rangle 
+\forall \phi \in C_c^\infty(\mathbb{R}^n \times (0,\infty)): \quad -\int_s^t \int_{\mathbb{R}^n} u(x,z) \partial_z \phi(x,z) \, dx dz = \int_s^t \int_{\mathbb{R}^n} u(x,z) L_x^* \phi(x,z) \, dx dz = \langle L u , \phi \rangle,
 \]
+wobei $L_x^*$ der adjungierte Operator zu $L$ bezüglich der Raumvariablen ist.
 \end{frame}
-
 
 
 
@@ -1006,162 +972,154 @@ eine Distribution und heißt schwache Ableitung. Eine schwache Lösung der PDE $
 \end{frame}
 
 
+\begin{frame}{Sobolevräume}\small
+\begin{minipage}[c]{0.5\linewidth}
+ Der Sobolevraum auf $\mathbb{R}^n$ ist definiert als 
+\[
+    H^1(\mathbb{R}^n) := \{ u \in L^2(\mathbb{R}^n) \mid \nabla u \in L^2(\mathbb{R}^n) \}
+\]
+und wird mit der Norm 
+\[
+    \| u \|_{H^1} := \left( \| u \|_{L^2}^2 + \| \nabla u \|_{L^2}^2 \right)^{1/2}
+\]
+ausgestattet.
+\end{minipage}\hfill
+\begin{minipage}[c]{0.5\linewidth}
+Für den Dualraum des Sobolevraums schreiben wir 
+ \[
+    H^{-1}(\mathbb{R}^n) := (H^1(\mathbb{R}^n))^\prime.
+ \]
+Der zeitabhängige Sobolevraum (Bochner-Raum) ist 
+\[
+    L^2([0,T]; H^1(\mathbb{R}^n)) := \left\{ u \ \middle| \ \int_0^T \| u(t,\cdot) \|_{H^1}^2 dt < \infty \right\}.
+\]
+\end{minipage}
+\end{frame}
+
+
+
 
 
 
 \subsection{Schwache Formulierung von Stochastische Differentialgleichungen}
 
-
-
 \begin{frame}{Schwache Lösung der SDE}\small
   Eine schwache Lösung der SDE 
     \[
-    dX_t = b(t,X_t) dt + \sigma (t,X_t) dW_t
+    dX_t = b(t,X_t) dt + \sigma(t,X_t) dW_t
     \]
-    mit Startverteilung $\mu$ auf $\mathcal{B}(\mathbb{R}^d)$ ist ein Tupel $((\Omega,\mathcal{F},\mathbb{P}), (\mathcal{F}_t)_{t \geq 0}, X, W)$ wobei $(\Omega,\mathcal{F},(\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ ein filtrierter Wahrscheinlichkeitsraum ist, wobei die Filtration die üblichen Bedinungen erfüllt, $X$ ist $(\mathcal{F}_t)$-adaptiert, $\mathbb{R}^d$ wertiger Prozess und $W$ ein $r$-dimensionale $(\mathcal{F}_t)$-Brownsche Bewegung $W$
+    mit Startverteilung $\mu$ auf $\mathcal{B}(\mathbb{R}^d)$ ist ein Tupel $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P}, W, X)$, wobei $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \geq 0}, \mathbb{P})$ ein filtrierter Wahrscheinlichkeitsraum ist (dessen Filtration die üblichen Bedingungen erfüllt), $X$ ein $(\mathcal{F}_t)_{t \geq 0}$-adaptierter, $\mathbb{R}^n$-wertiger Prozess mit $\mathbb{P} \circ X_0^{-1} = \mu$ ist und $W$ eine $r$-dimensionale $(\mathcal{F}_t)_{t \geq 0}$-Brownsche Bewegung ist, sodass gilt:
     \begin{itemize}
-        \item $\forall i=1,...,d, j=1,...,r \text{ und } t \in [0,\infty): \quad \mathbb{P}(\int_0^t |a_i (s,X_s)| + b_{ij}^2 (s,X_s) ds < \infty)=1$
-        \item $\forall t \in [0,T], i=1,...,d: \quad X_t^{i} = X_0^{i} + \int_0^t a_i (s,X_s) ds + \sum_{j=1}^r \int_0^t b_{ij} (s,X_s) dW_s^j.$
+        \item $\forall i=1,\dots,n, \, j=1,\dots,r \text{ und } t \geq 0: \quad \mathbb{P}\left(\int_0^t |b_i(s,X_s)| + \sigma_{ij}^2(s,X_s) \, ds < \infty\right)=1$
+        \item $\forall t \geq 0, \, i=1,\dots,n: \quad X_t^i = X_0^i + \int_0^t b_i(s,X_s) \, ds + \sum_{j=1}^r \int_0^t \sigma_{ij}(s,X_s) \, dW_s^j \quad \mathbb{P}\text{-f.s.}$
     \end{itemize}
 \end{frame}
 
 \begin{frame}{Intuition}
   \begin{itemize}
-    \item Betrachte $\Omega:= C([0,\infty), \mathbb{R}^d)$ und $\mathcal{F}:= \sigma (X_s \mid s \geq 0) = \sigma(X)$, dann $X_t(\omega) = \omega(t)$ ist ein stochastischer Prozess auf $(\Omega,\mathcal{F},\mathbb{P})$. 
-    \item Jede Brownsche Bewegegung erfüllt $\sigma(W) \subseteq \mathcal{F} = \sigma(X)$. 
-    \item Doobs factorization Lemma sagt, dass für alle $t \geq 0$ existiert ein $\mathbb{P}_X$-f.s. eindeutige messbare Funktion $\varphi_t := C([0,\infty),\mathbb{R}^d) \to \mathbb{R}^d$, dass 
+    \item Betrachte den kanonischen Raum $\Omega := C([0,\infty), \mathbb{R}^d)$ und $\mathcal{F} := \sigma(X_s \mid s \geq 0) = \sigma(X)$. Dann ist $X_t(\omega) := \omega(t)$ ein stochastischer Prozess auf $(\Omega,\mathcal{F},\mathbb{P})$. 
+    \item Bei dieser Konstruktion einer schwachen Lösung erfüllt die Brownsche Bewegung $\sigma(W) \subseteq \mathcal{F} = \sigma(X)$. 
+    \item Das Doob'sche Faktorisierungslemma besagt, dass für alle $t \geq 0$ eine $\mathbb{P} \circ X^{-1}$-f.s. eindeutige messbare Funktion $\varphi_t : C([0,\infty),\mathbb{R}^n) \to \mathbb{R}^r$ existiert, sodass 
     \[
-    W_t = \varphi_t (X).
+    W_t = \varphi_t(X).
     \]
-    $W$ ist nur transformation von $X$.
+    $W$ ist also eine rein messbare Transformation von $X$.
   \end{itemize}
 \end{frame}
 
 
+\section{Martingal Problem}
+\begin{frame}{Das Martingalproblem}\small
 
-
-\section{Martingale Problem}
-
-\begin{frame}{Martingal Problem}
-
-   Angenommen $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$, $i=1,...,d, j=1,...,r$ sind beschränkt auf kompakten Teilmengen von $\mathbb{R}^d$. Wir nennen ein Wahrscheinlichkeitsmaß $\mathbb{P}$ auf $(C([0,\infty)^d ), \mathcal{B}( C([0,\infty)^d) ) )$ wobei für alle $s,t \in [0,\infty), s<t, f \in C_0^2(\mathbb{R}^d)$: 
+   Seien die Koeffizienten $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ ($i=1,\dots,n, \, j=1,\dots,r$) sind auf kompakten Teilmengen des $\mathbb{R}^n$ beschränkt. Wir nennen ein Wahrscheinlichkeitsmaß $\mathbb{P}$ auf dem messbaren Pfadraum $(C([0,\infty), \mathbb{R}^n), \mathcal{B}( C([0,\infty), \mathbb{R}^n) ))$ eine Lösung des zeithomogenen Martingalproblems zum Generator $\mathcal{A}$, falls für alle $s,t \in [0,\infty)$ mit $s<t$ und alle $f \in C_c^2(\mathbb{R}^d)$ gilt: 
     \[
-    \mathbb{E}[ f(y(t)) - f(y(0)) - \int_0^t (\mathcal{A}f)(y(u)) du \mid \mathcal{B}_s ] =0, \quad \mathbb{P}-a.s.
+    \mathbb{E}\left[ f(y(t)) - f(y(s)) - \int_s^t (\mathcal{A}f)(y(u)) \, du \ \middle| \ \mathcal{B}_s \right] = 0, \quad \mathbb{P}\text{-f.s.}
     \]
-    eine Lösung des zeithomogenen Martingal Problems. Mit $\mathbb{P}^x$ schreiben wir eine Lösung, die 
+    wobei $y$ der kanonische Koordinatenprozess ist. Mit $\mathbb{P}^x$ bezeichnen wir eine Lösung, die zusätzlich die Startbedingung
     \[
-    \mathbb{P}^x (y \in C([0,\infty)^d ), y (0) =x)=1
+    \mathbb{P}^x (y \in C([0,\infty), \mathbb{R}^d ), y(0) = x) = 1
     \]
-    erfüllt. Das zeithomogene Martingal Problem nennen wir wohl gestellt, wenn für alle $x \in \mathbb{R}^d$, genau eine Lösung $\mathbb{P}^x$ existert.
-
+    erfüllt. Das zeithomogene Martingalproblem nennen wir wohlgestellt, wenn für jedes $x \in \mathbb{R}^d$ genau eine solche Lösung $\mathbb{P}^x$ existiert.
 \end{frame}
 
 
-
-
-\begin{frame}{Vom Martingal Problem zur Schwachen Lösung}
+\begin{frame}{Vom Martingalproblem zur schwachen Lösung}
 \begin{block}{Existenz}
-Die Existenz der Lösung $\mathbb{P}$ des Martingal Problems bzgl. dem Generator $(\mathcal{A}_t)_{t \geq 0}$ ist äquivalent zur Existenz der schwachen Lösung $((\tilde{\Omega},\tilde{\mathcal{F}}, \tilde{P}), (X,W), (\mathcal{F}_t)_{t \geq 0})$ der SDE . 
+Die Existenz einer Lösung $\mathbb{P}$ des Martingalproblems bezüglich des Generators $\mathcal{A}$ ist äquivalent zur Existenz einer schwachen Lösung $(\tilde{\Omega}, \tilde{\mathcal{F}}, (\tilde{\mathcal{F}}_t)_{t \geq 0}, \tilde{\mathbb{P}}, \tilde{W}, X)$ der SDE. 
 \end{block}  
 \begin{block}{Eindeutigkeit}
-  Die Eindeutigkeit der Lösung $\mathbb{P}$ des Martingal Problems bzgl. dem Generator $(\mathcal{A}_t)_{t \geq 0}$ mit Anfangsverteilung 
+  Die Eindeutigkeit der Lösung $\mathbb{P}$ des Martingalproblems bezüglich des Generators $\mathcal{A}$ mit der Anfangsverteilung 
   \[
-  \forall A \in \mathcal{B}(\mathbb{R}^n): \quad \mathbb{P} (X_0 \in A) = \mu (A),
+  \forall A \in \mathcal{B}(\mathbb{R}^d): \quad \mathbb{P} (y(0) \in A) = \mu(A),
   \]
-  ist äquivalent zur Eindeutigkeit der Dichte $X_t \sim p (\cdot,t)$, $t \geq 0$, der SDE.
+  ist äquivalent zur schwachen Eindeutigkeit der SDE.
 \end{block}
 \end{frame}
 
 
+\section{Anwendung zum Rückwärtsprozess}
+\begin{frame}{Schwache Lösung im Sobolevraum \iconSchwach}\tiny
+Für jede offene, beschränkte Menge $\mathcal{O} \subset \mathbb{R}^n$ ist der lokale, gewichtete Raum durch folgende Endlichkeitsbedingung definiert:
+\[
+p \in L^2([0,T]; \tilde{H}_{loc}^1) \iff \int_0^T \int_{\mathcal{O}} |p(t,x)|^2 + \sum_{i=1}^n \left| \sum_{j=1}^n \sigma^{ji}(t,x) \partial_{x_j} p(t,x) \right|^2 dx \, dt < \infty.
+\]
+  \begin{block}{Schwache Lösung}
+    Für 
+\[
+p \in L^2([0,T]; \tilde{H}_{loc}^1(\mathbb{R}^n)) \quad \text{mit} \quad \partial_t p \in L^2([0,T]; H^{-1}(\mathbb{R}^n))
+\]
+nennen wir $p$ eine schwache Lösung der Fokker-Planck-Gleichung $\partial_t p = L_t^* p$, falls für alle Testfunktionen $\varphi \in L^2([0,T]; H^1(\mathbb{R}^n))$ gilt:
+\[
+\int_0^T \langle \partial_t p(t,\cdot), \varphi(t,\cdot) \rangle_{H^{-1}, H^1} dt = \int_0^T \langle p(t,\cdot), L_t \varphi(t,\cdot) \rangle_{L^2, L^2} dt.
+\]
+  \end{block}
+\end{frame}
 
-
-\section{Anwendung zu Diffusion}
-\begin{frame}{Recap und Problemstellung}
+\begin{frame}{Recap und Problemstellung \iconCalculus}
   Wir wollen für die SDE
   \[
-  dX_t = b(X_t,t) dt + \sigma(X_t,t) d W_t
+  dX_t = b(t,X_t) dt + \sigma(t,X_t) dW_t
   \]
   die schwache Lösung des Rückwärtsprozesses 
   \[
-  d \bar{X}_t = \bar{b}(\bar{X}_t,t) dt + \sigma (\bar{X}_t, T-t) d \bar{W}_t
+  d\bar{X}_t = \bar{b}(t,\bar{X}_t) dt + \sigma(1-t,\bar{X}_t) d\bar{W}_t
   \]
-  finden, indem wir das Martingal Problem lösen.
+  finden, indem wir das zugehörige Martingalproblem auf dem Intervall $[0,1]$ lösen. 
 \end{frame}
 
 
-
-
-\begin{frame}{Markovprozess}\tiny
-\begin{block}{Satz}
-Angenommen
+\begin{frame}{Markov-Prozess \iconCalculus \iconMarkov \iconRueckwaerts \iconSchwach}\tiny
+\begin{block}{Satz (Existenz des Generators)}
+Angenommen,
 \begin{itemize}
-        \item $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$, $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n \otimes \mathbb{R}^l$ sind Borel messbar und erfüllen 
+        \item die Koeffizienten $b: [0,1] \times \mathbb{R}^n \to \mathbb{R}^n$ und $\sigma: [0,1] \times \mathbb{R}^n \to \mathbb{R}^{n \times l}$ sind Borel-messbar und erfüllen für eine Konstante $K > 0$:
         \begin{align*}
-            |b(x,t) - b(y,t)| + |\sigma (x,t) - \sigma (y,t)| &\leq K |x-y|\\
-            |b(x,t)| + | \sigma (x,t)| &\leq K(1+|x|),
+            |b(t,x) - b(t,y)| + \|\sigma(t,x) - \sigma(t,y)\| &\leq K |x-y| \\
+            |b(t,x)| + \|\sigma(t,x)\| &\leq K(1+|x|).
         \end{align*}
-        für eine beliebige Konstante $K$.
-        \item Für $\lambda$-f.a. $t >0$ sei $X_t \sim p(t,\cdot)$ sodass:
-        \[
-        p \in L^2( t_0,1; \tilde{H}_{loc}^1 ),
-        \]
+        \item Für fast alle $t \in (0,1]$ besitzt $X_t$ eine Dichte $p(t,\cdot)$, sodass für jedes $t_0 > 0$ gilt: $p \in L^2([t_0, 1]; \tilde{H}_{loc}^1)$.
     \end{itemize}
-    dann ist $(\bar{X}_t)_{t \geq 0}$ ein Markov prozess mit generator 
-    \[
-    \bar{L}_t f:= \sum_{i,j=1}^n \frac{1}{2} a_{ij} (x,1-t) \frac{\partial^2}{\partial x_i \partial x_j} f(x)+ \sum_{i=1}^n (-b_i (x,1-t) + p(x,1-t)^{-1} \frac{\partial}{\partial x_j} (a_{ij} (x,1-t) p(x,1-t)) ) \frac{\partial}{\partial x_i} f(x) 
-    \]
+    Sei $a := \sigma \sigma^T$. Dann ist $(\bar{X}_t)_{t \in [0,1]}$ ein Markov-Prozess mit dem infinitesimalen Generator 
+    \begin{align*}
+    \bar{L}_t f(x) := \frac{1}{2} \sum_{i,j=1}^n a_{ij}(1-t,x) \frac{\partial^2}{\partial x_i \partial x_j} f(x) + \sum_{i=1}^n \left( -b_i(1-t,x) + \frac{1}{p(1-t,x)} \sum_{j=1}^n \frac{\partial}{\partial x_j} \big(a_{ij}(1-t,x) p(1-t,x)\big) \right) \frac{\partial}{\partial x_i} f(x).
+    \end{align*}
 \end{block}
 \end{frame}
 
-\begin{frame}{Ziel: Martingalproblem des Rückwärtsprozesses}
-Für beliebige Testfunktionen $f,g \in C_c^\infty(\mathbb{R}^n)$ und $0 \leq s < t < 1$ ist zu zeigen: 
+
+\begin{frame}{Ziel: Martingalproblem des Rückwärtsprozesses \iconCalculus \iconMarkov \iconRueckwaerts \iconMartingal}
+Für beliebige Testfunktionen $f,g \in C_c^\infty(\mathbb{R}^n)$ und $0 \leq s < t \leq 1$ ist für die Lösung des Martingalproblems zu zeigen: 
     \[
-    \mathbb{E}\left[ f(\bar{X}_t)- f(\bar{X}_s)- \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \mid \sigma (\bar{X}_r : 0 \leq r \leq s) \right]=0.
+    \mathbb{E}\left[ f(\bar{X}_t) - f(\bar{X}_s) - \int_s^t (\bar{L}_z f)(\bar{X}_z) dz \ \middle| \ \sigma(\bar{X}_r : 0 \leq r \leq s) \right] = 0.
     \]
-    Man kann zeigen, dass dies durch Zeitumkehr äquivalent ist zu 
+    Man kann zeigen, dass dies durch Zeitumkehr äquivalent zu folgender unbedingter Erwartungswertgleichung ist: 
     \[
-    \mathbb{E}\left[ \left(f(X_t)- f(X_s)- \int_s^t (\tilde{L}_z f)(X_z) dz  \right) g(X_t) \right] =0 \quad \text{für } s,t \, \lambda\text{-f.ü.}
+    \mathbb{E}\left[ \left( f(X_{1-s}) - f(X_{1-t}) - \int_s^t (\tilde{L}_z f)(X_{1-z}) dz \right) g(X_{1-s}) \right] = 0,
     \]
     wobei der Vorwärts-Ersatzoperator definiert ist als:
     \[
     \tilde{L}_z f := - \bar{L}_{1-z} f.
     \]
-\end{frame}
-
-
-\begin{frame}{Sobolevräume}
-\begin{minipage}[c]{0.5\linewidth}
- Der Sobolevraum ist definiert als 
-\[
-    H^1(\Omega) := \{ u \in L^2(\Omega) \mid \nabla u \in L^2(\Omega) \},
-\]
-und ausgestattet mit der Norm 
-\[
-    \| u \|_{H^1} := \| u \|_{L^2} + \| \nabla u \|_{L^2}.
-    \]
-\end{minipage}\hfill
-\begin{minipage}[c]{0.5\linewidth}
-Für den Dualraum des Sobolevraums schreiben wir 
- \[
-    H^{-1} (\Omega) := (H^1(\Omega))^\prime.
-    \]
-Der Zeitabhänige Sobolevraum ist 
-\[
-    L^2(t,T; H^1(\Omega)) := \{ u \mid \int_t^T \| u (t,\cdot) \|_{H^1}^2 dt < \infty  \}
-    \]
-
-\end{minipage}    \hfill
-\end{frame}
-
-\begin{frame}{Schwache Lösung im Sobolevraum}
-Für 
-\[
-p \in L^2(0,T;\tilde{H}_{loc}^1(\mathbb{R}^n)) \quad \text{ mit } \quad \partial_t p \in L^2(0,T; H^{-1} (\mathbb{R}^n)),
-\]
-nennen wir $p$ eine schwache Lösung der Fokker-Planck-Gleichung $\partial_t p = L_t^* p$, falls für alle $\varphi \in L^2 (0,T; H^1(\mathbb{R}^n))$ gilt:
-\[
-\langle \partial_t p, \varphi \rangle_{H^{-1}, H^1} = \langle p, L_t \varphi \rangle_{L^2, L^2}.
-\]
 \end{frame}
 
 \begin{frame}{Probleme}
@@ -1210,32 +1168,6 @@ Wendet man den Hauptsatz der Differential- und Integralrechnung an, erhält man 
 \end{align*}
 Durch Umstellen folgt die Erwartungswert-Null-Eigenschaft. Damit ist das Martingalproblem gelöst!
 \end{frame}
-
-
-\section{Anwendung zu Diffusion}
-\begin{frame}{Zusammensetzen der Puzzleteile}
-  
-  % Beispiel 1: Im Titel eines Blocks
-  \begin{block}{\iconPDE \hspace{2pt} PDE Approach}
-    Hier verwenden wir Methoden der partiellen Differentialgleichungen.
-  \end{block}
-  
-  \vspace{0.3cm}
-  
-  % Beispiel 2: Neben einer mathematischen Gleichung
-  Wir wenden nun das Martingale Problem an, um die schwache Lösung zu charakterisieren:
-  \[
-    \iconMartingale \quad \mathbb{E} \left[ f(X_t) - f(X_0) - \int_0^t L f(X_s) ds \right] = 0
-  \]
-  
-  \vspace{0.3cm}
-  
-  % Beispiel 3: Als Aufzählungszeichen oder Markierung im Fließtext
-  Durch die Kombination von \iconCalculus (Stochastic Calculus) und \iconSobolev (Sobolev Räumen) erhalten wir die finale Rückwärts-Dynamik \iconRueckwaerts.
-  
-\end{frame}
-
-
 
 \end{document}
 
