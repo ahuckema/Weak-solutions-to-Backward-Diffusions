@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  4 NOV 2026 22:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  5 NOV 2026 15:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -767,27 +767,253 @@ Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 116.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
-)) (./maint.aux)
+)) (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.sty
+Package: biblatex 2024/03/21 v3.20 programmable bibliographies (PK/MW)
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/logreq/logreq.sty
+Package: logreq 2010/08/04 v1.0 xml request logger
+\lrq@indent=\count383
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/logreq/logreq.def
+File: logreq.def 2010/08/04 v1.0 logreq spec v1.0
+))
+\c@tabx@nest=\count384
+\c@listtotal=\count385
+\c@listcount=\count386
+\c@liststart=\count387
+\c@liststop=\count388
+\c@citecount=\count389
+\c@citetotal=\count390
+\c@multicitecount=\count391
+\c@multicitetotal=\count392
+\c@instcount=\count393
+\c@maxnames=\count394
+\c@minnames=\count395
+\c@maxitems=\count396
+\c@minitems=\count397
+\c@citecounter=\count398
+\c@maxcitecounter=\count399
+\c@savedcitecounter=\count400
+\c@uniquelist=\count401
+\c@uniquename=\count402
+\c@refsection=\count403
+\c@refsegment=\count404
+\c@maxextratitle=\count405
+\c@maxextratitleyear=\count406
+\c@maxextraname=\count407
+\c@maxextradate=\count408
+\c@maxextraalpha=\count409
+\c@abbrvpenalty=\count410
+\c@highnamepenalty=\count411
+\c@lownamepenalty=\count412
+\c@maxparens=\count413
+\c@parenlevel=\count414
+\blx@tempcnta=\count415
+\blx@tempcntb=\count416
+\blx@tempcntc=\count417
+\c@blx@maxsection=\count418
+\blx@maxsegment@0=\count419
+\blx@notetype=\count420
+\blx@parenlevel@text=\count421
+\blx@parenlevel@foot=\count422
+\blx@sectionciteorder@0=\count423
+\blx@sectionciteorderinternal@0=\count424
+\blx@entrysetcounter=\count425
+\blx@biblioinstance=\count426
+\labelnumberwidth=\skip71
+\labelalphawidth=\skip72
+\biblabelsep=\skip73
+\bibitemsep=\skip74
+\bibnamesep=\skip75
+\bibinitsep=\skip76
+\bibparsep=\skip77
+\bibhang=\skip78
+\blx@bcfin=\read4
+\blx@bcfout=\write5
+\blx@langwohyphens=\language90
+\c@mincomprange=\count427
+\c@maxcomprange=\count428
+\c@mincompwidth=\count429
+Package biblatex Info: Trying to load biblatex default data model...
+Package biblatex Info: ... file 'blx-dm.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-dm.def
+File: blx-dm.def 2024/03/21 v3.20 biblatex datamodel (PK/MW)
+)
+Package biblatex Info: Trying to load biblatex style data model...
+Package biblatex Info: ... file 'alphabetic.dbx' not found.
+Package biblatex Info: Trying to load biblatex custom data model...
+Package biblatex Info: ... file 'biblatex-dm.cfg' not found.
+\c@afterword=\count430
+\c@savedafterword=\count431
+\c@annotator=\count432
+\c@savedannotator=\count433
+\c@author=\count434
+\c@savedauthor=\count435
+\c@bookauthor=\count436
+\c@savedbookauthor=\count437
+\c@commentator=\count438
+\c@savedcommentator=\count439
+\c@editor=\count440
+\c@savededitor=\count441
+\c@editora=\count442
+\c@savededitora=\count443
+\c@editorb=\count444
+\c@savededitorb=\count445
+\c@editorc=\count446
+\c@savededitorc=\count447
+\c@foreword=\count448
+\c@savedforeword=\count449
+\c@holder=\count450
+\c@savedholder=\count451
+\c@introduction=\count452
+\c@savedintroduction=\count453
+\c@namea=\count454
+\c@savednamea=\count455
+\c@nameb=\count456
+\c@savednameb=\count457
+\c@namec=\count458
+\c@savednamec=\count459
+\c@translator=\count460
+\c@savedtranslator=\count461
+\c@shortauthor=\count462
+\c@savedshortauthor=\count463
+\c@shorteditor=\count464
+\c@savedshorteditor=\count465
+\c@labelname=\count466
+\c@savedlabelname=\count467
+\c@institution=\count468
+\c@savedinstitution=\count469
+\c@lista=\count470
+\c@savedlista=\count471
+\c@listb=\count472
+\c@savedlistb=\count473
+\c@listc=\count474
+\c@savedlistc=\count475
+\c@listd=\count476
+\c@savedlistd=\count477
+\c@liste=\count478
+\c@savedliste=\count479
+\c@listf=\count480
+\c@savedlistf=\count481
+\c@location=\count482
+\c@savedlocation=\count483
+\c@organization=\count484
+\c@savedorganization=\count485
+\c@origlocation=\count486
+\c@savedoriglocation=\count487
+\c@origpublisher=\count488
+\c@savedorigpublisher=\count489
+\c@publisher=\count490
+\c@savedpublisher=\count491
+\c@language=\count492
+\c@savedlanguage=\count493
+\c@origlanguage=\count494
+\c@savedoriglanguage=\count495
+\c@pageref=\count496
+\c@savedpageref=\count497
+\shorthandwidth=\skip79
+\shortjournalwidth=\skip80
+\shortserieswidth=\skip81
+\shorttitlewidth=\skip82
+\shortauthorwidth=\skip83
+\shorteditorwidth=\skip84
+\locallabelnumberwidth=\skip85
+\locallabelalphawidth=\skip86
+\localshorthandwidth=\skip87
+\localshortjournalwidth=\skip88
+\localshortserieswidth=\skip89
+\localshorttitlewidth=\skip90
+\localshortauthorwidth=\skip91
+\localshorteditorwidth=\skip92
+Package biblatex Info: Trying to load compatibility code...
+Package biblatex Info: ... file 'blx-compat.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-compat.def
+File: blx-compat.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
+)
+Package biblatex Info: Trying to load generic definitions...
+Package biblatex Info: ... file 'biblatex.def' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.def
+File: biblatex.def 2024/03/21 v3.20 biblatex compatibility (PK/MW)
+\c@textcitecount=\count498
+\c@textcitetotal=\count499
+\c@textcitemaxnames=\count500
+\c@biburlbigbreakpenalty=\count501
+\c@biburlbreakpenalty=\count502
+\c@biburlnumpenalty=\count503
+\c@biburlucpenalty=\count504
+\c@biburllcpenalty=\count505
+\biburlbigskip=\muskip19
+\biburlnumskip=\muskip20
+\biburlucskip=\muskip21
+\biburllcskip=\muskip22
+\c@smartand=\count506
+)
+Package biblatex Info: Trying to load bibliography style 'alphabetic'...
+Package biblatex Info: ... file 'alphabetic.bbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/alphabetic.bbx
+File: alphabetic.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
+Package biblatex Info: Trying to load bibliography style 'standard'...
+Package biblatex Info: ... file 'standard.bbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/bbx/standard.bbx
+File: standard.bbx 2024/03/21 v3.20 biblatex bibliography style (PK/MW)
+\c@bbx:relatedcount=\count507
+\c@bbx:relatedtotal=\count508
+))
+Package biblatex Info: Trying to load citation style 'alphabetic'...
+Package biblatex Info: ... file 'alphabetic.cbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/cbx/alphabetic.cbx
+File: alphabetic.cbx 2024/03/21 v3.20 biblatex citation style (PK/MW)
+Package biblatex Info: Redefining '\cite'.
+Package biblatex Info: Redefining '\parencite'.
+Package biblatex Info: Redefining '\footcite'.
+Package biblatex Info: Redefining '\footcitetext'.
+Package biblatex Info: Redefining '\smartcite'.
+Package biblatex Info: Redefining '\textcite'.
+Package biblatex Info: Redefining '\textcites'.
+Package biblatex Info: Redefining '\cites'.
+Package biblatex Info: Redefining '\parencites'.
+Package biblatex Info: Redefining '\smartcites'.
+)
+Package biblatex Info: Trying to load configuration file...
+Package biblatex Info: ... file 'biblatex.cfg' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/biblatex.cfg
+File: biblatex.cfg 
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Document encoding is UTF8 ....
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/l3kernel/expl3.sty
+Package: expl3 2025-01-18 L3 programming layer (loader) 
+)
+Package biblatex Info: ... and expl3
+(biblatex)             2025-01-18 L3 programming layer (loader) 
+(biblatex)             is new enough (at least 2020/04/06),
+(biblatex)             setting 'casechanger=expl3'.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/blx-case-expl3.sty (/usr/local/texlive/2025/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+Package: xparse 2024-08-16 L3 Experimental document command parser
+)
+Package: blx-case-expl3 2024/03/21 v3.20 expl3 case changing code for biblatex
+))
+\@quotelevel=\count509
+\@quotereset=\count510
+ (./maint.aux)
 \openout1 = `maint.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 300.
-LaTeX Font Info:    ... okay on input line 300.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 307.
+LaTeX Font Info:    ... okay on input line 307.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -825,80 +1051,74 @@ LaTeX Font Info:    ... okay on input line 300.
 
 (/usr/local/texlive/2025/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count383
+\scratchcounter=\count511
 \scratchdimen=\dimen325
 \scratchbox=\box131
-\nofMPsegments=\count384
-\nofMParguments=\count385
+\nofMPsegments=\count512
+\nofMParguments=\count513
 \everyMPshowfont=\toks48
-\MPscratchCnt=\count386
+\MPscratchCnt=\count514
 \MPscratchDim=\dimen326
-\MPnumerator=\count387
-\makeMPintoPDFobject=\count388
+\MPnumerator=\count515
+\makeMPintoPDFobject=\count516
 \everyMPtoPDFconversion=\toks49
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
- (/usr/local/texlive/2025/texmf-dist/tex/latex/grfext/grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 300.
+Package hyperref Info: Link coloring OFF on input line 307.
  (./maint.out) (./maint.out)
-\@outlinefile=\write5
-\openout5 = `maint.out'.
+\@outlinefile=\write6
+\openout6 = `maint.out'.
 
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 300.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 307.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 300.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 307.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 300.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 307.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 300.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 307.
 \symnumbers=\mathgroup6
 \sympureletters=\mathgroup7
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 300.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 300.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 307.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 300.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 300.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 300.
+(Font)                  OT1/lmr/bx/n --> T1/lmss/b/n on input line 307.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 300.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 300.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 300.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 307.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 300.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 300.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 300.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 307.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 300.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 300.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 307.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 300.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 307.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 300.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 300.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 300.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 300.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 300.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 307.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 300.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 307.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -911,16 +1131,32 @@ Dictionary: translator-months-dictionary, Language: English
 Dictionary: translator-numbers-dictionary, Language: English 
 ) (/usr/local/texlive/2025/texmf-dist/tex/latex/translator/translator-theorem-dictionary-English.dict
 Dictionary: translator-theorem-dictionary, Language: English 
-) (./maint.nav)
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 323.
+)
+Package biblatex Info: Trying to load language 'english'...
+Package biblatex Info: ... file 'english.lbx' found.
+ (/usr/local/texlive/2025/texmf-dist/tex/latex/biblatex/lbx/english.lbx
+File: english.lbx 2024/03/21 v3.20 biblatex localization (PK/MW)
+)
+Package biblatex Info: Input encoding 'utf8' detected.
+Package biblatex Info: Automatic encoding selection.
+(biblatex)             Assuming data encoding 'utf8'.
+\openout5 = `maint.bcf'.
+
+Package biblatex Info: Trying to load bibliographic data...
+Package biblatex Info: ... file 'maint.bbl' found.
+ (./maint.bbl)
+Package biblatex Info: Reference section=0 on input line 307.
+Package biblatex Info: Reference segment=0 on input line 307.
+ (./maint.nav)
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 330.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
 LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <12> not available
-(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 323.
+(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 330.
 
-LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 323.
+LaTeX Font Info:    Trying to load font information for TS1+lmss on input line 330.
 (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ts1lmss.fd
 File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -928,57 +1164,57 @@ File: ts1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [1
 
 {/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}]
-LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 349.
+LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 349.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 349.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 349.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 349.
+(Font)              <6> on input line 356.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 349.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 349.
+(Font)              <5> on input line 356.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 349.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 356.
  (/usr/local/texlive/2025/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 356.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 356.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 349.
+(Font)              <10.95> on input line 356.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 349.
+(Font)              <8> on input line 356.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 356.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 349.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 356.
 <Bilder/4.png, id=80, 1317.92375pt x 438.63875pt>
 File: Bilder/4.png Graphic file (type png)
 <use Bilder/4.png>
-Package pdftex.def Info: Bilder/4.png  used on input line 349.
+Package pdftex.def Info: Bilder/4.png  used on input line 356.
 (pdftex.def)             Requested size: 184.37253pt x 61.36215pt.
 
 
 [2
 
 {/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc} <./Bilder/4.png>]
-Overfull \vbox (0.92358pt too high) detected at line 365
+Overfull \vbox (0.92358pt too high) detected at line 372
  []
 
 
@@ -991,22 +1227,22 @@ Overfull \vbox (0.92358pt too high) detected at line 365
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 394.
+(Font)              <10> on input line 401.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 394.
+(Font)              <7> on input line 401.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 401.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <7> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 394.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 401.
 
-Overfull \hbox (11.05545pt too wide) detected at line 394
+Overfull \hbox (11.05545pt too wide) detected at line 401
 \U/msb/m/n/10 E[]\OT1/lmss/m/n/10 [\U/msb/m/n/10 E[]\OT1/lmss/m/n/10 [\OMS/lmsy/m/n/10 kr []\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 p\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 t\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 x\OT1/lmss/m/n/10 ) \OMS/lmsy/m/n/10 ^^@ \T1/lmss/m/sl/10 s[]\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 t\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 x\OT1/lmss/m/n/10 )\OMS/lmsy/m/n/10 k[]\OT1/lmss/m/n/10 ]]
  []
 
-<Bilder/3.png, id=120, 1464.47125pt x 837.1275pt>
+<Bilder/3.png, id=126, 1464.47125pt x 837.1275pt>
 File: Bilder/3.png Graphic file (type png)
 <use Bilder/3.png>
-Package pdftex.def Info: Bilder/3.png  used on input line 394.
+Package pdftex.def Info: Bilder/3.png  used on input line 401.
 (pdftex.def)             Requested size: 172.08144pt x 98.35611pt.
 
 
@@ -1025,7 +1261,7 @@ Package pdftex.def Info: Bilder/3.png  used on input line 394.
 [8
 
 ]
-Overfull \hbox (2.47069pt too wide) detected at line 456
+Overfull \hbox (2.47069pt too wide) detected at line 463
 \OMS/lmsy/m/n/10.95 8\OML/lmm/m/it/10.95 ! \OMS/lmsy/m/n/10.95 2 \OT1/lmss/m/n/10.95 
  :  [][] \T1/lmss/m/sl/10.95 f\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 s\OML/lmm/m/it/10.95 ; !\OT1/lmss/m/n/10.95 )\T1/lmss/m/sl/10.95 dW[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] [] \T1/lmss/m/sl/10.95 f\OT1/lmss/m/n/10.95 (\T1/lmss/m/sl/10.95 z[]\OML/lmm/m/it/10.95 ; !\OT1/lmss/m/n/10.95 )(\T1/lmss/m/sl/10.95 W[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) \OMS/lmsy/m/n/10.95 ^^@ \T1/lmss/m/sl/10.95 W[]\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ))\OML/lmm/m/it/10.95 ;  \T1/lmss/m/sl/10.95 z[] \OMS/lmsy/m/n/10.95 2 \OT1/lmss/m/n/10.95 [\T1/lmss/m/sl/10.95 t[]\OML/lmm/m/it/10.95 ; \T1/lmss/m/sl/10.95 t[]\OT1/lmss/m/n/10.95 ]\OML/lmm/m/it/10.95 :
  []
@@ -1039,18 +1275,18 @@ Overfull \hbox (2.47069pt too wide) detected at line 456
 [10
 
 ]
-<Bilder/1.png, id=184, 1082.0425pt x 276.03125pt>
+<Bilder/1.png, id=192, 1082.0425pt x 276.03125pt>
 File: Bilder/1.png Graphic file (type png)
 <use Bilder/1.png>
-Package pdftex.def Info: Bilder/1.png  used on input line 486.
+Package pdftex.def Info: Bilder/1.png  used on input line 493.
 (pdftex.def)             Requested size: 286.8024pt x 73.16055pt.
-<Bilder/2.png, id=185, 1073.00874pt x 277.035pt>
+<Bilder/2.png, id=193, 1073.00874pt x 277.035pt>
 File: Bilder/2.png Graphic file (type png)
 <use Bilder/2.png>
-Package pdftex.def Info: Bilder/2.png  used on input line 486.
+Package pdftex.def Info: Bilder/2.png  used on input line 493.
 (pdftex.def)             Requested size: 286.8024pt x 74.048pt.
 
-Overfull \vbox (11.14207pt too high) detected at line 486
+Overfull \vbox (11.14207pt too high) detected at line 493
  []
 
 
@@ -1059,11 +1295,11 @@ Overfull \vbox (11.14207pt too high) detected at line 486
 
  <./Bilder/1.png> <./Bilder/2.png>]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10.95> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 505.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <8> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 505.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 498.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 505.
 
 
 [12
@@ -1078,7 +1314,7 @@ LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <6> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 555.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 562.
 
 
 [15
@@ -1089,11 +1325,11 @@ LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <5> not available
 
 ]
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <10> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 587.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 594.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <7> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 587.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 594.
 
-Overfull \vbox (13.81058pt too high) detected at line 587
+Overfull \vbox (13.81058pt too high) detected at line 594
  []
 
 
@@ -1101,18 +1337,18 @@ Overfull \vbox (13.81058pt too high) detected at line 587
 [17
 
 ]
-<Bilder/5.png, id=261, 477.785pt x 353.32pt>
+<Bilder/5.png, id=269, 477.785pt x 353.32pt>
 File: Bilder/5.png Graphic file (type png)
 <use Bilder/5.png>
-Package pdftex.def Info: Bilder/5.png  used on input line 610.
+Package pdftex.def Info: Bilder/5.png  used on input line 617.
 (pdftex.def)             Requested size: 98.33217pt x 72.71141pt.
-<Bilder/6.png, id=262, 466.74374pt x 358.33875pt>
+<Bilder/6.png, id=270, 466.74374pt x 358.33875pt>
 File: Bilder/6.png Graphic file (type png)
 <use Bilder/6.png>
-Package pdftex.def Info: Bilder/6.png  used on input line 610.
+Package pdftex.def Info: Bilder/6.png  used on input line 617.
 (pdftex.def)             Requested size: 98.33217pt x 75.48846pt.
 
-Overfull \vbox (12.13339pt too high) detected at line 610
+Overfull \vbox (12.13339pt too high) detected at line 617
  []
 
 
@@ -1125,13 +1361,13 @@ Overfull \vbox (12.13339pt too high) detected at line 610
 
 ]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 699.
+(Font)              <9> on input line 706.
 LaTeX Font Info:    Font shape `T1/lmss/b/n' in size <9> not available
-(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 699.
+(Font)              Font shape `T1/lmss/bx/n' tried instead on input line 706.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <9> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 699.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 706.
 
-Overfull \vbox (13.09447pt too high) detected at line 699
+Overfull \vbox (13.09447pt too high) detected at line 706
  []
 
 
@@ -1143,10 +1379,6 @@ Overfull \vbox (13.09447pt too high) detected at line 699
 [21
 
 ]
-Overfull \vbox (23.21097pt too high) detected at line 738
- []
-
-
 
 [22
 
@@ -1155,7 +1387,7 @@ Overfull \vbox (23.21097pt too high) detected at line 738
 [23
 
 ]
-Overfull \vbox (5.0499pt too high) detected at line 764
+Overfull \vbox (5.0499pt too high) detected at line 772
  []
 
 
@@ -1179,16 +1411,11 @@ Overfull \vbox (5.0499pt too high) detected at line 764
 [28
 
 ]
-Overfull \hbox (36.62163pt too wide) detected at line 838
-\OMS/lmsy/m/n/10.95 8\T1/lmss/m/sl/10.95 t \OMS/lmsy/m/n/10.95 ^^U \T1/lmss/m/n/10.95 0 \OT1/lmss/m/n/10.95 : [](\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := [] \OML/lmm/m/it/10.95 ; []\OT1/lmss/m/n/10.95 (\OML/lmm/m/it/10.95 !\OT1/lmss/m/n/10.95 ) := []
- []
-
-
 
 [29
 
 ]
-Overfull \vbox (5.9486pt too high) detected at line 852
+Overfull \vbox (5.9486pt too high) detected at line 860
  []
 
 
@@ -1208,7 +1435,7 @@ Overfull \vbox (5.9486pt too high) detected at line 852
 [33
 
 ]
-Overfull \hbox (12.45082pt too wide) detected at line 914
+Overfull \hbox (12.45082pt too wide) detected at line 922
 \OMS/lmsy/m/n/10 8\OML/lmm/m/it/10 ^^^ \OMS/lmsy/m/n/10 2 \T1/lmss/m/sl/10 C[]\OT1/lmss/m/n/10 (\U/msb/m/n/10 R[] \OMS/lmsy/m/n/10 ^^B \OT1/lmss/m/n/10 (\T1/lmss/m/n/10 0\OML/lmm/m/it/10 ; \OMS/lmsy/m/n/10 1\OT1/lmss/m/n/10 )) :  \OMS/lmsy/m/n/10 ^^@ [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\OML/lmm/m/it/10 @[]^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 ) \T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = [][] [][] \T1/lmss/m/sl/10 u\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 )\T1/lmss/m/sl/10 L[]\OML/lmm/m/it/10 ^^^\OT1/lmss/m/n/10 (\T1/lmss/m/sl/10 x\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 z\OT1/lmss/m/n/10 ) \T1/lmss/m/sl/10 dxdz \OT1/lmss/m/n/10 = \OMS/lmsy/m/n/10 h\T1/lmss/m/sl/10 Lu\OML/lmm/m/it/10 ; ^^^\OMS/lmsy/m/n/10 i\OML/lmm/m/it/10 ;
  []
 
@@ -1221,7 +1448,7 @@ Overfull \hbox (12.45082pt too wide) detected at line 914
 [35
 
 ]
-Overfull \hbox (19.70189pt too wide) detected at line 997
+Overfull \hbox (19.70189pt too wide) detected at line 1005
 \T1/lmss/m/sl/10 L[]\OT1/lmss/m/n/10 ([\T1/lmss/m/n/10 0\OML/lmm/m/it/10 ; \T1/lmss/m/sl/10 T\OT1/lmss/m/n/10 ]; \T1/lmss/m/sl/10 H[]\OT1/lmss/m/n/10 (\U/msb/m/n/10 R[]\OT1/lmss/m/n/10 )) := [] \OML/lmm/m/it/10 :
  []
 
@@ -1242,10 +1469,6 @@ Overfull \hbox (19.70189pt too wide) detected at line 997
 [39
 
 ]
-Overfull \vbox (7.2535pt too high) detected at line 1057
- []
-
-
 
 [40
 
@@ -1254,30 +1477,34 @@ Overfull \vbox (7.2535pt too high) detected at line 1057
 [41
 
 ]
+Overfull \vbox (7.2535pt too high) detected at line 1097
+ []
+
+
 
 [42
 
 ]
-Overfull \vbox (5.93918pt too high) detected at line 1107
- []
-
-
 
 [43
 
 ]
-Overfull \vbox (3.20543pt too high) detected at line 1123
- []
-
-
 
 [44
 
 ]
+Overfull \vbox (5.93918pt too high) detected at line 1147
+ []
+
+
 
 [45
 
 ]
+Overfull \vbox (3.20543pt too high) detected at line 1163
+ []
+
+
 
 [46
 
@@ -1286,14 +1513,39 @@ Overfull \vbox (3.20543pt too high) detected at line 1123
 [47
 
 ]
-\tf@nav=\write6
-\openout6 = `maint.nav'.
 
-\tf@toc=\write7
-\openout7 = `maint.toc'.
+[48
 
-\tf@snm=\write8
-\openout8 = `maint.snm'.
+]
+
+[49
+
+]
+
+LaTeX Font Warning: Font shape `T1/lmss/m/sc' in size <10.95> not available
+(Font)              Font shape `T1/lmr/m/sc' tried instead on input line 1218.
+
+LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1218.
+(/usr/local/texlive/2025/texmf-dist/tex/latex/lm/t1lmtt.fd
+File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
+)
+
+[50
+
+]
+
+[51
+
+
+]
+\tf@nav=\write7
+\openout7 = `maint.nav'.
+
+\tf@toc=\write8
+\openout8 = `maint.toc'.
+
+\tf@snm=\write9
+\openout9 = `maint.snm'.
 
  (./maint.aux)
  ***********
@@ -1302,20 +1554,23 @@ L3 programming layer <2025-01-18>
  ***********
 Package rerunfilecheck Info: File `maint.out' has not changed.
 (rerunfilecheck)             Checksum: CC0C01117692BF97B3FC8BEA2D239145;2665.
+Package logreq Info: Writing requests to 'maint.run.xml'.
+\openout1 = `maint.run.xml'.
+
  ) 
 Here is how much of TeX's memory you used:
- 28625 strings out of 473190
- 574663 string characters out of 5715801
- 974390 words of memory out of 5000000
- 51186 multiletter control sequences out of 15000+600000
- 672767 words of font info for 106 fonts, out of 8000000 for 9000
+ 35993 strings out of 473190
+ 724817 string characters out of 5715801
+ 1525674 words of memory out of 5000000
+ 58490 multiletter control sequences out of 15000+600000
+ 675881 words of font info for 108 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 128i,17n,123p,626b,1107s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
-Output written on maint.pdf (47 pages, 4162021 bytes).
+ 128i,17n,123p,772b,1507s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmcsc10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss12.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss17.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmss9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsso9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm5.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm7.pfb>
+Output written on maint.pdf (51 pages, 4202853 bytes).
 PDF statistics:
- 675 PDF objects out of 1000 (max. 8388607)
- 484 compressed objects within 5 object streams
- 108 named destinations out of 1000 (max. 500000)
+ 734 PDF objects out of 1000 (max. 8388607)
+ 531 compressed objects within 6 object streams
+ 120 named destinations out of 1000 (max. 500000)
  183 words of extra memory for PDF output out of 10000 (max. 10000000)
 

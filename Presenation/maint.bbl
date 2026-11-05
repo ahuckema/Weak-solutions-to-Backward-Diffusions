@@ -1,0 +1,177 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.3 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{anyt/global//global/global/global}
+    \entry{evans2010partial}{book}{}{}
+      \name{author}{1}{}{%
+        {{hash=0d72932a7775f85a51622d3af75ae26e}{%
+           family={Evans},
+           familyi={E\bibinitperiod},
+           given={Lawrence\bibnamedelima C.},
+           giveni={L\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {American Mathematical Society}%
+      }
+      \strng{namehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{fullhash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{fullhashraw}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{bibnamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorbibnamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authornamehash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorfullhash}{0d72932a7775f85a51622d3af75ae26e}
+      \strng{authorfullhashraw}{0d72932a7775f85a51622d3af75ae26e}
+      \field{labelalpha}{Eva10}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{series}{Graduate Studies in Mathematics}
+      \field{title}{Partial Differential Equations}
+      \field{volume}{19}
+      \field{year}{2010}
+    \endentry
+    \entry{haussmann1986time}{article}{}{}
+      \name{author}{2}{}{%
+        {{hash=74689e3ba81c546986787f76f87aad9c}{%
+           family={Haussmann},
+           familyi={H\bibinitperiod},
+           given={U.\bibnamedelimi G.},
+           giveni={U\bibinitperiod\bibinitdelim G\bibinitperiod}}}%
+        {{hash=beb50fd846984359b348be4d69121f20}{%
+           family={Pardoux},
+           familyi={P\bibinitperiod},
+           given={E.},
+           giveni={E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Institute of Mathematical Statistics}%
+      }
+      \strng{namehash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{fullhash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{fullhashraw}{89df5cbb776757485abd97c46d661bbf}
+      \strng{bibnamehash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{authorbibnamehash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{authornamehash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{authorfullhash}{89df5cbb776757485abd97c46d661bbf}
+      \strng{authorfullhashraw}{89df5cbb776757485abd97c46d661bbf}
+      \field{labelalpha}{HP86}
+      \field{sortinit}{H}
+      \field{sortinithash}{23a3aa7c24e56cfa16945d55545109b5}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{The Annals of Probability}
+      \field{number}{4}
+      \field{title}{Time Reversal of Diffusions}
+      \field{volume}{14}
+      \field{year}{1986}
+      \field{pages}{1188\bibrangedash 1205}
+      \range{pages}{18}
+      \verb{doi}
+      \verb 10.1214/aop/1176992362
+      \endverb
+      \verb{urlraw}
+      \verb https://projecteuclid.org/journals/annals-of-probability/volume-14/issue-4/Time-Reversal-of-Diffusions/10.1214/aop/1176992362.pdf
+      \endverb
+      \verb{url}
+      \verb https://projecteuclid.org/journals/annals-of-probability/volume-14/issue-4/Time-Reversal-of-Diffusions/10.1214/aop/1176992362.pdf
+      \endverb
+    \endentry
+    \entry{karatzas1991brownian}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=f2b9c76604ea66b2ab28d18a454d3fbf}{%
+           family={Karatzas},
+           familyi={K\bibinitperiod},
+           given={Ioannis},
+           giveni={I\bibinitperiod}}}%
+        {{hash=9e110e7c548ab825117ed32cb12bdfd3}{%
+           family={Shreve},
+           familyi={S\bibinitperiod},
+           given={Steven\bibnamedelima E.},
+           giveni={S\bibinitperiod\bibinitdelim E\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer}%
+      }
+      \strng{namehash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{fullhash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{fullhashraw}{53d5a81a823486de515935e3bf6435a6}
+      \strng{bibnamehash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{authorbibnamehash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{authornamehash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{authorfullhash}{53d5a81a823486de515935e3bf6435a6}
+      \strng{authorfullhashraw}{53d5a81a823486de515935e3bf6435a6}
+      \field{labelalpha}{KS91}
+      \field{sortinit}{K}
+      \field{sortinithash}{c02bf6bff1c488450c352b40f5d853ab}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{2}
+      \field{series}{Graduate Texts in Mathematics}
+      \field{title}{Brownian Motion and Stochastic Calculus}
+      \field{volume}{113}
+      \field{year}{1991}
+      \verb{doi}
+      \verb 10.1007/978-1-4612-0949-2
+      \endverb
+    \endentry
+    \entry{revuz1999continuous}{book}{}{}
+      \name{author}{2}{}{%
+        {{hash=d22ba828552db2e93a2f5a9c4a3b82ab}{%
+           family={Revuz},
+           familyi={R\bibinitperiod},
+           given={Daniel},
+           giveni={D\bibinitperiod}}}%
+        {{hash=1e58f52d7501e0df28f20cd5871cbc80}{%
+           family={Yor},
+           familyi={Y\bibinitperiod},
+           given={Marc},
+           giveni={M\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Springer Berlin, Heidelberg}%
+      }
+      \strng{namehash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{fullhash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{fullhashraw}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{bibnamehash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{authorbibnamehash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{authornamehash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{authorfullhash}{1a41fb2b12520997054640e1b7417dc2}
+      \strng{authorfullhashraw}{1a41fb2b12520997054640e1b7417dc2}
+      \field{labelalpha}{RY99}
+      \field{sortinit}{R}
+      \field{sortinithash}{5e1c39a9d46ffb6bebd8f801023a9486}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{edition}{3}
+      \field{series}{Grundlehren der mathematischen Wissenschaften}
+      \field{title}{Continuous Martingales and Brownian Motion}
+      \field{volume}{293}
+      \field{year}{1999}
+      \verb{doi}
+      \verb 10.1007/978-3-662-06400-9
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

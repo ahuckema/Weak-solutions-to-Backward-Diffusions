@@ -8,6 +8,13 @@
 \usepackage{lmodern}
 \usepackage[T1]{fontenc}
 
+
+\usepackage[backend=biber,style=alphabetic,maxbibnames=4]{biblatex}
+\addbibresource{References.bib}      % with .bib, same folder as the .tex file
+\setbeamertemplate{bibliography item}{}   % no book icons in the list
+
+
+
 % Color palette
 \definecolor{Ink}{HTML}{14243A}
 \definecolor{Midnight}{HTML}{10253F}
@@ -366,9 +373,9 @@ wobei $(\tilde{W}_t)_{t \in [0,T]}$ eine Brownsche Bewegung bzgl. der Rückwärt
 
 \begin{frame}{Wir beantworten heute folgende Fragen}\hidetoolbox
 \begin{itemize}
-  \item Was ist eine stochastische und was eine partielle Differentialgleichung?
-  \item Welches Problem entsteht beim Rückwärtsprozess?
-  \item Wie können wir dieses Problem lösen? Stichwort: Schwache Lösungen!
+  \item Was ist eine stochastische und was eine partielle Differentialgleichung?\cite{evans2010partial}
+  \item Welches Problem entsteht beim Rückwärtsprozess? \cite{revuz1999continuous}
+  \item Wie können wir dieses Problem lösen? Stichwort: Schwache Lösungen und Martingal Problem! \cite{karatzas1991brownian}
 \end{itemize}
 \end{frame}
 
@@ -396,7 +403,7 @@ $d\bar{X}_t = \underbrace{(-b(\bar{X_t}+ \sigma(\bar{X}_t)^2 \nabla \log(p(T-t,\
 
 \begin{frame}{Heutige Agenda}
 \begin{center}{\color{Teal}{\huge
-  Ziel: Wir zeigen, dass der Rückwärtsprozess ein Markovprozess ist und bestimmen den Generator bzgl. dieses Prozesses!}}
+  Ziel: Wir zeigen, dass der Rückwärtsprozess ein Markovprozess ist und bestimmen den Generator bzgl. dieses Prozesses!}} \cite{haussmann1986time}
 \end{center}
 
   
@@ -712,24 +719,25 @@ Eine Abbildung $P: [0,\infty) \times E \times \mathcal{E} \to [0,1]$ heißt zeit
 
 
 \begin{frame}{Markov-Halbgruppen}\small
-  \begin{block}{Halbgruppe}
-  Eine Familie $(P_t)_{t \geq 0}$ linearer Operatoren heißt Markov-Halbgruppe auf dem Raum der beschränkten messbaren Funktionen $B_b(E)$, falls für alle $s,t \geq 0$: 
-\begin{minipage}[c]{0.50\linewidth}
-  \begin{itemize}
-    \item $P_t: B_b(E) \to B_b(E)$ ist beschränkt.
-    \item $\forall f \in B_b(E)$ mit $0\leq f \leq 1$: $0\leq P_t f \leq 1$.
-  \end{itemize}
-\end{minipage}\hfill
-\begin{minipage}[c]{0.50\linewidth}
-\begin{itemize}
-  \item $P_{t+s} =P_s \circ P_t$.
-  \item $\forall (f_n)_{n \in \mathbb{N}} \subset B_b(E)$ mit $f_n \searrow 0$: $P_t f_n \searrow 0$.
-\end{itemize}
-\end{minipage}
-\end{block}
+%  \begin{block}{Halbgruppe}
+ % Eine Familie $(P_t)_{t \geq 0}$ linearer Operatoren heißt Markov-Halbgruppe auf dem Raum der beschränkten messbaren Funktionen $B_b(E)$, falls für alle $s,t \geq 0$: 
+%\begin{minipage}[c]{0.50\linewidth}
+ % \begin{itemize}
+  %  \item $P_t: B_b(E) \to B_b(E)$ ist beschränkt.
+   % \item $\forall f \in B_b(E)$ mit $0\leq f \leq 1$: $0\leq P_t f \leq 1$.
+  %\end{itemize}
+%\end{minipage}\hfill
+%\begin{minipage}[c]{0.50\linewidth}
+%\begin{itemize}
+ % \item $P_{t+s} =P_s \circ P_t$.
+  %\item $\forall (f_n)_{n \in \mathbb{N}} \subset B_b(E)$ mit $f_n \searrow 0$: $P_t f_n \searrow 0$.
+%\end{itemize}
+%\end{minipage}
+%\end{block}
 
 \begin{block}{Induzierte Halbgruppe}
-  Sei $P$ eine Markov-Übergangsfunktion auf $(E,\mathcal{E})$. Dann definiert
+  Eine Familie $(P_t)_{t \geq 0}$ linearer Operatoren heißt Markov-Halbgruppe auf dem Raum der beschränkten messbaren Funktionen $B_b(E)$ unter bestimmten Voraussetzungen. \\
+  \textbf{Ein Beispiel:} Sei $P$ eine Markov-Übergangsfunktion auf $(E,\mathcal{E})$. Dann definiert
   \[
   \forall f \in B_b(E), \, x \in E, \, t \geq 0: \quad (P_t f)(x) := \int_E f(y) P(t,x,dy)
   \]
@@ -822,7 +830,7 @@ T(\theta_t \omega) &= \inf \{ s\geq 0 \mid X_{t+s} (\omega)\in A \} \\
 \end{frame}
 
 
-\begin{frame}{Der Rückwärtsprozess}
+\begin{frame}{Der Rückwärtsprozess}\small
 
 Der Rückwärtsprozess $(\bar{X}_t)_{t \geq 0}$ ist definiert als 
 \[
@@ -1028,12 +1036,44 @@ Der zeitabhängige Sobolevraum (Bochner-Raum) ist
 \end{frame}
 
 
+
+\begin{frame}{Schwache Lösung mittels Girsanov}\small 
+
+\begin{block}{Existenz}
+Sei $T>0$, $W$ eine Standard-Brownsche-Bewegung und $b: [0,T] \times \mathbb{R}^n \to \mathbb{R}^n$ Borel-messbar für die SDE
+\[
+dX_t = b(t,X_t) dt + dW_t, \quad t \in [0,T].
+\]
+Es gelte die lineare Wachstumsbedingung: $\exists K > 0 \, \forall x \in \mathbb{R}^n, t \in [0,T]: \| b(t,x) \| \leq K(1 + \| x \|)$. Dann existiert für jede beliebige Startverteilung $\mu$ auf $(\mathbb{R}^n, \mathcal{B}(\mathbb{R}^n))$ eine schwache Lösung der SDE.
+\end{block}
+\end{frame}
+
+\begin{frame}{Beweis (Skizze)}\tiny
+  Sei $\mathbb{P}^x$ das Wiener-Maß, unter dem der kanonische Prozess $X$ eine Brownsche Bewegung mit Start in $x$ ist. Dann ist
+  \[
+  Z_t := \exp \left( \int_0^t b(s,X_s) \cdot dX_s - \frac{1}{2} \int_0^t \| b(s,X_s) \|^2 ds \right), \quad t \in [0,T],
+  \]
+  ein Martingal bezüglich $\mathbb{P}^x$. \\
+  \vspace{0.2cm}
+  \textbf{Satz von Girsanov:} Unter dem maßgewechselten Wahrscheinlichkeitsmaß $Q^x(A) := \int_A Z_T \, d\mathbb{P}^x$ ist der Prozess
+  \[
+  \tilde{W}_t := X_t - X_0 - \int_0^t b(s,X_s) ds, \quad t \in [0,T],
+  \]
+  eine Standard-Brownsche-Bewegung. Durch Umstellen erhalten wir direkt die SDE-Struktur:
+  \[
+  X_t = X_0 + \int_0^t b(s,X_s) ds + \tilde{W}_t, \quad t \in [0,T].
+  \]
+  Definiere die Startverteilung $Q^\mu(A) := \int_{\mathbb{R}^n} Q^x(A) \, d\mu(x)$. Dann ist $(\Omega, \mathcal{F}, (\mathcal{F}_t)_{t \in [0,T]}, Q^\mu, \tilde{W}, X)$ eine schwache Lösung.
+\end{frame}
+
+
+
 \section{Martingal Problem}
 \begin{frame}{Das Martingalproblem}\small
 
    Seien die Koeffizienten $b_i,\sigma_{ij}: \mathbb{R}^d \to \mathbb{R}$ ($i=1,\dots,n, \, j=1,\dots,r$) sind auf kompakten Teilmengen des $\mathbb{R}^n$ beschränkt. Wir nennen ein Wahrscheinlichkeitsmaß $\mathbb{P}$ auf dem messbaren Pfadraum $(C([0,\infty), \mathbb{R}^n), \mathcal{B}( C([0,\infty), \mathbb{R}^n) ))$ eine Lösung des zeithomogenen Martingalproblems zum Generator $\mathcal{A}$, falls für alle $s,t \in [0,\infty)$ mit $s<t$ und alle $f \in C_c^2(\mathbb{R}^d)$ gilt: 
     \[
-    \mathbb{E}\left[ f(y(t)) - f(y(s)) - \int_s^t (\mathcal{A}f)(y(u)) \, du \ \middle| \ \mathcal{B}_s \right] = 0, \quad \mathbb{P}\text{-f.s.}
+    \mathbb{E}\left[ f(y(t)) - f(y(s)) - \int_s^t (\mathcal{A}f)(y(u)) \, du \ \middle| \ \mathcal{F}_s \right] = 0, \quad \mathbb{P}\text{-f.s.}
     \]
     wobei $y$ der kanonische Koordinatenprozess ist. Mit $\mathbb{P}^x$ bezeichnen wir eine Lösung, die zusätzlich die Startbedingung
     \[
@@ -1122,51 +1162,59 @@ Für beliebige Testfunktionen $f,g \in C_c^\infty(\mathbb{R}^n)$ und $0 \leq s <
     \]
 \end{frame}
 
-\begin{frame}{Probleme}
-\textbf{1.} Da für die Koeffizienten nur die lineare Wachstumsbedingung gilt ($|b(x,t)| + |\sigma (x,t)| \leq K (1+|x|)$):
+
+
+\begin{frame}{Probleme \iconSchwach}
+\textbf{1.} Da für die Koeffizienten nur eine lineare Wachstumsbedingung vorausgesetzt wird ($|b(t,x)| + \|\sigma(t,x)\| \leq K(1+|x|)$), können diese unbeschränkt wachsen:
 \[
-|b(x,t)|, |\sigma (x,t)| \to \infty, \quad \text{für } \| x \| \to \infty.
+|b(t,x)|, \|\sigma(t,x)\| \to \infty, \quad \text{für } \|x\| \to \infty.
 \]
-Daraus folgt, dass die Dichte global nicht abklingt: $p (\cdot,t) \notin H^1 (\mathbb{R}^n)$, sondern nur $p \in L^2(0,T; \tilde{H}_{loc}^1(\mathbb{R}^n))$.\\
-\textbf{2.} Da bei der Fokker-Planck-Gleichung $\partial_t p = L^*_z p$ die rechte Seite vom unbeschränkten Drift $\nabla \cdot (bp)$ abhängt, divergiert es global! D.h. 
+Daraus folgt, dass die Dichte global nicht stark genug abklingt: Im Allgemeinen ist $p \notin L^2([0,1]; H^1(\mathbb{R}^n))$, sondern es gilt lediglich die lokale Eigenschaft $p \in L^2([0,1]; \tilde{H}_{loc}^1(\mathbb{R}^n))$.
+
+\vspace{0.3cm}
+\textbf{2.} Da in der Fokker-Planck-Gleichung $\partial_t p = L_t^* p$ die rechte Seite vom unbeschränkten Drift $\nabla \cdot (bp)$ abhängt, divergiert das Funktional global! Das heißt: 
 \[
-\partial_t p \notin L^2(0,T; H^{-1} (\mathbb{R}^n)).
+\langle \partial_t p,\cdot \rangle \notin L^2([0,1]; H^{-1}(\mathbb{R}^n)).
 \]
 \end{frame}
 
-\begin{frame}{Lösung der Probleme}
-  Betrachte die Lokalisierung durch Testfunktionen $f \in C_c^\infty (\mathbb{R}^n)$. \\
-  \textbf{1.} Durch den kompakten Träger gilt $fp \in L^2(0,T; H^1 (\mathbb{R}^n))$ und 
+\begin{frame}{Lösung der Probleme \iconSchwach}\small
+  Betrachte die Lokalisierung durch glatte Testfunktionen mit kompaktem Träger $f \in C_c^\infty(\mathbb{R}^n)$. \\
+  \vspace{0.2cm}
+  \textbf{1.} Durch den kompakten Träger gilt $f p \in L^2([0,1]; H^1(\mathbb{R}^n))$ und die Koeffizienten sind lokal beschränkt:
   \[
-  \forall x \in \text{supp}(f) \, \exists C_b, C_\sigma < \infty: \quad \| b \| \leq C_b \text{ und } \| \sigma \| \leq C_\sigma.
+  \forall x \in \operatorname{supp}(f) \, \exists C_b, C_\sigma > 0: \quad |b(t,x)| \leq C_b \text{ und } \|\sigma(t,x)\| \leq C_\sigma.
   \]
-  \textbf{2.} Man zeigt $A_f(p, \cdot) := \langle \partial_t p, f \cdot \rangle \in L^2(0,T; H^{-1})$, indem man die Operatornorm beschränkt:
+  \textbf{2.} Definiere $A_f(p, \cdot) := \langle \partial_t p, f \cdot \rangle$ und zeige, dass dieses in $L^2([0,1]; H^{-1}(\mathbb{R}^n))$ liegt, indem:
   \[
-  \| A_f(p, \cdot) \|_{Op} \leq C \| p \|_{\sim} < \infty.
+  \| A_f(p, \cdot) \|_{H^{-1}} \leq C \| p \|_{\tilde{H}_{loc}^1} < \infty.
   \]
-  Dies impliziert, dass $f \partial_t p$ ein beschränktes Funktional auf $H^1$ ist. Mit der Produktregel folgt $\partial_t (fp) \in L^2(0,T; H^{-1} (\mathbb{R}^n))$.
+  Impliziert, dass $f \partial_t p$ ein beschränktes lineares Funktional auf $H^1$ ist. Da $f$ zeitunabhängig ist, folgt direkt $\partial_t (fp) \in L^2([0,1]; H^{-1}(\mathbb{R}^n))$.
 \end{frame}
 
-
-
-
-
-
-\begin{frame}{Beweisidee: Verknüpfung durch PDEs}\tiny
-\textbf{1.} Für $X_t \sim p(\cdot,t)$ löst $p$ die Fokker-Planck-Gleichung im schwachen Sinne:
+\begin{frame}{Beweisidee: Verknüpfung durch PDEs \iconSchwach \iconMartingal}\tiny
+\textbf{1.} Für $X_t \sim p(t,\cdot)$ löst $p$ die Fokker-Planck-Gleichung im schwachen Sinne:
 \[
-\partial_z p = L_z^* p, \quad \forall z \in (0,1).
+\partial_z p = L_z^* p, \quad \text{für } z \in (0,1).
 \]
-\textbf{2.} Die Observable $v(x,z):= \mathbb{E} [ g(X_t) \mid X_z = x ]$ löst die Rückwärts-Kolmogorov-Gleichung auf $z \in (s,t)$:
+\textbf{2.} Die bedingte Erwartung $v(x,z) := \mathbb{E}[ g(X_t) \mid X_z = x ]$ löst die Rückwärts-Kolmogorow-Gleichung für $z \in (s,t)$:
 \[
 \partial_z v(x,z) + L_z v(x,z) = 0, \quad \text{mit Endbedingung } v(x,t) = g(x).
 \]
-Wendet man den Hauptsatz der Differential- und Integralrechnung an, erhält man für $(f,g) := \int_{\mathbb{R}^n} f(x) g(x) dx$:
+Wendet man den Hauptsatz der Integralrechnung auf das Skalarprodukt $(u,w) := \int_{\mathbb{R}^n} u(x) w(x) dx$ an, erhält man:
 \begin{align*}
-  &( fp(\cdot,t),v(\cdot,t) )- (fp(\cdot,s),v(\cdot,s)) = \int_s^t ( \partial_z p(\cdot,z),fv(\cdot,z) ) + ( p(\cdot,z),f\partial_z v(\cdot,z) ) dz \\
-  &\iff \mathbb{E}[ f(X_s) g(X_t) ] = \mathbb{E}\left[ \left( f(X_t) - \int_s^t (\tilde{L}_z f)(X_z) dz \right) g(X_t) \right].
+  ( f p(t,\cdot), v(t,\cdot) ) - ( f p(s,\cdot), v(s,\cdot) ) = \int_s^t \frac{d}{dz} ( p(z,\cdot), f v(z,\cdot) ) dz = \int_s^t \left( ( \partial_z p(z,\cdot), f v(z,\cdot) ) + ( p(z,\cdot), f \partial_z v(z,\cdot) ) \right) dz.
 \end{align*}
-Durch Umstellen folgt die Erwartungswert-Null-Eigenschaft. Damit ist das Martingalproblem gelöst!
+Übersetzt in Erwartungswerte ($\int p(z,x) w(x) dx = \mathbb{E}[w(X_z)]$) und nach Umstellen der Terme ergibt sich:
+\[
+\mathbb{E}[ f(X_s) g(X_t) ] = \mathbb{E}\left[ \left( f(X_t) - \int_s^t (\tilde{L}_z f)(X_z) dz \right) g(X_t) \right].
+\]
+Umstellen löst das Martingalproblem!
+\end{frame}
+
+
+\begin{frame}[allowframebreaks]{Literatur}\hidetoolbox \tiny
+  \printbibliography[heading=none]
 \end{frame}
 
 \end{document}
